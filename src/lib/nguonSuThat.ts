@@ -30,3 +30,64 @@ export function layMauTrangThai(
 export function layGoiYTrangThai(trangThai: TrangThai): string {
   return bangTrangThai[trangThai].hint;
 }
+
+/**
+ * Băng trạng thái mô phỏng trên web cần 4 dáng: ready/rec/warn thật của app,
+ * cộng "saved" (dùng màu + gợi ý của "ready" nhưng chữ chính khác — đúng cách
+ * app hiển thị lúc vừa lưu xong, xem `chu_hien_thi_banner`). Khóa RAW dưới đây
+ * là nguyên văn khóa trong `nguon-su-that.json`, không phải chữ tự đặt.
+ */
+export type TrangThaiBang = "ready" | "rec" | "saved" | "warn";
+
+const KHOA_RAW: Record<TrangThaiBang, keyof typeof chuHienThiBanner> = {
+  ready: "🟢 Đang chờ mã QR...",
+  rec: "🔴 Đang ghi hình",
+  saved: "✅ Đã lưu video",
+  warn: "⚠️ Cảnh báo: QR trùng đã ghi rồi!",
+};
+
+const TRANG_THAI_GOC: Record<TrangThaiBang, TrangThai> = {
+  ready: "ready",
+  rec: "rec",
+  saved: "ready",
+  warn: "warn",
+};
+
+/** Chữ chính của băng, lấy nguyên văn từ `chu_hien_thi_banner` (FR-006). */
+export function layChuBang(ten: TrangThaiBang): string {
+  const khoa = KHOA_RAW[ten];
+  const chu = chuHienThiBanner[khoa];
+  if (!chu) {
+    throw new Error(
+      `Không tìm thấy chữ hiển thị cho trạng thái băng "${ten}" (khóa "${khoa}") trong nguon-su-that.json.`,
+    );
+  }
+  return chu;
+}
+
+/** Màu nền/chữ của băng trạng thái (bản Tối, theo demo đã duyệt). */
+export function layMauBang(ten: TrangThaiBang, cheDo: CheDoMau = "dark") {
+  return layMauTrangThai(TRANG_THAI_GOC[ten], cheDo);
+}
+
+/** Gợi ý dưới dòng chính của băng. */
+export function layGoiYBang(ten: TrangThaiBang): string {
+  return layGoiYTrangThai(TRANG_THAI_GOC[ten]);
+}
+
+/** Dòng nhật ký "đã lưu video", điền số liệu vào đúng mẫu `dong_log.da_luu`. */
+export function dongDaLuu(
+  tenFile: string,
+  kichThuocMb: number,
+  thoiLuongGiay: number,
+): string {
+  return dongLog.da_luu
+    .replace("{output_path}", tenFile)
+    .replace("{size_mb:.1f}", kichThuocMb.toFixed(1))
+    .replace("{duration:.1f}", thoiLuongGiay.toFixed(1));
+}
+
+/** Tên file video mô phỏng theo đúng mẫu `ten_file_video.mau`. */
+export function sinhTenFile(maDon: string, thoiGian: string, ten = "Hue"): string {
+  return `${maDon}_${thoiGian}_${ten}.mp4`;
+}

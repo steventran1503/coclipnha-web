@@ -1,0 +1,75 @@
+---
+// Watermark mô phỏng đúng mẫu ghi thẳng lên video thật (T013 nguonSuThat.ts →
+// watermark.cac_dong, record/recorder.py). Mặc định tĩnh có nghĩa khi tắt
+// JavaScript (FR-010, T024): truyền sẵn `gio` là chuỗi giờ mẫu; có JS thì
+// script bên dưới đổi thành đồng hồ thật đang chạy (FR-006 tinh thần).
+import { watermark } from "../../lib/nguonSuThat";
+
+interface Props {
+  maDon: string;
+  gio?: string;
+}
+
+const { maDon, gio = "2026-07-25 09:12:30" } = Astro.props;
+
+const dongQr =
+  watermark.cac_dong.find((d) => d.startsWith("QR:"))?.replace("{qr}", maDon) ??
+  `QR: ${maDon}`;
+const dongBrand =
+  watermark.cac_dong.find((d) => d.toLowerCase().includes("rec by")) ??
+  "Rec by Coclipnha";
+---
+
+<div class="watermark" data-ma-don={maDon}>
+  <span data-vai="wm-qr">{dongQr}</span><br />
+  <span data-vai="wm-gio">Time: {gio}</span>
+</div>
+<div class="watermark-brand">{dongBrand}</div>
+
+<style>
+  .watermark {
+    position: absolute;
+    left: 0.9rem;
+    bottom: 0.7rem;
+    z-index: 4;
+    font-family: var(--font-may);
+    font-size: clamp(0.72rem, 1.9vw, 0.95rem);
+    color: var(--wm);
+    text-shadow:
+      1px 1px 0 #000,
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+  .watermark-brand {
+    position: absolute;
+    right: 0.9rem;
+    bottom: 0.7rem;
+    z-index: 4;
+    font-family: var(--font-may);
+    font-size: 0.72rem;
+    color: #ededed;
+    text-shadow:
+      1px 1px 0 #000,
+      -1px -1px 0 #000;
+  }
+</style>
+
+<script>
+  // JS chỉ tăng cường: đổi dòng "Time:" sang đồng hồ thật của người xem đang
+  // chạy — không JS, watermark vẫn đủ nghĩa với giờ mẫu tĩnh render sẵn.
+  function p2(n: number) {
+    return (n < 10 ? "0" : "") + n;
+  }
+  function capNhat() {
+    const d = new Date();
+    const gio = `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())} ${p2(d.getHours())}:${p2(d.getMinutes())}:${p2(d.getSeconds())}`;
+    document
+      .querySelectorAll<HTMLElement>('.watermark [data-vai="wm-gio"]')
+      .forEach((el) => (el.textContent = `Time: ${gio}`));
+  }
+  capNhat();
+  setInterval(capNhat, 1000);
+</script>

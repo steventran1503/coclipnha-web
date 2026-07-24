@@ -1,0 +1,19 @@
+---
+// Vài đoạn dien_giai trong kho-thong-diep.md dùng markdown **in đậm** để
+// nhấn — content collection giữ nguyên chuỗi thô (data-model.md không định
+// nghĩa kiểu markup), nên tầng hiển thị phải tự đổi **...** sang <strong>
+// thay vì để lộ dấu sao nguyên văn. Thoát HTML trước khi chèn thẻ của mình.
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+
+function thoatHtml(s: string): string {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+const html = thoatHtml(text).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+---
+
+<Fragment set:html={html} />

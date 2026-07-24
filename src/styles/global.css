@@ -60,3 +60,210 @@ a {
 img {
   max-width: 100%;
 }
+
+/* ===== Tiện ích cấp trang (dùng chung mọi trang nội dung, không riêng trang
+   chủ) — kế thừa từ bản demo "Ca trực" đã duyệt (T018). ===== */
+.khoi {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 5.5rem 1.25rem;
+}
+.khoi--hep {
+  max-width: 46rem;
+}
+.khoi--noi-full {
+  background: #10151d;
+  box-shadow: 0 0 0 100vmax #10151d;
+  clip-path: inset(0 -100vmax);
+}
+.khoi--do {
+  background:
+    linear-gradient(180deg, rgba(217, 58, 65, 0.1), transparent 60%),
+    #10151d;
+}
+.khoi--teal-vien {
+  border-top: 2px solid var(--teal);
+}
+.nhan-log {
+  font-family: var(--font-may);
+  font-size: 0.8rem;
+  color: var(--teal);
+  letter-spacing: 0.04em;
+  display: block;
+  margin-bottom: 1rem;
+}
+h1,
+h2,
+h3 {
+  font-family: var(--font-tit);
+  line-height: 1.22;
+}
+h2 {
+  font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+  margin-bottom: 1rem;
+}
+.mo-dau {
+  color: var(--chu-diu);
+  max-width: 40rem;
+}
+.chu-mo {
+  color: var(--chu-mo);
+}
+.may {
+  font-family: var(--font-may);
+}
+.diem-do {
+  color: var(--do);
+}
+.diem-teal {
+  color: var(--teal-chu);
+}
+
+/* hiện dần khi cuộn tới — JS thêm .an lúc đầu; không JS thì luôn hiện (FR-010) */
+.hien {
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hien.an {
+  opacity: 0;
+  transform: translateY(1.4rem);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hien,
+  .hien.an {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.nut {
+  display: inline-block;
+  padding: 0.85rem 1.7rem;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1rem;
+  transition:
+    transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.2s;
+}
+.nut:active {
+  transform: scale(0.97);
+}
+.nut--chinh {
+  background: var(--teal);
+  color: #0b1220;
+}
+.nut--chinh:hover {
+  background: #54c6be;
+}
+.nut--vien {
+  border: 1px solid var(--vien);
+  color: var(--chu-diu);
+}
+.nut--vien:hover {
+  border-color: var(--teal);
+  color: var(--chu);
+}
+
+.luoi {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+.the-link {
+  display: block;
+  text-decoration: none;
+  color: var(--chu);
+  background: var(--the);
+  border: 1px solid var(--vien);
+  border-radius: 10px;
+  padding: 1.15rem 1.2rem;
+  transition:
+    border-color 0.2s,
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.the-link:hover {
+  border-color: var(--teal);
+  transform: translateY(-2px);
+}
+.the-link strong {
+  font-family: var(--font-tit);
+  font-size: 1.05rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.the-link span {
+  color: var(--chu-mo);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  display: block;
+}
+
+.the-app {
+  background: var(--the);
+  border: 1px solid var(--vien);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+}
+.the-app .tieu-de-the {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--chu-mo);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.the-app--teal {
+  border-left: 3px solid var(--teal);
+  border-radius: 0 10px 10px 0;
+}
+.the-app--do {
+  border-left: 3px solid var(--do);
+  border-radius: 0 10px 10px 0;
+}
+.the-app--vang {
+  border-left: 3px solid #e8a020;
+  border-radius: 0 10px 10px 0;
+}
+
+table.bang-tn {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.bang-tn td {
+  padding: 0.7rem 0.6rem;
+  border-top: 1px solid var(--vien);
+  vertical-align: top;
+}
+.bang-tn td:first-child {
+  white-space: nowrap;
+  font-weight: 700;
+  color: var(--chu-diu);
+}
+
+footer {
+  border-top: 1px solid var(--vien);
+  padding: 2.5rem 1.25rem 3rem;
+  text-align: center;
+  color: var(--chu-mo);
+  font-size: 0.88rem;
+}
+footer .logo-dong {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+footer a {
+  color: var(--teal);
+}
+
+@media (max-width: 480px) {
+  .khoi {
+    padding: 3.5rem 1rem;
+  }
+}

@@ -1,22 +1,380 @@
 ---
+// Trang chủ (US1, T025) — ghép đúng bản đồ mục 9 kho-thong-diep.md:
+// TIT-D → ND-02 → GP-04 → HD-01..03 → GP-01,02,03 → GP-06,07 → GP-05 →
+// BC-01 → TN (bảng) → SM-01 → VD-01 → KG-01 → TG-01..06.
+// Mọi đoạn nội dung thực chất đọc qua layKhoi() (content collection T012),
+// không hardcode chữ (FR-003) — chỉ nhãn/tiêu đề trang trí (eyebrow, "Bước
+// 1/2/3"...) là chữ chương trình, không phải nội dung marketing.
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BangTrangThai from "../components/app-mophong/BangTrangThai.astro";
+import Watermark from "../components/app-mophong/Watermark.astro";
+import QuetThu from "../components/app-mophong/QuetThu.astro";
+import YoutubeFacade from "../components/YoutubeFacade.astro";
+import NguoiDungDauTien from "../components/NguoiDungDauTien.astro";
+import VanBan from "../components/VanBan.astro";
+import { layKhoi } from "../lib/khoiNoiDung";
+import { duongDan } from "../lib/duongDan";
+
+const titD = await layKhoi("TIT-D");
+const nd02 = await layKhoi("ND-02");
+const gp04 = await layKhoi("GP-04");
+const hd01 = await layKhoi("HD-01");
+const hd02 = await layKhoi("HD-02");
+const hd03 = await layKhoi("HD-03");
+const gp01 = await layKhoi("GP-01");
+const gp02 = await layKhoi("GP-02");
+const gp03 = await layKhoi("GP-03");
+const gp06 = await layKhoi("GP-06");
+const gp07 = await layKhoi("GP-07");
+const gp05 = await layKhoi("GP-05");
+const bc01 = await layKhoi("BC-01");
+const tn = await Promise.all(
+  ["TN-01", "TN-02", "TN-03", "TN-04", "TN-05", "TN-06", "TN-07"].map(layKhoi),
+);
+const sm01 = await layKhoi("SM-01");
+const vd01 = await layKhoi("VD-01");
+const kg01 = await layKhoi("KG-01");
+const tg = await Promise.all(
+  ["TG-01", "TG-02", "TG-03", "TG-04", "TG-05", "TG-06"].map(layKhoi),
+);
+const TG_SLUG: Record<string, string> = {
+  "TG-01": "tro-giup/huong-dan/",
+  "TG-02": "tro-giup/cau-hoi/",
+  "TG-03": "tro-giup/tai-qr/",
+  "TG-04": "tro-giup/gop-y/",
+  "TG-05": "tro-giup/bao-loi/",
+  "TG-06": "tro-giup/yeu-cau-phan-mem/",
+};
 ---
 
-<BaseLayout
-  tieuDe="CoClipNha — Quét mã vận đơn là máy tự quay"
-  moTaMeta="Phần mềm miễn phí cho bàn đóng gói: đưa mã vận đơn vào khung hình là máy tự quay video làm bằng chứng. Video nằm trên máy shop."
->
-  <main class="khoi">
-    <p>
-      Trang chủ đang dựng (Phase 3, User Story 1) — hạ tầng nền đã sẵn sàng.
+<BaseLayout tieuDe={`CoClipNha — ${titD.data.cau_chot}`} moTaMeta={titD.data.dien_giai}>
+  <BangTrangThai trangThai="ready" variant="trang" id="bang-trang" />
+
+  <!-- ============ HERO (TIT-D) ============ -->
+  <header class="khoi" data-bang="nen" style="padding-top:2.4rem;">
+    <span class="nhan-log">phần mềm miễn phí cho bàn đóng gói của shop Việt</span>
+    <h1 style="font-size:clamp(2rem,6.4vw,3.5rem);max-width:19ch;">
+      {titD.data.cau_chot}
+    </h1>
+    <p class="mo-dau" style="margin:1.2rem 0 1.8rem;">{titD.data.dien_giai}</p>
+    <p style="display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2.4rem;">
+      <a class="nut nut--chinh" href={duongDan("tai-ve/")}>{kg01.data.cau_chot}</a>
+      <a class="nut nut--vien" href="#video-that">Xem app chạy thật</a>
     </p>
-  </main>
+    <QuetThu />
+    <p class="chu-mo" style="font-size:.85rem;margin-top:.8rem;">
+      ▲ Cảnh dựng lại từ giao diện thật: chữ, màu, tên file lấy đúng từ phần mềm
+      — shop tải về là gặp đúng màn hình này. Bấm nút để xem lại.
+    </p>
+  </header>
+
+  <!-- ============ ND-02: NỖI ĐAU ============ -->
+  <section class="khoi khoi--hep khoi--noi-full khoi--do" data-bang="nen">
+    <span class="nhan-log" style="color:var(--do);"
+      >chuyện xảy ra khi chưa có gì làm chứng</span
+    >
+    <h2>{nd02.data.cau_chot}</h2>
+    <p class="mo-dau"><VanBan text={nd02.data.dien_giai} /></p>
+  </section>
+
+  <!-- ============ GP-04: HÀNG HOÀN ============ -->
+  <section class="khoi" data-bang="rec" data-ma="861879430644">
+    <span class="nhan-log">khác biệt lớn nhất — chưa đối thủ nào có</span>
+    <h2>{gp04.data.cau_chot}</h2>
+    <p class="mo-dau" style="margin-bottom:1.6rem;">{gp04.data.dien_giai}</p>
+    <div class="hai-canh hien">
+      <div class="canh">
+        <span class="nhan-canh">LÚC GỬI ĐI</span>
+        <Watermark maDon="861879430644" gio="2026-07-10 09:12:30" />
+      </div>
+      <div class="canh canh--sau">
+        <span class="nhan-canh">LÚC NHẬN VỀ</span>
+        <Watermark maDon="861879430644" gio="2026-07-18 16:45:02" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HD-01..03: BA BƯỚC ============ -->
+  <section class="khoi khoi--noi-full" data-bang="ready">
+    <span class="nhan-log">cách dùng — đúng ba bước, không có bước thứ tư</span>
+    <h2>Việc của shop vẫn y như mọi ngày</h2>
+    <div class="luoi" style="margin-top:1.6rem;">
+      <div class="the-app the-app--teal hien">
+        <div class="tieu-de-the">Bước 1</div>
+        <p>{hd01.data.cau_chot}</p>
+      </div>
+      <div class="the-app the-app--teal hien">
+        <div class="tieu-de-the">Bước 2</div>
+        <p>{hd02.data.cau_chot}</p>
+      </div>
+      <div class="the-app the-app--teal hien">
+        <div class="tieu-de-the">Bước 3</div>
+        <p>{hd03.data.cau_chot}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GP-01 ============ -->
+  <section class="khoi khoi--hep" data-bang="rec" data-ma="SPX1234567">
+    <span class="nhan-log">vì sao không đơn nào bị sót</span>
+    <h2>{gp01.data.cau_chot}</h2>
+    <p class="mo-dau">{gp01.data.dien_giai}</p>
+  </section>
+
+  <!-- ============ GP-03: WATERMARK GIỜ THẬT ============ -->
+  <section class="khoi" data-bang="rec" data-ma="SPX1234567">
+    <span class="nhan-log">mã và giờ đóng thẳng lên hình</span>
+    <h2>{gp03.data.cau_chot}</h2>
+    <p class="mo-dau" style="margin-bottom:1.6rem;">{gp03.data.dien_giai}</p>
+    <div class="khung-minh-hoa hien">
+      <Watermark maDon="SPX1234567" />
+    </div>
+  </section>
+
+  <!-- ============ GP-02 ============ -->
+  <section class="khoi khoi--hep khoi--noi-full" data-bang="saved">
+    <span class="nhan-log">lúc khách khiếu nại — tìm lại trong 5 giây</span>
+    <h2>{gp02.data.cau_chot}</h2>
+    <p class="mo-dau">{gp02.data.dien_giai}</p>
+  </section>
+
+  <!-- ============ GP-06 + GP-07 ============ -->
+  <section class="khoi" data-bang="ready">
+    <span class="nhan-log">còn ổ cứng thì sao?</span>
+    <h2>{gp06.data.cau_chot}</h2>
+    <p class="mo-dau">{gp06.data.dien_giai}</p>
+    <p class="mo-dau" style="margin-top:1rem;">
+      <strong>{gp07.data.cau_chot}</strong> {gp07.data.dien_giai}
+    </p>
+  </section>
+
+  <!-- ============ GP-05 ============ -->
+  <section class="khoi khoi--hep khoi--noi-full khoi--teal-vien" data-bang="ready">
+    <span class="nhan-log">video của shop là của shop</span>
+    <h2>{gp05.data.cau_chot}</h2>
+    <p class="mo-dau">{gp05.data.dien_giai}</p>
+  </section>
+
+  <!-- ============ BC-01 + TN ============ -->
+  <section class="khoi" data-bang="warn">
+    <span class="nhan-log">sinh ra từ một bàn đóng gói thật</span>
+    <h2>Không phải sản phẩm nghĩ ra trong phòng máy lạnh</h2>
+    <p class="mo-dau" style="margin-bottom:2rem;">{bc01.data.dien_giai}</p>
+    <h3 style="margin-bottom:.8rem;">Và những thứ nhỏ mà chạm việc thật:</h3>
+    <div style="overflow-x:auto;">
+      <table class="bang-tn hien">
+        {
+          tn.map((k) => (
+            <tr>
+              <td>{k.data.cau_chot}</td>
+              <td>{k.data.dien_giai}</td>
+            </tr>
+          ))
+        }
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ NGƯỜI DÙNG ĐẦU TIÊN ============ -->
+  <section class="khoi" data-bang="nen">
+    <span class="nhan-log">người dùng đầu tiên</span>
+    <h2>Người dùng đầu tiên <span class="diem-teal">vẫn đang dùng mỗi ngày</span></h2>
+    <div class="hien" style="margin-top:1.6rem;">
+      <NguoiDungDauTien />
+    </div>
+  </section>
+
+  <!-- ============ SM-01 ============ -->
+  <section
+    class="khoi khoi--hep khoi--noi-full khoi--teal-vien"
+    data-bang="nen"
+    style="text-align:center;"
+  >
+    <span
+      class="logo-c"
+      style="width:2.2rem;height:2.2rem;border-width:5px;margin:0 auto 1.2rem;display:block;"
+      aria-hidden="true"></span>
+    <h2 style="max-width:22ch;margin:0 auto 1rem;">{sm01.data.cau_chot}</h2>
+    <p class="mo-dau" style="margin:0 auto;">{sm01.data.dien_giai}</p>
+  </section>
+
+  <!-- ============ VD-01 ============ -->
+  <section class="khoi khoi--hep" id="video-that" data-bang="nen">
+    <span class="nhan-log">nói thì hay — thật không?</span>
+    <h2>{vd01.data.cau_chot}</h2>
+    <p class="mo-dau" style="margin-bottom:1.6rem;">{vd01.data.dien_giai}</p>
+    <YoutubeFacade tieuDeVideo={vd01.data.cau_chot} />
+  </section>
+
+  <!-- ============ KG-01 ============ -->
+  <section
+    class="khoi khoi--hep khoi--noi-full"
+    id="tai-ve"
+    data-bang="ready"
+    style="text-align:center;"
+  >
+    <h2>Tải CoClipNha về bàn gói của shop</h2>
+    <p style="display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-top:1.4rem;">
+      <a
+        class="nut nut--chinh"
+        href={duongDan("tai-ve/")}
+        style="font-size:1.15rem;padding:1rem 2.4rem;">{kg01.data.cau_chot}</a
+      >
+      <a class="nut nut--vien" href={duongDan("ung-ho/")}>🎁 Ủng hộ CoClipNha</a>
+    </p>
+    <p class="chu-mo" style="font-size:.9rem;margin-top:.8rem;">{kg01.data.dien_giai}</p>
+  </section>
+
+  <!-- ============ TG-01..06: TRỢ GIÚP ============ -->
+  <section class="khoi" data-bang="nen">
+    <span class="nhan-log">trợ giúp &amp; phản hồi</span>
+    <h2>Cần gì thêm, vào đây</h2>
+    <div class="luoi" style="margin-top:1.6rem;">
+      {
+        tg.map((k) => (
+          <a class="the-link hien" href={duongDan(TG_SLUG[k.data.ma])}>
+            <strong>{k.data.cau_chot}</strong>
+            <span>{k.data.dien_giai}</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <footer>
+    <div class="logo-dong">
+      <span class="logo-c" aria-hidden="true"></span>
+      <strong style="color:var(--chu);">CoClipNha</strong>
+    </div>
+    <p>{sm01.data.cau_chot}</p>
+    <p style="margin-top:.5rem;">{gp05.data.cau_chot} · Sponsored by ZIN ZIN MOTOR</p>
+  </footer>
 </BaseLayout>
 
 <style>
-  .khoi {
-    max-width: 68rem;
-    margin: 0 auto;
-    padding: 5.5rem 1.25rem;
+  .logo-c {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 2.5px solid var(--teal);
+    border-right-color: transparent;
+    position: relative;
+    flex: none;
+  }
+  .logo-c::after {
+    content: "";
+    position: absolute;
+    inset: 25%;
+    background: var(--do);
+    border-radius: 1.5px;
+  }
+  .hai-canh {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .hai-canh .canh {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: 10px;
+    border: 1px solid var(--vien);
+    overflow: hidden;
+    background: linear-gradient(160deg, #1a2233, #0e1420);
+  }
+  .hai-canh .canh--sau {
+    background: linear-gradient(160deg, #2a2320, #171210);
+  }
+  .nhan-canh {
+    position: absolute;
+    top: 0.7rem;
+    left: 0.7rem;
+    z-index: 5;
+    font-family: var(--font-may);
+    font-size: 0.72rem;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+  }
+  .khung-minh-hoa {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    border: 1px solid var(--vien);
+    background: linear-gradient(150deg, #151e2e 0%, #0c111a 70%);
+  }
+  @media (max-width: 640px) {
+    .hai-canh {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
+
+<script>
+  import {
+    type TrangThaiBang,
+    layChuBang,
+    layGoiYBang,
+    layMauBang,
+  } from "../lib/nguonSuThat";
+
+  const giamCD = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Băng bám đỉnh: đổi theo mục đang cuộn tới (FR-004). "nen" là màu chương
+  // trình trung tính (thương hiệu), không phải trạng thái app thật nên không
+  // qua nguonSuThat.ts — các trạng thái còn lại đều đọc từ đó (FR-006).
+  const bang = document.getElementById("bang-trang");
+  function datBang(loai: string, ma?: string | null) {
+    if (!bang) return;
+    if (loai === "nen") {
+      bang.dataset.trangThai = "nen";
+      bang.style.setProperty("--bang-nen", "var(--nen-app)");
+      bang.style.setProperty("--bang-chu", "var(--chu-mo)");
+      const chu = bang.querySelector<HTMLElement>('[data-vai="chu"]');
+      const goiY = bang.querySelector<HTMLElement>('[data-vai="goi-y"]');
+      if (chu) chu.textContent = "CoClipNha";
+      if (goiY) goiY.textContent = "Phần mềm ghi hình đóng gói — miễn phí cho shop Việt";
+      return;
+    }
+    const ten = loai as TrangThaiBang;
+    const mau = layMauBang(ten);
+    bang.dataset.trangThai = ten;
+    bang.style.setProperty("--bang-nen", mau.bg);
+    bang.style.setProperty("--bang-chu", mau.fg);
+    const chu = bang.querySelector<HTMLElement>('[data-vai="chu"]');
+    const goiY = bang.querySelector<HTMLElement>('[data-vai="goi-y"]');
+    if (chu) chu.textContent = layChuBang(ten) + (ten === "rec" && ma ? `: ${ma}` : "");
+    if (goiY) goiY.textContent = layGoiYBang(ten);
+  }
+  const cacMuc = document.querySelectorAll<HTMLElement>("[data-bang]");
+  const quanSatBang = new IntersectionObserver(
+    (es) => {
+      es.forEach((e) => {
+        if (!e.isIntersecting) return;
+        datBang(e.target.getAttribute("data-bang")!, e.target.getAttribute("data-ma"));
+      });
+    },
+    { rootMargin: "-45% 0px -45% 0px" },
+  );
+  cacMuc.forEach((m) => quanSatBang.observe(m));
+
+  // Hiện dần khi cuộn tới (FR-004, FR-011) — cuộn vẫn tự do, không khóa/cướp
+  // cuộn (FR-012): chỉ đổi opacity/transform bằng CSS, không chặn wheel/touch.
+  // Không JS thì .an không bao giờ được thêm — phần tử hiện sẵn (FR-010).
+  if (!giamCD) {
+    const cacHien = document.querySelectorAll<HTMLElement>(".hien");
+    cacHien.forEach((el) => el.classList.add("an"));
+    const quanSatHien = new IntersectionObserver(
+      (es) => {
+        es.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.remove("an");
+            quanSatHien.unobserve(e.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px" },
+    );
+    cacHien.forEach((el) => quanSatHien.observe(el));
+  }
+</script>

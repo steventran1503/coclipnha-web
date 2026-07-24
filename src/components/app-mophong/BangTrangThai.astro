@@ -1,0 +1,136 @@
+---
+// Băng trạng thái mô phỏng — điểm ký tên của app trên web (FR-004, FR-006).
+// Màu/chữ đọc từ nguonSuThat.ts, KHÔNG hardcode lại (contracts/nguon-su-that-contract.md).
+// variant="trang": băng bám đỉnh toàn trang, đổi theo mục đang cuộn tới.
+// variant="app": băng tĩnh bên trong cửa sổ app mô phỏng (nhỏ hơn, không sticky).
+import { layChuBang, layGoiYBang, layMauBang, type TrangThaiBang } from "../../lib/nguonSuThat";
+
+interface Props {
+  trangThai: TrangThaiBang;
+  maDon?: string;
+  variant?: "trang" | "app";
+  id?: string;
+}
+
+const { trangThai, maDon, variant = "trang", id } = Astro.props;
+const mau = layMauBang(trangThai);
+const chu = layChuBang(trangThai) + (trangThai === "rec" && maDon ? `: ${maDon}` : "");
+const goiY = layGoiYBang(trangThai);
+---
+
+<div
+  class={`bang-mophong bang-mophong--${variant}`}
+  data-trang-thai={trangThai}
+  data-ma-don={maDon}
+  id={id}
+  role="status"
+  style={`--bang-nen:${mau.bg};--bang-chu:${mau.fg};`}
+>
+  <span class="cham" aria-hidden="true"></span>
+  <span class="noi-dung">
+    <span class="loi-chinh" data-vai="chu">{chu}</span>
+    <span class="goi-y" data-vai="goi-y">{goiY}</span>
+  </span>
+  <span class="gio" aria-hidden="true">
+    <span data-vai="gio">--:--:--</span>
+  </span>
+</div>
+
+<style>
+  .bang-mophong {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.62rem 1rem;
+    background: var(--bang-nen);
+    color: var(--bang-chu);
+    font-family: var(--font-chu);
+    transition:
+      background 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      color 0.45s;
+    min-height: 3.2rem;
+  }
+  .bang-mophong--trang {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .bang-mophong--app {
+    min-height: 2.4rem;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  .cham {
+    width: 0.68rem;
+    height: 0.68rem;
+    border-radius: 50%;
+    background: currentColor;
+    flex: none;
+  }
+  .bang-mophong[data-trang-thai="rec"] .cham {
+    animation: nhay 1s steps(2, start) infinite;
+  }
+  @keyframes nhay {
+    50% {
+      opacity: 0.15;
+    }
+  }
+  .loi-chinh {
+    font-weight: 700;
+    font-size: 1.02rem;
+    letter-spacing: 0.01em;
+    display: block;
+  }
+  .bang-mophong--app .loi-chinh {
+    font-size: 0.9rem;
+  }
+  .goi-y {
+    font-size: 0.8rem;
+    opacity: 0.85;
+    display: block;
+    line-height: 1.35;
+  }
+  .bang-mophong--app .goi-y {
+    font-size: 0.66rem;
+  }
+  .gio {
+    margin-left: auto;
+    text-align: right;
+    font-family: var(--font-may);
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+  .bang-mophong--app .gio {
+    font-size: 0.78rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bang-mophong[data-trang-thai="rec"] .cham {
+      animation: none;
+    }
+  }
+  @media (max-width: 480px) {
+    .goi-y {
+      display: none;
+    }
+    .loi-chinh {
+      font-size: 0.84rem;
+    }
+  }
+</style>
+
+<script>
+  // JS chỉ tăng cường: đồng hồ thật của người xem. Không JS, ô giờ ẩn trống
+  // (đã đặt aria-hidden), nội dung còn lại (trạng thái, chữ) vẫn đủ nghĩa.
+  function p2(n: number) {
+    return (n < 10 ? "0" : "") + n;
+  }
+  function capNhat() {
+    const d = new Date();
+    const gio = `${p2(d.getHours())}:${p2(d.getMinutes())}:${p2(d.getSeconds())}`;
+    document
+      .querySelectorAll<HTMLElement>('.bang-mophong [data-vai="gio"]')
+      .forEach((el) => (el.textContent = gio));
+  }
+  capNhat();
+  setInterval(capNhat, 1000);
+</script>

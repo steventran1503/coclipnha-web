@@ -1,0 +1,43 @@
+---
+// Ô nhật ký mô phỏng — hiện danh sách dòng log tĩnh (T024: mặc định có nghĩa
+// khi tắt JS). QuetThu.astro nối thêm dòng bằng JS khi kịch bản chạy, dùng
+// đúng cấu trúc DOM này (div.mo / div.ok / div.vang).
+interface DongLog {
+  loai?: "mo" | "ok" | "vang";
+  text: string;
+}
+
+interface Props {
+  dong: DongLog[];
+  id?: string;
+}
+
+const { dong, id } = Astro.props;
+---
+
+<div class="nhat-ky" id={id}>
+  {dong.map((d) => <div class={d.loai ?? "mo"}>{d.text}</div>)}
+</div>
+
+<style>
+  .nhat-ky {
+    background: var(--log-nen);
+    border: 1px solid var(--vien);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    font-family: var(--font-may);
+    font-size: clamp(0.7rem, 1.75vw, 0.84rem);
+    color: var(--log-chu);
+    line-height: 1.9;
+    overflow-x: auto;
+  }
+  .nhat-ky .ok {
+    color: var(--log-ok);
+  }
+  .nhat-ky .vang {
+    color: var(--log-vang);
+  }
+  .nhat-ky .mo {
+    color: var(--chu-mo);
+  }
+</style>
