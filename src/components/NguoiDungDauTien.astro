@@ -1,0 +1,47 @@
+---
+// Khối "Người dùng đầu tiên" — dùng chung ở US1 (trang chủ) và US4 (Ủng hộ).
+// LUẬT (kho-thong-diep.md §7e, DG-01): không bịa đánh giá, không gắn sao —
+// FR-019. Chỉ 1 dẫn chứng thật (BC-01, ZIN ZIN MOTOR) + ô trống ghi rõ lý do.
+import { layKhoi } from "../lib/khoiNoiDung";
+
+const bc01 = await layKhoi("BC-01");
+---
+
+<div class="nguoi-dung-dau-tien">
+  <div class="the-app">
+    <div class="tieu-de-the">ZIN ZIN MOTOR — phụ tùng xe máy</div>
+    <p>{bc01.data.dien_giai}</p>
+  </div>
+  <p class="ghi-chu">
+    Ô này để trống cho tới khi có đánh giá thật — tụi mình không bịa đánh giá.
+  </p>
+</div>
+
+<style>
+  .nguoi-dung-dau-tien {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .the-app {
+    background: var(--the);
+    border: 1px solid var(--vien);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+  }
+  .tieu-de-the {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--chu-mo);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .the-app p {
+    font-size: 0.95rem;
+    color: var(--chu-diu);
+  }
+  .ghi-chu {
+    color: var(--chu-mo);
+    font-size: 0.85rem;
+  }
+</style>

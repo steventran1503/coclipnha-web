@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
+import sitemap from "@astrojs/sitemap";
 
 // site/base tạm trỏ GitHub Pages mặc định (dạng .github.io/coclipnha-web) —
 // khi DNS coclipnha.com trỏ xong (T002, chủ dự án làm sau khi web hoàn
@@ -11,6 +12,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: "https://steventran1503.github.io",
   base: "/coclipnha-web",
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
   },

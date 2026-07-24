@@ -1,17 +1,22 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-  </body>
-</html>
+<BaseLayout
+  tieuDe="CoClipNha — Quét mã vận đơn là máy tự quay"
+  moTaMeta="Phần mềm miễn phí cho bàn đóng gói: đưa mã vận đơn vào khung hình là máy tự quay video làm bằng chứng. Video nằm trên máy shop."
+>
+  <main class="khoi">
+    <p>
+      Trang chủ đang dựng (Phase 3, User Story 1) — hạ tầng nền đã sẵn sàng.
+    </p>
+  </main>
+</BaseLayout>
+
+<style>
+  .khoi {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 5.5rem 1.25rem;
+  }
+</style>

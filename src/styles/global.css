@@ -1,11 +1,62 @@
 @import "tailwindcss";
-@import "/fonts/fonts.css";
+/* fonts.css nạp qua <link> trong BaseLayout (base-aware, xem duongDan.ts) —
+   không @import ở đây vì "/fonts/..." là đường dẫn public tuyệt đối, bundler
+   CSS cố resolve như module và fail (không phải asset base-aware). */
 
-/* Cặp phông kế thừa từ bản demo "Ca trực" đã duyệt (T018) — Bricolage
-   Grotesque cho tít, Be Vietnam Pro cho chữ chạy, JetBrains Mono cho phần
-   mô phỏng giao diện app (watermark, dòng log, băng trạng thái). */
+/* Hướng thẩm mỹ kế thừa từ bản demo "Ca trực" đã duyệt (T018 — chốt
+   24/07/2026). Đây là màu KHUNG GIAO DIỆN web (nền/thẻ/viền/chữ), KHÔNG phải
+   màu trạng thái app (ready/rec/warn...) — màu trạng thái PHẢI đọc qua
+   src/lib/nguonSuThat.ts, không hardcode ở đây (xem
+   contracts/nguon-su-that-contract.md). Teal #3DB8B0 chỉ dùng làm nền/điểm
+   nhấn; làm CHỮ trên nền sáng phải đổi #1F7A72 (bẫy tương phản đã biết, rà
+   lại ở Polish T046/T047). */
 :root {
   --font-tit: "Bricolage Grotesque", "Be Vietnam Pro", sans-serif;
   --font-chu: "Be Vietnam Pro", system-ui, sans-serif;
   --font-may: "JetBrains Mono", Consolas, monospace;
+
+  --nen: #0b0e14;
+  --nen-app: #151a23;
+  --the: #1d2430;
+  --vien: #2a3342;
+  --chu: #e8edf5;
+  --chu-mo: #9aa7ba;
+  --chu-diu: #cbd5e3;
+  --teal: #3db8b0;
+  --teal-dam: #2fa098;
+  --teal-chu: #1f7a72;
+  --do: #e5484d;
+  --log-nen: #10151d;
+  --log-chu: #d7e2f0;
+  --log-ok: #63d68e;
+  --log-vang: #f2c14e;
+  --wm: #35e06a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+body {
+  background: var(--nen);
+  color: var(--chu);
+  font-family: var(--font-chu);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+a {
+  color: var(--teal);
+}
+img {
+  max-width: 100%;
 }

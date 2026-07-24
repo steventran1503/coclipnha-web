@@ -1,0 +1,121 @@
+---
+// Mặt tiền giả YouTube (FR-009): không nạp iframe cho tới khi bấm.
+// videoId là Tài sản chờ cấp (data-model.md → Tài sản chờ cấp) — chưa có
+// thật thì hiện trạng thái "đang chờ", không để trống/vỡ layout.
+interface Props {
+  videoId?: string;
+  tieuDeVideo: string;
+}
+
+const { videoId, tieuDeVideo } = Astro.props;
+---
+
+{
+  videoId ? (
+    <a
+      class="mat-tien-yt"
+      href={`https://www.youtube.com/watch?v=${videoId}`}
+      data-video-id={videoId}
+      data-tieu-de={tieuDeVideo}
+      aria-label={`Xem video: ${tieuDeVideo} (mở YouTube)`}
+    >
+      <img
+        src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+        alt={tieuDeVideo}
+        loading="lazy"
+        width="480"
+        height="360"
+      />
+      <span class="nut-play" aria-hidden="true">
+        ▶
+      </span>
+    </a>
+  ) : (
+    <div class="mat-tien-yt mat-tien-yt--cho" role="status">
+      <span class="nut-play" aria-hidden="true">
+        ▶
+      </span>
+      <p>
+        Video demo đang được quay — sẽ nhúng tại đây.
+        <br />
+        Chỉ khi shop bấm mới nạp YouTube, không có cookie theo dõi trước đó.
+      </p>
+    </div>
+  )
+}
+
+<style>
+  .mat-tien-yt {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--vien);
+    background: #0b0e14;
+  }
+  .mat-tien-yt img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .mat-tien-yt--cho {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--chu-mo);
+    font-size: 0.9rem;
+  }
+  .mat-tien-yt--cho p {
+    max-width: 30rem;
+  }
+  .nut-play {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.4rem;
+    height: 4.4rem;
+    border-radius: 50%;
+    background: var(--do);
+    color: #fff;
+    font-size: 1.4rem;
+    flex: none;
+  }
+  a.mat-tien-yt .nut-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+</style>
+
+<script>
+  // JS chỉ tăng cường: bấm mới chèn iframe youtube-nocookie.com. Không JS,
+  // link vẫn mở thẳng video trên YouTube (fallback thật, không phải ngõ cụt).
+  document
+    .querySelectorAll<HTMLAnchorElement>("a.mat-tien-yt[data-video-id]")
+    .forEach((mat) => {
+      mat.addEventListener("click", (e) => {
+        e.preventDefault();
+        const videoId = mat.dataset.videoId;
+        const tieuDe = mat.dataset.tieuDe ?? "Video CoClipNha";
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
+        iframe.title = tieuDe;
+        iframe.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        iframe.style.cssText =
+          "position:absolute;inset:0;width:100%;height:100%;border:0;";
+        mat.replaceWith(iframe);
+      });
+    });
+</script>

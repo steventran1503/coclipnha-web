@@ -1,0 +1,206 @@
+---
+import { duongDan } from "../lib/duongDan";
+
+interface MucMenu {
+  nhan: string;
+  href: string;
+}
+interface NhomMenu {
+  nhom: string;
+  muc: MucMenu[];
+}
+
+const DANH_MUC: NhomMenu[] = [
+  {
+    nhom: "CoClipNha",
+    muc: [
+      { href: duongDan(), nhan: "Trang chủ" },
+      { href: duongDan("tai-ve/"), nhan: "Tải về miễn phí" },
+      { href: duongDan("ung-ho/"), nhan: "Ủng hộ CoClipNha" },
+      { href: duongDan("gioi-thieu/"), nhan: "Về CoClipNha" },
+      { href: duongDan("bai-viet/"), nhan: "Bài viết" },
+    ],
+  },
+  {
+    nhom: "Trợ giúp & phản hồi",
+    muc: [
+      { href: duongDan("tro-giup/huong-dan/"), nhan: "Hướng dẫn sử dụng" },
+      { href: duongDan("tro-giup/cau-hoi/"), nhan: "Câu hỏi thường gặp" },
+      { href: duongDan("tro-giup/tai-qr/"), nhan: "Tải mã QR điều khiển" },
+      { href: duongDan("tro-giup/gop-y/"), nhan: "Góp ý cho CoClipNha" },
+      { href: duongDan("tro-giup/bao-loi/"), nhan: "Báo lỗi" },
+      {
+        href: duongDan("tro-giup/yeu-cau-phan-mem/"),
+        nhan: "Yêu cầu phát triển phần mềm",
+      },
+    ],
+  },
+  {
+    nhom: "Kết nối",
+    muc: [
+      { href: "#", nhan: "ⓕ Facebook page (chờ link)" },
+      { href: "#", nhan: "♪ TikTok (chờ link)" },
+      { href: "#", nhan: "💬 Nhắn tin Messenger (chờ link)" },
+    ],
+  },
+];
+---
+
+<input
+  type="checkbox"
+  id="menu-3-gach"
+  class="menu-checkbox"
+  aria-hidden="true"
+/>
+<label for="menu-3-gach" class="nut-menu" aria-label="Mở menu">☰</label>
+
+<div class="menu-phu">
+  <label for="menu-3-gach" class="nen-mo" aria-hidden="true"></label>
+  <nav class="bang-menu" aria-label="Điều hướng">
+    <div class="dong-dau">
+      <span class="logo-c" aria-hidden="true"></span>
+      <strong>CoClipNha</strong>
+      <label for="menu-3-gach" class="nut-dong" aria-label="Đóng menu">✕</label>
+    </div>
+    {
+      DANH_MUC.map((nhom) => (
+        <>
+          <div class="nhom">{nhom.nhom}</div>
+          {nhom.muc.map((muc) => (
+            <a href={muc.href}>{muc.nhan}</a>
+          ))}
+        </>
+      ))
+    }
+  </nav>
+</div>
+
+<style>
+  .menu-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .nut-menu {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.22);
+    color: inherit;
+    border-radius: 6px;
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 1.15rem;
+    line-height: 1;
+  }
+  .nut-menu:hover {
+    background: rgba(0, 0, 0, 0.38);
+  }
+  .menu-checkbox:focus-visible + .nut-menu {
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+  }
+
+  .menu-phu {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    visibility: hidden;
+  }
+  .menu-checkbox:checked ~ .menu-phu {
+    visibility: visible;
+  }
+  .menu-phu .nen-mo {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 6, 10, 0.6);
+    cursor: pointer;
+  }
+  .menu-phu .bang-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(20rem, 86vw);
+    background: var(--nen-app);
+    border-left: 1px solid var(--vien);
+    padding: 1.1rem 1.2rem 2rem;
+    overflow-y: auto;
+    transform: translateX(8%);
+    opacity: 0;
+    transition:
+      transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.3s;
+  }
+  .menu-checkbox:checked ~ .menu-phu .bang-menu {
+    transform: none;
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .menu-phu .bang-menu {
+      transition: none;
+    }
+  }
+
+  .dong-dau {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .dong-dau strong {
+    font-family: var(--font-tit);
+  }
+  .nut-dong {
+    margin-left: auto;
+    cursor: pointer;
+    color: var(--chu-mo);
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+  .logo-c {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 2.5px solid var(--teal);
+    border-right-color: transparent;
+    position: relative;
+    flex: none;
+  }
+  .logo-c::after {
+    content: "";
+    position: absolute;
+    inset: 25%;
+    background: var(--do);
+    border-radius: 1.5px;
+  }
+
+  .bang-menu a {
+    display: block;
+    padding: 0.6rem 0.4rem;
+    color: var(--chu-diu);
+    text-decoration: none;
+    border-bottom: 1px solid var(--vien);
+    font-size: 0.98rem;
+  }
+  .bang-menu a:hover {
+    color: var(--teal);
+  }
+  .bang-menu .nhom {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--chu-mo);
+    margin: 1.1rem 0 0.2rem;
+  }
+</style>
+
+<script>
+  // JS chỉ tăng cường: đóng menu bằng phím Escape. Không JS, menu vẫn mở/đóng
+  // được bằng checkbox thật (bấm nhãn ☰ hoặc nền mờ) — không phụ thuộc script.
+  const hop = document.getElementById("menu-3-gach") as HTMLInputElement | null;
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && hop) hop.checked = false;
+  });
+</script>

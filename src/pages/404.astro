@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { duongDan } from "../lib/duongDan";
+---
+
+<BaseLayout
+  tieuDe="Không tìm thấy trang — CoClipNha"
+  moTaMeta="Trang này không tồn tại hoặc đã đổi địa chỉ. Quay lại trang chủ CoClipNha."
+>
+  <main class="khoi">
+    <h1>Không tìm thấy trang này</h1>
+    <p class="mo-dau">
+      Đường dẫn có thể đã đổi hoặc gõ nhầm. Quay lại trang chủ để tìm tiếp.
+    </p>
+    <p>
+      <a class="nut nut--chinh" href={duongDan()}>Về trang chủ CoClipNha</a>
+    </p>
+  </main>
+</BaseLayout>
+
+<style>
+  .khoi {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 6rem 1.25rem;
+    text-align: center;
+  }
+  h1 {
+    font-family: var(--font-tit);
+    font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+    margin-bottom: 1rem;
+  }
+  .mo-dau {
+    color: var(--chu-diu);
+    margin-bottom: 1.8rem;
+  }
+  .nut {
+    display: inline-block;
+    padding: 0.85rem 1.7rem;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .nut--chinh {
+    background: var(--teal);
+    color: #0b1220;
+  }
+</style>

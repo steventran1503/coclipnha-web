@@ -1,0 +1,44 @@
+---
+import "../styles/global.css";
+import MenuBaGach from "../components/MenuBaGach.astro";
+import { duongDan } from "../lib/duongDan";
+
+interface Props {
+  tieuDe: string;
+  moTaMeta: string;
+}
+
+const { tieuDe, moTaMeta } = Astro.props;
+
+// Cloudflare Web Analytics (không cookie) — token thật lấy từ dashboard
+// Cloudflare khi chủ dự án tạo site đo lường, đặt vào biến môi trường
+// PUBLIC_CF_BEACON_TOKEN (.env, không commit). Chưa có token thì bỏ qua
+// script, không gọi beacon rỗng/lỗi.
+const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+---
+
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{tieuDe}</title>
+    <meta name="description" content={moTaMeta} />
+    <link rel="stylesheet" href={duongDan("fonts/fonts.css")} />
+    <link rel="icon" type="image/svg+xml" href={duongDan("favicon.svg")} />
+    <link rel="icon" href={duongDan("favicon.ico")} />
+    <slot name="head" />
+    {
+      cfBeaconToken && (
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token": "${cfBeaconToken}"}`}
+        />
+      )
+    }
+  </head>
+  <body>
+    <MenuBaGach />
+    <slot />
+  </body>
+</html>

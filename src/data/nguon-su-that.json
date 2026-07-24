@@ -220,19 +220,11 @@
     "don_dep": "🧹 Tự động dọn dẹp: đã xóa <N> video cũ hơn <N> ngày, giải phóng <N> MB"
   },
   "watermark": {
-    "cac_dong": [
-      "QR: {qr}",
-      "Time:",
-      "Time: {timestamp}",
-      "Rec by Coclipnha"
-    ]
+    "cac_dong": ["QR: {qr}", "Time:", "Time: {timestamp}", "Rec by Coclipnha"]
   },
   "nhip": {
     "fps": 20.0,
-    "do_phan_giai": [
-      1280,
-      720
-    ],
+    "do_phan_giai": [1280, 720],
     "quet_qr_moi_giay": 10,
     "dien_tich_qr_toi_thieu_px2": 4000,
     "tam_dung_quet_sau_khi_ghi_giay": 8,
