@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@import "/fonts/fonts.css";
+
+/* Cặp phông kế thừa từ bản demo "Ca trực" đã duyệt (T018) — Bricolage
+   Grotesque cho tít, Be Vietnam Pro cho chữ chạy, JetBrains Mono cho phần
+   mô phỏng giao diện app (watermark, dòng log, băng trạng thái). */
+:root {
+  --font-tit: "Bricolage Grotesque", "Be Vietnam Pro", sans-serif;
+  --font-chu: "Be Vietnam Pro", system-ui, sans-serif;
+  --font-may: "JetBrains Mono", Consolas, monospace;
+}

@@ -1,0 +1,247 @@
+{
+  "_meta": {
+    "sinh_boi": "docs/web/xuat_nguon_su_that.py — script CHỈ ĐỌC",
+    "sinh_luc": "2026-07-25 01:02:25",
+    "nguon": {
+      "theme": "gui\\theme.py",
+      "hang_so": "gui\\hang_so_ui.py",
+      "app": "gui\\app.py",
+      "recorder": "record\\recorder.py"
+    },
+    "luu_y": "ĐỪNG sửa tay file này — sửa app rồi chạy lại script."
+  },
+  "bang_mau": {
+    "dark": {
+      "bg": "#151A23",
+      "panel": "#1D2430",
+      "panel_bd": "#2A3342",
+      "bottom": "#131822",
+      "text": "#E8EDF5",
+      "muted": "#9AA7BA",
+      "text_soft": "#CBD5E3",
+      "teal": "#3DB8B0",
+      "teal_text": "#3DB8B0",
+      "teal_ink": "#0B1220",
+      "teal_active": "#2FA098",
+      "preview_bg": "#0B0E14",
+      "preview_bd": "#232B3A",
+      "sel_bg": "#1A212D",
+      "sel_bd": "#333E50",
+      "log_bg": "#10151D",
+      "log_text": "#D7E2F0",
+      "log_muted": "#9FB0C5",
+      "log_warn": "#F2C14E",
+      "log_err": "#FF858B",
+      "log_ok": "#63D68E",
+      "last_err": "#FF8A8F",
+      "last_ok": "#5ED496",
+      "warn_text": "#F0B850",
+      "input_bg": "#161C26",
+      "btn_bg": "#26303F",
+      "btn_hover": "#334054",
+      "action_bg": "#3DB8B0",
+      "action_fg": "#0B1220",
+      "action_hover_bg": "#54C6BE",
+      "action_hover_fg": "#0B1220",
+      "stop_bg": "#8E2B31",
+      "stop_fg": "#FFD9DB",
+      "stop_hover": "#A8434A",
+      "stop_disabled_fg": "#C79599",
+      "exit_fg": "#F09AA0",
+      "exit_hover_fg": "#FFB9BD",
+      "danger_fg": "#FF8085",
+      "danger_hover_bg": "#3A2A2E",
+      "info_fg": "#6FB3FF",
+      "disk_ok": "#2FA96F",
+      "disk_warn": "#E8A020",
+      "disk_red": "#E5484D",
+      "disk_red_text": "#FF7B80",
+      "greet_bg": "#153B2C",
+      "greet_fg": "#7BE0AE",
+      "health_bg": "#14262B",
+      "health_bd": "#2C5B58",
+      "health_fg": "#8FE0D6",
+      "health_sub_fg": "#6E8B90",
+      "logo_red": "#E5484D",
+      "tooltip_bg": "#ffffe0",
+      "state_idle_bg": "#3E4C63",
+      "state_idle_fg": "#FFFFFF",
+      "state_ready_bg": "#1E9E63",
+      "state_ready_fg": "#FFFFFF",
+      "state_rec_bg": "#D93A41",
+      "state_rec_fg": "#FFFFFF",
+      "state_warn_bg": "#E8A020",
+      "state_warn_fg": "#221703",
+      "state_error_bg": "#A31621",
+      "state_error_fg": "#FFFFFF"
+    },
+    "light": {
+      "bg": "#faf9f5",
+      "panel": "#efe9de",
+      "panel_bd": "#e6dfd8",
+      "bottom": "#f5f2ea",
+      "text": "#141413",
+      "muted": "#5f5d57",
+      "text_soft": "#3d3d3a",
+      "teal": "#5db8a6",
+      "teal_text": "#14695e",
+      "teal_ink": "#141413",
+      "teal_active": "#4a9c8c",
+      "preview_bg": "#181715",
+      "preview_bd": "#e6dfd8",
+      "sel_bg": "#f5f2ea",
+      "sel_bd": "#e6dfd8",
+      "log_bg": "#f5f0e8",
+      "log_text": "#3d3d3a",
+      "log_muted": "#5f5d57",
+      "log_warn": "#7a5b00",
+      "log_err": "#a93636",
+      "log_ok": "#276e45",
+      "last_err": "#a93636",
+      "last_ok": "#276e45",
+      "warn_text": "#7a5b00",
+      "input_bg": "#f5f2ea",
+      "btn_bg": "#e8e0d2",
+      "btn_hover": "#d9cdb8",
+      "action_bg": "#cc785c",
+      "action_fg": "#141413",
+      "action_hover_bg": "#a9583e",
+      "action_hover_fg": "#ffffff",
+      "stop_bg": "#c64545",
+      "stop_fg": "#ffffff",
+      "stop_hover": "#a93a3a",
+      "stop_disabled_fg": "#e6bcbc",
+      "exit_fg": "#a93636",
+      "exit_hover_fg": "#8f2e2e",
+      "danger_fg": "#a93636",
+      "danger_hover_bg": "#f0dcd4",
+      "info_fg": "#1d5fa8",
+      "disk_ok": "#5db872",
+      "disk_warn": "#d4a017",
+      "disk_red": "#c64545",
+      "disk_red_text": "#a93636",
+      "greet_bg": "#e2efe3",
+      "greet_fg": "#276e45",
+      "health_bg": "#e4efeb",
+      "health_bd": "#5db8a6",
+      "health_fg": "#1f6b5e",
+      "health_sub_fg": "#4c665f",
+      "logo_red": "#E5484D",
+      "tooltip_bg": "#ffffe0",
+      "state_idle_bg": "#e8e0d2",
+      "state_idle_fg": "#141413",
+      "state_ready_bg": "#5db872",
+      "state_ready_fg": "#141413",
+      "state_rec_bg": "#c64545",
+      "state_rec_fg": "#ffffff",
+      "state_warn_bg": "#d4a017",
+      "state_warn_fg": "#221a03",
+      "state_error_bg": "#8f2e2e",
+      "state_error_fg": "#ffffff"
+    }
+  },
+  "bang_trang_thai": {
+    "ready": {
+      "hint": "Quét mã vận đơn là tự động ghi hình, không cần bấm gì",
+      "dark": {
+        "bg": "#1E9E63",
+        "fg": "#FFFFFF"
+      },
+      "light": {
+        "bg": "#5db872",
+        "fg": "#141413"
+      }
+    },
+    "rec": {
+      "hint": "Đưa QR PAUSE hoặc quét đơn mới để lưu video này",
+      "dark": {
+        "bg": "#D93A41",
+        "fg": "#FFFFFF"
+      },
+      "light": {
+        "bg": "#c64545",
+        "fg": "#ffffff"
+      }
+    },
+    "warn": {
+      "hint": "Đơn này đã quay trong phiên — kiểm tra lại vận đơn",
+      "dark": {
+        "bg": "#E8A020",
+        "fg": "#221703"
+      },
+      "light": {
+        "bg": "#d4a017",
+        "fg": "#221a03"
+      }
+    },
+    "error": {
+      "hint": "Quét lại mã QR vừa rồi để quay lại ngay",
+      "dark": {
+        "bg": "#A31621",
+        "fg": "#FFFFFF"
+      },
+      "light": {
+        "bg": "#8f2e2e",
+        "fg": "#ffffff"
+      }
+    },
+    "idle": {
+      "hint": "",
+      "dark": {
+        "bg": "#3E4C63",
+        "fg": "#FFFFFF"
+      },
+      "light": {
+        "bg": "#e8e0d2",
+        "fg": "#141413"
+      }
+    }
+  },
+  "chu_hien_thi_banner": {
+    "🟢 Trạng thái: Sẵn sàng": "Sẵn sàng — đưa mã QR vào khung hình",
+    "🟢 Đang chờ mã QR...": "Sẵn sàng — đưa mã QR vào khung hình",
+    "🟢 Đang chờ mã QR mới...": "Đã lưu video — sẵn sàng đơn kế tiếp",
+    "🟢 Trạng thái: Đã dừng": "Đã dừng — quét mã QR là quay tiếp",
+    "🟢 Đã lưu video — đang chờ mã QR mới...": "Đã lưu video — sẵn sàng đơn kế tiếp",
+    "✅ Đã lưu video": "Đã lưu video — sẵn sàng đơn kế tiếp",
+    "🔴 Đang ghi hình": "ĐANG GHI HÌNH",
+    "🔴 Đang ghi video mới": "ĐANG GHI HÌNH",
+    "⚠️ Cảnh báo: QR trùng đã ghi rồi!": "Mã QR này đã từng ghi trong phiên!",
+    "❌ LỖI GHI HÌNH! Đã dừng — quét lại mã QR để quay lại": "LỖI GHI HÌNH! Đã dừng và lưu"
+  },
+  "ten_file_video": {
+    "mau": "<QR>_<thoi_gian>_<TenNhanVien>.mp4",
+    "dinh_dang_thoi_gian": "%Y-%m-%d_%H-%M-%S",
+    "vi_du": "SPX1234567_2026-07-24_15-39-06_TenNhanVien.mp4",
+    "ghi_chu": "Tên nhân viên bỏ dấu, đặt CUỐI; máy chưa có tên thì bỏ đuôi tên."
+  },
+  "dong_log": {
+    "da_luu": "✅ Đã lưu video: {output_path} ({size_mb:.1f}MB, {duration:.1f}s)",
+    "don_dep": "🧹 Tự động dọn dẹp: đã xóa <N> video cũ hơn <N> ngày, giải phóng <N> MB"
+  },
+  "watermark": {
+    "cac_dong": [
+      "QR: {qr}",
+      "Time:",
+      "Time: {timestamp}",
+      "Rec by Coclipnha"
+    ]
+  },
+  "nhip": {
+    "fps": 20.0,
+    "do_phan_giai": [
+      1280,
+      720
+    ],
+    "quet_qr_moi_giay": 10,
+    "dien_tich_qr_toi_thieu_px2": 4000,
+    "tam_dung_quet_sau_khi_ghi_giay": 8,
+    "canh_bao_trung_gian_cach_giay": 3,
+    "o_cung_vang_gb": 20,
+    "o_cung_do_gb": 5
+  },
+  "qr_dieu_khien": {
+    "pause": "PAUSE",
+    "don_ngoai": "start"
+  }
+}

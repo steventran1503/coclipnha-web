@@ -1,0 +1,491 @@
+{
+  "_meta": {
+    "sinh_boi": "docs/web/xuat_kho_noi_dung.py — script CHỈ ĐỌC",
+    "sinh_luc": "2026-07-25 01:02:00",
+    "nguon": "docs\\web\\kho-thong-diep.md",
+    "luu_y": "ĐỪNG sửa tay file này — sửa kho-thong-diep.md rồi chạy lại script."
+  },
+  "khoi_noi_dung": [
+    {
+      "ma": "BC-01",
+      "nhom": "BC",
+      "cau_chot": "Phần mềm này ra đời từ một cửa hàng thật, đang dùng thật.",
+      "dien_giai": "ZIN ZIN MOTOR dùng CoClipNha hằng ngày và đã khiếu nại thành công nhiều lần nhờ video quay lúc đóng gói. CoClipNha không phải sản phẩm nghĩ ra trong phòng máy lạnh — nó sinh ra từ đúng cái bàn đóng gói này.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index",
+        "ung-ho"
+      ]
+    },
+    {
+      "ma": "BC-02",
+      "nhom": "BC",
+      "cau_chot": "Để trống cho tới khi có số thật (số shop đang dùng, số video đã quay). **Không",
+      "dien_giai": "",
+      "canh_cho_video": null,
+      "trang_su_dung": []
+    },
+    {
+      "ma": "DG-01",
+      "nhom": "DG",
+      "cau_chot": "Đánh giá của shop — CHỈ ĐĂNG THẬT",
+      "dien_giai": "",
+      "canh_cho_video": null,
+      "trang_su_dung": []
+    },
+    {
+      "ma": "GP-01",
+      "nhom": "GP",
+      "cau_chot": "Đưa mã vận đơn vào khung hình. Máy tự quay.",
+      "dien_giai": "Mỗi sáng mở app lên là xong việc vận hành trong ngày — camera bật sẵn, không có nút Bắt đầu để bấm, không có gì để cài. Shop dán mã vận đơn lên thùng như mọi khi, đưa qua trước camera — máy nhận ra mã và quay ngay. Gói xong, quét mã đơn kế tiếp, video đơn cũ tự lưu lại. Không có nút nào để quên bấm, nên không có đơn nào bị sót.",
+      "canh_cho_video": "bàn tay đưa thùng hàng qua camera, viền màn hình đổi sang đỏ \"đang ghi\".",
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "GP-02",
+      "nhom": "GP",
+      "cau_chot": "Bôi đen mã khách nhắn, dán vào, video hiện ra.",
+      "dien_giai": "Mỗi video được đặt tên bằng chính mã vận đơn, kèm ngày giờ và tên nhân viên gói. Khách nhắn tin khiếu nại đơn nào, shop bôi đen mã đơn trong tin nhắn đó, dán vào ô tìm kiếm — video hiện ra ngay. Không phải nhớ hôm đó là ngày mấy, không phải mở từng video ra dò.",
+      "canh_cho_video": "bôi đen mã đơn trong tin nhắn khách → dán vào ô tìm → video hiện ra ngay.",
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "GP-03",
+      "nhom": "GP",
+      "cau_chot": "Mã và giờ in thẳng trên video, không ai cãi được.",
+      "dien_giai": "Mã vận đơn và thời gian được in thẳng lên từng khung hình, chữ trắng viền đen, đọc rõ trên mọi nền. Video tách khỏi tên file vẫn tự nó cho biết là đơn nào, quay lúc mấy giờ.",
+      "canh_cho_video": "cận cảnh góc video, chữ mã đơn + giờ chạy theo từng giây.",
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "GP-04",
+      "nhom": "GP",
+      "cau_chot": "Quay lúc gói. Quay cả lúc mở hàng hoàn.",
+      "dien_giai": "Đơn bị trả về, shop quét lại chính mã vận đơn đó rồi mở thùng trước camera. Giờ shop có hai video của cùng một đơn: lúc gửi đi và lúc nhận về. Đặt cạnh nhau là thấy ngay bên trong đã đổi hay chưa. Nếu hàng hoàn không còn mã vận đơn, dùng mã QR \"start\" in sẵn cũng quay được như thường.",
+      "canh_cho_video": "hai video cùng một mã đơn mở song song — bên trái hàng mới, bên phải hàng đã dùng.",
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "GP-05",
+      "nhom": "GP",
+      "cau_chot": "Video không rời khỏi máy của shop.",
+      "dien_giai": "Phần mềm chạy trên máy tính ở cửa hàng, video lưu thẳng vào ổ cứng của shop. Không tải lên mạng, không có tài khoản đăng nhập, không cần internet để quay. Mất mạng vẫn quay bình thường. CoClipNha không nhận được video của shop, kể cả khi muốn.",
+      "canh_cho_video": "ổ cứng máy tính, thư mục video theo ngày.",
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "GP-06",
+      "nhom": "GP",
+      "cau_chot": "Ổ cứng sẵn có trong máy là đủ. Không tốn phí đám mây.",
+      "dien_giai": "Một video gói hàng 5 phút chỉ khoảng 10 MB — chỉ bằng 2–3 tấm ảnh chụp bằng điện thoại đời mới. Shop gói 100 đơn mỗi ngày thì một tháng khoảng 30 GB, cái ổ cứng sẵn có trong máy thừa sức chứa. Không phải mua gói lưu trữ đám mây, không phải trả phí hằng tháng cho ai. Cộng với việc máy tự dọn video quá hạn (GP-07), ổ cứng không bao giờ đầy.",
+      "canh_cho_video": "thanh dung lượng ổ cứng gần như chưa nhúc nhích sau một tháng quay.",
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "GP-07",
+      "nhom": "GP",
+      "cau_chot": "Đặt một lần, máy tự dọn, khỏi nghĩ tới nữa.",
+      "dien_giai": "Shop chỉ cần nói muốn giữ video bao nhiêu ngày — 30 ngày, 60 ngày, tuỳ shop. Từ đó máy tự dọn video quá hạn mỗi lần mở app. Không ai phải nhớ, không ai phải ngồi lọc thư mục xoá tay, không sợ một hôm ổ đầy giữa ca.",
+      "canh_cho_video": "ô nhập số ngày, rồi cắt sang thư mục tự gọn lại.",
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "HD-01",
+      "nhom": "HD",
+      "cau_chot": "Mở CoClipNha lên. Camera đã cắm sẵn ở bàn gói từ trước, app mở ra là camera chạy — không phải cắm gì, không phải chỉnh gì.",
+      "dien_giai": "",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index",
+        "tro-giup/huong-dan"
+      ]
+    },
+    {
+      "ma": "HD-02",
+      "nhom": "HD",
+      "cau_chot": "Dán mã vận đơn lên thùng như mọi khi, đưa qua trước camera. Máy tự quay.",
+      "dien_giai": "",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index",
+        "tro-giup/huong-dan"
+      ]
+    },
+    {
+      "ma": "HD-03",
+      "nhom": "HD",
+      "cau_chot": "Gói xong, quét mã đơn kế tiếp. Video đơn vừa rồi tự lưu, đặt tên theo mã đơn. Hết ca, tắt máy — xong.",
+      "dien_giai": "",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index",
+        "tro-giup/huong-dan"
+      ]
+    },
+    {
+      "ma": "KG-01",
+      "nhom": "KG",
+      "cau_chot": "Tải về miễn phí",
+      "dien_giai": "Cho Windows 10 và 11. Không cần tài khoản.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index",
+        "tai-ve"
+      ]
+    },
+    {
+      "ma": "KG-02",
+      "nhom": "KG",
+      "cau_chot": "Ủng hộ CoClipNha",
+      "dien_giai": "CoClipNha luôn miễn phí. Mỗi đóng góp giúp tụi mình có thêm kinh phí làm phần mềm tốt hơn cho cộng đồng bán hàng.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "ung-ho"
+      ]
+    },
+    {
+      "ma": "KG-03",
+      "nhom": "KG",
+      "cau_chot": "Shop cần mua camera? Mua qua link tụi mình là đã đỡ một tay.",
+      "dien_giai": "Không phải shop nào cũng dư tiền đóng góp, và tụi mình không muốn ai thấy áy náy. Nếu shop đang định mua camera cho bàn gói, mua qua link gợi ý là CoClipNha nhận được hoa hồng từ nơi bán mà giá shop trả không đổi một đồng.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "ung-ho"
+      ]
+    },
+    {
+      "ma": "KN-01",
+      "nhom": "KN",
+      "cau_chot": "Facebook page + TikTok của CoClipNha — **LINK CHỜ CHỦ DỰ ÁN CẤP**.",
+      "dien_giai": "",
+      "canh_cho_video": null,
+      "trang_su_dung": []
+    },
+    {
+      "ma": "ND-01",
+      "nhom": "ND",
+      "cau_chot": "Khách kêu thiếu hàng, shop lấy gì ra nói?",
+      "dien_giai": "Đơn đã giao đi rồi. Khách nhắn \"mở ra thiếu một món\". Shop nhớ rõ mình đã bỏ đủ, nhưng nhớ thì không phải là bằng chứng. Cãi qua cãi lại, cuối cùng shop đền cho xong chuyện.",
+      "canh_cho_video": "màn hình tin nhắn khiếu nại → shop ngồi im nhìn điện thoại.",
+      "trang_su_dung": []
+    },
+    {
+      "ma": "ND-02",
+      "nhom": "ND",
+      "cau_chot": "Gửi đi sạc dự phòng mới. Nhận về một cái quần cũ.",
+      "dien_giai": "Đây là kiểu mất tiền đau nhất, và nó xảy ra theo hai kiểu. **Kiểu tráo thẳng**: shop gửi đi chiếc sạc dự phòng còn nguyên hộp, đơn hoàn về mở ra là một cái quần cũ. **Kiểu dùng rồi trả**: shop gửi đi bộ váy mới, khách mặc đi chơi xong trả về vẫn đúng bộ đó — nhưng đã ố vàng, dính son, dính cát, có chỗ rách. Cả hai kiểu, shop đều mở thùng một mình, không ai làm chứng. Báo sàn thì lại rơi vào cảnh lời khai chọi lời khai.",
+      "canh_cho_video": "mở thùng hàng hoàn — bên trong là cái quần cũ thay vì hộp sạc; cắt sang bộ váy trả về có vết ố và vết son.",
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "ND-03",
+      "nhom": "ND",
+      "cau_chot": "Không có video thì lời shop chỉ là lời shop.",
+      "dien_giai": "Khi hai bên nói ngược nhau, bên nào đưa được hình ảnh thì bên đó có cửa. Shop nói đúng mà không chứng minh được thì vẫn thua.",
+      "canh_cho_video": "hai khung chat đối nhau, một bên có video, một bên không.",
+      "trang_su_dung": []
+    },
+    {
+      "ma": "ND-04",
+      "nhom": "ND",
+      "cau_chot": "Ngày gói trăm đơn, ai nhớ bấm quay từng đơn?",
+      "dien_giai": "Ai cũng biết nên quay lại. Nhưng bấm quay, bấm dừng, đặt tên file, sắp vào thư mục — làm được ba ngày là bỏ. Đến lúc cần thì lục cả trăm video không biết cái nào là đơn nào.",
+      "canh_cho_video": "cuộn thư viện điện thoại đầy video tên VID_20260712 — không biết cái nào là đơn nào.",
+      "trang_su_dung": []
+    },
+    {
+      "ma": "PB-01",
+      "nhom": "PB",
+      "cau_chot": "Tốn bao nhiêu tiền?",
+      "dien_giai": "Miễn phí. Không giới hạn ngày dùng, không khóa tính năng. Ai thấy có ích thì ủng hộ, không ủng hộ vẫn dùng đủ.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "tro-giup/cau-hoi"
+      ]
+    },
+    {
+      "ma": "PB-02",
+      "nhom": "PB",
+      "cau_chot": "Video của shop có bị gửi đi đâu không?",
+      "dien_giai": "Không. Video nằm trên ổ cứng máy shop. Phần mềm không tải video lên mạng, không có tài khoản đăng nhập.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "tro-giup/cau-hoi"
+      ]
+    },
+    {
+      "ma": "PB-03",
+      "nhom": "PB",
+      "cau_chot": "Máy yếu có chạy nổi không?",
+      "dien_giai": "Chạy được. Có năm mức nén để hạ tải, máy yếu chọn mức nhẹ là quay mượt.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "tai-ve",
+        "tro-giup/cau-hoi"
+      ]
+    },
+    {
+      "ma": "PB-04",
+      "nhom": "PB",
+      "cau_chot": "Sao Windows lại cảnh báo khi cài?",
+      "dien_giai": "Vì phần mềm chưa mua chứng chỉ ký số — thứ đó tốn vài triệu mỗi năm, tụi mình để dành tiền đó làm phần mềm. Bấm \"Thông tin thêm\" rồi \"Vẫn chạy\" là xong.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "tai-ve",
+        "tro-giup/cau-hoi"
+      ]
+    },
+    {
+      "ma": "PB-05",
+      "nhom": "PB",
+      "cau_chot": "Quay cả ngày thì đầy ổ cứng?",
+      "dien_giai": "Video 5 phút chỉ khoảng 10 MB; gói 100 đơn mỗi ngày thì một tháng khoảng 30 GB — ổ cứng sẵn có trong máy thừa sức chứa. Thêm nữa, shop đặt giữ bao nhiêu ngày là máy tự xóa video cũ hơn mốc đó, nên ổ không bao giờ đầy.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "tro-giup/cau-hoi"
+      ]
+    },
+    {
+      "ma": "PB-06",
+      "nhom": "PB",
+      "cau_chot": "Không rành máy tính dùng được không?",
+      "dien_giai": "Được. Sau khi cài xong, việc duy nhất phải làm là đưa mã vận đơn qua trước camera.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "tro-giup/cau-hoi"
+      ]
+    },
+    {
+      "ma": "PB-07",
+      "nhom": "PB",
+      "cau_chot": "Có cần internet không?",
+      "dien_giai": "Không. Quay hoàn toàn không cần mạng.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "tro-giup/cau-hoi"
+      ]
+    },
+    {
+      "ma": "PB-08",
+      "nhom": "PB",
+      "cau_chot": "Camera nào dùng được?",
+      "dien_giai": "Camera **phải có lấy nét tự động (autofocus)** — xem TB-01. Loại lấy nét cố định sẽ cho mã vận đơn mờ, máy đọc không ra mã và video cũng mất giá trị làm bằng chứng. Ngoài yêu cầu đó thì camera nào cũng dùng được.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "tro-giup/cau-hoi"
+      ]
+    },
+    {
+      "ma": "PB-09",
+      "nhom": "PB",
+      "cau_chot": "Có phải trả phí lưu trữ đám mây không?",
+      "dien_giai": "Không. Video nằm trên ổ cứng máy shop, không có gói cước nào để trả.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "tro-giup/cau-hoi"
+      ]
+    },
+    {
+      "ma": "SM-01",
+      "nhom": "SM",
+      "cau_chot": "Vì một Việt Nam mua bán minh bạch, văn minh — không còn tráo hàng.",
+      "dien_giai": "Bằng chứng bảo vệ shop làm ăn tử tế, và bảo vệ cả khách hàng mua đúng. Máy quay không đứng về phe nào — nó chỉ ghi lại sự thật.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "TB-01",
+      "nhom": "TB",
+      "cau_chot": "Camera phải tự lấy nét. Đây là điều kiện, không phải lời khuyên.",
+      "dien_giai": "Mã vận đơn dán trên thùng chỉ rõ khi camera lấy nét được ở khoảng gần. Camera lấy nét cố định cho ra chữ mờ nhòe — máy đọc không ra mã QR, mà video quay xong cũng không đọc được mã thì mất luôn giá trị làm bằng chứng. Loại lấy nét nhanh (PDAF) là tốt nhất: đưa thùng vào là bắt nét ngay, không phải chờ.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "tai-ve"
+      ]
+    },
+    {
+      "ma": "TB-02",
+      "nhom": "TB",
+      "cau_chot": "Mua qua link tụi mình gợi ý, shop không tốn thêm đồng nào mà vẫn đỡ được tụi mình một tay.",
+      "dien_giai": "CoClipNha gợi ý vài mẫu camera đã dùng thật và chạy tốt (hướng Ugreen, EMEET). Nếu shop mua qua link này thì CoClipNha nhận được một khoản hoa hồng từ nơi bán — **giá shop trả không đổi**. Shop mua camera khác cũng hoàn toàn bình thường, miễn có lấy nét tự động.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "tai-ve"
+      ]
+    },
+    {
+      "ma": "TG-01",
+      "nhom": "TG",
+      "cau_chot": "Hướng dẫn sử dụng",
+      "dien_giai": "Xem cách dùng app từng bước.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "TG-02",
+      "nhom": "TG",
+      "cau_chot": "Câu hỏi thường gặp",
+      "dien_giai": "Vướng mắc hay gặp và cách xử lý nhanh.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "TG-03",
+      "nhom": "TG",
+      "cau_chot": "Tải mã QR điều khiển",
+      "dien_giai": "Mã START/STOP để in dán ở bàn quay.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index",
+        "tro-giup/tai-qr"
+      ]
+    },
+    {
+      "ma": "TG-04",
+      "nhom": "TG",
+      "cau_chot": "Góp ý cho CoClipNha",
+      "dien_giai": "Nhận xét, đề xuất thêm tính năng cho app.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index",
+        "tro-giup/gop-y"
+      ]
+    },
+    {
+      "ma": "TG-05",
+      "nhom": "TG",
+      "cau_chot": "Báo lỗi",
+      "dien_giai": "Gửi gói chẩn đoán cho đội kỹ thuật.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index",
+        "tro-giup/bao-loi"
+      ]
+    },
+    {
+      "ma": "TG-06",
+      "nhom": "TG",
+      "cau_chot": "Yêu cầu phát triển phần mềm",
+      "dien_giai": "Shop cần phần mềm riêng cho việc khác? Kể tụi mình nghe.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index",
+        "tro-giup/yeu-cau-phan-mem"
+      ]
+    },
+    {
+      "ma": "TIT-D",
+      "nhom": "TIT",
+      "cau_chot": "Khách nói shop gửi thiếu, gửi sai. Video nói đủ, nói đúng.",
+      "dien_giai": "Mỗi đơn shop gói đều có một video làm chứng: mã vận đơn và giờ đóng thẳng lên hình.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "TN-01",
+      "nhom": "TN",
+      "cau_chot": "Nhiều bàn đóng gói",
+      "dien_giai": "Một máy chạy được nhiều bàn, mỗi bàn một camera riêng.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "TN-02",
+      "nhom": "TN",
+      "cau_chot": "Tự xóa video cũ",
+      "dien_giai": "Đặt giữ bao nhiêu ngày, máy tự dọn — ổ cứng không bao giờ đầy vì video cũ.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "TN-03",
+      "nhom": "TN",
+      "cau_chot": "Tên nhân viên trong tên file",
+      "dien_giai": "Đầu ca nhập tên, video biết đơn đó ai gói.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "TN-04",
+      "nhom": "TN",
+      "cau_chot": "Nén thông minh",
+      "dien_giai": "5 mức dung lượng, tự nhận card màn hình để máy yếu vẫn quay mượt.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "TN-05",
+      "nhom": "TN",
+      "cau_chot": "Chống quét trùng",
+      "dien_giai": "Quét lại mã đã quay, máy kêu cảnh báo chứ không quay đè.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "TN-06",
+      "nhom": "TN",
+      "cau_chot": "Cảnh báo ổ đầy",
+      "dien_giai": "Ổ sắp đầy thì báo trước, nhưng vẫn cho quay — không bao giờ chặn shop giữa ca.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "TN-07",
+      "nhom": "TN",
+      "cau_chot": "Hai chế độ màu",
+      "dien_giai": "Nền tối cho phòng kín, nền sáng cho chỗ nhiều đèn.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index"
+      ]
+    },
+    {
+      "ma": "VD-01",
+      "nhom": "VD",
+      "cau_chot": "Xem một ca đóng gói thật, quay màn hình không cắt ghép.",
+      "dien_giai": "Toàn bộ tính năng cơ bản chạy trên máy thật — quét mã tự quay, tên file theo mã đơn, watermark mã và giờ, quay chiều về khi hàng hoàn, cảnh báo trùng đơn, tự dọn video cũ.",
+      "canh_cho_video": null,
+      "trang_su_dung": [
+        "index",
+        "tai-ve",
+        "tro-giup/huong-dan"
+      ]
+    }
+  ]
+}
