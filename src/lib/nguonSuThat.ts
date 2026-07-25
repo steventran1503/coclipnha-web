@@ -7,6 +7,7 @@ import nguonSuThat from "../data/nguon-su-that.json";
  * KHÔNG sửa tay — chạy lại script rồi copy đè khi mã app đổi.
  */
 
+export const bangMau = nguonSuThat.bang_mau;
 export const bangTrangThai = nguonSuThat.bang_trang_thai;
 export type TrangThai = keyof typeof bangTrangThai;
 export type CheDoMau = "dark" | "light";
@@ -53,8 +54,17 @@ const TRANG_THAI_GOC: Record<TrangThaiBang, TrangThai> = {
   warn: "warn",
 };
 
-/** Chữ chính của băng, lấy nguyên văn từ `chu_hien_thi_banner` (FR-006). */
-export function layChuBang(ten: TrangThaiBang): string {
+/**
+ * Chữ chính của băng, lấy nguyên văn từ `chu_hien_thi_banner` (FR-006).
+ *
+ * `maDon`: app THẬT nối mã đơn vào sau chữ băng lúc đang ghi —
+ * `"ĐANG GHI HÌNH: 861879430644"` (đối chiếu ảnh chụp màn hình app thật,
+ * `Screenshot app/dark thêm - đang ghi hình.png`). `nguon-su-that.json` chỉ
+ * giữ được phần KHUÔN vì mã đơn ghép lúc chạy, nên phần nối này làm ở đây.
+ * Đây là điểm PROMPT-SPEC-004 (RÀ SOÁT DEMO 24/07 điểm 2) để ngỏ "chốt sau:
+ * gộp hay tách đúng app" — ảnh app thật trả lời: GỘP.
+ */
+export function layChuBang(ten: TrangThaiBang, maDon?: string): string {
   const khoa = KHOA_RAW[ten];
   const chu = chuHienThiBanner[khoa];
   if (!chu) {
@@ -62,7 +72,7 @@ export function layChuBang(ten: TrangThaiBang): string {
       `Không tìm thấy chữ hiển thị cho trạng thái băng "${ten}" (khóa "${khoa}") trong nguon-su-that.json.`,
     );
   }
-  return chu;
+  return ten === "rec" && maDon ? `${chu}: ${maDon}` : chu;
 }
 
 /** Màu nền/chữ của băng trạng thái (bản Tối, theo demo đã duyệt). */
@@ -88,11 +98,26 @@ export function dongDaLuu(
 }
 
 /** Tên file video mô phỏng — điền đúng vào khuôn `ten_file_video.mau`, không gõ lại tay. */
-export function sinhTenFile(maDon: string, thoiGian: string, ten = "Hue"): string {
+export function sinhTenFile(
+  maDon: string,
+  thoiGian: string,
+  ten = "Hue",
+): string {
   return tenFileVideo.mau
     .replace("<QR>", maDon)
     .replace("<thoi_gian>", thoiGian)
     .replace("<TenNhanVien>", ten);
+}
+
+/** Dòng nhật ký "tự động dọn dẹp", điền số vào đúng mẫu `dong_log.don_dep`. */
+export function dongDonDep(
+  soVideo: number,
+  soNgay: number,
+  mb: number,
+): string {
+  const so = [soVideo, soNgay, mb];
+  let i = 0;
+  return dongLog.don_dep.replace(/<N>/g, () => String(so[i++]));
 }
 
 /** Dòng "QR: <mã>" của watermark, điền vào đúng mẫu `watermark.cac_dong` (không gõ lại "QR: "). */

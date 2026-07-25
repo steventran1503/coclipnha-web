@@ -19,13 +19,19 @@ interface Props {
 
 const { maDon, gio = "2026-07-25 09:12:30", gioSong = false } = Astro.props;
 
-const dongThoiGian = watermark.cac_dong.find((d) => d.startsWith("Time: {")) ?? "Time: {timestamp}";
+const dongThoiGian =
+  watermark.cac_dong.find((d) => d.startsWith("Time: {")) ??
+  "Time: {timestamp}";
 const dongBrand =
   watermark.cac_dong.find((d) => d.toLowerCase().includes("rec by")) ??
   "Rec by Coclipnha";
 ---
 
-<div class="watermark" data-ma-don={maDon} data-gio-song={gioSong ? "1" : undefined}>
+<div
+  class="watermark"
+  data-ma-don={maDon}
+  data-gio-song={gioSong ? "1" : undefined}
+>
   <span data-vai="wm-qr">{dongQr(maDon)}</span><br />
   <span data-vai="wm-gio">{dongThoiGian.replace("{timestamp}", gio)}</span>
 </div>
@@ -75,7 +81,9 @@ const dongBrand =
     const d = new Date();
     const gio = `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())} ${p2(d.getHours())}:${p2(d.getMinutes())}:${p2(d.getSeconds())}`;
     document
-      .querySelectorAll<HTMLElement>('.watermark[data-gio-song="1"] [data-vai="wm-gio"]')
+      .querySelectorAll<HTMLElement>(
+        '.watermark[data-gio-song="1"] [data-vai="wm-gio"]',
+      )
       .forEach((el) => (el.textContent = `Time: ${gio}`));
   }
   capNhat();

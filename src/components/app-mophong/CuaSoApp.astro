@@ -1,0 +1,317 @@
+---
+// Cửa sổ CoClipNha dựng lại ĐẦY ĐỦ (T054, FR-025) — hồn cốt hướng "Ca trực"
+// đã duyệt: người xem nhìn phát là nhận ra "đây đúng là màn hình app", nên câu
+// chú thích "shop tải về là gặp đúng màn hình này" mới là câu nói thật.
+//
+// NGUỒN SỰ THẬT cho khối này, theo thứ tự ưu tiên:
+//  1. `nguon-su-that.json` (màu, chữ trạng thái, khuôn log/tên file/watermark)
+//     — mọi màu dưới đây đọc qua `bangMau`, KHÔNG gõ lại mã màu (FR-006).
+//  2. Ảnh chụp màn hình app thật `Screenshot app/dark thêm - đang ghi hình.png`
+//     — cho phần chữ nhãn giao diện mà script chưa xuất được (tên thẻ bên phải,
+//     thanh công cụ dưới). Chép đúng chữ trong ảnh, không tự đặt chữ mới.
+//
+// MỘT CHỖ CỐ Ý LỆCH ẢNH APP: dòng phụ thẻ ổ cứng. App thật ghi "Đủ chỗ cho
+// ~251 giờ quay nữa" — con số này đã bị chủ dự án bác là SAI (PROMPT-SPEC-004,
+// RÀ SOÁT DEMO 24/07 điểm 3: "Thẻ ổ cứng: bỏ '251 giờ' (sai), diễn đạt mềm").
+// Web dùng câu mềm; đây là lệch CÓ CHỦ ĐÍCH, không phải quên đồng bộ.
+import { bangMau } from "../../lib/nguonSuThat";
+
+interface Props {
+  /** Chú thích dưới cửa sổ (mỗi trang tự viết cho hợp ngữ cảnh). */
+  id?: string;
+}
+
+const { id } = Astro.props;
+const mau = bangMau.dark;
+---
+
+<div
+  class="cua-so"
+  id={id}
+  style={`--app-bg:${mau.bg};--app-panel:${mau.panel};--app-bd:${mau.panel_bd};--app-bottom:${mau.bottom};--app-text:${mau.text};--app-muted:${mau.muted};--app-teal:${mau.teal};--app-teal-ink:${mau.teal_ink};--app-stop-bg:${mau.stop_bg};--app-stop-fg:${mau.stop_fg};--app-btn:${mau.btn_bg};--app-exit:${mau.exit_fg};--app-disk-ok:${mau.disk_ok};`}
+>
+  <!-- Thanh tiêu đề cửa sổ Windows của app (ảnh app thật: chỉ "CoClipNha PRO v2.0") -->
+  <div class="thanh-tieu-de">
+    <span class="logo-c" aria-hidden="true"></span>
+    <span class="ten-app">CoClipNha PRO v2.0</span>
+    <span class="nut-ws" aria-hidden="true">—&nbsp;▢&nbsp;✕</span>
+  </div>
+
+  <!-- Băng trạng thái (component truyền vào qua slot "bang") -->
+  <slot name="bang" />
+
+  <div class="than">
+    <div class="o-khung"><slot /></div>
+
+    <aside class="cot-phai">
+      <div class="the-mini the-mini--thuong-hieu">
+        <span class="logo-c logo-c--to" aria-hidden="true"></span>
+        <div>
+          <strong>CoClipNha</strong>
+          <span class="nhan-pro">PRO v2.0</span>
+          <div class="khau-hieu">Vì một Việt Nam không còn tráo hàng.</div>
+          <div class="tai-tro">Sponsored by ZIN ZIN MOTOR</div>
+        </div>
+      </div>
+
+      <span class="nut-donate">🎁 Donate ủng hộ CoClipNha Team</span>
+
+      <div class="the-mini">
+        <div class="tieu-de-mini">👤 Nhân viên đóng gói</div>
+        <div class="o-nhap">Tên Nhân Viên</div>
+        <div class="ghi-chu-mini">✓ Ca từ 15:30 · đã làm 0 giờ 9 phút</div>
+      </div>
+
+      <div class="the-mini">
+        <div class="tieu-de-mini">📅 Hôm nay</div>
+        <div class="o-so">
+          <div><span class="so">13</span><small>video đã quay</small></div>
+          <div><span class="so">0g 09p</span><small>tổng giờ quay</small></div>
+        </div>
+      </div>
+
+      <div class="the-mini">
+        <div class="tieu-de-mini">💾 Ổ lưu video (D:)</div>
+        <div class="thanh-o"><div class="thanh-o-day"></div></div>
+        <strong class="o-trong">Còn trống 377 GB — thoải mái</strong>
+        <div class="ghi-chu-mini">Còn quay thoải mái nhiều tháng nữa</div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Thanh công cụ dưới (chữ chép đúng ảnh app thật) -->
+  <div class="thanh-duoi" aria-hidden="true">
+    <span class="o-gia">📋 Nhật ký ▾</span>
+    <span class="o-gia an-mobile">📷 Camera 0 ▾</span>
+    <span class="o-gia an-mobile">🔔 Âm báo: 1 ▾</span>
+    <span class="dem"></span>
+    <span class="nut-gia nut-gia--teal">📦 Đơn Ngoài</span>
+    <span class="nut-gia nut-gia--do">⏹ Dừng</span>
+    <span class="nut-gia nut-gia--xam an-mobile">⚙</span>
+    <span class="nut-gia nut-gia--xam an-mobile">📁</span>
+    <span class="nut-gia nut-gia--thoat">⎋ Thoát</span>
+  </div>
+
+  <slot name="nhat-ky" />
+</div>
+
+<style>
+  .cua-so {
+    background: var(--app-bg);
+    border: 1px solid var(--app-bd);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.5);
+  }
+  .thanh-tieu-de {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.42rem 0.8rem;
+    background: var(--app-bottom);
+    border-bottom: 1px solid var(--app-bd);
+    font-size: 0.76rem;
+    color: var(--app-muted);
+  }
+  .ten-app {
+    flex: 1;
+  }
+  .nut-ws {
+    letter-spacing: 0.1em;
+  }
+  .logo-c {
+    width: 0.95rem;
+    height: 0.95rem;
+    border-radius: 50%;
+    border: 2.5px solid var(--app-teal);
+    border-right-color: transparent;
+    position: relative;
+    flex: none;
+  }
+  .logo-c::after {
+    content: "";
+    position: absolute;
+    inset: 25%;
+    background: var(--do);
+    border-radius: 1.5px;
+  }
+  .logo-c--to {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-width: 3.5px;
+  }
+
+  .than {
+    display: grid;
+    grid-template-columns: 1fr 15.5rem;
+    gap: 0.7rem;
+    padding: 0.7rem;
+  }
+  .o-khung {
+    min-width: 0;
+  }
+  .cot-phai {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    font-size: 0.8rem;
+  }
+  .the-mini {
+    background: var(--app-panel);
+    border: 1px solid var(--app-bd);
+    border-radius: 8px;
+    padding: 0.6rem 0.7rem;
+    color: var(--app-text);
+  }
+  .the-mini--thuong-hieu {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .the-mini strong {
+    font-family: var(--font-tit);
+    font-size: 1rem;
+  }
+  .nhan-pro {
+    font-size: 0.58rem;
+    letter-spacing: 0.06em;
+    background: var(--app-teal);
+    color: var(--app-teal-ink);
+    border-radius: 4px;
+    padding: 0.05rem 0.3rem;
+    vertical-align: 2px;
+  }
+  .khau-hieu {
+    color: var(--app-teal);
+    font-size: 0.7rem;
+    line-height: 1.4;
+    margin-top: 0.15rem;
+  }
+  .tai-tro {
+    color: var(--app-muted);
+    font-size: 0.62rem;
+  }
+  .nut-donate {
+    display: block;
+    text-align: center;
+    background: var(--app-teal);
+    color: var(--app-teal-ink);
+    border-radius: 8px;
+    padding: 0.45rem 0.5rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+  .tieu-de-mini {
+    font-size: 0.66rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--app-muted);
+    margin-bottom: 0.35rem;
+  }
+  .o-nhap {
+    background: var(--app-bg);
+    border: 1px solid var(--app-bd);
+    border-radius: 6px;
+    padding: 0.35rem 0.55rem;
+    font-size: 0.92rem;
+    font-weight: 700;
+  }
+  .ghi-chu-mini {
+    color: var(--app-muted);
+    font-size: 0.66rem;
+    margin-top: 0.3rem;
+    line-height: 1.45;
+  }
+  .o-so {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+  }
+  .o-so > div {
+    background: var(--app-bg);
+    border: 1px solid var(--app-bd);
+    border-radius: 6px;
+    padding: 0.35rem 0.5rem;
+  }
+  .o-so .so {
+    display: block;
+    font-family: var(--font-tit);
+    font-size: 1.15rem;
+    line-height: 1.2;
+  }
+  .o-so small {
+    color: var(--app-muted);
+    font-size: 0.6rem;
+  }
+  .thanh-o {
+    height: 0.35rem;
+    border-radius: 99px;
+    background: var(--log-nen);
+    overflow: hidden;
+    margin: 0.15rem 0 0.35rem;
+  }
+  .thanh-o-day {
+    width: 18%;
+    height: 100%;
+    background: var(--app-disk-ok);
+  }
+  .o-trong {
+    font-size: 0.78rem;
+  }
+
+  .thanh-duoi {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    padding: 0.45rem 0.7rem;
+    background: var(--app-bottom);
+    border-top: 1px solid var(--app-bd);
+    font-size: 0.7rem;
+    color: var(--app-muted);
+  }
+  .dem {
+    flex: 1;
+  }
+  .nut-gia {
+    border-radius: 6px;
+    padding: 0.25rem 0.6rem;
+    font-weight: 700;
+  }
+  .nut-gia--teal {
+    background: var(--app-teal);
+    color: var(--app-teal-ink);
+  }
+  .nut-gia--do {
+    background: var(--app-stop-bg);
+    color: var(--app-stop-fg);
+  }
+  .nut-gia--xam {
+    background: var(--app-btn);
+    color: var(--app-text);
+  }
+  .nut-gia--thoat {
+    background: var(--app-btn);
+    color: var(--app-exit);
+  }
+
+  /* Điện thoại: cột phải xuống dưới khung hình, bỏ vài ô công cụ phụ cho gọn
+     — vẫn giữ đủ hình dạng "cửa sổ app" (thanh tiêu đề + khung + thẻ + thanh
+     công cụ), không rút thành khung camera trần (FR-025). */
+  @media (max-width: 860px) {
+    .than {
+      grid-template-columns: 1fr;
+    }
+    .cot-phai {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    }
+    .the-mini--thuong-hieu,
+    .nut-donate {
+      grid-column: 1 / -1;
+    }
+    .an-mobile {
+      display: none;
+    }
+  }
+</style>

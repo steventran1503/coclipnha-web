@@ -1,40 +1,40 @@
 ---
-// Trang chủ (US1, T025) — ghép đúng bản đồ mục 9 kho-thong-diep.md:
-// TIT-D → ND-02 → GP-04 → HD-01..03 → GP-01,02,03 → GP-06,07 → GP-05 →
-// BC-01 → TN (bảng) → SM-01 → VD-01 → KG-01 → TG-01..06.
+// Trang chủ (US1 + đợt vá Phase 3b) — ghép đúng bản đồ mục 9 kho-thong-diep.md:
+// TIT-D (+ dòng 3 nhịp) → ND-02 → GP-04 → HD-01..03 → GP-01 + ND-04 + SS →
+// GP-03 → GP-02 → GP-06,07 → GP-05 → TB-03 → BC-01 → TN (bảng) → SM-01 →
+// VD-01 → KG-01 → TG-01..06 → KN-02.
 // Mọi đoạn nội dung thực chất đọc qua layKhoi() (content collection T012),
 // không hardcode chữ (FR-003) — chỉ nhãn/tiêu đề trang trí (eyebrow, "Bước
 // 1/2/3"...) là chữ chương trình, không phải nội dung marketing.
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BangTrangThai from "../components/app-mophong/BangTrangThai.astro";
 import Watermark from "../components/app-mophong/Watermark.astro";
+import DongNhatKy from "../components/app-mophong/DongNhatKy.astro";
 import QuetThu from "../components/app-mophong/QuetThu.astro";
 import YoutubeFacade from "../components/YoutubeFacade.astro";
 import NguoiDungDauTien from "../components/NguoiDungDauTien.astro";
-import VanBan from "../components/VanBan.astro";
 import { layKhoi } from "../lib/khoiNoiDung";
 import { duongDan } from "../lib/duongDan";
+import { dongDonDep, sinhTenFile, bangMau } from "../lib/nguonSuThat";
 
-// Mã vận đơn Shopee THẬT (chủ dự án cấp 25/07/2026, khách hàng ZIN ZIN
-// MOTOR — cùng nguồn ảnh với docs/web/demo-ca-truc/van-don-shopee.jpg, đã đối
-// chiếu MD5 khớp bit-for-bit). Dùng thay cho mã bịa (861879430644,
-// SPX1234567) ở mọi chỗ trang chủ minh hoạ MỘT đơn cụ thể (GP-04, GP-01,
-// GP-03) — không dùng mã tự đặt cho một giao dịch cụ thể nữa.
-const MA_DON_THAT = "SHOPEEVTPVN2606875138465";
+// Hai mã vận đơn Shopee THẬT của ZIN ZIN MOTOR (chủ dự án cấp 24-25/07/2026).
+// Dùng ở mọi chỗ trang chủ minh hoạ một đơn cụ thể — không dùng mã tự đặt.
+const MA_DON_1 = "SHOPEEVTPVN2606875138465";
 
 const titD = await layKhoi("TIT-D");
 const nd02 = await layKhoi("ND-02");
+const nd04 = await layKhoi("ND-04");
 const gp04 = await layKhoi("GP-04");
-const hd01 = await layKhoi("HD-01");
-const hd02 = await layKhoi("HD-02");
-const hd03 = await layKhoi("HD-03");
+const hd = await Promise.all(["HD-01", "HD-02", "HD-03"].map(layKhoi));
 const gp01 = await layKhoi("GP-01");
 const gp02 = await layKhoi("GP-02");
 const gp03 = await layKhoi("GP-03");
 const gp06 = await layKhoi("GP-06");
 const gp07 = await layKhoi("GP-07");
 const gp05 = await layKhoi("GP-05");
+const tb03 = await layKhoi("TB-03");
 const bc01 = await layKhoi("BC-01");
+const ss = await Promise.all(["SS-01", "SS-02", "SS-03", "SS-04"].map(layKhoi));
 // TN-05 (chống quét trùng) tách riêng khỏi bảng — dùng làm thẻ giải thích
 // "vì sao băng phía trên đang vàng" (mục này đặt data-bang="warn"), tránh
 // hiện trùng 2 lần trên cùng trang (giống cách bản demo đã tách).
@@ -45,6 +45,7 @@ const tn = await Promise.all(
 const sm01 = await layKhoi("SM-01");
 const vd01 = await layKhoi("VD-01");
 const kg01 = await layKhoi("KG-01");
+const kn02 = await layKhoi("KN-02");
 const tg = await Promise.all(
   ["TG-01", "TG-02", "TG-03", "TG-04", "TG-05", "TG-06"].map(layKhoi),
 );
@@ -56,26 +57,94 @@ const TG_SLUG: Record<string, string> = {
   "TG-05": "tro-giup/bao-loi/",
   "TG-06": "tro-giup/yeu-cau-phan-mem/",
 };
+
+/**
+ * Tách ND-02 thành: đoạn mở đầu → 2 thẻ "Kiểu tráo thẳng"/"Kiểu dùng rồi trả"
+ * → đoạn kết (T061). Đọc THẲNG từ khối ND-02, không chép tay lại chữ (FR-003):
+ * hai kiểu đã được đánh dấu **in đậm** ngay trong kho thông điệp.
+ *
+ * Nếu sau này chủ dự án sửa ND-02 mất dấu in đậm, hàm rơi về trường hợp "không
+ * tách được" và trả nguyên đoạn văn — mất bố cục 2 thẻ chứ KHÔNG mất chữ nào.
+ */
+function tachHaiKieu(text: string) {
+  const phan = text.split("**");
+  if (phan.length < 5) return { moDau: text, the: [], ket: "" };
+  const moDau = phan[0].trim();
+  const the: { tieuDe: string; than: string }[] = [];
+  let ket = "";
+  for (let i = 1; i + 1 < phan.length; i += 2) {
+    let than = phan[i + 1].replace(/^:\s*/, "").trim();
+    // Câu tổng kết đứng sau thẻ cuối (mở đầu bằng "Cả hai…") tách ra làm đoạn
+    // kết; không khớp thì giữ nguyên trong thẻ — không bao giờ mất chữ.
+    const cat = than.search(/(?:^|\s)Cả hai\b/);
+    if (cat > -1) {
+      ket = than.slice(cat).trim();
+      than = than.slice(0, cat).trim();
+    }
+    // Trong kho, thân thẻ viết tiếp sau dấu hai chấm nên bắt đầu bằng chữ
+    // thường ("…: shop gửi đi…"); tách ra đứng riêng thành câu thì phải viết hoa.
+    than = than.charAt(0).toUpperCase() + than.slice(1);
+    the.push({ tieuDe: phan[i].trim(), than });
+  }
+  return { moDau, the, ket };
+}
+const nd02Tach = tachHaiKieu(nd02.data.dien_giai);
+
+// Hai video cùng một đơn, hai mốc giờ khác nhau (GP-02) — tên file sinh từ
+// đúng khuôn `ten_file_video` trong nguồn sự thật, không gõ tay (FR-006).
+const FILE_GUI_DI = sinhTenFile(MA_DON_1, "2026-07-10_09-12-30");
+const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
 ---
 
-<BaseLayout tieuDe={`CoClipNha — ${titD.data.cau_chot}`} moTaMeta={titD.data.dien_giai}>
+<BaseLayout
+  tieuDe={`CoClipNha — ${titD.data.cau_chot}`}
+  moTaMeta={titD.data.dien_giai}
+>
   <BangTrangThai trangThai="ready" variant="trang" id="bang-trang" />
 
   <!-- ============ HERO (TIT-D) ============ -->
-  <header class="khoi" id="canh-hero" data-bang="nen" style="padding-top:2.4rem;">
-    <span class="nhan-log">phần mềm miễn phí cho bàn đóng gói của shop Việt</span>
-    <h1 style="font-size:clamp(2rem,6.4vw,3.5rem);max-width:19ch;">
-      {titD.data.cau_chot}
+  <header
+    class="khoi"
+    id="canh-hero"
+    data-bang="nen"
+    style="padding-top:2.4rem;"
+  >
+    <span class="nhan-log"
+      >phần mềm miễn phí cho bàn đóng gói của shop Việt</span
+    >
+    <h1 class="tit-hero">
+      {
+        titD.data.cau_chot.split(". ").map((cau, i) => (
+          <span class={i === 0 ? "" : "diem-teal"}>
+            {i === 0 ? cau + "." : cau}
+            <br />
+          </span>
+        ))
+      }
     </h1>
-    <p class="mo-dau" style="margin:1.2rem 0 1.8rem;">{titD.data.dien_giai}</p>
+    <p class="mo-dau" style="margin:1.2rem 0 1.3rem;">{titD.data.dien_giai}</p>
+
+    <!-- Dòng 3 nhịp (FR-022): tóm cả quy trình trong một hơi, ngay dưới tít -->
+    <p class="ba-nhip may">
+      <span>📦 quét mã vận đơn</span><span class="mui-ten" aria-hidden="true"
+        >→</span
+      ><span>🔴 máy tự quay</span><span class="mui-ten" aria-hidden="true"
+        >→</span
+      ><span>🎞 video mang tên mã đơn</span>
+    </p>
+
     <p style="display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2.4rem;">
-      <a class="nut nut--chinh" href={duongDan("tai-ve/")}>{kg01.data.cau_chot}</a>
+      <a class="nut nut--chinh" href={duongDan("tai-ve/")}
+        >{kg01.data.nut ?? kg01.data.cau_chot}</a
+      >
       <a class="nut nut--vien" href="#video-that">Xem app chạy thật</a>
     </p>
+
     <QuetThu />
     <p class="chu-mo" style="font-size:.85rem;margin-top:.8rem;">
-      ▲ Cảnh dựng lại từ giao diện thật: chữ, màu, tên file lấy đúng từ phần mềm
-      — shop tải về là gặp đúng màn hình này. Bấm nút để xem lại.
+      ▲ Cảnh dựng lại từ giao diện thật: chữ, màu, tên file, dòng nhật ký lấy
+      đúng từ phần mềm — shop tải về là gặp đúng màn hình này. Bấm nút để xem
+      lại.
     </p>
   </header>
 
@@ -85,24 +154,50 @@ const TG_SLUG: Record<string, string> = {
       >chuyện xảy ra khi chưa có gì làm chứng</span
     >
     <h2>{nd02.data.cau_chot}</h2>
-    <p class="mo-dau"><VanBan text={nd02.data.dien_giai} /></p>
+    <p class="mo-dau">{nd02Tach.moDau}</p>
+    {
+      nd02Tach.the.length > 0 && (
+        <div class="luoi" style="margin-top:1.6rem;">
+          {nd02Tach.the.map((t) => (
+            <div class="the-app the-app--do hien">
+              <div class="tieu-de-the">{t.tieuDe}</div>
+              <p style="font-size:.95rem;color:var(--chu-diu);">{t.than}</p>
+            </div>
+          ))}
+        </div>
+      )
+    }
+    {
+      nd02Tach.ket && (
+        <p style="margin-top:1.6rem;color:var(--chu-diu);">{nd02Tach.ket}</p>
+      )
+    }
   </section>
 
   <!-- ============ GP-04: HÀNG HOÀN ============ -->
-  <section class="khoi" data-bang="rec" data-ma={MA_DON_THAT}>
+  <section class="khoi" data-bang="rec" data-ma={MA_DON_1}>
     <span class="nhan-log">khác biệt lớn nhất — chưa đối thủ nào có</span>
     <h2>{gp04.data.cau_chot}</h2>
     <p class="mo-dau" style="margin-bottom:1.6rem;">{gp04.data.dien_giai}</p>
     <div class="hai-canh hien">
       <div class="canh">
         <span class="nhan-canh">LÚC GỬI ĐI</span>
-        <Watermark maDon={MA_DON_THAT} gio="2026-07-10 09:12:30" />
+        <!-- Vật thể trong khung phải NHÌN THẤY được tương phản nhau, nếu không
+             câu "đặt cạnh nhau là thấy ngay bên trong đã đổi hay chưa" thành
+             câu nói suông (T060). Ví dụ lấy đúng từ ND-02: sạc dự phòng ↔ quần cũ. -->
+        <div class="vat vat--hop">HỘP SẠC<br />NGUYÊN SEAL</div>
+        <Watermark maDon={MA_DON_1} gio="2026-07-10 09:12:30" />
       </div>
       <div class="canh canh--sau">
         <span class="nhan-canh">LÚC NHẬN VỀ</span>
-        <Watermark maDon={MA_DON_THAT} gio="2026-07-18 16:45:02" />
+        <div class="vat vat--quan">QUẦN CŨ<br />KHÔNG PHẢI HÀNG</div>
+        <Watermark maDon={MA_DON_1} gio="2026-07-18 16:45:02" />
       </div>
     </div>
+    <p class="chu-mo" style="font-size:.85rem;margin-top:.8rem;">
+      ▲ Cảnh dựng lại để minh hoạ. Cùng một mã đơn — hai mốc giờ đóng sẵn trên
+      hình.
+    </p>
   </section>
 
   <!-- ============ HD-01..03: BA BƯỚC ============ -->
@@ -110,60 +205,123 @@ const TG_SLUG: Record<string, string> = {
     <span class="nhan-log">cách dùng — đúng ba bước, không có bước thứ tư</span>
     <h2>Việc của shop vẫn y như mọi ngày</h2>
     <div class="luoi" style="margin-top:1.6rem;">
-      <div class="the-app the-app--teal hien">
-        <div class="tieu-de-the">Bước 1</div>
-        <p>{hd01.data.cau_chot}</p>
-      </div>
-      <div class="the-app the-app--teal hien">
-        <div class="tieu-de-the">Bước 2</div>
-        <p>{hd02.data.cau_chot}</p>
-      </div>
-      <div class="the-app the-app--teal hien">
-        <div class="tieu-de-the">Bước 3</div>
-        <p>{hd03.data.cau_chot}</p>
-      </div>
+      {
+        hd.map((k, i) => (
+          <div class="the-app the-app--teal hien">
+            <div class="tieu-de-the">Bước {i + 1}</div>
+            <p style="font-size:.95rem;color:var(--chu-diu);">
+              {k.data.cau_chot}
+            </p>
+          </div>
+        ))
+      }
     </div>
   </section>
 
-  <!-- ============ GP-01 ============ -->
-  <section class="khoi khoi--hep" data-bang="rec" data-ma={MA_DON_THAT}>
+  <!-- ============ GP-01 + ND-04 + SS: BẢNG SO SÁNH ============ -->
+  <section class="khoi khoi--hep" data-bang="rec" data-ma={MA_DON_1}>
     <span class="nhan-log">vì sao không đơn nào bị sót</span>
     <h2>{gp01.data.cau_chot}</h2>
     <p class="mo-dau">{gp01.data.dien_giai}</p>
+
+    <!-- FR-023: chỉ so với quay bằng điện thoại, KHÔNG so với đối thủ nào -->
+    <h3 style="margin:2.4rem 0 .6rem;">{nd04.data.cau_chot}</h3>
+    <p class="mo-dau" style="margin-bottom:1.4rem;">{nd04.data.dien_giai}</p>
+    <div style="overflow-x:auto;">
+      <table class="bang-tn bang-ss hien">
+        <tr>
+          <td></td>
+          <td class="cot-dt">Quay bằng điện thoại</td>
+          <td class="cot-ccn">CoClipNha</td>
+        </tr>
+        {
+          ss.map((k) => (
+            <tr>
+              <td>{k.data.cau_chot}</td>
+              <td class="cot-dt">{k.data.dien_giai}</td>
+              <td class="cot-ccn">{k.data.cot_them[0]}</td>
+            </tr>
+          ))
+        }
+      </table>
+    </div>
   </section>
 
   <!-- ============ GP-03: WATERMARK GIỜ THẬT ============ -->
-  <section class="khoi" data-bang="rec" data-ma={MA_DON_THAT}>
+  <section class="khoi" data-bang="rec" data-ma={MA_DON_1}>
     <span class="nhan-log">mã và giờ đóng thẳng lên hình</span>
     <h2>{gp03.data.cau_chot}</h2>
     <p class="mo-dau" style="margin-bottom:1.6rem;">{gp03.data.dien_giai}</p>
     <div class="khung-minh-hoa hien">
-      <Watermark maDon={MA_DON_THAT} gioSong={true} />
+      <span class="ghi-chu-khung">(bàn gói của shop)</span>
+      <Watermark maDon={MA_DON_1} gioSong={true} />
     </div>
   </section>
 
-  <!-- ============ GP-02 ============ -->
+  <!-- ============ GP-02: TÌM LẠI VIDEO ============ -->
   <section class="khoi khoi--hep khoi--noi-full" data-bang="saved">
     <span class="nhan-log">lúc khách khiếu nại — tìm lại trong 5 giây</span>
     <h2>{gp02.data.cau_chot}</h2>
-    <p class="mo-dau">{gp02.data.dien_giai}</p>
+    <p class="mo-dau" style="margin-bottom:1.6rem;">{gp02.data.dien_giai}</p>
+    <!-- T062: chứng minh trực quan cho câu "dán vào, video hiện ra" -->
+    <DongNhatKy
+      dong={[
+        { loai: "mo", text: `Thư mục video · tìm: ${MA_DON_1}` },
+        { loai: "ok", text: `▸ ${FILE_GUI_DI}` },
+        { loai: "ok", text: `▸ ${FILE_NHAN_VE}` },
+        { loai: "mo", text: "— hai video: lúc gửi đi, và lúc mở hàng hoàn" },
+      ]}
+    />
   </section>
 
   <!-- ============ GP-06 + GP-07 ============ -->
   <section class="khoi" data-bang="ready">
     <span class="nhan-log">còn ổ cứng thì sao?</span>
     <h2>{gp06.data.cau_chot}</h2>
-    <p class="mo-dau">{gp06.data.dien_giai}</p>
-    <p class="mo-dau" style="margin-top:1rem;">
-      <strong>{gp07.data.cau_chot}</strong> {gp07.data.dien_giai}
-    </p>
+    <div class="luoi" style="margin-top:1.6rem;align-items:start;">
+      <div>
+        <p class="mo-dau">{gp06.data.dien_giai}</p>
+        <p class="mo-dau" style="margin-top:1rem;">
+          <strong>{gp07.data.cau_chot}</strong>{" "}{gp07.data.dien_giai}
+        </p>
+      </div>
+      <div>
+        <!-- T063: thẻ ổ cứng + dòng tự dọn — chữ và màu lấy từ app thật -->
+        <div class="the-app the-app--teal hien" style="margin-bottom:1rem;">
+          <div class="tieu-de-the">💾 Ổ lưu video (D:)</div>
+          <div class="thanh-o">
+            <div
+              class="thanh-o-day"
+              style={`background:${bangMau.dark.disk_ok};`}
+            >
+            </div>
+          </div>
+          <strong>Còn trống 377 GB — thoải mái</strong>
+          <div class="chu-mo" style="font-size:.85rem;">
+            Còn quay thoải mái nhiều tháng nữa
+          </div>
+        </div>
+        <DongNhatKy dong={[{ loai: "vang", text: dongDonDep(40, 30, 512) }]} />
+      </div>
+    </div>
   </section>
 
   <!-- ============ GP-05 ============ -->
-  <section class="khoi khoi--hep khoi--noi-full khoi--teal-vien" data-bang="ready">
+  <section
+    class="khoi khoi--hep khoi--noi-full khoi--teal-vien"
+    data-bang="ready"
+  >
     <span class="nhan-log">video của shop là của shop</span>
     <h2>{gp05.data.cau_chot}</h2>
     <p class="mo-dau">{gp05.data.dien_giai}</p>
+  </section>
+
+  <!-- ============ TB-03: TIỀN BỎ RA vs TIỀN MẤT (đúng 1 dòng, FR-024) ====== -->
+  <section class="khoi khoi--hep" data-bang="ready">
+    <p class="cau-roi">{tb03.data.cau_chot}</p>
+    <p class="chu-mo" style="font-size:.9rem;margin-top:.5rem;">
+      {tb03.data.dien_giai}
+    </p>
   </section>
 
   <!-- ============ BC-01 + TN ============ -->
@@ -196,7 +354,9 @@ const TG_SLUG: Record<string, string> = {
   <!-- ============ NGƯỜI DÙNG ĐẦU TIÊN ============ -->
   <section class="khoi" data-bang="nen">
     <span class="nhan-log">người dùng đầu tiên</span>
-    <h2>Người dùng đầu tiên <span class="diem-teal">vẫn đang dùng mỗi ngày</span></h2>
+    <h2>
+      Người dùng đầu tiên <span class="diem-teal">vẫn đang dùng mỗi ngày</span>
+    </h2>
     <div class="hien" style="margin-top:1.6rem;">
       <NguoiDungDauTien />
     </div>
@@ -232,18 +392,24 @@ const TG_SLUG: Record<string, string> = {
     style="text-align:center;"
   >
     <h2>Tải CoClipNha về bàn gói của shop</h2>
-    <p style="display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-top:1.4rem;">
+    <p
+      style="display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-top:1.4rem;"
+    >
       <a
         class="nut nut--chinh"
         href={duongDan("tai-ve/")}
-        style="font-size:1.15rem;padding:1rem 2.4rem;">{kg01.data.cau_chot}</a
+        style="font-size:1.15rem;padding:1rem 2.4rem;"
+        >{kg01.data.nut ?? kg01.data.cau_chot}</a
       >
-      <a class="nut nut--vien" href={duongDan("ung-ho/")}>🎁 Ủng hộ CoClipNha</a>
+      <a class="nut nut--vien" href={duongDan("ung-ho/")}>🎁 Ủng hộ CoClipNha</a
+      >
     </p>
-    <p class="chu-mo" style="font-size:.9rem;margin-top:.8rem;">{kg01.data.dien_giai}</p>
+    <p class="chu-mo" style="font-size:.9rem;margin-top:.8rem;">
+      {kg01.data.dien_giai}
+    </p>
   </section>
 
-  <!-- ============ TG-01..06: TRỢ GIÚP ============ -->
+  <!-- ============ TG-01..06 + KN-02: TRỢ GIÚP ============ -->
   <section class="khoi" data-bang="nen">
     <span class="nhan-log">trợ giúp &amp; phản hồi</span>
     <h2>Cần gì thêm, vào đây</h2>
@@ -257,10 +423,47 @@ const TG_SLUG: Record<string, string> = {
         ))
       }
     </div>
+    <!-- T068: kênh hỏi nhanh (KN-02) — link m.me thật chờ chủ dự án cấp (FR-021) -->
+    <div class="the-app the-app--teal hien hoi-nhanh">
+      <div>
+        <strong style="font-family:var(--font-tit);font-size:1.05rem;"
+          >{kn02.data.cau_chot}</strong
+        >
+        <p style="font-size:.92rem;color:var(--chu-diu);margin-top:.2rem;">
+          {kn02.data.dien_giai}
+        </p>
+      </div>
+      <span class="nut nut--vien nut-cho"
+        >💬 {kn02.data.nut} — đang chờ link</span
+      >
+    </div>
   </section>
 </BaseLayout>
 
 <style>
+  .tit-hero {
+    font-size: clamp(2rem, 6.4vw, 3.5rem);
+    max-width: 17ch;
+  }
+  .ba-nhip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.7rem;
+    color: var(--teal);
+    font-size: clamp(0.78rem, 2.2vw, 0.95rem);
+    margin-bottom: 1.9rem;
+  }
+  .ba-nhip .mui-ten {
+    opacity: 0.55;
+  }
+  .cau-roi {
+    font-family: var(--font-tit);
+    font-size: clamp(1.15rem, 3.2vw, 1.6rem);
+    line-height: 1.4;
+    border-left: 3px solid var(--teal);
+    padding-left: 1rem;
+  }
   .logo-c {
     width: 1rem;
     height: 1rem;
@@ -293,6 +496,35 @@ const TG_SLUG: Record<string, string> = {
   .hai-canh .canh--sau {
     background: linear-gradient(160deg, #2a2320, #171210);
   }
+  .vat {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: var(--font-may);
+    font-size: clamp(0.6rem, 1.6vw, 0.8rem);
+    line-height: 1.4;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  }
+  .vat--hop {
+    transform: translate(-50%, -50%);
+    width: 40%;
+    aspect-ratio: 1.1;
+    background: linear-gradient(#2b3a55, #22304a);
+    border-radius: 6px;
+    color: #9fc2ff;
+  }
+  .vat--quan {
+    transform: translate(-50%, -50%) rotate(6deg);
+    width: 52%;
+    aspect-ratio: 1.6;
+    background: linear-gradient(#4a3f33, #332b22);
+    border-radius: 40% 45% 42% 47%;
+    color: #d8c6a8;
+  }
   .nhan-canh {
     position: absolute;
     top: 0.7rem;
@@ -311,6 +543,53 @@ const TG_SLUG: Record<string, string> = {
     border-radius: 10px;
     border: 1px solid var(--vien);
     background: linear-gradient(150deg, #151e2e 0%, #0c111a 70%);
+  }
+  .ghi-chu-khung {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    transform: translate(-50%, -50%);
+    color: var(--chu-mo);
+    font-size: 0.9rem;
+  }
+  .bang-ss td {
+    white-space: normal;
+  }
+  .bang-ss tr:first-child td {
+    font-weight: 700;
+  }
+  .bang-ss .cot-dt {
+    color: var(--chu-mo);
+  }
+  .bang-ss .cot-ccn {
+    color: var(--teal);
+  }
+  .thanh-o {
+    height: 0.45rem;
+    border-radius: 99px;
+    background: var(--log-nen);
+    overflow: hidden;
+    margin: 0.4rem 0 0.5rem;
+  }
+  .thanh-o-day {
+    width: 18%;
+    height: 100%;
+  }
+  .hoi-nhanh {
+    margin-top: 1.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hoi-nhanh > div {
+    flex: 1 1 16rem;
+  }
+  .nut-cho {
+    flex: none;
+    opacity: 0.75;
+    cursor: default;
+    font-size: 0.9rem;
   }
   @media (max-width: 640px) {
     .hai-canh {
@@ -332,19 +611,20 @@ const TG_SLUG: Record<string, string> = {
   // Băng bám đỉnh: đổi theo mục đang cuộn tới (FR-004). "nen" là màu chương
   // trình trung tính (thương hiệu), không phải trạng thái app thật nên không
   // qua nguonSuThat.ts — các trạng thái còn lại đều đọc từ đó (FR-006). Chữ
-  // chính KHÔNG nối mã đơn (quyết định RÀ SOÁT DEMO 24/07 điểm 2) — mã đơn có
-  // nhãn riêng "QR hiện tại" trong khung Quét thử, băng chỉ nói trạng thái.
+  // băng CÓ nối mã đơn lúc "rec", đúng như app thật hiển thị.
   const bang = document.getElementById("bang-trang");
-  function datBang(loai: string) {
+  function datBang(loai: string, maDon?: string) {
     if (!bang) return;
+    const chu = bang.querySelector<HTMLElement>('[data-vai="chu"]');
+    const goiY = bang.querySelector<HTMLElement>('[data-vai="goi-y"]');
     if (loai === "nen") {
       bang.dataset.trangThai = "nen";
       bang.style.setProperty("--bang-nen", "var(--nen-app)");
       bang.style.setProperty("--bang-chu", "var(--chu-mo)");
-      const chu = bang.querySelector<HTMLElement>('[data-vai="chu"]');
-      const goiY = bang.querySelector<HTMLElement>('[data-vai="goi-y"]');
       if (chu) chu.textContent = "CoClipNha";
-      if (goiY) goiY.textContent = "Phần mềm ghi hình đóng gói — miễn phí cho shop Việt";
+      if (goiY)
+        goiY.textContent =
+          "Phần mềm ghi hình đóng gói — miễn phí cho shop Việt";
       return;
     }
     const ten = loai as TrangThaiBang;
@@ -352,9 +632,7 @@ const TG_SLUG: Record<string, string> = {
     bang.dataset.trangThai = ten;
     bang.style.setProperty("--bang-nen", mau.bg);
     bang.style.setProperty("--bang-chu", mau.fg);
-    const chu = bang.querySelector<HTMLElement>('[data-vai="chu"]');
-    const goiY = bang.querySelector<HTMLElement>('[data-vai="goi-y"]');
-    if (chu) chu.textContent = layChuBang(ten);
+    if (chu) chu.textContent = layChuBang(ten, maDon);
     if (goiY) goiY.textContent = layGoiYBang(ten);
   }
   const cacMuc = document.querySelectorAll<HTMLElement>("[data-bang]");
@@ -362,28 +640,31 @@ const TG_SLUG: Record<string, string> = {
     (es) => {
       es.forEach((e) => {
         if (!e.isIntersecting) return;
-        datBang(e.target.getAttribute("data-bang")!);
+        const el = e.target as HTMLElement;
+        datBang(el.getAttribute("data-bang")!, el.dataset.ma);
       });
     },
     { rootMargin: "-45% 0px -45% 0px" },
   );
   cacMuc.forEach((m) => quanSatBang.observe(m));
 
-  // B3: khi khối hero (chứa Quét thử) còn trong tầm nhìn, băng bám đỉnh phải
-  // đổi theo ĐÚNG kịch bản Quét thử đang chạy (không chỉ băng nhỏ trong khung
-  // app) — nghe sự kiện QuetThu.astro phát ra (chỉ phát khi bao=true, tức lúc
-  // đang chạy kịch bản, không phát lúc reset "sẵn sàng" khi vừa tải trang).
-  let heroDangDien = false;
+  // Khi khối hero (chứa Quét thử) còn trong tầm nhìn, băng bám đỉnh đổi theo
+  // ĐÚNG kịch bản Quét thử đang chạy — nghe sự kiện QuetThu.astro phát ra.
+  // Đo tầm nhìn bằng getBoundingClientRect ngay lúc nhận sự kiện, KHÔNG dùng
+  // thêm một IntersectionObserver nữa: IO chỉ báo khi trình duyệt vẽ khung
+  // hình, nên trong tab nền / cửa sổ chưa hiện nó im lặng và băng đỉnh đứng
+  // hình dù kịch bản vẫn chạy. Đo trực tiếp thì lúc nào cũng đúng.
   const canhHero = document.getElementById("canh-hero");
-  if (canhHero) {
-    const quanSatHero = new IntersectionObserver(
-      (es) => es.forEach((e) => (heroDangDien = e.isIntersecting)),
-      { threshold: 0.3 },
-    );
-    quanSatHero.observe(canhHero);
+  function heroDangHien() {
+    if (!canhHero) return false;
+    const r = canhHero.getBoundingClientRect();
+    return r.bottom > 0 && r.top < window.innerHeight;
   }
   document.addEventListener("quetthu:trangthai", (e) => {
-    if (heroDangDien) datBang((e as CustomEvent<string>).detail);
+    if (!heroDangHien()) return;
+    const chiTiet = (e as CustomEvent<{ trangThai: string; maDon?: string }>)
+      .detail;
+    datBang(chiTiet.trangThai, chiTiet.maDon);
   });
 
   // Hiện dần khi cuộn tới (FR-004, FR-011) — cuộn vẫn tự do, không khóa/cướp

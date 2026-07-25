@@ -81,8 +81,7 @@ img {
 }
 .khoi--do {
   background:
-    linear-gradient(180deg, rgba(217, 58, 65, 0.1), transparent 60%),
-    #10151d;
+    linear-gradient(180deg, rgba(217, 58, 65, 0.1), transparent 60%), #10151d;
 }
 .khoi--teal-vien {
   border-top: 2px solid var(--teal);

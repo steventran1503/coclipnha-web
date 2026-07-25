@@ -39,6 +39,16 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     }
   </head>
   <body>
+    <!-- T055/FR-025: cả trang là cửa sổ CoClipNha phóng to — hồn cốt hướng
+         "Ca trực" đã duyệt. Thanh này chỉ trang trí (aria-hidden), không phải
+         điều khiển thật, nên không nhận tiêu điểm bàn phím. -->
+    <div class="thanh-win" aria-hidden="true">
+      <span class="logo-c"></span>
+      <span class="ten-win"
+        >CoClipNha PRO v2.0 — Sponsored by ZIN ZIN MOTOR</span
+      >
+      <span class="nut-win">—&nbsp;▢&nbsp;✕</span>
+    </div>
     <MenuBaGach />
     <slot />
     <ChanTrang>
@@ -46,3 +56,41 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     </ChanTrang>
   </body>
 </html>
+
+<style is:global>
+  .thanh-win {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.35rem 0.9rem;
+    background: #131822;
+    border-bottom: 1px solid var(--vien);
+    font-size: 0.72rem;
+    color: var(--chu-mo);
+  }
+  .thanh-win .ten-win {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .thanh-win .nut-win {
+    letter-spacing: 0.1em;
+  }
+  .thanh-win .logo-c {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    border: 2.5px solid var(--teal);
+    border-right-color: transparent;
+    position: relative;
+    flex: none;
+  }
+  .thanh-win .logo-c::after {
+    content: "";
+    position: absolute;
+    inset: 25%;
+    background: var(--do);
+    border-radius: 1.5px;
+  }
+</style>

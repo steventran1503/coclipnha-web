@@ -18,6 +18,7 @@ const khoThongDiep = defineCollection({
       "TIT",
       "SM",
       "ND",
+      "SS",
       "GP",
       "HD",
       "TN",
@@ -37,6 +38,9 @@ const khoThongDiep = defineCollection({
     // (KG-01, KG-02, KN-02) — tách khỏi cau_chot để component không phải chép
     // cứng chữ nút (FR-003).
     nut: z.string().nullable(),
+    // Cột dư của bảng nhiều hơn 3 cột (bảng so sánh SS: việc / điện thoại /
+    // CoClipNha) — cột 3 trở đi nằm ở đây.
+    cot_them: z.array(z.string()),
     canh_cho_video: z.string().nullable(),
     trang_su_dung: z.array(z.string()),
   }),

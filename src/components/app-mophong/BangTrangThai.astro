@@ -3,7 +3,12 @@
 // Màu/chữ đọc từ nguonSuThat.ts, KHÔNG hardcode lại (contracts/nguon-su-that-contract.md).
 // variant="trang": băng bám đỉnh toàn trang, đổi theo mục đang cuộn tới.
 // variant="app": băng tĩnh bên trong cửa sổ app mô phỏng (nhỏ hơn, không sticky).
-import { layChuBang, layGoiYBang, layMauBang, type TrangThaiBang } from "../../lib/nguonSuThat";
+import {
+  layChuBang,
+  layGoiYBang,
+  layMauBang,
+  type TrangThaiBang,
+} from "../../lib/nguonSuThat";
 
 interface Props {
   trangThai: TrangThaiBang;
@@ -14,10 +19,11 @@ interface Props {
 
 const { trangThai, maDon, variant = "trang", id } = Astro.props;
 const mau = layMauBang(trangThai);
-// Chữ chính KHÔNG nối mã đơn vào (quyết định RÀ SOÁT DEMO 24/07 điểm 2): mã
-// đơn hiện ở nhãn riêng "QR hiện tại" cạnh khung ngắm, không trộn vào chữ
-// băng — băng chỉ nói trạng thái, không nói đơn nào.
-const chu = layChuBang(trangThai);
+// Chữ chính CÓ nối mã đơn khi đang ghi — app thật hiện
+// "ĐANG GHI HÌNH: 861879430644" (ảnh `Screenshot app/dark thêm - đang ghi
+// hình.png`). Đây là điểm PROMPT-SPEC-004 để ngỏ "chốt sau: gộp hay tách" —
+// ảnh app thật trả lời: GỘP, nên bỏ nhãn "QR hiện tại" tách riêng.
+const chu = layChuBang(trangThai, maDon);
 const goiY = layGoiYBang(trangThai);
 ---
 
@@ -35,7 +41,12 @@ const goiY = layGoiYBang(trangThai);
     <span class="goi-y" data-vai="goi-y">{goiY}</span>
   </span>
   <span class="gio" aria-hidden="true">
+    <span class="ngay" data-vai="ngay"></span>
     <span data-vai="gio">--:--:--</span>
+    <span class="rec-dem" data-vai="rec"
+      ><span class="cham-rec">●</span>
+      <span data-vai="rec-gio">00:00</span></span
+    >
   </span>
 </div>
 
@@ -106,9 +117,33 @@ const goiY = layGoiYBang(trangThai);
     font-family: var(--font-may);
     font-size: 0.95rem;
     white-space: nowrap;
+    line-height: 1.35;
   }
   .bang-mophong--app .gio {
     font-size: 0.78rem;
+  }
+  .ngay {
+    display: block;
+    font-size: 0.68em;
+    opacity: 0.85;
+  }
+  /* Bộ đếm REC nằm TRONG băng, dưới đồng hồ — đúng chỗ app thật đặt nó
+     (ảnh `Screenshot app/dark thêm - đang ghi hình.png`), không phải chữ nổi
+     trên khung hình. Chỉ hiện khi băng ở trạng thái "rec". */
+  .rec-dem {
+    display: none;
+    font-size: 0.78em;
+  }
+  .bang-mophong[data-trang-thai="rec"] .rec-dem {
+    display: block;
+  }
+  .cham-rec {
+    animation: nhay 1s steps(2, start) infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cham-rec {
+      animation: none;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     .bang-mophong[data-trang-thai="rec"] .cham {
@@ -131,12 +166,26 @@ const goiY = layGoiYBang(trangThai);
   function p2(n: number) {
     return (n < 10 ? "0" : "") + n;
   }
+  // Dạng ngày khớp app thật: "Thứ 6, 24/07/2026" (ảnh chụp màn hình app).
+  const THU = [
+    "Chủ nhật",
+    "Thứ 2",
+    "Thứ 3",
+    "Thứ 4",
+    "Thứ 5",
+    "Thứ 6",
+    "Thứ 7",
+  ];
   function capNhat() {
     const d = new Date();
     const gio = `${p2(d.getHours())}:${p2(d.getMinutes())}:${p2(d.getSeconds())}`;
+    const ngay = `${THU[d.getDay()]}, ${p2(d.getDate())}/${p2(d.getMonth() + 1)}/${d.getFullYear()}`;
     document
       .querySelectorAll<HTMLElement>('.bang-mophong [data-vai="gio"]')
       .forEach((el) => (el.textContent = gio));
+    document
+      .querySelectorAll<HTMLElement>('.bang-mophong [data-vai="ngay"]')
+      .forEach((el) => (el.textContent = ngay));
   }
   capNhat();
   setInterval(capNhat, 1000);

@@ -1,12 +1,33 @@
 ---
 // Chân trang dùng chung mọi trang (tách khỏi index.astro để 10 trang tới
 // không phải chép lại). Slot "giay-phep" chừa chỗ cho GiayPhepFfmpeg (T028,
-// FR-018) gắn vào khi làm trang Tải về — chưa có T028 thì slot rỗng, không
-// chặn phần còn lại.
+// FR-018) gắn vào khi làm trang Tải về — chưa có T028 thì slot rỗng.
+//
+// T067 (đợt vá US1): khôi phục 3 hàng đã mất so với bản demo đã duyệt — hàng
+// kênh kết nối (KN-01/KN-02), hàng liên kết toàn trang, link Bài viết.
+// Link mạng xã hội THẬT còn chờ chủ dự án cấp (FR-021) → hiện dạng chữ mờ
+// "đang chờ", KHÔNG dùng href="#" giả vờ bấm được.
 import { layKhoi } from "../lib/khoiNoiDung";
+import { duongDan } from "../lib/duongDan";
 
 const sm01 = await layKhoi("SM-01");
 const gp05 = await layKhoi("GP-05");
+const kn01 = await layKhoi("KN-01");
+const kn02 = await layKhoi("KN-02");
+
+const TRANG = [
+  ["Trang chủ", ""],
+  ["Tải về", "tai-ve/"],
+  ["Ủng hộ", "ung-ho/"],
+  ["Về CoClipNha", "gioi-thieu/"],
+  ["Bài viết", "bai-viet/"],
+  ["Hướng dẫn", "tro-giup/huong-dan/"],
+  ["Câu hỏi", "tro-giup/cau-hoi/"],
+  ["Mã QR điều khiển", "tro-giup/tai-qr/"],
+  ["Góp ý", "tro-giup/gop-y/"],
+  ["Báo lỗi", "tro-giup/bao-loi/"],
+  ["Yêu cầu phần mềm", "tro-giup/yeu-cau-phan-mem/"],
+];
 ---
 
 <footer>
@@ -15,7 +36,28 @@ const gp05 = await layKhoi("GP-05");
     <strong style="color:var(--chu);">CoClipNha</strong>
   </div>
   <p>{sm01.data.cau_chot}</p>
-  <p style="margin-top:.5rem;">{gp05.data.cau_chot} · Sponsored by ZIN ZIN MOTOR</p>
+  <p style="margin-top:.5rem;">
+    {gp05.data.cau_chot} · Sponsored by ZIN ZIN MOTOR
+  </p>
+
+  <p class="hang-ket-noi">
+    <span class="cho-link">ⓕ Facebook — đang chờ link</span>
+    <span class="cho-link">♪ TikTok — đang chờ link</span>
+    <span class="cho-link">💬 {kn02.data.nut} — đang chờ link</span>
+  </p>
+  <p class="chu-mo cho-ghi-chu">{kn01.data.dien_giai}</p>
+
+  <p class="hang-trang">
+    {
+      TRANG.map(([ten, slug], i) => (
+        <>
+          {i > 0 && <span aria-hidden="true"> · </span>}
+          <a href={duongDan(slug)}>{ten}</a>
+        </>
+      ))
+    }
+  </p>
+
   <slot name="giay-phep" />
 </footer>
 
@@ -35,5 +77,30 @@ const gp05 = await layKhoi("GP-05");
     inset: 25%;
     background: var(--do);
     border-radius: 1.5px;
+  }
+  .hang-ket-noi {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  /* Tài sản chờ cấp (FR-021): hiện gọn gàng, nói rõ đang chờ — không để link
+     chết href="#" khiến người đọc bấm hụt. */
+  .cho-link {
+    color: var(--chu-mo);
+    border: 1px dashed var(--vien);
+    border-radius: 999px;
+    padding: 0.1rem 0.7rem;
+  }
+  .cho-ghi-chu {
+    font-size: 0.8rem;
+    margin-top: 0.45rem;
+  }
+  .hang-trang {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    line-height: 2;
   }
 </style>
