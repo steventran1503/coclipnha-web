@@ -33,6 +33,10 @@ const khoThongDiep = defineCollection({
     ]),
     cau_chot: z.string(),
     dien_giai: z.string(),
+    // Chữ trên nút, khi khối có nhãn **Nút** riêng trong kho thông điệp
+    // (KG-01, KG-02, KN-02) — tách khỏi cau_chot để component không phải chép
+    // cứng chữ nút (FR-003).
+    nut: z.string().nullable(),
     canh_cho_video: z.string().nullable(),
     trang_su_dung: z.array(z.string()),
   }),

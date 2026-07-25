@@ -8,16 +8,15 @@
 // này — dùng lại y nguyên đoạn đó ở đây sẽ lặp chữ 2 lần liền kề trên cùng
 // trang. cau_chot là câu ngắn hơn, không trùng.
 //
-// Câu "Ô này để trống…" lấy Ý từ kho-thong-diep.md §DG-01 (mục "Cách dựng khi
-// chưa có", trích nguyên văn trong dấu *"..."*) — KHÔNG lấy được qua
-// layKhoi("DG-01").data.dien_giai vì trường đó đang RỖNG trong
-// kho-noi-dung.json (docs/web/xuat_kho_noi_dung.py chỉ trích cột "Câu chốt"/
-// "Diễn giải", còn câu này nằm trong bullet "Cách dựng khi chưa có" nên không
-// được script trích ra). Cần chủ dự án duyệt việc sửa script trước khi đổi
-// chỗ này sang layKhoi thật — xem báo cáo C5.
+// Câu "Ô này để trống…" nay đọc thẳng từ khối DG-01 (T053, đợt vá US1
+// 25/07/2026). Trước đó phải chép cứng vì `xuat_kho_noi_dung.py` không trích
+// được câu nằm trong bullet "Cách dựng khi chưa có" — đã sửa: DG-01 giờ có
+// nhãn **Câu chốt**/**Diễn giải** riêng trong kho-thong-diep.md và script đọc
+// được trọn bullet nhiều dòng. KHÔNG chép cứng lại chữ ở đây (FR-003, SC-003).
 import { layKhoi } from "../lib/khoiNoiDung";
 
 const bc01 = await layKhoi("BC-01");
+const dg01 = await layKhoi("DG-01");
 ---
 
 <div class="nguoi-dung-dau-tien">
@@ -25,9 +24,7 @@ const bc01 = await layKhoi("BC-01");
     <div class="tieu-de-the">ZIN ZIN MOTOR — phụ tùng xe máy</div>
     <p>{bc01.data.cau_chot}</p>
   </div>
-  <p class="ghi-chu">
-    Ô này để trống cho tới khi có đánh giá thật — tụi mình không bịa đánh giá.
-  </p>
+  <p class="ghi-chu">{dg01.data.dien_giai}</p>
 </div>
 
 <style>
