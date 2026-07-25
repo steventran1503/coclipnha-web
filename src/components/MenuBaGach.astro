@@ -50,9 +50,9 @@ const DANH_MUC: NhomMenu[] = [
   type="checkbox"
   id="menu-3-gach"
   class="menu-checkbox"
-  aria-hidden="true"
+  aria-label="Mở menu"
 />
-<label for="menu-3-gach" class="nut-menu" aria-label="Mở menu">☰</label>
+<label for="menu-3-gach" class="nut-menu" aria-hidden="true">☰</label>
 
 <div class="menu-phu">
   <label for="menu-3-gach" class="nen-mo" aria-hidden="true"></label>
@@ -82,12 +82,19 @@ const DANH_MUC: NhomMenu[] = [
     pointer-events: none;
   }
   .nut-menu {
+    /* position:fixed để nút không trôi mất khi cuộn trang dài (mọi trang
+       dùng BaseLayout đều cần thấy nút này, không chỉ trang chủ có băng bám
+       đỉnh riêng) */
+    position: fixed;
+    top: 0.9rem;
+    right: 1rem;
+    z-index: 90;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    background: rgba(0, 0, 0, 0.22);
-    color: inherit;
+    background: rgba(0, 0, 0, 0.35);
+    color: #fff;
     border-radius: 6px;
     width: 2.2rem;
     height: 2.2rem;

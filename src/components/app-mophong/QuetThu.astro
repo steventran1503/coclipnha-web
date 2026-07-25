@@ -6,21 +6,30 @@
 // "đang ghi hình" tĩnh (băng đỏ + watermark + log) — người xem thấy đúng
 // hình dạng thật của app dù không bấm được gì. Có JS thì script reset về
 // trạng thái "sẵn sàng" và hiện nút để chạy trọn kịch bản (FR-005).
+//
+// Mã vận đơn dùng ảnh vận đơn Shopee THẬT (chủ dự án cấp 25/07/2026, khách
+// hàng ZIN ZIN MOTOR — cùng nguồn với docs/web/demo-ca-truc/van-don-shopee.jpg,
+// đã đối chiếu MD5 khớp bit-for-bit) — không dùng mã bịa dạng SPX1234567 cho
+// "đơn 1" nữa. "Đơn 2" là đơn CHEN NGANG minh hoạ (không phải giao dịch thật
+// thứ hai) nên vẫn giữ dạng mã ví dụ, KHÔNG dùng tiền tố SHOPEEVTPVN để khỏi
+// gây hiểu lầm đây cũng là một vận đơn thật.
 import BangTrangThai from "./BangTrangThai.astro";
 import Watermark from "./Watermark.astro";
 import DongNhatKy from "./DongNhatKy.astro";
-import { dongDaLuu, sinhTenFile } from "../../lib/nguonSuThat";
+import { dongDaLuu, sinhTenFile, qrDieuKhien } from "../../lib/nguonSuThat";
+import { duongDan } from "../../lib/duongDan";
 
-const MA_DON_1 = "SPX1234567";
+const MA_DON_THAT = "SHOPEEVTPVN2606875138465";
 const MA_DON_2 = "SPX7654321";
+const ANH_VAN_DON_THAT = duongDan("anh/van-don-shopee-that.jpg");
 const GIO_MAU = "2026-07-25_09-12-30";
-const TEN_FILE_1 = sinhTenFile(MA_DON_1, GIO_MAU);
+const TEN_FILE_1 = sinhTenFile(MA_DON_THAT, GIO_MAU);
 // Số liệu suy từ ĐÚNG MỘT mốc dung lượng đã chốt toàn site: ~10 MB / 5 phút
 // (docs/web/kho-thong-diep.md §GP-06) — không bịa số riêng cho khối này.
 const MB_MOI_GIAY = 10 / 300;
 const DONG_LOG_TINH = [
-  { loai: "mo" as const, text: "[09:12:18] 📷 Camera 0 sẵn sàng (1280×720)" },
-  { loai: "mo" as const, text: `[09:12:30] 🎬 Bắt đầu ghi video: ${TEN_FILE_1}` },
+  { loai: "mo" as const, text: "📷 Camera 0 sẵn sàng (1280×720)" },
+  { loai: "mo" as const, text: `🎬 Bắt đầu ghi video: ${TEN_FILE_1}` },
   {
     loai: "ok" as const,
     text: dongDaLuu(TEN_FILE_1, 3 * MB_MOI_GIAY, 3),
@@ -28,24 +37,37 @@ const DONG_LOG_TINH = [
 ];
 ---
 
-<div class="quet-thu" id="quet-thu" data-ma-don-1={MA_DON_1} data-ma-don-2={MA_DON_2}>
+<div class="quet-thu" id="quet-thu" data-ma-don-that={MA_DON_THAT} data-ma-don-2={MA_DON_2}>
   <div class="khung-ngam" data-vai="khung">
     <span class="goc g1"></span><span class="goc g2"></span><span class="goc g3"></span
     ><span class="goc g4"></span>
     <div class="phieu" data-vai="phieu">
-      <div class="ma-to" data-vai="phieu-ma">{MA_DON_1}</div>
-      <div class="van-cach"></div>
-      <div class="ma-vach" aria-hidden="true"></div>
-      <div class="o-qr" aria-hidden="true"></div>
+      <img
+        src={ANH_VAN_DON_THAT}
+        alt="Vận đơn Shopee thật của ZIN ZIN MOTOR"
+        class="phieu-anh"
+        data-vai="phieu-anh"
+      />
+      <div class="phieu-gia" data-vai="phieu-gia" hidden>
+        <div class="van-cach"></div>
+        <div class="ma-vach" aria-hidden="true"></div>
+        <div class="o-qr" aria-hidden="true"></div>
+      </div>
+      <div class="phieu-pause" data-vai="phieu-pause" hidden>
+        <span aria-hidden="true">⏸</span> QR {qrDieuKhien.pause}
+      </div>
+    </div>
+    <div class="nhan-qr" data-vai="nhan-qr">
+      QR hiện tại: <span data-vai="nhan-qr-ma">{MA_DON_THAT}</span>
     </div>
     <div class="bang-noi" data-vai="bang-slot">
-      <BangTrangThai trangThai="rec" maDon={MA_DON_1} variant="app" id="qt-bang" />
+      <BangTrangThai trangThai="rec" variant="app" id="qt-bang" />
     </div>
     <div class="rec-chi" data-vai="rec">
       <span class="cham-do" aria-hidden="true">●</span> REC <span data-vai="rec-gio">00:03</span>
     </div>
     <div data-vai="wm">
-      <Watermark maDon={MA_DON_1} gio="2026-07-25 09:12:33" />
+      <Watermark maDon={MA_DON_THAT} gio="2026-07-25 09:12:33" gioSong={true} />
     </div>
     <button type="button" class="nut nut--chinh nut-quet-thu" data-vai="nut" hidden>
       📷 Bấm quét thử
@@ -99,9 +121,21 @@ const DONG_LOG_TINH = [
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) rotate(-2deg);
     z-index: 2;
-    width: min(15rem, 55%);
+    width: min(11rem, 42%);
+    transition:
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .phieu-anh {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+  }
+  .phieu-gia {
     background: #f6f4ee;
     color: #17161a;
     border-radius: 4px;
@@ -110,12 +144,19 @@ const DONG_LOG_TINH = [
     line-height: 1.5;
     font-family: var(--font-may);
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
-    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .phieu .ma-to {
-    font-size: 0.95rem;
+  .phieu-pause {
+    background: #2a3342;
+    color: #e8edf5;
+    border: 1px dashed var(--chu-mo);
+    border-radius: 8px;
+    padding: 1.4rem 1rem;
+    font-family: var(--font-may);
+    font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.06em;
+    text-align: center;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
   }
   .van-cach {
     border-top: 1px dashed #999;
@@ -146,6 +187,20 @@ const DONG_LOG_TINH = [
       repeating-linear-gradient(90deg, #17161a 0 3px, #f6f4ee 3px 6px);
     outline: 3px solid #f6f4ee;
     outline-offset: -3px;
+  }
+  .nhan-qr {
+    position: absolute;
+    top: 3.4rem;
+    left: 0.9rem;
+    z-index: 4;
+    font-family: var(--font-may);
+    font-size: 0.72rem;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 0.25rem 0.55rem;
+    border-radius: 4px;
+    max-width: min(70%, 20rem);
+    overflow-wrap: break-word;
   }
   .bang-noi {
     position: absolute;
@@ -187,44 +242,91 @@ const DONG_LOG_TINH = [
 
 <script>
   import {
-    nhip,
     dongDaLuu,
+    dongQr,
     sinhTenFile,
     layChuBang,
     layGoiYBang,
     layMauBang,
   } from "../../lib/nguonSuThat";
 
+  // Nhịp trình diễn theo quyết định 24/07 (RÀ SOÁT DEMO điểm 2): mỗi đơn giữ
+  // cảnh ghi hình ~3 giây trước khi đơn kế tiếp/PAUSE chen vào. ĐÂY LÀ CẢNH
+  // RÚT GỌN CHO TRÌNH DIỄN — không phải nhịp thật của app: app thật khoá quét
+  // QR trong 8 giây sau khi bắt đầu ghi (nguon-su-that.json →
+  // nhip.tam_dung_quet_sau_khi_ghi_giay). Cố tình KHÔNG dùng
+  // nhip.canh_bao_trung_gian_cach_giay (đó là khoảng cách CẢNH BÁO QR TRÙNG,
+  // ý nghĩa khác hẳn) để tránh buộc nhịp diễn vào đúng hằng số sai.
+  const GIAY_MOI_DON = 3;
+  const CHOP_MS = 600; // băng chớp "đã lưu" trước khi quay lại "đang ghi"
+  const GIU_KET_MS = 900; // giữ ở "đã lưu" trước khi hiện lại nút
+
   const goc = document.getElementById("quet-thu");
   if (goc) {
     const giamCD = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const maDon1 = goc.dataset.maDon1 ?? "SPX1234567";
+    const maDonThat = goc.dataset.maDonThat ?? "SHOPEEVTPVN2606875138465";
     const maDon2 = goc.dataset.maDon2 ?? "SPX7654321";
     const phieu = goc.querySelector<HTMLElement>('[data-vai="phieu"]')!;
-    const phieuMa = goc.querySelector<HTMLElement>('[data-vai="phieu-ma"]')!;
+    const phieuAnh = goc.querySelector<HTMLElement>('[data-vai="phieu-anh"]')!;
+    const phieuGia = goc.querySelector<HTMLElement>('[data-vai="phieu-gia"]')!;
+    const phieuPause = goc.querySelector<HTMLElement>('[data-vai="phieu-pause"]')!;
+    const nhanQrMa = goc.querySelector<HTMLElement>('[data-vai="nhan-qr-ma"]')!;
     const recChi = goc.querySelector<HTMLElement>('[data-vai="rec"]')!;
     const recGio = goc.querySelector<HTMLElement>('[data-vai="rec-gio"]')!;
     const wm = goc.querySelector<HTMLElement>('[data-vai="wm"]')!;
+    const wmInner = wm.querySelector<HTMLElement>(".watermark")!;
+    const wmQr = wm.querySelector<HTMLElement>('[data-vai="wm-qr"]')!;
     const nut = goc.querySelector<HTMLButtonElement>('[data-vai="nut"]')!;
     const bangSlot = goc.querySelector<HTMLElement>('[data-vai="bang-slot"]')!;
     const log = document.getElementById("qt-log")!;
     const MB_MOI_GIAY = 10 / 300; // đúng mốc GP-06 (10 MB / 5 phút), không bịa số riêng
 
-    function datBangApp(trangThai: "ready" | "rec" | "saved" | "warn", maDon?: string) {
+    function p2(n: number) {
+      return (n < 10 ? "0" : "") + n;
+    }
+    function dinhDangTenFile(d: Date) {
+      return `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())}_${p2(d.getHours())}-${p2(d.getMinutes())}-${p2(d.getSeconds())}`;
+    }
+
+    function hienPhieu(loai: "anh" | "gia" | "pause") {
+      phieuAnh.hidden = loai !== "anh";
+      phieuGia.hidden = loai !== "gia";
+      phieuPause.hidden = loai !== "pause";
+    }
+
+    function datMaHienTai(ma: string) {
+      nhanQrMa.textContent = ma;
+      wmQr.textContent = dongQr(ma);
+      wmInner.dataset.maDon = ma;
+    }
+
+    function datBangApp(
+      trangThai: "ready" | "rec" | "saved" | "warn",
+      bao = false,
+    ) {
       // Băng bên trong QuetThu là component tĩnh render sẵn phía server; JS chỉ
-      // cập nhật DOM (chữ/màu) trực tiếp thay vì render lại component.
+      // cập nhật DOM (chữ/màu) trực tiếp thay vì render lại component. Chữ
+      // chính KHÔNG nối mã đơn (mã đã có nhãn riêng "QR hiện tại" — xem
+      // datMaHienTai).
       const banner = bangSlot.querySelector<HTMLElement>(".bang-mophong");
       if (!banner) return;
       banner.dataset.trangThai = trangThai;
-      banner.dataset.maDon = maDon ?? "";
       const mau = layMauBang(trangThai);
       banner.style.setProperty("--bang-nen", mau.bg);
       banner.style.setProperty("--bang-chu", mau.fg);
-      const chu = layChuBang(trangThai) + (trangThai === "rec" && maDon ? `: ${maDon}` : "");
       const elChu = banner.querySelector<HTMLElement>('[data-vai="chu"]');
       const elGoiY = banner.querySelector<HTMLElement>('[data-vai="goi-y"]');
-      if (elChu) elChu.textContent = chu;
+      if (elChu) elChu.textContent = layChuBang(trangThai);
       if (elGoiY) elGoiY.textContent = layGoiYBang(trangThai);
+
+      // bao=true: báo cho index.astro biết để đổi luôn băng bám đỉnh của cả
+      // trang (B3) — CHỈ trong lúc kịch bản Quét thử đang chạy (chayKichBan),
+      // không phải lúc reset về "sẵn sàng" (datSanSang) khi vừa tải trang —
+      // băng đỉnh lúc đó vẫn nên giữ thương hiệu "nen" như cũ cho tới khi
+      // người dùng thật sự bấm nút.
+      if (bao) {
+        document.dispatchEvent(new CustomEvent("quetthu:trangthai", { detail: trangThai }));
+      }
     }
 
     function themDongLog(loai: "mo" | "ok" | "vang", text: string) {
@@ -248,9 +350,12 @@ const DONG_LOG_TINH = [
       xoaHen();
       dungDemRec();
       nut.hidden = false;
-      phieu.style.transform = "translate(-50%,-50%) translateX(140%)";
+      hienPhieu("anh");
+      phieu.style.transform = "translate(-50%,-50%) rotate(-2deg) translateX(140%)";
+      phieu.style.filter = "blur(0)";
       recChi.style.opacity = "0";
       wm.style.opacity = "0";
+      datMaHienTai(maDonThat);
       datBangApp("ready");
     }
 
@@ -273,58 +378,91 @@ const DONG_LOG_TINH = [
     }
 
     function chayKichBan() {
+      // blur() TRƯỚC khi ẩn nút: nếu ẩn (hidden=true) một nút đang có focus,
+      // Chromium tự chuyển focus về <body> và kèm theo đó tự cuộn trang về
+      // đỉnh (0,0) — bug trình duyệt, không phải ý muốn. Bỏ focus trước cho
+      // sạch, tránh cướp cuộn ngoài ý muốn (FR-012). Đã kiểm tay: không blur()
+      // trước thì scrollY tự nhảy về 0 sau ~1.5-2s dù không có lệnh cuộn nào
+      // trong code.
+      nut.blur();
       nut.hidden = true;
       xoaHen();
       dungDemRec();
-      const giuGiay = nhip.canh_bao_trung_gian_cach_giay; // 3 giây, đúng nhịp thật
-      // Kịch bản luôn chạy lại từ đầu — xoá log cũ, chỉ giữ dòng "camera sẵn
-      // sàng" rồi ghi tiếp đúng diễn biến thật của lượt chạy này.
+      const D0 = giamCD ? 0 : 700; // thời lượng trượt vào + nét dần bước 1
+      // Kịch bản luôn chạy lại từ đầu — xoá log cũ, ghi lại đúng diễn biến
+      // của lượt chạy này (mỗi lượt lấy giờ THẬT của người xem tại lúc bấm,
+      // không dùng chuỗi giờ mẫu cứng — tránh watermark/tên file/log lệch
+      // giờ nhau như trước).
       log.innerHTML = "";
       themDongLog("mo", "📷 Camera 0 sẵn sàng (1280×720)");
 
-      // Bước 1: mã đơn 1 vào
-      phieuMa.textContent = maDon1;
+      // Bước 1: mã đơn thật vào khung — trượt vào + NÉT DẦN (blur → rõ nét),
+      // không có trạng thái "đang lấy nét" riêng, chỉ hiệu ứng hình.
+      hienPhieu("anh");
+      datMaHienTai(maDonThat);
       phieu.style.transform = giamCD
-        ? "translate(-50%,-50%)"
-        : "translate(-50%,-50%) translateX(140%)";
+        ? "translate(-50%,-50%) rotate(-2deg)"
+        : "translate(-50%,-50%) rotate(-2deg) translateX(140%)";
+      phieu.style.filter = giamCD ? "blur(0)" : "blur(9px)";
       if (!giamCD) {
         requestAnimationFrame(() =>
           requestAnimationFrame(() => {
-            phieu.style.transform = "translate(-50%,-50%)";
+            phieu.style.transform = "translate(-50%,-50%) rotate(-2deg)";
+            phieu.style.filter = "blur(0)";
           }),
         );
       }
-      sau(giamCD ? 0 : 700, () => {
-        datBangApp("rec", maDon1);
+
+      const gocDon1 = new Date();
+      sau(D0, () => {
+        datBangApp("rec", true);
         recChi.style.opacity = "1";
         wm.style.opacity = "1";
-        themDongLog("mo", `🎬 Bắt đầu ghi video: ${sinhTenFile(maDon1, "2026-07-25_09-12-30")}`);
+        themDongLog("mo", `🎬 Bắt đầu ghi video: ${sinhTenFile(maDonThat, dinhDangTenFile(gocDon1))}`);
         batDauDemRec();
       });
 
-      // Bước 2: giữ trạng thái rec ~giuGiay giây, rồi mã đơn 2 vào
-      sau((giamCD ? 0 : 700) + giuGiay * 1000, () => {
-        const tenFile1 = sinhTenFile(maDon1, "2026-07-25_09-12-30");
-        themDongLog("ok", dongDaLuu(tenFile1, giuGiay * MB_MOI_GIAY, giuGiay));
-        phieuMa.textContent = maDon2;
-        datBangApp("rec", maDon2);
-        themDongLog("mo", `🎬 Bắt đầu ghi video: ${sinhTenFile(maDon2, "2026-07-25_09-12-36")}`);
+      // Bước 2: giữ trạng thái rec ~GIAY_MOI_DON giây (mô phỏng thùng hàng di
+      // chuyển trong khung), rồi đơn 2 CHEN NGANG — log "đã lưu đơn 1", băng
+      // CHỚP "đã lưu" trong CHOP_MS rồi quay lại "đang ghi" cho đơn 2 (không
+      // phải dừng ghi thật, chỉ là app tự chuyển sang file mới).
+      sau(D0 + GIAY_MOI_DON * 1000, () => {
+        const tenFile1 = sinhTenFile(maDonThat, dinhDangTenFile(gocDon1));
+        themDongLog("ok", dongDaLuu(tenFile1, GIAY_MOI_DON * MB_MOI_GIAY, GIAY_MOI_DON));
+        datBangApp("saved", true);
+      });
+
+      // gocDon2 PHẢI lấy Date() BÊN TRONG callback (đúng lúc đơn 2 thật sự bắt
+      // đầu ghi, ~4 giây sau), không phải lấy ngay lúc đăng ký sau() ở trên —
+      // lấy sớm sẽ cho đơn 2 cùng giờ với đơn 1, sai đúng kiểu lỗi đồng hồ đã
+      // sửa ở Đợt A2.
+      let gocDon2!: Date;
+      sau(D0 + GIAY_MOI_DON * 1000 + CHOP_MS, () => {
+        gocDon2 = new Date();
+        hienPhieu("gia");
+        datMaHienTai(maDon2);
+        datBangApp("rec", true);
+        themDongLog(
+          "mo",
+          `🎬 Bắt đầu ghi video mới: ${sinhTenFile(maDon2, dinhDangTenFile(gocDon2))}`,
+        );
         batDauDemRec();
       });
 
       // Bước 3: giữ trạng thái rec đơn 2, rồi mã PAUSE vào
-      sau((giamCD ? 0 : 700) + giuGiay * 2000, () => {
+      sau(D0 + GIAY_MOI_DON * 1000 + CHOP_MS + GIAY_MOI_DON * 1000, () => {
         dungDemRec();
-        const tenFile2 = sinhTenFile(maDon2, "2026-07-25_09-12-36");
-        themDongLog("ok", dongDaLuu(tenFile2, giuGiay * MB_MOI_GIAY, giuGiay));
-        datBangApp("saved");
+        const tenFile2 = sinhTenFile(maDon2, dinhDangTenFile(gocDon2));
+        themDongLog("ok", dongDaLuu(tenFile2, GIAY_MOI_DON * MB_MOI_GIAY, GIAY_MOI_DON));
+        hienPhieu("pause");
+        datBangApp("saved", true);
         recChi.style.opacity = "0";
         wm.style.opacity = "0";
         phieu.style.transform = "translate(-50%,-50%) translateX(-140%)";
       });
 
       // Bước 4: dừng ở "sẵn sàng đơn kế tiếp", hiện lại nút
-      sau((giamCD ? 0 : 700) + giuGiay * 2000 + 900, () => {
+      sau(D0 + GIAY_MOI_DON * 1000 + CHOP_MS + GIAY_MOI_DON * 1000 + GIU_KET_MS, () => {
         nut.hidden = false;
       });
     }

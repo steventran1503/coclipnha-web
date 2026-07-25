@@ -2,6 +2,19 @@
 // Khối "Người dùng đầu tiên" — dùng chung ở US1 (trang chủ) và US4 (Ủng hộ).
 // LUẬT (kho-thong-diep.md §7e, DG-01): không bịa đánh giá, không gắn sao —
 // FR-019. Chỉ 1 dẫn chứng thật (BC-01, ZIN ZIN MOTOR) + ô trống ghi rõ lý do.
+//
+// Dùng cau_chot (câu chốt ngắn) chứ KHÔNG dùng dien_giai của BC-01: trang chủ
+// (index.astro mục "BC-01 + TN") đã in dien_giai đầy đủ ngay phía trên khối
+// này — dùng lại y nguyên đoạn đó ở đây sẽ lặp chữ 2 lần liền kề trên cùng
+// trang. cau_chot là câu ngắn hơn, không trùng.
+//
+// Câu "Ô này để trống…" lấy Ý từ kho-thong-diep.md §DG-01 (mục "Cách dựng khi
+// chưa có", trích nguyên văn trong dấu *"..."*) — KHÔNG lấy được qua
+// layKhoi("DG-01").data.dien_giai vì trường đó đang RỖNG trong
+// kho-noi-dung.json (docs/web/xuat_kho_noi_dung.py chỉ trích cột "Câu chốt"/
+// "Diễn giải", còn câu này nằm trong bullet "Cách dựng khi chưa có" nên không
+// được script trích ra). Cần chủ dự án duyệt việc sửa script trước khi đổi
+// chỗ này sang layKhoi thật — xem báo cáo C5.
 import { layKhoi } from "../lib/khoiNoiDung";
 
 const bc01 = await layKhoi("BC-01");
@@ -10,7 +23,7 @@ const bc01 = await layKhoi("BC-01");
 <div class="nguoi-dung-dau-tien">
   <div class="the-app">
     <div class="tieu-de-the">ZIN ZIN MOTOR — phụ tùng xe máy</div>
-    <p>{bc01.data.dien_giai}</p>
+    <p>{bc01.data.cau_chot}</p>
   </div>
   <p class="ghi-chu">
     Ô này để trống cho tới khi có đánh giá thật — tụi mình không bịa đánh giá.

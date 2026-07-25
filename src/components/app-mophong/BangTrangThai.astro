@@ -14,7 +14,10 @@ interface Props {
 
 const { trangThai, maDon, variant = "trang", id } = Astro.props;
 const mau = layMauBang(trangThai);
-const chu = layChuBang(trangThai) + (trangThai === "rec" && maDon ? `: ${maDon}` : "");
+// Chữ chính KHÔNG nối mã đơn vào (quyết định RÀ SOÁT DEMO 24/07 điểm 2): mã
+// đơn hiện ở nhãn riêng "QR hiện tại" cạnh khung ngắm, không trộn vào chữ
+// băng — băng chỉ nói trạng thái, không nói đơn nào.
+const chu = layChuBang(trangThai);
 const goiY = layGoiYBang(trangThai);
 ---
 
@@ -54,6 +57,10 @@ const goiY = layGoiYBang(trangThai);
     position: sticky;
     top: 0;
     z-index: 50;
+    /* Chừa chỗ bên phải cho nút menu ☰ (position:fixed, top:0.9rem right:1rem,
+       rộng 2.2rem — xem MenuBaGach.astro) đang nổi cùng góc, không thì giờ
+       hiển thị bị nút menu đè lên. */
+    padding-right: 3.6rem;
   }
   .bang-mophong--app {
     min-height: 2.4rem;

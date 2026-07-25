@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import MenuBaGach from "../components/MenuBaGach.astro";
+import ChanTrang from "../components/ChanTrang.astro";
 import { duongDan } from "../lib/duongDan";
 
 interface Props {
@@ -40,5 +41,8 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
   <body>
     <MenuBaGach />
     <slot />
+    <ChanTrang>
+      <slot name="giay-phep" slot="giay-phep" />
+    </ChanTrang>
   </body>
 </html>

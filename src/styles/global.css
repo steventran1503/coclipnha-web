@@ -24,6 +24,9 @@
   --chu-diu: #cbd5e3;
   --teal: #3db8b0;
   --teal-dam: #2fa098;
+  /* Chưa dùng ở bản build hiện tại (toàn trang nền tối) — CHỈ dùng cho chữ
+     teal trên nền SÁNG (vd trang FAQ/chân trang nếu sau này có khối nền
+     sáng). Đừng dùng cho chữ trên nền tối — đã đo tương phản chỉ 3,75:1. */
   --teal-chu: #1f7a72;
   --do: #e5484d;
   --log-nen: #10151d;
@@ -116,7 +119,7 @@ h2 {
   color: var(--do);
 }
 .diem-teal {
-  color: var(--teal-chu);
+  color: var(--teal);
 }
 
 /* hiện dần khi cuộn tới — JS thêm .an lúc đầu; không JS thì luôn hiện (FR-010) */

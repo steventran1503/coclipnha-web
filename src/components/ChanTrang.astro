@@ -1,0 +1,39 @@
+---
+// Chân trang dùng chung mọi trang (tách khỏi index.astro để 10 trang tới
+// không phải chép lại). Slot "giay-phep" chừa chỗ cho GiayPhepFfmpeg (T028,
+// FR-018) gắn vào khi làm trang Tải về — chưa có T028 thì slot rỗng, không
+// chặn phần còn lại.
+import { layKhoi } from "../lib/khoiNoiDung";
+
+const sm01 = await layKhoi("SM-01");
+const gp05 = await layKhoi("GP-05");
+---
+
+<footer>
+  <div class="logo-dong">
+    <span class="logo-c" aria-hidden="true"></span>
+    <strong style="color:var(--chu);">CoClipNha</strong>
+  </div>
+  <p>{sm01.data.cau_chot}</p>
+  <p style="margin-top:.5rem;">{gp05.data.cau_chot} · Sponsored by ZIN ZIN MOTOR</p>
+  <slot name="giay-phep" />
+</footer>
+
+<style>
+  .logo-c {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 2.5px solid var(--teal);
+    border-right-color: transparent;
+    position: relative;
+    flex: none;
+  }
+  .logo-c::after {
+    content: "";
+    position: absolute;
+    inset: 25%;
+    background: var(--do);
+    border-radius: 1.5px;
+  }
+</style>

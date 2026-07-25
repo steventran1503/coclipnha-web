@@ -87,7 +87,16 @@ export function dongDaLuu(
     .replace("{duration:.1f}", thoiLuongGiay.toFixed(1));
 }
 
-/** Tên file video mô phỏng theo đúng mẫu `ten_file_video.mau`. */
+/** Tên file video mô phỏng — điền đúng vào khuôn `ten_file_video.mau`, không gõ lại tay. */
 export function sinhTenFile(maDon: string, thoiGian: string, ten = "Hue"): string {
-  return `${maDon}_${thoiGian}_${ten}.mp4`;
+  return tenFileVideo.mau
+    .replace("<QR>", maDon)
+    .replace("<thoi_gian>", thoiGian)
+    .replace("<TenNhanVien>", ten);
+}
+
+/** Dòng "QR: <mã>" của watermark, điền vào đúng mẫu `watermark.cac_dong` (không gõ lại "QR: "). */
+export function dongQr(maDon: string): string {
+  const mau = watermark.cac_dong.find((d) => d.startsWith("QR:")) ?? "QR: {qr}";
+  return mau.replace("{qr}", maDon);
 }

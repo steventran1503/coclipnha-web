@@ -15,6 +15,13 @@ import VanBan from "../components/VanBan.astro";
 import { layKhoi } from "../lib/khoiNoiDung";
 import { duongDan } from "../lib/duongDan";
 
+// Mã vận đơn Shopee THẬT (chủ dự án cấp 25/07/2026, khách hàng ZIN ZIN
+// MOTOR — cùng nguồn ảnh với docs/web/demo-ca-truc/van-don-shopee.jpg, đã đối
+// chiếu MD5 khớp bit-for-bit). Dùng thay cho mã bịa (861879430644,
+// SPX1234567) ở mọi chỗ trang chủ minh hoạ MỘT đơn cụ thể (GP-04, GP-01,
+// GP-03) — không dùng mã tự đặt cho một giao dịch cụ thể nữa.
+const MA_DON_THAT = "SHOPEEVTPVN2606875138465";
+
 const titD = await layKhoi("TIT-D");
 const nd02 = await layKhoi("ND-02");
 const gp04 = await layKhoi("GP-04");
@@ -28,8 +35,12 @@ const gp06 = await layKhoi("GP-06");
 const gp07 = await layKhoi("GP-07");
 const gp05 = await layKhoi("GP-05");
 const bc01 = await layKhoi("BC-01");
+// TN-05 (chống quét trùng) tách riêng khỏi bảng — dùng làm thẻ giải thích
+// "vì sao băng phía trên đang vàng" (mục này đặt data-bang="warn"), tránh
+// hiện trùng 2 lần trên cùng trang (giống cách bản demo đã tách).
+const tn05 = await layKhoi("TN-05");
 const tn = await Promise.all(
-  ["TN-01", "TN-02", "TN-03", "TN-04", "TN-05", "TN-06", "TN-07"].map(layKhoi),
+  ["TN-01", "TN-02", "TN-03", "TN-04", "TN-06", "TN-07"].map(layKhoi),
 );
 const sm01 = await layKhoi("SM-01");
 const vd01 = await layKhoi("VD-01");
@@ -51,7 +62,7 @@ const TG_SLUG: Record<string, string> = {
   <BangTrangThai trangThai="ready" variant="trang" id="bang-trang" />
 
   <!-- ============ HERO (TIT-D) ============ -->
-  <header class="khoi" data-bang="nen" style="padding-top:2.4rem;">
+  <header class="khoi" id="canh-hero" data-bang="nen" style="padding-top:2.4rem;">
     <span class="nhan-log">phần mềm miễn phí cho bàn đóng gói của shop Việt</span>
     <h1 style="font-size:clamp(2rem,6.4vw,3.5rem);max-width:19ch;">
       {titD.data.cau_chot}
@@ -78,18 +89,18 @@ const TG_SLUG: Record<string, string> = {
   </section>
 
   <!-- ============ GP-04: HÀNG HOÀN ============ -->
-  <section class="khoi" data-bang="rec" data-ma="861879430644">
+  <section class="khoi" data-bang="rec" data-ma={MA_DON_THAT}>
     <span class="nhan-log">khác biệt lớn nhất — chưa đối thủ nào có</span>
     <h2>{gp04.data.cau_chot}</h2>
     <p class="mo-dau" style="margin-bottom:1.6rem;">{gp04.data.dien_giai}</p>
     <div class="hai-canh hien">
       <div class="canh">
         <span class="nhan-canh">LÚC GỬI ĐI</span>
-        <Watermark maDon="861879430644" gio="2026-07-10 09:12:30" />
+        <Watermark maDon={MA_DON_THAT} gio="2026-07-10 09:12:30" />
       </div>
       <div class="canh canh--sau">
         <span class="nhan-canh">LÚC NHẬN VỀ</span>
-        <Watermark maDon="861879430644" gio="2026-07-18 16:45:02" />
+        <Watermark maDon={MA_DON_THAT} gio="2026-07-18 16:45:02" />
       </div>
     </div>
   </section>
@@ -115,19 +126,19 @@ const TG_SLUG: Record<string, string> = {
   </section>
 
   <!-- ============ GP-01 ============ -->
-  <section class="khoi khoi--hep" data-bang="rec" data-ma="SPX1234567">
+  <section class="khoi khoi--hep" data-bang="rec" data-ma={MA_DON_THAT}>
     <span class="nhan-log">vì sao không đơn nào bị sót</span>
     <h2>{gp01.data.cau_chot}</h2>
     <p class="mo-dau">{gp01.data.dien_giai}</p>
   </section>
 
   <!-- ============ GP-03: WATERMARK GIỜ THẬT ============ -->
-  <section class="khoi" data-bang="rec" data-ma="SPX1234567">
+  <section class="khoi" data-bang="rec" data-ma={MA_DON_THAT}>
     <span class="nhan-log">mã và giờ đóng thẳng lên hình</span>
     <h2>{gp03.data.cau_chot}</h2>
     <p class="mo-dau" style="margin-bottom:1.6rem;">{gp03.data.dien_giai}</p>
     <div class="khung-minh-hoa hien">
-      <Watermark maDon="SPX1234567" />
+      <Watermark maDon={MA_DON_THAT} gioSong={true} />
     </div>
   </section>
 
@@ -160,6 +171,13 @@ const TG_SLUG: Record<string, string> = {
     <span class="nhan-log">sinh ra từ một bàn đóng gói thật</span>
     <h2>Không phải sản phẩm nghĩ ra trong phòng máy lạnh</h2>
     <p class="mo-dau" style="margin-bottom:2rem;">{bc01.data.dien_giai}</p>
+    <div class="the-app the-app--vang hien" style="margin-bottom:1.4rem;">
+      <div class="tieu-de-the">Vì sao băng phía trên đang vàng?</div>
+      <p style="font-size:.95rem;color:var(--chu-diu);">
+        Đó là cảnh báo <strong>{tn05.data.cau_chot.toLowerCase()}</strong>:{" "}
+        {tn05.data.dien_giai}
+      </p>
+    </div>
     <h3 style="margin-bottom:.8rem;">Và những thứ nhỏ mà chạm việc thật:</h3>
     <div style="overflow-x:auto;">
       <table class="bang-tn hien">
@@ -240,15 +258,6 @@ const TG_SLUG: Record<string, string> = {
       }
     </div>
   </section>
-
-  <footer>
-    <div class="logo-dong">
-      <span class="logo-c" aria-hidden="true"></span>
-      <strong style="color:var(--chu);">CoClipNha</strong>
-    </div>
-    <p>{sm01.data.cau_chot}</p>
-    <p style="margin-top:.5rem;">{gp05.data.cau_chot} · Sponsored by ZIN ZIN MOTOR</p>
-  </footer>
 </BaseLayout>
 
 <style>
@@ -322,9 +331,11 @@ const TG_SLUG: Record<string, string> = {
 
   // Băng bám đỉnh: đổi theo mục đang cuộn tới (FR-004). "nen" là màu chương
   // trình trung tính (thương hiệu), không phải trạng thái app thật nên không
-  // qua nguonSuThat.ts — các trạng thái còn lại đều đọc từ đó (FR-006).
+  // qua nguonSuThat.ts — các trạng thái còn lại đều đọc từ đó (FR-006). Chữ
+  // chính KHÔNG nối mã đơn (quyết định RÀ SOÁT DEMO 24/07 điểm 2) — mã đơn có
+  // nhãn riêng "QR hiện tại" trong khung Quét thử, băng chỉ nói trạng thái.
   const bang = document.getElementById("bang-trang");
-  function datBang(loai: string, ma?: string | null) {
+  function datBang(loai: string) {
     if (!bang) return;
     if (loai === "nen") {
       bang.dataset.trangThai = "nen";
@@ -343,7 +354,7 @@ const TG_SLUG: Record<string, string> = {
     bang.style.setProperty("--bang-chu", mau.fg);
     const chu = bang.querySelector<HTMLElement>('[data-vai="chu"]');
     const goiY = bang.querySelector<HTMLElement>('[data-vai="goi-y"]');
-    if (chu) chu.textContent = layChuBang(ten) + (ten === "rec" && ma ? `: ${ma}` : "");
+    if (chu) chu.textContent = layChuBang(ten);
     if (goiY) goiY.textContent = layGoiYBang(ten);
   }
   const cacMuc = document.querySelectorAll<HTMLElement>("[data-bang]");
@@ -351,12 +362,29 @@ const TG_SLUG: Record<string, string> = {
     (es) => {
       es.forEach((e) => {
         if (!e.isIntersecting) return;
-        datBang(e.target.getAttribute("data-bang")!, e.target.getAttribute("data-ma"));
+        datBang(e.target.getAttribute("data-bang")!);
       });
     },
     { rootMargin: "-45% 0px -45% 0px" },
   );
   cacMuc.forEach((m) => quanSatBang.observe(m));
+
+  // B3: khi khối hero (chứa Quét thử) còn trong tầm nhìn, băng bám đỉnh phải
+  // đổi theo ĐÚNG kịch bản Quét thử đang chạy (không chỉ băng nhỏ trong khung
+  // app) — nghe sự kiện QuetThu.astro phát ra (chỉ phát khi bao=true, tức lúc
+  // đang chạy kịch bản, không phát lúc reset "sẵn sàng" khi vừa tải trang).
+  let heroDangDien = false;
+  const canhHero = document.getElementById("canh-hero");
+  if (canhHero) {
+    const quanSatHero = new IntersectionObserver(
+      (es) => es.forEach((e) => (heroDangDien = e.isIntersecting)),
+      { threshold: 0.3 },
+    );
+    quanSatHero.observe(canhHero);
+  }
+  document.addEventListener("quetthu:trangthai", (e) => {
+    if (heroDangDien) datBang((e as CustomEvent<string>).detail);
+  });
 
   // Hiện dần khi cuộn tới (FR-004, FR-011) — cuộn vẫn tự do, không khóa/cướp
   // cuộn (FR-012): chỉ đổi opacity/transform bằng CSS, không chặn wheel/touch.
