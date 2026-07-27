@@ -41,6 +41,11 @@ const khoThongDiep = defineCollection({
     // Cột dư của bảng nhiều hơn 3 cột (bảng so sánh SS: việc / điện thoại /
     // CoClipNha) — cột 3 trở đi nằm ở đây.
     cot_them: z.array(z.string()),
+    // Các bullet `- **Nhãn**: ...` còn lại của khối. CÓ CẢ ghi chú nội bộ cho
+    // người viết ("VIẾT SAO CHO ĐÚNG", "KHÔNG được") lẫn nội dung web thật
+    // (TB-01 "Ngoài yêu cầu đó"). Trang PHẢI gọi đích danh nhãn cần hiện —
+    // tuyệt đối không đổ cả cụm ra web.
+    truong_khac: z.record(z.string(), z.string()),
     canh_cho_video: z.string().nullable(),
     trang_su_dung: z.array(z.string()),
   }),

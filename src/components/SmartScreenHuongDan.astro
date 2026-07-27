@@ -1,0 +1,126 @@
+---
+// T027/FR-017 — hai hình minh hoạ SmartScreen DỰNG LẠI bằng HTML (không phải
+// ảnh chụp): nhẹ, nét ở mọi màn hình, đọc được bằng trình đọc màn hình, và
+// sửa chữ tiếng Anh của Windows không phải chụp lại ảnh.
+//
+// Chữ trong hai hộp là NGUYÊN VĂN tiếng Anh Windows hiện ra (Windows 10/11
+// bản tiếng Anh) — cố ý giữ nguyên để shop đối chiếu đúng chữ trên máy mình,
+// phần dịch nằm ở dòng chú thích dưới mỗi hộp.
+//
+// Lý do bị chặn (PB-04) do TRANG truyền vào qua prop `lyDo` — đọc từ kho nội
+// dung, component không chép cứng (FR-003).
+interface Props {
+  lyDo: string;
+}
+
+const { lyDo } = Astro.props;
+---
+
+<div class="ss">
+  <p class="mo-dau">{lyDo}</p>
+
+  <div class="ss-luoi">
+    <figure>
+      <div class="hop-ss" aria-hidden="true">
+        <strong>Windows protected your PC</strong>
+        <p>
+          Microsoft Defender SmartScreen prevented an unrecognized app from
+          starting. Running this app might put your PC at risk.
+        </p>
+        <p class="cuoi"><span class="diem-bam"><u>More info</u></span></p>
+      </div>
+      <figcaption>
+        <strong>Bước 1</strong> — bấm dòng <em>“More info”</em> (Thông tin thêm) ở
+        góc dưới bên trái hộp thoại.
+      </figcaption>
+    </figure>
+
+    <figure>
+      <div class="hop-ss" aria-hidden="true">
+        <strong>Windows protected your PC</strong>
+        <p>App: CoClipNha-Setup.exe<br />Publisher: Unknown publisher</p>
+        <p class="cuoi">
+          <span class="nut-ss diem-bam">Run anyway</span>
+          <span class="nut-ss nut-ss--mo">Don't run</span>
+        </p>
+      </div>
+      <figcaption>
+        <strong>Bước 2</strong> — hộp thoại hiện thêm nút <em>“Run anyway”</em> (Vẫn
+        chạy); bấm nút đó là cài được.
+      </figcaption>
+    </figure>
+  </div>
+</div>
+
+<style>
+  .ss .mo-dau {
+    color: var(--chu-diu);
+    margin-bottom: 1.2rem;
+  }
+  .ss-luoi {
+    display: grid;
+    gap: 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  }
+  figure {
+    margin: 0;
+  }
+  .hop-ss {
+    background: #f4f4f4;
+    color: #1a1a1a;
+    border: 1px solid #c8c8c8;
+    border-radius: 6px;
+    padding: 1rem 1.1rem;
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+  .hop-ss strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .hop-ss p {
+    margin: 0 0 0.7rem;
+    color: #3a3a3a;
+  }
+  .hop-ss p.cuoi {
+    margin-bottom: 0;
+  }
+  .diem-bam {
+    /* Chỗ shop phải bấm — viền nhấp nháy nhẹ để mắt bắt ngay, tắt khi máy
+       người dùng đặt "giảm chuyển động". */
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+    border-radius: 3px;
+    animation: nhay 1.6s ease-in-out infinite;
+  }
+  @keyframes nhay {
+    50% {
+      outline-color: transparent;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .diem-bam {
+      animation: none;
+    }
+  }
+  .nut-ss {
+    display: inline-block;
+    padding: 0.35rem 0.9rem;
+    margin-right: 0.5rem;
+    background: #e1e1e1;
+    border: 1px solid #adadad;
+    border-radius: 3px;
+  }
+  .nut-ss--mo {
+    opacity: 0.65;
+  }
+  figcaption {
+    margin-top: 0.7rem;
+    font-size: 0.88rem;
+    color: var(--chu-diu);
+  }
+  figcaption strong {
+    color: var(--chu);
+  }
+</style>

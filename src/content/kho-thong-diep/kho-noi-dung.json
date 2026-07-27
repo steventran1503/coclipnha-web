@@ -1,7 +1,7 @@
 {
   "_meta": {
     "sinh_boi": "docs/web/xuat_kho_noi_dung.py — script CHỈ ĐỌC",
-    "sinh_luc": "2026-07-25 13:23:56",
+    "sinh_luc": "2026-07-27 13:06:34",
     "nguon": "docs\\web\\kho-thong-diep.md",
     "luu_y": "ĐỪNG sửa tay file này — sửa kho-thong-diep.md rồi chạy lại script."
   },
@@ -14,6 +14,9 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {
+        "Cần chủ dự án cấp": "logo ZIN ZIN MOTOR (PNG nền trong), địa chỉ trang/ fanpage để đặt liên kết, và nếu được thì **1–2 ảnh chụp màn hình vụ khiếu nại đã xử thắng** (che thông tin khách hàng)."
+      },
       "trang_su_dung": ["index", "ung-ho"]
     },
     {
@@ -24,6 +27,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": []
     },
     {
@@ -34,6 +38,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": []
     },
     {
@@ -44,6 +49,11 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {
+        "Luật": "không bịa đánh giá, không thuê viết. Ô đánh giá ĐỂ TRỐNG cho tới khi có lời thật từ shop dùng thật (xin kèm tên shop + cho phép đăng).",
+        "Cách dựng khi chưa có": "1 thẻ ZIN ZIN MOTOR (bằng chứng thật BC-01) + các ô trống ghi thẳng *\"Ô này để trống cho tới khi có đánh giá thật — tụi mình không bịa đánh giá.\"* Chính ô trống là điểm cộng niềm tin.",
+        "Cần chủ dự án cấp": "lời nhận xét thật (chụp màn hình tin nhắn càng tốt)."
+      },
       "trang_su_dung": []
     },
     {
@@ -54,6 +64,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": "bàn tay đưa thùng hàng qua camera, viền màn hình đổi sang đỏ \"đang ghi\".",
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -64,6 +75,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": "bôi đen mã đơn trong tin nhắn khách → dán vào ô tìm → video hiện ra ngay.",
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -74,6 +86,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": "cận cảnh góc video, chữ mã đơn + giờ chạy theo từng giây.",
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -84,6 +97,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": "hai video cùng một mã đơn mở song song — bên trái hàng mới, bên phải hàng đã dùng.",
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -94,6 +108,12 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": "ổ cứng máy tính, thư mục video theo ngày.",
+      "truong_khac": {
+        "Lưu ý giọng": "viết \"video không rời khỏi máy shop\" — KHÔNG viết \"bảo mật tuyệt đối\". Cái đầu là sự thật kiểm chứng được; cái sau là lời hứa không ai bảo đảm nổi (máy hỏng, máy mất, người trong shop copy ra...). Nói đúng phần mình làm được thì shop tin lâu hơn.",
+        "HD-01": "Mở CoClipNha lên. Camera đã cắm sẵn ở bàn gói từ trước, app mở ra là camera chạy — không phải cắm gì, không phải chỉnh gì.",
+        "HD-02": "Dán mã vận đơn lên thùng như mọi khi, đưa qua trước camera. Máy tự quay.",
+        "HD-03": "Gói xong, quét mã đơn kế tiếp. Video đơn vừa rồi tự lưu, đặt tên theo mã đơn. Hết ca, tắt máy — xong."
+      },
       "trang_su_dung": ["index"]
     },
     {
@@ -104,6 +124,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": "thanh dung lượng ổ cứng gần như chưa nhúc nhích sau một tháng quay.",
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -114,6 +135,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": "ô nhập số ngày, rồi cắt sang thư mục tự gọn lại.",
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -124,6 +146,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index", "tro-giup/huong-dan"]
     },
     {
@@ -134,6 +157,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index", "tro-giup/huong-dan"]
     },
     {
@@ -144,6 +168,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index", "tro-giup/huong-dan"]
     },
     {
@@ -154,6 +179,7 @@
       "nut": "Tải về miễn phí",
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index", "tai-ve"]
     },
     {
@@ -164,6 +190,7 @@
       "nut": "Ủng hộ CoClipNha",
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["ung-ho"]
     },
     {
@@ -174,6 +201,9 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {
+        "Vì sao đưa vào": "biến chuyện ăn hoa hồng từ thứ phải giấu thành **cách thứ ba để ủng hộ** — thẳng thắn, và hợp với giọng \"miễn phí thật, ủng hộ tùy tâm\". Đặt ngay cạnh khối donate."
+      },
       "trang_su_dung": ["ung-ho"]
     },
     {
@@ -184,6 +214,9 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {
+        "Cần chủ dự án cấp": "link Facebook page + link TikTok — **CHỜ CẤP**."
+      },
       "trang_su_dung": []
     },
     {
@@ -194,6 +227,10 @@
       "nut": "Nhắn tin qua Facebook",
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {
+        "Chỗ đặt": "khối trợ giúp trang chủ, trang Góp ý, trang Báo lỗi, chân trang.",
+        "Cần chủ dự án cấp": "link `m.me/…` — **CHỜ CẤP**."
+      },
       "trang_su_dung": []
     },
     {
@@ -204,6 +241,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": "màn hình tin nhắn khiếu nại → shop ngồi im nhìn điện thoại.",
+      "truong_khac": {},
       "trang_su_dung": []
     },
     {
@@ -214,6 +252,9 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": "mở thùng hàng hoàn — bên trong là cái quần cũ thay vì hộp sạc; cắt sang bộ váy trả về có vết ố và vết son.",
+      "truong_khac": {
+        "Ghi chú": "đây là hai câu chuyện THẬT do chủ dự án cung cấp. Ưu tiên kể bằng đúng hai ví dụ này, đừng thay bằng ví dụ chung chung — chi tiết cụ thể mới làm shop tin."
+      },
       "trang_su_dung": ["index"]
     },
     {
@@ -224,6 +265,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": "hai khung chat đối nhau, một bên có video, một bên không.",
+      "truong_khac": {},
       "trang_su_dung": []
     },
     {
@@ -234,6 +276,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": "cuộn thư viện điện thoại đầy video tên VID_20260712 — không biết cái nào là đơn nào.",
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -244,6 +287,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["tro-giup/cau-hoi"]
     },
     {
@@ -254,6 +298,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["tro-giup/cau-hoi"]
     },
     {
@@ -264,6 +309,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["tai-ve", "tro-giup/cau-hoi"]
     },
     {
@@ -274,6 +320,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["tai-ve", "tro-giup/cau-hoi"]
     },
     {
@@ -284,6 +331,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["tro-giup/cau-hoi"]
     },
     {
@@ -294,6 +342,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["tro-giup/cau-hoi"]
     },
     {
@@ -304,6 +353,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["tro-giup/cau-hoi"]
     },
     {
@@ -314,6 +364,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["tro-giup/cau-hoi"]
     },
     {
@@ -324,6 +375,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["tro-giup/cau-hoi"]
     },
     {
@@ -334,6 +386,9 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {
+        "Chỗ đặt": "khối riêng gần cuối trang chủ, trước nút Tải về; nhắc lại ở chân trang. Lưu ý: app đang ghi *\"Vì một Việt Nam không còn tráo hàng.\"* — cảnh dựng lại app phải giữ ĐÚNG câu trong app (Luật 1); câu SM-01 là của riêng web. Muốn đồng bộ app theo câu mới là việc sửa app, cần duyệt riêng."
+      },
       "trang_su_dung": ["index"]
     },
     {
@@ -344,6 +399,7 @@
       "cot_them": ["Không có nút, quét mã là quay"],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -354,6 +410,7 @@
       "cot_them": ["Chính là mã vận đơn"],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -364,6 +421,7 @@
       "cot_them": ["Dán mã đơn — hiện ra ngay"],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -374,6 +432,7 @@
       "cot_them": ["Quét lại mã là quay tiếp"],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -384,6 +443,10 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {
+        "Ngoài yêu cầu đó": "camera nào cũng chạy được, không cần loại chuyên dụng, không cần 4K.",
+        "VIẾT SAO CHO ĐÚNG": "đây là **yêu cầu bắt buộc** — tách bạch với phần gợi ý hãng ở TB-02. Đừng gộp hai thứ làm một, người đọc sẽ tưởng phải mua đúng hãng mới chạy được."
+      },
       "trang_su_dung": ["tai-ve"]
     },
     {
@@ -394,6 +457,10 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {
+        "LUẬT MINH BẠCH — BẮT BUỘC": "mọi chỗ có link hoa hồng đều phải ghi rõ ngay cạnh link rằng đó là link có hoa hồng và giá không đổi. Lý do: cả sản phẩm này bán bằng chữ TIN. Giấu chuyện ăn hoa hồng mà bị phát hiện thì mất sạch thứ quý nhất, đổi lấy vài trăm nghìn. Nói thẳng ra thì nó còn thành điểm cộng — xem KG-03.",
+        "KHÔNG được": "nói dối là \"camera tốt nhất\", chê camera hãng khác, hay ngụ ý phải mua đúng mẫu này app mới chạy."
+      },
       "trang_su_dung": ["tai-ve"]
     },
     {
@@ -404,6 +471,9 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {
+        "LUẬT": "chỉ được viết đúng MỘT dòng này, đặt ở trang chủ. **KHÔNG** dựng máy tính ROI, **KHÔNG** bảng tính \"tiết kiệm bao nhiêu mỗi tháng\", **KHÔNG** bịa con số thiệt hại trung bình mỗi đơn — tụi mình không có số thật để nói. Sức nặng nằm ở chỗ để người đọc tự so, không phải ở chỗ tính hộ họ."
+      },
       "trang_su_dung": ["index"]
     },
     {
@@ -414,6 +484,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -424,6 +495,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -434,6 +506,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index", "tro-giup/tai-qr"]
     },
     {
@@ -444,6 +517,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index", "tro-giup/gop-y"]
     },
     {
@@ -454,6 +528,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index", "tro-giup/bao-loi"]
     },
     {
@@ -464,6 +539,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index", "tro-giup/yeu-cau-phan-mem"]
     },
     {
@@ -474,6 +550,7 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -484,6 +561,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -494,6 +572,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -504,6 +583,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -514,6 +594,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -524,6 +605,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -534,6 +616,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -544,6 +627,7 @@
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
+      "truong_khac": {},
       "trang_su_dung": ["index"]
     },
     {
@@ -554,6 +638,11 @@
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
+      "truong_khac": {
+        "CHỖ ĐẶT": "cuối trang chủ, **ngay trước nút Tải về** — sau khi người đọc đã đi hết ba bước và phần lợi ích. **KHÔNG đặt trên đầu trang**: chưa ai quan tâm mà bắt xem video dài thì họ lướt qua; người vừa đọc xong đang phân vân \"nói thì hay, thật không?\" mới là người bấm play. Đặt thêm ở trang Tải về và làm phần mở đầu trang Hướng dẫn.",
+        "Luật kỹ thuật": "chỉ nạp khung nhúng KHI người dùng bấm play (hiện ảnh tĩnh tự lưu + nút play), dùng `youtube-nocookie.com`. Lý do và cách làm ở mục 5c của `BAN-GIAO-THIET-KE-WEB.md`.",
+        "Nếu video có chương": "mỗi khối nội dung trên trang nên kèm liên kết nhỏ *\"xem cảnh này trong video thật\"* trỏ tới đúng mốc giây. Cảnh dựng lại lo việc kể, video thật lo việc làm chứng."
+      },
       "trang_su_dung": ["index", "tai-ve", "tro-giup/huong-dan"]
     }
   ]

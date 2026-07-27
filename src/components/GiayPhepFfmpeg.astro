@@ -1,0 +1,82 @@
+---
+// T028/FR-018 — ghi nhận giấy phép ffmpeg. Bản cài KÈM SẴN ffmpeg (chốt
+// 20/07, BAN-GIAO-THIET-KE-WEB mục "Vật cản" điểm 3) nên shop không phải tự
+// cài gì, nhưng kèm thì phải ghi nhận.
+//
+// VÌ SAO GHI "GPL v2 trở lên": app gọi ffmpeg với các bộ nén `libx264` /
+// `libx265` (xem `config/encoding_profiles.py`) — bản dựng ffmpeg có hai thư
+// viện này bắt buộc mang giấy phép GPL, không phải LGPL. Kèm theo GPL là
+// nghĩa vụ cho người dùng lấy được MÃ NGUỒN của đúng bản dựng đó.
+//
+// ⚠ CHỜ CHỦ DỰ ÁN: link mã nguồn bản dựng ffmpeg cụ thể chỉ có được khi gói
+// cài cuối hoàn tất (US7 spec 003). Chưa có thì `linkNguon` để trống — khối
+// vẫn nói đúng nghĩa vụ và chỉ chỗ hỏi, KHÔNG bịa link (FR-021).
+interface Props {
+  linkNguon?: string;
+}
+
+const { linkNguon } = Astro.props;
+---
+
+<section class="giay-phep" aria-labelledby="giay-phep-ffmpeg">
+  <h2 id="giay-phep-ffmpeg">Giấy phép phần mềm đi kèm</h2>
+  <p>
+    Bản cài CoClipNha kèm sẵn <strong>ffmpeg</strong> — phần mềm tự do của dự án{
+      " "
+    }
+    <a href="https://ffmpeg.org/" rel="noopener">FFmpeg</a>, dùng để nén video
+    sau khi quay. Shop không phải cài thêm gì.
+  </p>
+  <p>
+    Bản ffmpeg đi kèm có các bộ nén <code>libx264</code> và <code>libx265</code
+    >, nên phát hành theo giấy phép <strong>GPL phiên bản 2 trở lên</strong> — xem{
+      " "
+    }
+    <a href="https://ffmpeg.org/legal.html" rel="noopener"
+      >trang giấy phép của FFmpeg</a
+    >. CoClipNha không sở hữu và không bán ffmpeg.
+  </p>
+  <p>
+    Giấy phép GPL cho phép bất kỳ ai xin mã nguồn của đúng bản ffmpeg tụi mình
+    đóng gói.{" "}
+    {
+      linkNguon ? (
+        <a href={linkNguon} rel="noopener">
+          Tải mã nguồn bản ffmpeg đi kèm
+        </a>
+      ) : (
+        <span class="cho-cap">
+          Link mã nguồn sẽ đặt ngay tại đây khi bản cài chính thức phát hành;
+          trong lúc chờ, shop cứ nhắn cho tụi mình là gửi.
+        </span>
+      )
+    }
+  </p>
+</section>
+
+<style>
+  .giay-phep {
+    border-top: 1px solid var(--vien);
+    margin-top: 2rem;
+    padding-top: 1.4rem;
+    font-size: 0.88rem;
+    color: var(--chu-mo);
+  }
+  .giay-phep h2 {
+    font-family: var(--font-tit);
+    font-size: 1rem;
+    color: var(--chu-diu);
+    margin-bottom: 0.6rem;
+  }
+  .giay-phep p {
+    margin-bottom: 0.6rem;
+    max-width: 46rem;
+  }
+  .giay-phep code {
+    font-family: var(--font-may, monospace);
+    font-size: 0.85em;
+  }
+  .cho-cap {
+    font-style: italic;
+  }
+</style>

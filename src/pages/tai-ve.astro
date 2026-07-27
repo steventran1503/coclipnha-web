@@ -1,0 +1,187 @@
+---
+// T029/T030 — US2 "Tải app và vượt SmartScreen yên tâm" (FR-015..FR-018).
+// Thứ tự khối bám đúng bản đồ mục 9 `kho-thong-diep.md`:
+//   KG-01 → TB-01 (yêu cầu camera, NÓI TRƯỚC nút tải) → TB-02 → PB-04
+//   (kèm 2 hình SmartScreen T027) → PB-03 → VD-01.
+// Mọi câu nội dung đọc qua layKhoi() (FR-003); chữ trong trang chỉ là nhãn
+// điều hướng/tiêu đề mục.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SmartScreenHuongDan from "../components/SmartScreenHuongDan.astro";
+import GiayPhepFfmpeg from "../components/GiayPhepFfmpeg.astro";
+import YoutubeFacade from "../components/YoutubeFacade.astro";
+import VanBan from "../components/VanBan.astro";
+import { layKhoi } from "../lib/khoiNoiDung";
+import { duongDan } from "../lib/duongDan";
+
+const kg01 = await layKhoi("KG-01");
+const tb01 = await layKhoi("TB-01");
+const tb02 = await layKhoi("TB-02");
+const pb04 = await layKhoi("PB-04");
+const pb03 = await layKhoi("PB-03");
+const pb02 = await layKhoi("PB-02");
+const vd01 = await layKhoi("VD-01");
+
+// Câu "ngoài yêu cầu autofocus thì camera nào cũng chạy" — nằm ở bullet
+// **Ngoài yêu cầu đó** của TB-01, gọi ĐÍCH DANH nhãn (xem chú thích
+// `truong_khac` trong content.config.ts: cụm này còn chứa ghi chú nội bộ,
+// tuyệt đối không đổ cả cụm ra trang).
+const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
+
+// T030/FR-016 — nút tải phải trỏ `…/releases/latest/download/…` để LUÔN là
+// bản mới nhất, không phải sửa web mỗi lần phát hành.
+//
+// ⚠ CHỜ CHỦ DỰ ÁN: bản đóng gói .exe cuối là US7 của spec 003, chưa xong; kho
+// mã app cũng chưa có remote GitHub nên chưa có đường Releases nào tồn tại.
+// Khi có, chỉ cần điền đúng MỘT hằng số này (dạng:
+// "https://github.com/<chủ kho>/<tên kho>/releases/latest/download/CoClipNha-Setup.exe").
+// Còn null thì nút hiện trạng thái "sắp có" CÓ NGHĨA — không để link chết,
+// cũng không chép ghi chú nội bộ "(Demo — …)" của bản demo (FR-021).
+const LINK_TAI: string | null = null;
+---
+
+<BaseLayout
+  tieuDe="Tải CoClipNha — miễn phí cho Windows 10 và 11"
+  moTaMeta="Tải CoClipNha về máy tính bàn gói hàng. Miễn phí, không cần tài khoản. Đọc trước yêu cầu camera và cách vượt cảnh báo Windows chỉ với 2 cú bấm."
+>
+  <main>
+    <!-- ============ KG-01: nút tải ============ -->
+    <section class="khoi khoi--hep" data-bang="ready">
+      <p class="lan-ve"><a href={duongDan()}>← Trang chủ</a></p>
+      <span class="nhan-log">{kg01.data.dien_giai}</span>
+      <h1>Tải CoClipNha</h1>
+
+      <p class="cho-nut">
+        {
+          LINK_TAI ? (
+            <a class="nut nut--chinh nut--to" href={LINK_TAI} rel="noopener">
+              {kg01.data.nut ?? kg01.data.cau_chot}
+            </a>
+          ) : (
+            <span class="nut nut--to nut--sap-co" role="status">
+              {kg01.data.nut ?? kg01.data.cau_chot} — sắp có
+            </span>
+          )
+        }
+      </p>
+      {
+        !LINK_TAI && (
+          <p class="chu-mo ghi-chu">
+            Bản cài đang trong khâu đóng gói cuối. Trong lúc chờ, shop cứ đọc
+            hết trang này — hai thứ cần chuẩn bị (camera và cảnh báo Windows)
+            đều nằm ngay dưới đây, để lúc có bản cài là dùng được luôn.
+          </p>
+        )
+      }
+    </section>
+
+    <!-- ============ TB-01: yêu cầu camera — NÓI TRƯỚC ============ -->
+    <section class="khoi khoi--hep" data-bang="warn">
+      <span class="nhan-log">đọc trước khi tải</span>
+      <h2 id="camera">{tb01.data.cau_chot}</h2>
+      <div class="the-app the-app--do">
+        <p>{tb01.data.dien_giai}</p>
+        {tb01Them && <p class="them">Ngoài yêu cầu đó, {tb01Them}</p>}
+      </div>
+    </section>
+
+    <!-- ============ TB-02: gợi ý camera (có hoa hồng) ============ -->
+    <section class="khoi khoi--hep" data-bang="ready">
+      <div class="the-app the-app--teal">
+        <div class="tieu-de-the">Gợi ý camera — link có hoa hồng</div>
+        <p><VanBan text={tb02.data.dien_giai} /></p>
+        <p class="cho-cap">
+          Danh sách mẫu gợi ý đang chờ chọn xong — sẽ đặt ngay tại đây, kèm ghi
+          rõ link nào có hoa hồng.
+        </p>
+        <p class="chot">{tb02.data.cau_chot}</p>
+      </div>
+    </section>
+
+    <!-- ============ PB-04 + hình SmartScreen (T027) ============ -->
+    <section class="khoi khoi--hep" data-bang="warn">
+      <span class="nhan-log">đừng hoảng</span>
+      <h2>{pb04.data.cau_chot}</h2>
+      <SmartScreenHuongDan lyDo={pb04.data.dien_giai} />
+      <p class="chu-mo ghi-chu">
+        <strong
+          >Nhắc lại cho yên tâm — {pb02.data.cau_chot.toLowerCase()}</strong
+        >{" "}{pb02.data.dien_giai}{" "}
+        <a href={duongDan("tro-giup/cau-hoi/")}>Xem thêm câu hỏi thường gặp</a>.
+      </p>
+    </section>
+
+    <!-- ============ PB-03: máy yếu ============ -->
+    <section class="khoi khoi--hep" data-bang="ready">
+      <h2>{pb03.data.cau_chot}</h2>
+      <p class="mo-dau">{pb03.data.dien_giai}</p>
+    </section>
+
+    <!-- ============ VD-01: xem thử ============ -->
+    <section class="khoi khoi--hep" data-bang="nen">
+      <h2>{vd01.data.cau_chot}</h2>
+      <p class="mo-dau doan">{vd01.data.dien_giai}</p>
+      <YoutubeFacade tieuDeVideo={vd01.data.cau_chot} />
+    </section>
+  </main>
+
+  <!-- FR-018: ghi nhận giấy phép ffmpeg, đặt ở chân trang dùng chung -->
+  <GiayPhepFfmpeg slot="giay-phep" />
+</BaseLayout>
+
+<style>
+  h1 {
+    font-family: var(--font-tit);
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    margin-bottom: 1.2rem;
+  }
+  h2 {
+    font-family: var(--font-tit);
+    font-size: 1.35rem;
+    margin-bottom: 0.8rem;
+  }
+  .lan-ve {
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+  .cho-nut {
+    margin: 1.4rem 0 0.6rem;
+  }
+  .nut--to {
+    display: inline-block;
+    font-size: 1.15rem;
+    padding: 1rem 2.4rem;
+  }
+  .nut--sap-co {
+    background: transparent;
+    border: 1px dashed var(--vien);
+    color: var(--chu-mo);
+    cursor: default;
+  }
+  .ghi-chu {
+    font-size: 0.9rem;
+    max-width: 42rem;
+  }
+  .the-app p {
+    font-size: 0.95rem;
+    color: var(--chu-diu);
+    margin-bottom: 0.6rem;
+  }
+  .the-app p:last-child {
+    margin-bottom: 0;
+  }
+  .the-app .them {
+    color: var(--chu-mo);
+  }
+  .the-app .cho-cap {
+    font-style: italic;
+    color: var(--chu-mo);
+    font-size: 0.9rem;
+  }
+  .the-app .chot {
+    font-weight: 600;
+    color: var(--chu);
+  }
+  .doan {
+    margin-bottom: 1.6rem;
+  }
+</style>
