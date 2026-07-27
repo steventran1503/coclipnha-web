@@ -1,0 +1,86 @@
+---
+// T032/US3 — TG-02 Câu hỏi thường gặp: toàn bộ PB-01..09.
+//
+// FR-014: JSON-LD FAQPage sinh TỪ CHÍNH danh sách đang hiện ra, không viết
+// tay lần hai — thêm/sửa một câu hỏi trong kho thông điệp là cả trang lẫn dữ
+// liệu cho Google cùng đổi, không bao giờ lệch nhau.
+import TrangTroGiup from "../../layouts/TrangTroGiup.astro";
+import VanBan from "../../components/VanBan.astro";
+import { getCollection } from "astro:content";
+
+// Thứ tự hiện = thứ tự trong kho thông điệp (PB-01..PB-09, đã sắp khi xuất).
+const hoiDap = (await getCollection("kho-thong-diep"))
+  .filter((k) => k.data.nhom === "PB")
+  .sort((a, b) => a.data.ma.localeCompare(b.data.ma));
+
+// Bỏ đánh dấu **in đậm** khi đưa vào JSON-LD: dữ liệu có cấu trúc cần chữ
+// thuần, dấu sao lọt vào là bẩn kết quả tìm kiếm.
+const chuThuan = (s: string) => s.replace(/\*\*(.+?)\*\*/g, "$1");
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: hoiDap.map((k) => ({
+    "@type": "Question",
+    name: chuThuan(k.data.cau_chot),
+    acceptedAnswer: { "@type": "Answer", text: chuThuan(k.data.dien_giai) },
+  })),
+};
+---
+
+<TrangTroGiup
+  maTg="TG-02"
+  moTaMeta="Câu hỏi thường gặp về CoClipNha: giá, quyền riêng tư video, máy yếu, cảnh báo Windows, dung lượng ổ cứng, camera nào dùng được."
+>
+  <script
+    slot="head"
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(jsonLd)}
+  />
+
+  {
+    hoiDap.map((k, i) => (
+      <details class="hoi" open={i === 0}>
+        <summary>{k.data.cau_chot}</summary>
+        <div class="dap">
+          <VanBan text={k.data.dien_giai} />
+        </div>
+      </details>
+    ))
+  }
+</TrangTroGiup>
+
+<style>
+  .hoi {
+    border: 1px solid var(--vien);
+    border-radius: 8px;
+    margin-bottom: 0.7rem;
+    background: #131822;
+  }
+  summary {
+    cursor: pointer;
+    padding: 0.9rem 1.1rem;
+    font-weight: 600;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: "▾";
+    float: right;
+    color: var(--chu-mo);
+    transition: transform 0.15s;
+  }
+  .hoi[open] summary::after {
+    transform: rotate(180deg);
+    display: inline-block;
+  }
+  .dap {
+    padding: 0 1.1rem 1rem;
+    color: var(--chu-diu);
+    font-size: 0.95rem;
+    max-width: 44rem;
+  }
+</style>

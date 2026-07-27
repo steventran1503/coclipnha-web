@@ -1,0 +1,24 @@
+---
+// T036/US3 — TG-06 Yêu cầu phát triển phần mềm: lời dẫn + nút mở biểu mẫu
+// (link chờ cấp). Trang này KHÔNG mời Messenger — KN-02 chỉ đặt ở khối trợ
+// giúp trang chủ, trang Góp ý, trang Báo lỗi và chân trang.
+import TrangTroGiup from "../../layouts/TrangTroGiup.astro";
+import NutBieuMau from "../../components/NutBieuMau.astro";
+---
+
+<TrangTroGiup
+  maTg="TG-06"
+  moTaMeta="Shop có việc lặp đi lặp lại mỗi ngày mà chưa có phần mềm nào vừa tay? Kể cho đội làm CoClipNha nghe — tụi mình đọc và trả lời từng yêu cầu."
+>
+  <p class="doan">
+    CoClipNha sinh ra từ một nhu cầu thật ở bàn đóng gói. Nếu shop đang có một
+    việc lặp đi lặp lại mỗi ngày mà chưa có phần mềm nào vừa tay — quản kho, in
+    ấn, đối soát, hay việc gì khác — kể tụi mình nghe.
+  </p>
+  <p class="doan">
+    Mô tả càng cụ thể càng tốt: việc đó hiện làm tay thế nào, mất bao lâu, vướng
+    ở đâu. Tụi mình đọc và trả lời từng yêu cầu.
+  </p>
+
+  <NutBieuMau nhanBieuMau="Mở biểu mẫu yêu cầu" />
+</TrangTroGiup>

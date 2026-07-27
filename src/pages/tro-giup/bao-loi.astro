@@ -1,0 +1,29 @@
+---
+// T035/US3 — TG-05 Báo lỗi: cách lấy gói chẩn đoán trong app + nút mở biểu
+// mẫu (link chờ cấp).
+//
+// Câu "gói chẩn đoán KHÔNG chứa video" là điểm niềm tin, không phải thủ tục
+// (BAN-GIAO-THIET-KE-WEB, vật cản 4) — giữ nguyên vị trí ngay dưới phần mô tả
+// gói chẩn đoán, trước khi mời bấm gửi.
+import TrangTroGiup from "../../layouts/TrangTroGiup.astro";
+import NutBieuMau from "../../components/NutBieuMau.astro";
+---
+
+<TrangTroGiup
+  maTg="TG-05"
+  moTaMeta="Báo lỗi CoClipNha: lấy gói chẩn đoán ngay trong app (Trợ giúp → Báo lỗi) rồi gửi kèm. Gói chẩn đoán không chứa video — video không bao giờ rời khỏi máy shop."
+>
+  <p class="doan">
+    App chạy sai chỗ nào, cách nhanh nhất để tụi mình sửa là shop gửi kèm <strong
+      >gói chẩn đoán</strong
+    > — trong app, mở <em>Trợ giúp → Báo lỗi</em> là app tự đóng gói nhật ký hoạt
+    động thành một file.
+  </p>
+  <p class="doan">
+    Nói rõ để shop yên tâm: gói chẩn đoán chứa nhật ký app (có mã vận đơn và tên
+    nhân viên đã nhập), <strong>không chứa video</strong> — video không bao giờ rời
+    khỏi máy shop.
+  </p>
+
+  <NutBieuMau nhanBieuMau="Mở biểu mẫu báo lỗi" coMessenger={true} />
+</TrangTroGiup>

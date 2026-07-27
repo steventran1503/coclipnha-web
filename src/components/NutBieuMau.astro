@@ -1,0 +1,63 @@
+---
+// Hàng nút cho 3 trang phản hồi (góp ý / báo lỗi / yêu cầu phần mềm).
+//
+// Link biểu mẫu và link Messenger đều là Tài sản chờ cấp (T044 spec 003, và
+// KN-02 "CHỜ CẤP"). Chưa có thì hiện thẻ nói thẳng đang chờ — không href="#"
+// (link chết), không chép ghi chú nội bộ "(Demo — …)" (FR-021).
+import { layKhoi } from "../lib/khoiNoiDung";
+
+interface Props {
+  /** Chữ trên nút mở biểu mẫu, vd "Mở biểu mẫu góp ý". */
+  nhanBieuMau: string;
+  /** Link biểu mẫu thật khi chủ dự án cấp — chưa có thì để trống. */
+  linkBieuMau?: string | null;
+  /** Trang này có mời nhắn tin Messenger không (KN-02 chỉ đặt ở góp ý/báo lỗi). */
+  coMessenger?: boolean;
+  /** Link m.me/… thật khi chủ dự án cấp. */
+  linkMessenger?: string | null;
+}
+
+const {
+  nhanBieuMau,
+  linkBieuMau = null,
+  coMessenger = false,
+  linkMessenger = null,
+} = Astro.props;
+
+const kn02 = coMessenger ? await layKhoi("KN-02") : null;
+---
+
+<p class="hang-nut">
+  {
+    linkBieuMau ? (
+      <a class="nut nut--chinh" href={linkBieuMau} rel="noopener">
+        {nhanBieuMau}
+      </a>
+    ) : (
+      <span class="nut nut--cho" role="status">
+        {nhanBieuMau} — sắp mở
+      </span>
+    )
+  }
+  {
+    kn02 &&
+      (linkMessenger ? (
+        <a class="nut nut--vien" href={linkMessenger} rel="noopener">
+          💬 {kn02.data.nut}
+        </a>
+      ) : (
+        <span class="nut nut--cho" role="status">
+          💬 {kn02.data.nut} — đang chờ link
+        </span>
+      ))
+  }
+</p>
+
+{
+  !linkBieuMau && (
+    <p class="ghi-chu chu-mo">
+      Biểu mẫu đang được dựng. Trong lúc chờ, shop cứ nhắn thẳng cho tụi mình
+      qua Facebook — người thật đọc và trả lời, không phải máy.
+    </p>
+  )
+}

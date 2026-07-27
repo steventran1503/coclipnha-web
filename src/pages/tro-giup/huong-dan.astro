@@ -1,0 +1,79 @@
+---
+// T031/US3 — TG-01 Hướng dẫn sử dụng: VD-01 mở đầu (đúng chỗ đặt đã chốt
+// trong kho thông điệp) rồi HD-01..03 mở rộng.
+//
+// Ba bước lấy nguyên văn HD-01..03 (FR-003); phần "mở rộng" là câu mô tả
+// BĂNG TRẠNG THÁI app hiện gì ở mỗi bước — chữ băng đọc từ nguồn sự thật
+// (layChuBang), KHÔNG gõ lại, để app đổi chữ là web hết lệch.
+import TrangTroGiup from "../../layouts/TrangTroGiup.astro";
+import YoutubeFacade from "../../components/YoutubeFacade.astro";
+import BangTrangThai from "../../components/app-mophong/BangTrangThai.astro";
+import { layKhoi } from "../../lib/khoiNoiDung";
+import { duongDan } from "../../lib/duongDan";
+import { qrDieuKhien } from "../../lib/nguonSuThat";
+
+const vd01 = await layKhoi("VD-01");
+const hd = await Promise.all(["HD-01", "HD-02", "HD-03"].map(layKhoi));
+
+// Mỗi bước kèm băng app đang ở trạng thái nào — dựng bằng chính component
+// mô phỏng của trang chủ, không vẽ lại.
+const BUOC: { bang: "ready" | "rec" | "saved"; maDon?: string }[] = [
+  { bang: "ready" },
+  { bang: "rec", maDon: "SHOPEEVTPVN2606875138465" },
+  { bang: "saved" },
+];
+---
+
+<TrangTroGiup
+  maTg="TG-01"
+  moTaMeta="Hướng dẫn dùng CoClipNha từng bước: mở app, đưa mã vận đơn qua camera, quét mã đơn kế tiếp. Kèm mã QR PAUSE để dừng giữa chừng."
+>
+  <p class="doan">{vd01.data.dien_giai}</p>
+  <YoutubeFacade tieuDeVideo={vd01.data.cau_chot} />
+
+  <div class="cac-buoc">
+    {
+      hd.map((khoi, i) => (
+        <section class="buoc">
+          <h2>Bước {i + 1}</h2>
+          <p class="doan">{khoi.data.cau_chot}</p>
+          <p class="nhan-bang">Lúc này băng trên đầu app hiện:</p>
+          <BangTrangThai
+            trangThai={BUOC[i].bang}
+            maDon={BUOC[i].maDon}
+            variant="app"
+          />
+        </section>
+      ))
+    }
+  </div>
+
+  <p class="ghi-chu chu-mo">
+    Muốn dừng và lưu video mà chưa có đơn kế tiếp thì đưa mã QR <code
+      >{qrDieuKhien.pause}</code
+    > vào khung hình — mã in sẵn ở trang{" "}
+    <a href={duongDan("tro-giup/tai-qr/")}>Tải mã QR điều khiển</a>.
+  </p>
+  <p class="ghi-chu chu-mo">
+    Bản hướng dẫn kèm ảnh chụp màn hình từng bước đang được chuẩn bị — sẽ bổ
+    sung ngay tại trang này.
+  </p>
+</TrangTroGiup>
+
+<style>
+  .cac-buoc {
+    margin-top: 2.4rem;
+  }
+  .buoc {
+    margin-bottom: 2.2rem;
+  }
+  .nhan-bang {
+    font-size: 0.85rem;
+    color: var(--chu-mo);
+    margin-bottom: 0.5rem;
+  }
+  code {
+    font-family: var(--font-may);
+    font-size: 0.9em;
+  }
+</style>

@@ -1,0 +1,85 @@
+---
+// Khung dùng chung cho 6 trang Trợ giúp & Phản hồi (US3) — cùng một dáng:
+// nhãn nhỏ (câu một dòng của khối TG) → tít → nội dung → đường về trang chủ.
+// Tách ra để 6 trang không chép lại kiểu dáng, và sau này đổi dáng một chỗ.
+import BaseLayout from "./BaseLayout.astro";
+import { duongDan } from "../lib/duongDan";
+import { layKhoi } from "../lib/khoiNoiDung";
+
+interface Props {
+  /** Mã khối TG-01..06 — lấy tên mục làm tít và câu một dòng làm nhãn/mô tả. */
+  maTg: string;
+  /** Mô tả meta riêng của trang (dài hơn câu một dòng, cho kết quả tìm kiếm). */
+  moTaMeta?: string;
+}
+
+const { maTg, moTaMeta } = Astro.props;
+const tg = await layKhoi(maTg);
+// Khối TG lấy từ bảng: cột "Mục" → cau_chot (tên trang), cột "Câu một dòng"
+// → dien_giai.
+const tenTrang = tg.data.cau_chot;
+const motDong = tg.data.dien_giai;
+// Vài tên mục đã có sẵn chữ "CoClipNha" (TG-04 "Góp ý cho CoClipNha") — thêm
+// đuôi thương hiệu nữa thành "… CoClipNha — CoClipNha" trên tab trình duyệt.
+const tieuDeTab = tenTrang.includes("CoClipNha")
+  ? tenTrang
+  : `${tenTrang} — CoClipNha`;
+---
+
+<BaseLayout tieuDe={tieuDeTab} moTaMeta={moTaMeta ?? motDong}>
+  <slot name="head" slot="head" />
+  <main class="khoi khoi--hep trang-con">
+    <p class="lan-ve"><a href={duongDan()}>← Trang chủ</a></p>
+    <span class="nhan-log">{motDong}</span>
+    <h1>{tenTrang}</h1>
+    <slot />
+    <p class="lan-ve cuoi">
+      <a href={duongDan()}>← Về trang chủ</a>
+    </p>
+  </main>
+  <slot name="giay-phep" slot="giay-phep" />
+</BaseLayout>
+
+<style is:global>
+  .trang-con h1 {
+    font-family: var(--font-tit);
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    margin-bottom: 1.2rem;
+  }
+  .trang-con h2 {
+    font-family: var(--font-tit);
+    font-size: 1.35rem;
+    margin-bottom: 0.7rem;
+  }
+  .trang-con .lan-ve {
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+  .trang-con .lan-ve.cuoi {
+    margin: 2.4rem 0 0;
+  }
+  .trang-con .doan {
+    color: var(--chu-diu);
+    margin-bottom: 1.5rem;
+    max-width: 44rem;
+  }
+  .trang-con .hang-nut {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.6rem 0 0.8rem;
+  }
+  /* Nút mà link thật CHƯA có (biểu mẫu, file in, Messenger — Tài sản chờ cấp,
+     FR-021): hiện dáng nút nhưng viền đứt và nói thẳng là đang chờ, KHÔNG
+     dùng href="#" (link chết) và KHÔNG chép ghi chú nội bộ "(Demo — …)". */
+  .trang-con .nut--cho {
+    background: transparent;
+    border: 1px dashed var(--vien);
+    color: var(--chu-mo);
+    cursor: default;
+  }
+  .trang-con .ghi-chu {
+    font-size: 0.9rem;
+    max-width: 44rem;
+  }
+</style>

@@ -1,0 +1,102 @@
+---
+// T033/US3 — TG-03 Tải mã QR điều khiển.
+//
+// Tên hai mã đọc từ nguồn sự thật (`qr_dieu_khien`) chứ không gõ tay: app đổi
+// nội dung mã là web hết lệch. File in A6/A4 là Tài sản chờ cấp — hiện nút
+// "đang chuẩn bị", KHÔNG dùng href="#" và KHÔNG chép ghi chú nội bộ
+// "(Demo — file in thật sẽ gắn khi phát hành.)" của bản demo (FR-021).
+import TrangTroGiup from "../../layouts/TrangTroGiup.astro";
+import { qrDieuKhien } from "../../lib/nguonSuThat";
+import { duongDan } from "../../lib/duongDan";
+
+// Đường tải thật khi có file in (đặt trong `public/in/`): điền vào đây là nút
+// sống, không phải sửa chỗ nào khác.
+const FILE_A6: string | null = null;
+const FILE_A4: string | null = null;
+---
+
+<TrangTroGiup
+  maTg="TG-03"
+  moTaMeta="Tải mã QR điều khiển CoClipNha để in dán ở bàn quay: mã PAUSE (dừng và lưu video) và mã START Đơn Ngoài. Bản in khổ A6 và A4 xếp 4 mã cắt rời."
+>
+  <p class="doan">Hai mã in sẵn, dán ở bàn quay là dùng cả năm:</p>
+
+  <div class="luoi">
+    <div class="the-app">
+      <div class="tieu-de-the">
+        Mã <code>{qrDieuKhien.pause}</code> — dừng &amp; lưu
+      </div>
+      <p>
+        Đưa vào khung hình là video đang quay được lưu lại ngay — dùng khi gói
+        xong mà chưa có đơn kế tiếp.
+      </p>
+    </div>
+    <div class="the-app">
+      <div class="tieu-de-the">
+        Mã <code>{qrDieuKhien.don_ngoai}</code> — Đơn Ngoài
+      </div>
+      <p>
+        Dùng khi cần quay mà không có mã vận đơn — ví dụ mở thùng hàng hoàn đã
+        mất mã. Video đặt tên "Don Hang" kèm số thứ tự.
+      </p>
+    </div>
+  </div>
+
+  <p class="doan">
+    Bản in <strong>khổ A6</strong> (105×148mm — cùng khổ vận đơn shop đang in) và
+    bản <strong>A4 xếp 4 mã cắt rời</strong> cho máy in thường:
+  </p>
+
+  <p class="hang-nut">
+    {
+      FILE_A6 ? (
+        <a class="nut nut--chinh" href={duongDan(FILE_A6)} download>
+          Tải bản in A6
+        </a>
+      ) : (
+        <span class="nut nut--cho" role="status">
+          Bản in A6 — đang chuẩn bị
+        </span>
+      )
+    }
+    {
+      FILE_A4 ? (
+        <a class="nut nut--vien" href={duongDan(FILE_A4)} download>
+          Tải bản A4 (4 mã cắt rời)
+        </a>
+      ) : (
+        <span class="nut nut--cho" role="status">
+          Bản A4 (4 mã cắt rời) — đang chuẩn bị
+        </span>
+      )
+    }
+  </p>
+  {
+    !(FILE_A6 && FILE_A4) && (
+      <p class="ghi-chu chu-mo">
+        File in đang được làm cùng bản cài chính thức. Trong lúc chờ, shop vẫn
+        dùng app bình thường — hai mã này chỉ là tiện ích thêm, không có vẫn
+        quay và lưu video đủ.
+      </p>
+    )
+  }
+</TrangTroGiup>
+
+<style>
+  .luoi {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    margin-bottom: 2rem;
+  }
+  .the-app p {
+    font-size: 0.95rem;
+    color: var(--chu-diu);
+    margin: 0;
+  }
+  code {
+    font-family: var(--font-may);
+    font-size: 0.9em;
+    color: var(--teal);
+  }
+</style>
