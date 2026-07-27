@@ -1,0 +1,165 @@
+---
+// T037/T038/T039 — US4 "Cân nhắc ủng hộ": KG-02 → KG-03 → BC-01.
+//
+// Hai cách ủng hộ đặt CẠNH NHAU chứ không xếp trên dưới: cách 2 (mua camera
+// qua link hoa hồng) là để shop không dư tiền vẫn có đường đỡ một tay, đặt
+// dưới cùng thì mất tác dụng đó (KG-03 "Vì sao đưa vào").
+//
+// FR-008/T039: ghi chú minh bạch hoa hồng đặt NGAY CẠNH link, dùng đúng giọng
+// đã dùng ở trang Tải về (TB-02) để hai chỗ không lệch nhau.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import NguoiDungDauTien from "../components/NguoiDungDauTien.astro";
+import VanBan from "../components/VanBan.astro";
+import { layKhoi } from "../lib/khoiNoiDung";
+import { duongDan } from "../lib/duongDan";
+
+const kg02 = await layKhoi("KG-02");
+const kg03 = await layKhoi("KG-03");
+const bc01 = await layKhoi("BC-01");
+const tb02 = await layKhoi("TB-02");
+
+// T038 — ảnh mã VietQR là Tài sản chờ cấp (data-model.md). Đặt file vào
+// `public/anh/` rồi điền tên vào đây là hiện ảnh thật; còn null thì hiện ô
+// vuông "đang chờ" đúng kích thước, không vỡ bố cục và không nói dối là đã có
+// (FR-021).
+const ANH_VIETQR: string | null = null;
+---
+
+<BaseLayout
+  tieuDe="Ủng hộ CoClipNha"
+  moTaMeta="CoClipNha luôn miễn phí. Ai thấy có ích thì ủng hộ — chuyển khoản VietQR, hoặc mua camera qua link gợi ý (có hoa hồng, giá shop trả không đổi)."
+>
+  <main class="khoi khoi--hep">
+    <p class="lan-ve"><a href={duongDan()}>← Trang chủ</a></p>
+    <span class="nhan-log">miễn phí thật — ủng hộ tùy tâm</span>
+    <h1>{kg02.data.nut ?? "Ủng hộ CoClipNha"}</h1>
+    <p class="doan lon">{kg02.data.dien_giai}</p>
+
+    <div class="hai-cach">
+      <!-- Cách 1: chuyển khoản (T038) -->
+      <div class="the-app the-app--teal">
+        <div class="tieu-de-the">Cách 1 — Chuyển khoản VietQR</div>
+        {
+          ANH_VIETQR ? (
+            <img
+              class="anh-qr"
+              src={duongDan(`anh/${ANH_VIETQR}`)}
+              alt="Mã VietQR ủng hộ CoClipNha — quét bằng app ngân hàng"
+              width="220"
+              height="220"
+              loading="lazy"
+            />
+          ) : (
+            <div class="khung-qr" role="status">
+              <span class="o-qr" aria-hidden="true" />
+              <p>Mã VietQR đang chờ cập nhật — sẽ đặt đúng tại ô này.</p>
+            </div>
+          )
+        }
+        <p class="nho">
+          Mở app ngân hàng, quét mã là xong — bao nhiêu cũng quý.
+        </p>
+      </div>
+
+      <!-- Cách 2: KG-03 + ghi chú minh bạch (T039) -->
+      <div class="the-app the-app--teal">
+        <div class="tieu-de-the">Cách 2 — Ủng hộ mà không tốn đồng nào</div>
+        <p class="nho">{kg03.data.dien_giai}</p>
+        <p class="nho">
+          <a href={`${duongDan("tai-ve/")}#camera`}>Xem gợi ý camera →</a>
+        </p>
+        <p class="minh-bach">
+          Nói rõ: <VanBan text={tb02.data.dien_giai} />
+        </p>
+      </div>
+    </div>
+
+    <h2>Tiền ủng hộ đi về đâu?</h2>
+    <p class="doan">
+      CoClipNha sinh ra từ bàn đóng gói của <strong>ZIN ZIN MOTOR</strong> và đang
+      được nuôi bằng tiền túi. Đóng góp của shop giúp trả các chi phí giữ phần mềm
+      sống: tên miền, chứng chỉ ký số (để Windows hết cảnh báo khi cài), và thời gian
+      làm thêm tính năng theo góp ý của chính shop.
+    </p>
+    <p class="doan">{bc01.data.dien_giai}</p>
+
+    <NguoiDungDauTien />
+
+    <p class="lan-ve cuoi"><a href={duongDan()}>← Về trang chủ</a></p>
+  </main>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-family: var(--font-tit);
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    margin-bottom: 1.2rem;
+  }
+  h2 {
+    font-family: var(--font-tit);
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+  .lan-ve {
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+  .lan-ve.cuoi {
+    margin: 2.4rem 0 0;
+  }
+  .doan {
+    color: var(--chu-diu);
+    margin-bottom: 1.5rem;
+    max-width: 44rem;
+  }
+  .doan.lon {
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+  }
+  .hai-cach {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    margin-bottom: 2.4rem;
+  }
+  .nho {
+    font-size: 0.93rem;
+    color: var(--chu-diu);
+    margin-bottom: 0.7rem;
+  }
+  .minh-bach {
+    font-size: 0.82rem;
+    color: var(--chu-mo);
+    border-top: 1px dashed var(--vien);
+    padding-top: 0.6rem;
+    margin: 0;
+  }
+  .khung-qr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0.8rem auto 1rem;
+    text-align: center;
+  }
+  .khung-qr p {
+    font-size: 0.8rem;
+    color: var(--chu-mo);
+    max-width: 15rem;
+  }
+  .o-qr,
+  .anh-qr {
+    width: 8.5rem;
+    height: 8.5rem;
+    border-radius: 8px;
+    background: #0b0e14;
+    border: 1px dashed var(--vien);
+  }
+  .anh-qr {
+    display: block;
+    margin: 0.8rem auto 1rem;
+    border-style: solid;
+    background: #fff;
+    object-fit: contain;
+  }
+</style>
