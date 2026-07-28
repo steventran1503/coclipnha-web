@@ -1,0 +1,120 @@
+---
+// T042/US6 — "Về CoClipNha": câu chuyện ZIN ZIN MOTOR (BC-01) + khối sứ mệnh
+// (SM-01). Acceptance Scenario 1 (spec.md US6): kể xuất xứ, KHÔNG gắn sao
+// đánh giá — đây là chuyện gốc gác phần mềm, không phải lời khen khách hàng
+// (khác NguoiDungDauTien.astro, chỗ đó mới là "Đánh giá"/DG-01).
+//
+// "Ba lời hứa" bên dưới là tít mục viết tay (cấu trúc trang, theo ranh giới
+// đã chốt ở README-noi-dung.md — nhãn/tít mục không vào kho nội dung); nội
+// dung từng lời hứa đọc qua layKhoi (PB-01/PB-02/TB-02), không hardcode câu
+// (FR-003).
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VanBan from "../components/VanBan.astro";
+import { layKhoi } from "../lib/khoiNoiDung";
+import { duongDan } from "../lib/duongDan";
+
+const bc01 = await layKhoi("BC-01");
+const sm01 = await layKhoi("SM-01");
+const pb01 = await layKhoi("PB-01");
+const pb02 = await layKhoi("PB-02");
+const tb02 = await layKhoi("TB-02");
+const kg02 = await layKhoi("KG-02");
+---
+
+<BaseLayout
+  tieuDe="Về CoClipNha — sinh ra từ một bàn đóng gói thật"
+  moTaMeta="CoClipNha ra đời từ bàn đóng gói của ZIN ZIN MOTOR, không phải sản phẩm nghĩ ra trong phòng máy lạnh. Miễn phí thật, video không rời máy shop, minh bạch chuyện hoa hồng."
+>
+  <main class="khoi khoi--hep">
+    <p class="lan-ve"><a href={duongDan()}>← Trang chủ</a></p>
+    <span class="nhan-log">sinh ra từ một bàn đóng gói thật</span>
+    <h1>Về CoClipNha</h1>
+
+    <p class="doan lon">{bc01.data.dien_giai}</p>
+
+    <div class="the-app the-app--teal khoi-su-menh">
+      <div class="tieu-de-the">Sứ mệnh</div>
+      <p class="cau-chot-sm">{sm01.data.cau_chot}</p>
+      <p class="nho">{sm01.data.dien_giai}</p>
+    </div>
+
+    <h2>Ba lời hứa giữ được</h2>
+    <ul class="loi-hua">
+      <li>
+        <strong>Miễn phí thật</strong> — {pb01.data.dien_giai}{" "}
+        <a href={duongDan("ung-ho/")}>{kg02.data.nut ?? "Ủng hộ CoClipNha"} →</a
+        >
+      </li>
+      <li>
+        <strong>Video không rời khỏi máy shop</strong> — {pb02.data.dien_giai}
+      </li>
+      <li>
+        <strong>Minh bạch chuyện hoa hồng</strong> — <VanBan
+          text={tb02.data.dien_giai}
+        />
+      </li>
+    </ul>
+
+    <p class="lan-ve cuoi"><a href={duongDan()}>← Về trang chủ</a></p>
+  </main>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-family: var(--font-tit);
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    margin-bottom: 1.2rem;
+  }
+  h2 {
+    font-family: var(--font-tit);
+    font-size: 1.3rem;
+    margin: 2rem 0 0.9rem;
+  }
+  .lan-ve {
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+  .lan-ve.cuoi {
+    margin: 2.4rem 0 0;
+  }
+  .doan {
+    color: var(--chu-diu);
+    margin-bottom: 1.4rem;
+    max-width: 44rem;
+  }
+  .doan.lon {
+    font-size: 1.05rem;
+  }
+  .khoi-su-menh {
+    margin: 1.6rem 0 2rem;
+    max-width: 44rem;
+  }
+  .cau-chot-sm {
+    font-size: 1.05rem;
+    font-family: var(--font-tit);
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .nho {
+    font-size: 0.95rem;
+    color: var(--chu-diu);
+  }
+  .loi-hua {
+    color: var(--chu-diu);
+    padding-left: 1.2rem;
+    max-width: 44rem;
+  }
+  .loi-hua li {
+    margin-bottom: 0.8rem;
+  }
+  .loi-hua strong {
+    color: var(--chu);
+  }
+  /* Link nằm LẪN trong câu văn: chỉ khác màu là chưa đủ (chênh với chữ xung
+     quanh mới 1,63:1 — người khó phân biệt màu sẽ không thấy đó là link).
+     Gạch chân để nhận ra bằng hình dạng, không chỉ bằng màu (T046). */
+  .loi-hua a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+</style>

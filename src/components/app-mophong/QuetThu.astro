@@ -19,8 +19,17 @@ import { duongDan } from "../../lib/duongDan";
 
 const MA_DON_1 = "SHOPEEVTPVN2606875138465";
 const MA_DON_2 = "SPXVN066496183117";
-const ANH_DON_1 = duongDan("anh/van-don-shopee-that.jpg");
-const ANH_DON_2 = duongDan("anh/van-don-shopee-that-2.jpg");
+// Ảnh vận đơn thật, đã thu nhỏ còn 380px + đổi sang WebP (T046 — Lighthouse
+// chấm trang chủ mất điểm vì hai tấm JPG gốc nặng 457 KB trong khi khung hiển
+// thị chỉ rộng 160px). Bản JPG gốc vẫn nằm trong public/anh/ để sau này cần
+// xuất lại cỡ khác — đừng xoá, cũng đừng trỏ src về nó.
+const ANH_DON_1 = duongDan("anh/van-don-shopee-that.webp");
+const ANH_DON_2 = duongDan("anh/van-don-shopee-that-2.webp");
+// Kích thước thật của tấm WebP — khai vào <img> để trình duyệt chừa sẵn chỗ,
+// không nhảy layout lúc ảnh về (audit unsized-images).
+const ANH_RONG = 380;
+const ANH_CAO_1 = 536;
+const ANH_CAO_2 = 538;
 const GIO_MAU = "2026-07-25_09-12-30";
 const TEN_FILE_1 = sinhTenFile(MA_DON_1, GIO_MAU);
 
@@ -81,12 +90,20 @@ const DONG_LOG_TINH = [
           alt="Vận đơn Shopee thật của ZIN ZIN MOTOR"
           class="phieu-anh"
           data-vai="phieu-anh"
+          width={ANH_RONG}
+          height={ANH_CAO_1}
+          loading="lazy"
+          decoding="async"
         />
         <img
           src={ANH_DON_2}
           alt="Vận đơn Shopee thật thứ hai của ZIN ZIN MOTOR"
           class="phieu-anh"
           data-vai="phieu-anh-2"
+          width={ANH_RONG}
+          height={ANH_CAO_2}
+          loading="lazy"
+          decoding="async"
           hidden
         />
         <div class="phieu-pause" data-vai="phieu-pause" hidden>

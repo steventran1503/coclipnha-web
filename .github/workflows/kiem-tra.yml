@@ -1,0 +1,59 @@
+name: Kiểm tra web (link chết, Lighthouse, tương phản)
+
+# T046 + T048 (spec 004 Phase 9). Chạy độc lập với deploy.yml: deploy lo việc
+# đưa web lên, workflow này lo việc bắt lỗi trước khi lên.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  kiem-tra:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lấy mã nguồn
+        uses: actions/checkout@v4
+
+      - name: Cài Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Cài gói
+        run: npm ci
+
+      - name: Soát mã (ESLint)
+        run: npm run lint
+
+      - name: Kiểm tương phản màu chữ/nền
+        # Không chờ Lighthouse: script này bắt cả cặp màu khai trong CSS mà
+        # trang hiện tại chưa dùng tới (bẫy teal sáng làm chữ trên nền sáng).
+        run: npm run kiem:tuong-phan
+
+      - name: Dựng bản tĩnh
+        run: npm run build
+
+      - name: Bật máy chủ xem thử (cổng 4331)
+        run: npm run kiem:phuc-vu &
+
+      - name: Chờ máy chủ sẵn sàng
+        run: npx wait-on http://localhost:4331/coclipnha-web/ --timeout 60000
+
+      - name: Kiểm liên kết nội bộ chết
+        # --skip: chỉ soi link trong nhà. Link ra ngoài (ffmpeg.org, Facebook,
+        # GitHub Releases...) do bên kia quản, họ đổi đường dẫn thì CI của web
+        # không có lý do gì đỏ đèn.
+        run: npm run kiem:link
+
+      - name: Lighthouse (Performance/Accessibility/SEO ≥ 90, chế độ điện thoại)
+        run: npx lhci autorun --config=tests/lighthouse.config.json
+
+      - name: Lưu báo cáo Lighthouse
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bao-cao-lighthouse
+          path: tests/ket-qua-lighthouse
+          if-no-files-found: ignore

@@ -1,0 +1,106 @@
+---
+// T043/US6 — trang chỉ mục "Bài viết": liệt kê đủ 8 đề tài từ mục 10
+// kho-thong-diep.md (khối BV). Tít + tóm tắt mỗi thẻ đọc qua layKhoi (FR-003);
+// DE_TAI_BAI_VIET (src/lib/baiViet.ts) chỉ giữ thứ tự/slug, không phải nội
+// dung. 7 đề tài chưa viết (daXong=false) trỏ tới trang khung chờ chung
+// bai-viet/[slug].astro (T045) — không phải link chết.
+//
+// KHÔNG in khối BV ra trang: BV là ghi chú nội bộ cho người làm nội dung
+// ("đề tài lấy từ bản đồ 8 clip mục 10... ba đầu ra: web, video, Facebook"),
+// không phải câu nói với shop. Đăng nguyên văn là lộ hậu trường (phát hiện
+// khi kiểm lại Phase 8 ngày 28/07). Trang vào thẳng 8 thẻ; muốn có câu dẫn
+// thì chủ dự án viết một câu THẬT vào kho thông điệp mục 7f rồi thay vào đây.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { layKhoi } from "../../lib/khoiNoiDung";
+import { duongDan } from "../../lib/duongDan";
+import { DE_TAI_BAI_VIET } from "../../lib/baiViet";
+const the = await Promise.all(
+  DE_TAI_BAI_VIET.map(async (deTai) => ({
+    ...deTai,
+    chinh: await layKhoi(deTai.maChinh),
+    phu: deTai.maPhu ? await layKhoi(deTai.maPhu) : null,
+  })),
+);
+---
+
+<BaseLayout
+  tieuDe="Bài viết — CoClipNha"
+  moTaMeta="8 bài viết chuyện thật từ bàn đóng gói: hàng hoàn, quay tay không bền, bằng chứng khi khiếu nại, và cách CoClipNha xử từng chuyện."
+>
+  <main class="khoi">
+    <p class="lan-ve"><a href={duongDan()}>← Trang chủ</a></p>
+    <span class="nhan-log">chuyện bàn đóng gói — kể bằng chuyện thật</span>
+    <h1>Bài viết</h1>
+
+    <div class="luoi luoi-bai-viet">
+      {
+        the.map((t) =>
+          t.daXong ? (
+            <a class="the-link" href={duongDan(`bai-viet/${t.slug}/`)}>
+              <strong>{t.chinh.data.cau_chot}</strong>
+              <span>
+                {t.phu ? t.phu.data.cau_chot : t.chinh.data.dien_giai}
+              </span>
+            </a>
+          ) : (
+            <a
+              class="the-link the-link--cho"
+              href={duongDan(`bai-viet/${t.slug}/`)}
+            >
+              <strong>{t.chinh.data.cau_chot}</strong>
+              <span>
+                {t.phu ? t.phu.data.cau_chot : t.chinh.data.dien_giai}
+              </span>
+              <span class="nhan-cho">Sắp đăng</span>
+            </a>
+          ),
+        )
+      }
+    </div>
+
+    <p class="lan-ve cuoi"><a href={duongDan()}>← Về trang chủ</a></p>
+  </main>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-family: var(--font-tit);
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    /* trước đây có đoạn dẫn đứng giữa tít và lưới thẻ; bỏ đoạn đó rồi thì tít
+       phải tự giữ khoảng thở, không để thẻ dính lên tít */
+    margin-bottom: 2rem;
+  }
+  .lan-ve {
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+  .lan-ve.cuoi {
+    margin: 2.4rem 0 0;
+  }
+  .luoi-bai-viet {
+    margin-bottom: 1rem;
+  }
+  /* KHÔNG dùng opacity để làm mờ thẻ "sắp đăng": opacity hạ cả chữ lẫn nền
+     nên tương phản tụt xuống 3,46:1 — Lighthouse bắt lỗi color-contrast
+     (phát hiện ở T046). Muốn thẻ chìm hơn thì đổi màu nền/viền tường minh,
+     chữ giữ nguyên độ đọc được. */
+  .the-link--cho {
+    position: relative;
+    background: var(--nen-app);
+    border-style: dashed;
+  }
+  .the-link--cho strong {
+    color: var(--chu-diu);
+  }
+  .nhan-cho {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--chu-diu);
+    border: 1px dashed var(--vien);
+    border-radius: 999px;
+    padding: 0.1rem 0.6rem;
+  }
+</style>

@@ -1,0 +1,99 @@
+---
+// T045/US6 — khung chờ nội dung cho 7 đề tài chưa viết đầy đủ (DE_TAI_BAI_VIET
+// trong src/lib/baiViet.ts, daXong=false). Một route động thay vì 7 file
+// riêng — tránh lặp layout 7 lần (Nguyên tắc V), mỗi trang vẫn build tĩnh
+// riêng theo slug (getStaticPaths, output mặc định của Astro là tĩnh).
+//
+// KHÔNG bịa ngày đăng cụ thể: chưa có ngày nào chủ dự án chốt (tasks.md T045
+// chỉ nói "ghi ngày dự kiến hoàn thiện" nhưng không kèm ngày thật nào) — theo
+// đúng luật "web thà không có con số nào còn hơn có một con số bịa" (BC-02,
+// kho-thong-diep.md), nói thẳng "chưa có ngày cụ thể" thay vì đặt đại một mốc.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { layKhoi } from "../../lib/khoiNoiDung";
+import { duongDan } from "../../lib/duongDan";
+import { DE_TAI_BAI_VIET } from "../../lib/baiViet";
+
+export async function getStaticPaths() {
+  return DE_TAI_BAI_VIET.filter((t) => !t.daXong).map((t) => ({
+    params: { slug: t.slug },
+    props: { deTai: t },
+  }));
+}
+
+const { deTai } = Astro.props;
+const chinh = await layKhoi(deTai.maChinh);
+const phu = deTai.maPhu ? await layKhoi(deTai.maPhu) : null;
+---
+
+<BaseLayout
+  tieuDe={`${chinh.data.cau_chot} — CoClipNha`}
+  moTaMeta={`${chinh.data.cau_chot} — bài viết đang được soạn, sẽ đăng đầy đủ tại đây.`}
+>
+  <main class="khoi khoi--hep">
+    <p class="lan-ve">
+      <a href={duongDan("bai-viet/")}>← Bài viết</a>
+    </p>
+    <span class="nhan-log">đang soạn</span>
+    <h1>{chinh.data.cau_chot}</h1>
+
+    <p class="doan">
+      {phu ? phu.data.cau_chot : chinh.data.dien_giai}
+    </p>
+
+    <div class="cho-noi-dung" role="status">
+      <p>
+        Bài viết đầy đủ về đề tài này đang được soạn — chưa có ngày đăng cụ thể.
+        Trong lúc chờ, shop đọc bài đã hoàn thiện hoặc xem app diễn trên trang
+        chủ.
+      </p>
+    </div>
+
+    <p class="hang-nut">
+      <a class="nut nut--vien" href={duongDan("bai-viet/hang-hoan/")}
+        >Đọc bài đã hoàn thiện →</a
+      >
+      <a class="nut nut--vien" href={duongDan()}>Xem app diễn trên trang chủ</a>
+    </p>
+
+    <p class="lan-ve cuoi">
+      <a href={duongDan("bai-viet/")}>← Các bài viết khác</a>
+    </p>
+  </main>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-family: var(--font-tit);
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    margin-bottom: 1.2rem;
+  }
+  .lan-ve {
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+  .lan-ve.cuoi {
+    margin: 2.4rem 0 0;
+  }
+  .doan {
+    color: var(--chu-diu);
+    margin-bottom: 1.6rem;
+    max-width: 44rem;
+  }
+  .cho-noi-dung {
+    border: 1px dashed var(--vien);
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem;
+    margin-bottom: 1.8rem;
+    max-width: 44rem;
+  }
+  .cho-noi-dung p {
+    color: var(--chu-mo);
+    font-size: 0.93rem;
+  }
+  .hang-nut {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 0.4rem 0 0.8rem;
+  }
+</style>

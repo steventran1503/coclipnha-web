@@ -235,12 +235,19 @@ table.bang-tn {
   border-collapse: collapse;
   font-size: 0.95rem;
 }
-.bang-tn td {
+/* th đi kèm td: bảng so sánh ở trang chủ dùng th (scope=col/row) cho trình
+   đọc màn hình — kiểu dáng phải y hệt td, đừng để th rơi về mặc định trình
+   duyệt (canh giữa, đậm, không viền). */
+.bang-tn td,
+.bang-tn th {
   padding: 0.7rem 0.6rem;
   border-top: 1px solid var(--vien);
   vertical-align: top;
+  text-align: left;
+  font-weight: 400;
 }
-.bang-tn td:first-child {
+.bang-tn td:first-child,
+.bang-tn th:first-child {
   white-space: nowrap;
   font-weight: 700;
   color: var(--chu-diu);

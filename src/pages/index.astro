@@ -228,21 +228,28 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     <h3 style="margin:2.4rem 0 .6rem;">{nd04.data.cau_chot}</h3>
     <p class="mo-dau" style="margin-bottom:1.4rem;">{nd04.data.dien_giai}</p>
     <div style="overflow-x:auto;">
+      <!-- th + scope: không phải trang trí — trình đọc màn hình phải đọc được
+           "ô này thuộc cột CoClipNha, dòng ...", nếu để td trắng thì bảng chỉ
+           là một đống chữ rời (Lighthouse: td-has-header, sửa ở T046). -->
       <table class="bang-tn bang-ss hien">
-        <tr>
-          <td></td>
-          <td class="cot-dt">Quay bằng điện thoại</td>
-          <td class="cot-ccn">CoClipNha</td>
-        </tr>
-        {
-          ss.map((k) => (
-            <tr>
-              <td>{k.data.cau_chot}</td>
-              <td class="cot-dt">{k.data.dien_giai}</td>
-              <td class="cot-ccn">{k.data.cot_them[0]}</td>
-            </tr>
-          ))
-        }
+        <thead>
+          <tr>
+            <td></td>
+            <th scope="col" class="cot-dt">Quay bằng điện thoại</th>
+            <th scope="col" class="cot-ccn">CoClipNha</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            ss.map((k) => (
+              <tr>
+                <th scope="row">{k.data.cau_chot}</th>
+                <td class="cot-dt">{k.data.dien_giai}</td>
+                <td class="cot-ccn">{k.data.cot_them[0]}</td>
+              </tr>
+            ))
+          }
+        </tbody>
       </table>
     </div>
   </section>
@@ -552,10 +559,12 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     color: var(--chu-mo);
     font-size: 0.9rem;
   }
-  .bang-ss td {
+  .bang-ss td,
+  .bang-ss th {
     white-space: normal;
   }
-  .bang-ss tr:first-child td {
+  .bang-ss thead th,
+  .bang-ss thead td {
     font-weight: 700;
   }
   .bang-ss .cot-dt {

@@ -11,7 +11,11 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "kiem:tuong-phan": "node tests/kiem-tuong-phan.mjs",
+    "kiem:phuc-vu": "astro preview --port 4331",
+    "kiem:link": "linkinator http://localhost:4331/coclipnha-web/ --recurse --skip \"^(?!http://localhost:4331)\"",
+    "kiem:lighthouse": "lhci autorun --config=tests/lighthouse.config.json"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -20,10 +24,13 @@
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.15.1",
     "@typescript-eslint/parser": "^8.65.0",
     "eslint": "^10.7.0",
     "eslint-plugin-astro": "^3.0.1",
+    "linkinator": "^8.0.2",
     "prettier": "^3.9.6",
-    "prettier-plugin-astro": "^0.14.1"
+    "prettier-plugin-astro": "^0.14.1",
+    "wait-on": "^9.1.0"
   }
 }

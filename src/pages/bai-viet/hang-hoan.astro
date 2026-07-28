@@ -1,0 +1,92 @@
+---
+// T044/US6 — bài viết đầy đủ đầu tiên, chủ đề "hàng hoàn" (ND-02 + GP-04),
+// giọng văn tham khảo docs/web/demo-ca-truc/bai-hang-hoan.html. Toàn bộ đoạn
+// văn đọc qua layKhoi (ND-02 nỗi đau, ND-03 vì sao cần bằng chứng, GP-04 cách
+// CoClipNha xử, BC-01 dẫn chứng thật) — không viết lại nội dung tay, chỉ ghép
+// thứ tự + tít mục (FR-003). ND-02.dien_giai có markdown **in đậm** nên qua
+// VanBan như T025 đã sửa ở trang chủ.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import VanBan from "../../components/VanBan.astro";
+import { layKhoi } from "../../lib/khoiNoiDung";
+import { duongDan } from "../../lib/duongDan";
+
+const nd02 = await layKhoi("ND-02");
+const nd03 = await layKhoi("ND-03");
+const gp04 = await layKhoi("GP-04");
+const bc01 = await layKhoi("BC-01");
+const kg01 = await layKhoi("KG-01");
+---
+
+<BaseLayout
+  tieuDe={`${nd02.data.cau_chot} — CoClipNha`}
+  moTaMeta={`${nd02.data.cau_chot} ${gp04.data.cau_chot} Chuyện thật từ bàn đóng gói ZIN ZIN MOTOR.`}
+>
+  <main class="khoi khoi--hep">
+    <p class="lan-ve">
+      <a href={duongDan("bai-viet/")}>← Bài viết</a>
+    </p>
+    <span class="nhan-log">chuyện thật — nỗi đau hàng hoàn</span>
+    <h1>{nd02.data.cau_chot}</h1>
+
+    <p class="doan lon"><VanBan text={nd02.data.dien_giai} /></p>
+
+    <p class="doan">
+      <strong>{nd03.data.cau_chot}</strong>{" "}
+      {nd03.data.dien_giai}
+    </p>
+
+    <h2>{gp04.data.cau_chot}</h2>
+    <p class="doan">{gp04.data.dien_giai}</p>
+    <p class="doan">
+      {bc01.data.dien_giai}
+    </p>
+
+    <p class="hang-nut">
+      <a class="nut nut--chinh" href={duongDan("tai-ve/")}
+        >{kg01.data.nut ?? kg01.data.cau_chot}</a
+      >
+      <a class="nut nut--vien" href={duongDan()}>Xem app diễn trên trang chủ</a>
+    </p>
+
+    <p class="lan-ve cuoi">
+      <a href={duongDan("bai-viet/")}>← Các bài viết khác</a>
+    </p>
+  </main>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-family: var(--font-tit);
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    margin-bottom: 1.2rem;
+  }
+  h2 {
+    font-family: var(--font-tit);
+    font-size: 1.35rem;
+    margin: 2rem 0 0.8rem;
+  }
+  .lan-ve {
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+  .lan-ve.cuoi {
+    margin: 2.4rem 0 0;
+  }
+  .doan {
+    color: var(--chu-diu);
+    margin-bottom: 1.4rem;
+    max-width: 44rem;
+  }
+  .doan.lon {
+    font-size: 1.05rem;
+  }
+  .doan strong {
+    color: var(--chu);
+  }
+  .hang-nut {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.6rem 0 0.8rem;
+  }
+</style>

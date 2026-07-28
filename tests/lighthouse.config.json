@@ -1,0 +1,48 @@
+{
+  "//": [
+    "T046 — Lighthouse CI cho web tĩnh. Ngưỡng Performance/Accessibility/SEO",
+    "≥ 90 điểm ở chế độ điện thoại (mặc định của Lighthouse), theo research.md",
+    "mục 3.1. Chạy tay: npm run kiem:lighthouse (máy phải có Chrome).",
+    "",
+    "Vì sao dùng startServerCommand (npm run preview) chứ KHÔNG dùng",
+    "staticDistDir: site chạy dưới base /coclipnha-web (GitHub Pages project",
+    "site). Bày thẳng thư mục dist ra gốc thì mọi liên kết nội bộ đều 404 —",
+    "Lighthouse sẽ báo điểm sai lệch. astro preview phục vụ đúng base.",
+    "",
+    "Cổng 4331 (không phải 4321 mặc định): máy làm việc hay có sẵn một",
+    "astro dev chạy ở 4321 — chấm nhầm vào đó thì Lighthouse đo bản dev có",
+    "HMR/dev-toolbar, điểm sai bét. Cổng riêng để không bao giờ đụng.",
+    "",
+    "Khi DNS coclipnha.com trỏ xong (T002) và base bị xoá khỏi astro.config:",
+    "bỏ đoạn '/coclipnha-web' trong các URL dưới đây."
+  ],
+  "ci": {
+    "collect": {
+      "startServerCommand": "npm run kiem:phuc-vu",
+      "startServerReadyPattern": "localhost:4331",
+      "numberOfRuns": 1,
+      "url": [
+        "http://localhost:4331/coclipnha-web/",
+        "http://localhost:4331/coclipnha-web/tai-ve/",
+        "http://localhost:4331/coclipnha-web/ung-ho/",
+        "http://localhost:4331/coclipnha-web/gioi-thieu/",
+        "http://localhost:4331/coclipnha-web/bai-viet/",
+        "http://localhost:4331/coclipnha-web/bai-viet/hang-hoan/",
+        "http://localhost:4331/coclipnha-web/tro-giup/huong-dan/",
+        "http://localhost:4331/coclipnha-web/tro-giup/cau-hoi/"
+      ]
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 0.9 }],
+        "categories:accessibility": ["error", { "minScore": 0.9 }],
+        "categories:seo": ["error", { "minScore": 0.9 }],
+        "categories:best-practices": ["warn", { "minScore": 0.9 }]
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": "./tests/ket-qua-lighthouse"
+    }
+  }
+}

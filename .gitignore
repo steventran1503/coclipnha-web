@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# báo cáo Lighthouse sinh lại mỗi lần chạy (T046) — không lưu vào Git
+tests/ket-qua-lighthouse/
+.lighthouseci/
