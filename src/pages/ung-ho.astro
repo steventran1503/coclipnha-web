@@ -17,6 +17,8 @@ const kg02 = await layKhoi("KG-02");
 const kg03 = await layKhoi("KG-03");
 const bc01 = await layKhoi("BC-01");
 const tb02 = await layKhoi("TB-02");
+const tt10 = await layKhoi("TT-10");
+const tt11 = await layKhoi("TT-11");
 
 // T038 — ảnh mã VietQR là Tài sản chờ cấp (data-model.md). Đặt file vào
 // `public/anh/` rồi điền tên vào đây là hiện ảnh thật; còn null thì hiện ô
@@ -38,7 +40,7 @@ const ANH_VIETQR: string | null = null;
     <div class="hai-cach">
       <!-- Cách 1: chuyển khoản (T038) -->
       <div class="the-app the-app--teal">
-        <div class="tieu-de-the">Cách 1 — Chuyển khoản VietQR</div>
+        <div class="tieu-de-the">Cách 1 — {tt10.data.cau_chot}</div>
         {
           ANH_VIETQR ? (
             <img
@@ -56,9 +58,7 @@ const ANH_VIETQR: string | null = null;
             </div>
           )
         }
-        <p class="nho">
-          Mở app ngân hàng, quét mã là xong — bao nhiêu cũng quý.
-        </p>
+        <p class="nho">{tt10.data.dien_giai}</p>
       </div>
 
       <!-- Cách 2: KG-03 + ghi chú minh bạch (T039) -->
@@ -74,13 +74,8 @@ const ANH_VIETQR: string | null = null;
       </div>
     </div>
 
-    <h2>Tiền ủng hộ đi về đâu?</h2>
-    <p class="doan">
-      CoClipNha sinh ra từ bàn đóng gói của <strong>ZIN ZIN MOTOR</strong> và đang
-      được nuôi bằng tiền túi. Đóng góp của shop giúp trả các chi phí giữ phần mềm
-      sống: tên miền, chứng chỉ ký số (để Windows hết cảnh báo khi cài), và thời gian
-      làm thêm tính năng theo góp ý của chính shop.
-    </p>
+    <h2>{tt11.data.cau_chot}</h2>
+    <p class="doan"><VanBan text={tt11.data.dien_giai} /></p>
     <p class="doan">{bc01.data.dien_giai}</p>
 
     <NguoiDungDauTien />

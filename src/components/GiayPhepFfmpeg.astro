@@ -11,34 +11,33 @@
 // ⚠ CHỜ CHỦ DỰ ÁN: link mã nguồn bản dựng ffmpeg cụ thể chỉ có được khi gói
 // cài cuối hoàn tất (US7 spec 003). Chưa có thì `linkNguon` để trống — khối
 // vẫn nói đúng nghĩa vụ và chỉ chỗ hỏi, KHÔNG bịa link (FR-021).
+import VanBan from "./VanBan.astro";
+import { layKhoi } from "../lib/khoiNoiDung";
+
 interface Props {
   linkNguon?: string;
 }
 
 const { linkNguon } = Astro.props;
+const tt14 = await layKhoi("TT-14");
+// Nghĩa vụ GPL nằm ở bullet **Nghĩa vụ kèm theo** của TT-14 — gọi đích danh
+// nhãn, không đổ cả cụm `truong_khac` ra trang.
+const nghiaVu = tt14.data.truong_khac["Nghĩa vụ kèm theo"];
 ---
 
 <section class="giay-phep" aria-labelledby="giay-phep-ffmpeg">
   <h2 id="giay-phep-ffmpeg">Giấy phép phần mềm đi kèm</h2>
   <p>
-    Bản cài CoClipNha kèm sẵn <strong>ffmpeg</strong> — phần mềm tự do của dự án{
-      " "
-    }
-    <a href="https://ffmpeg.org/" rel="noopener">FFmpeg</a>, dùng để nén video
-    sau khi quay. Shop không phải cài thêm gì.
+    <VanBan text={tt14.data.cau_chot} />
   </p>
   <p>
-    Bản ffmpeg đi kèm có các bộ nén <code>libx264</code> và <code>libx265</code
-    >, nên phát hành theo giấy phép <strong>GPL phiên bản 2 trở lên</strong> — xem{
-      " "
-    }
-    <a href="https://ffmpeg.org/legal.html" rel="noopener"
-      >trang giấy phép của FFmpeg</a
-    >. CoClipNha không sở hữu và không bán ffmpeg.
+    <VanBan text={tt14.data.dien_giai} /> Xem{" "}
+    <a href="https://ffmpeg.org/legal.html" rel="noopener">
+      trang giấy phép của FFmpeg
+    </a>.
   </p>
   <p>
-    Giấy phép GPL cho phép bất kỳ ai xin mã nguồn của đúng bản ffmpeg tụi mình
-    đóng gói.{" "}
+    {nghiaVu}{" "}
     {
       linkNguon ? (
         <a href={linkNguon} rel="noopener">

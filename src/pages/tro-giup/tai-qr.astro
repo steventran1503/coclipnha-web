@@ -6,8 +6,14 @@
 // "đang chuẩn bị", KHÔNG dùng href="#" và KHÔNG chép ghi chú nội bộ
 // "(Demo — file in thật sẽ gắn khi phát hành.)" của bản demo (FR-021).
 import TrangTroGiup from "../../layouts/TrangTroGiup.astro";
+import VanBan from "../../components/VanBan.astro";
 import { qrDieuKhien } from "../../lib/nguonSuThat";
 import { duongDan } from "../../lib/duongDan";
+import { layKhoi } from "../../lib/khoiNoiDung";
+
+const tt02 = await layKhoi("TT-02");
+const tt03 = await layKhoi("TT-03");
+const tt04 = await layKhoi("TT-04");
 
 // Đường tải thật khi có file in (đặt trong `public/in/`): điền vào đây là nút
 // sống, không phải sửa chỗ nào khác.
@@ -19,33 +25,24 @@ const FILE_A4: string | null = null;
   maTg="TG-03"
   moTaMeta="Tải mã QR điều khiển CoClipNha để in dán ở bàn quay: mã PAUSE (dừng và lưu video) và mã START Đơn Ngoài. Bản in khổ A6 và A4 xếp 4 mã cắt rời."
 >
-  <p class="doan">Hai mã in sẵn, dán ở bàn quay là dùng cả năm:</p>
+  <p class="doan">{tt02.data.cau_chot}</p>
 
   <div class="luoi">
     <div class="the-app">
       <div class="tieu-de-the">
         Mã <code>{qrDieuKhien.pause}</code> — dừng &amp; lưu
       </div>
-      <p>
-        Đưa vào khung hình là video đang quay được lưu lại ngay — dùng khi gói
-        xong mà chưa có đơn kế tiếp.
-      </p>
+      <p>{tt03.data.dien_giai}</p>
     </div>
     <div class="the-app">
       <div class="tieu-de-the">
         Mã <code>{qrDieuKhien.don_ngoai}</code> — Đơn Ngoài
       </div>
-      <p>
-        Dùng khi cần quay mà không có mã vận đơn — ví dụ mở thùng hàng hoàn đã
-        mất mã. Video đặt tên "Don Hang" kèm số thứ tự.
-      </p>
+      <p>{tt04.data.dien_giai}</p>
     </div>
   </div>
 
-  <p class="doan">
-    Bản in <strong>khổ A6</strong> (105×148mm — cùng khổ vận đơn shop đang in) và
-    bản <strong>A4 xếp 4 mã cắt rời</strong> cho máy in thường:
-  </p>
+  <p class="doan"><VanBan text={tt02.data.dien_giai} /></p>
 
   <p class="hang-nut">
     {

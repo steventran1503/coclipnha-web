@@ -14,6 +14,7 @@ import { qrDieuKhien } from "../../lib/nguonSuThat";
 
 const vd01 = await layKhoi("VD-01");
 const hd = await Promise.all(["HD-01", "HD-02", "HD-03"].map(layKhoi));
+const tt01 = await layKhoi("TT-01");
 
 // Mỗi bước kèm băng app đang ở trạng thái nào — dựng bằng chính component
 // mô phỏng của trang chủ, không vẽ lại.
@@ -49,10 +50,8 @@ const BUOC: { bang: "ready" | "rec" | "saved"; maDon?: string }[] = [
   </div>
 
   <p class="ghi-chu chu-mo">
-    Muốn dừng và lưu video mà chưa có đơn kế tiếp thì đưa mã QR <code
-      >{qrDieuKhien.pause}</code
-    > vào khung hình — mã in sẵn ở trang{" "}
-    <a href={duongDan("tro-giup/tai-qr/")}>Tải mã QR điều khiển</a>.
+    {tt01.data.cau_chot} (<code>{qrDieuKhien.pause}</code>){" "}
+    <a href={duongDan("tro-giup/tai-qr/")}>{tt01.data.dien_giai}</a>
   </p>
   <p class="ghi-chu chu-mo">
     Bản hướng dẫn kèm ảnh chụp màn hình từng bước đang được chuẩn bị — sẽ bổ

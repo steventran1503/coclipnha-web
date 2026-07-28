@@ -20,6 +20,8 @@ const pb04 = await layKhoi("PB-04");
 const pb03 = await layKhoi("PB-03");
 const pb02 = await layKhoi("PB-02");
 const vd01 = await layKhoi("VD-01");
+const tt12 = await layKhoi("TT-12");
+const tt13 = await layKhoi("TT-13");
 
 // Câu "ngoài yêu cầu autofocus thì camera nào cũng chạy" — nằm ở bullet
 // **Ngoài yêu cầu đó** của TB-01, gọi ĐÍCH DANH nhãn (xem chú thích
@@ -101,7 +103,13 @@ const LINK_TAI: string | null = null;
     <section class="khoi khoi--hep" data-bang="warn">
       <span class="nhan-log">đừng hoảng</span>
       <h2>{pb04.data.cau_chot}</h2>
-      <SmartScreenHuongDan lyDo={pb04.data.dien_giai} />
+      <SmartScreenHuongDan
+        lyDo={pb04.data.dien_giai}
+        chuThich={[
+          [tt12.data.cau_chot, tt12.data.dien_giai],
+          [tt13.data.cau_chot, tt13.data.dien_giai],
+        ]}
+      />
       <p class="chu-mo ghi-chu">
         <strong
           >Nhắc lại cho yên tâm — {pb02.data.cau_chot.toLowerCase()}</strong

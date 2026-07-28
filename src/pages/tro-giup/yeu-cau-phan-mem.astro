@@ -4,21 +4,18 @@
 // giúp trang chủ, trang Góp ý, trang Báo lỗi và chân trang.
 import TrangTroGiup from "../../layouts/TrangTroGiup.astro";
 import NutBieuMau from "../../components/NutBieuMau.astro";
+import { layKhoi } from "../../lib/khoiNoiDung";
+
+const tt08 = await layKhoi("TT-08");
+const tt09 = await layKhoi("TT-09");
 ---
 
 <TrangTroGiup
   maTg="TG-06"
   moTaMeta="Shop có việc lặp đi lặp lại mỗi ngày mà chưa có phần mềm nào vừa tay? Kể cho đội làm CoClipNha nghe — tụi mình đọc và trả lời từng yêu cầu."
 >
-  <p class="doan">
-    CoClipNha sinh ra từ một nhu cầu thật ở bàn đóng gói. Nếu shop đang có một
-    việc lặp đi lặp lại mỗi ngày mà chưa có phần mềm nào vừa tay — quản kho, in
-    ấn, đối soát, hay việc gì khác — kể tụi mình nghe.
-  </p>
-  <p class="doan">
-    Mô tả càng cụ thể càng tốt: việc đó hiện làm tay thế nào, mất bao lâu, vướng
-    ở đâu. Tụi mình đọc và trả lời từng yêu cầu.
-  </p>
+  <p class="doan">{tt08.data.cau_chot} {tt08.data.dien_giai}</p>
+  <p class="doan">{tt09.data.cau_chot} {tt09.data.dien_giai}</p>
 
   <NutBieuMau nhanBieuMau="Mở biểu mẫu yêu cầu" />
 </TrangTroGiup>

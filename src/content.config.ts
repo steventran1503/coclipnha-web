@@ -27,6 +27,7 @@ const khoThongDiep = defineCollection({
       "TB",
       "VD",
       "TG",
+      "TT",
       "DG",
       "KN",
       "BV",

@@ -11,9 +11,12 @@
 // dung, component không chép cứng (FR-003).
 interface Props {
   lyDo: string;
+  /** Chú thích 2 bước (TT-12, TT-13) — trang truyền vào, component không chép
+      cứng chữ nội dung (FR-003). Mỗi phần tử: [câu chốt, diễn giải]. */
+  chuThich: [string, string][];
 }
 
-const { lyDo } = Astro.props;
+const { lyDo, chuThich } = Astro.props;
 ---
 
 <div class="ss">
@@ -30,8 +33,8 @@ const { lyDo } = Astro.props;
         <p class="cuoi"><span class="diem-bam"><u>More info</u></span></p>
       </div>
       <figcaption>
-        <strong>Bước 1</strong> — bấm dòng <em>“More info”</em> (Thông tin thêm) ở
-        góc dưới bên trái hộp thoại.
+        <strong>{chuThich[0][0]}</strong>
+        {chuThich[0][1]}
       </figcaption>
     </figure>
 
@@ -45,8 +48,8 @@ const { lyDo } = Astro.props;
         </p>
       </div>
       <figcaption>
-        <strong>Bước 2</strong> — hộp thoại hiện thêm nút <em>“Run anyway”</em> (Vẫn
-        chạy); bấm nút đó là cài được.
+        <strong>{chuThich[1][0]}</strong>
+        {chuThich[1][1]}
       </figcaption>
     </figure>
   </div>

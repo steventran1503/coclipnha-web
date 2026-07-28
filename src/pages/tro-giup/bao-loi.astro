@@ -7,6 +7,11 @@
 // gói chẩn đoán, trước khi mời bấm gửi.
 import TrangTroGiup from "../../layouts/TrangTroGiup.astro";
 import NutBieuMau from "../../components/NutBieuMau.astro";
+import VanBan from "../../components/VanBan.astro";
+import { layKhoi } from "../../lib/khoiNoiDung";
+
+const tt06 = await layKhoi("TT-06");
+const tt07 = await layKhoi("TT-07");
 ---
 
 <TrangTroGiup
@@ -14,15 +19,12 @@ import NutBieuMau from "../../components/NutBieuMau.astro";
   moTaMeta="Báo lỗi CoClipNha: lấy gói chẩn đoán ngay trong app (Trợ giúp → Báo lỗi) rồi gửi kèm. Gói chẩn đoán không chứa video — video không bao giờ rời khỏi máy shop."
 >
   <p class="doan">
-    App chạy sai chỗ nào, cách nhanh nhất để tụi mình sửa là shop gửi kèm <strong
-      >gói chẩn đoán</strong
-    > — trong app, mở <em>Trợ giúp → Báo lỗi</em> là app tự đóng gói nhật ký hoạt
-    động thành một file.
+    <VanBan text={tt06.data.cau_chot} />
+    <VanBan text={tt06.data.dien_giai} />
   </p>
   <p class="doan">
-    Nói rõ để shop yên tâm: gói chẩn đoán chứa nhật ký app (có mã vận đơn và tên
-    nhân viên đã nhập), <strong>không chứa video</strong> — video không bao giờ rời
-    khỏi máy shop.
+    <VanBan text={tt07.data.cau_chot} />
+    <VanBan text={tt07.data.dien_giai} />
   </p>
 
   <NutBieuMau nhanBieuMau="Mở biểu mẫu báo lỗi" coMessenger={true} />

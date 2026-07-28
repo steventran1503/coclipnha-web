@@ -3,17 +3,16 @@
 // (link chờ cấp) + lối nhắn tin Messenger (KN-02).
 import TrangTroGiup from "../../layouts/TrangTroGiup.astro";
 import NutBieuMau from "../../components/NutBieuMau.astro";
+import { layKhoi } from "../../lib/khoiNoiDung";
+
+const tt05 = await layKhoi("TT-05");
 ---
 
 <TrangTroGiup
   maTg="TG-04"
   moTaMeta="Góp ý cho CoClipNha: thấy chỗ nào vướng tay, thiếu tính năng gì, hay có ý tưởng mới — gửi cho đội làm app, tụi mình đọc hết từng cái."
 >
-  <p class="doan">
-    CoClipNha lớn lên bằng góp ý của shop đang dùng thật. Thấy chỗ nào vướng
-    tay, thiếu cái gì, hay có ý tưởng tính năng mới — kể tụi mình nghe, đọc hết
-    từng cái một.
-  </p>
+  <p class="doan">{tt05.data.cau_chot} {tt05.data.dien_giai}</p>
 
   <NutBieuMau nhanBieuMau="Mở biểu mẫu góp ý" coMessenger={true} />
 </TrangTroGiup>
