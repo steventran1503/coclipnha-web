@@ -3,7 +3,8 @@ import { duongDan } from "../lib/duongDan";
 
 interface MucMenu {
   nhan: string;
-  href: string;
+  /** Bỏ trống = tài sản chưa có link thật (FR-021) → hiện chữ mờ, KHÔNG bấm được. */
+  href?: string;
 }
 interface NhomMenu {
   nhom: string;
@@ -16,6 +17,7 @@ const DANH_MUC: NhomMenu[] = [
     muc: [
       { href: duongDan(), nhan: "Trang chủ" },
       { href: duongDan("tai-ve/"), nhan: "Tải về miễn phí" },
+      { href: duongDan("thiet-bi/"), nhan: "Thiết bị đề xuất" },
       { href: duongDan("ung-ho/"), nhan: "Ủng hộ CoClipNha" },
       { href: duongDan("gioi-thieu/"), nhan: "Về CoClipNha" },
       { href: duongDan("bai-viet/"), nhan: "Bài viết" },
@@ -27,6 +29,12 @@ const DANH_MUC: NhomMenu[] = [
       { href: duongDan("tro-giup/huong-dan/"), nhan: "Hướng dẫn sử dụng" },
       { href: duongDan("tro-giup/cau-hoi/"), nhan: "Câu hỏi thường gặp" },
       { href: duongDan("tro-giup/tai-qr/"), nhan: "Tải mã QR điều khiển" },
+      // CỐ Ý lặp lại mục "Thiết bị đề xuất" (nhóm CoClipNha phía trên đã có
+      // một lần): bảng Trợ giúp TRONG APP có đúng mục này ở đúng vị trí này
+      // (spec 003 FR-002, sửa 28/07). Người dùng quen tay trong app rồi mở
+      // web phải tìm thấy nó ở cùng chỗ — khớp hai bên đáng giá hơn việc giữ
+      // menu không có mục trùng.
+      { href: duongDan("thiet-bi/"), nhan: "Thiết bị đề xuất" },
       { href: duongDan("tro-giup/gop-y/"), nhan: "Góp ý cho CoClipNha" },
       { href: duongDan("tro-giup/bao-loi/"), nhan: "Báo lỗi" },
       {
@@ -36,11 +44,14 @@ const DANH_MUC: NhomMenu[] = [
     ],
   },
   {
+    // Ba mục này chưa có link thật (FR-021). Trước đây để href="#" nên bấm
+    // được mà không đi đâu — người đọc tưởng web hỏng (rà soát 28/07, P1).
+    // Nay bỏ href: hiện chữ mờ, không bấm được, đúng cách chân trang đang làm.
     nhom: "Kết nối",
     muc: [
-      { href: "#", nhan: "ⓕ Facebook page (chờ link)" },
-      { href: "#", nhan: "♪ TikTok (chờ link)" },
-      { href: "#", nhan: "💬 Nhắn tin Messenger (chờ link)" },
+      { nhan: "ⓕ Facebook page — sắp có" },
+      { nhan: "♪ TikTok — sắp có" },
+      { nhan: "💬 Nhắn tin Messenger — sắp có" },
     ],
   },
 ];
@@ -66,9 +77,13 @@ const DANH_MUC: NhomMenu[] = [
       DANH_MUC.map((nhom) => (
         <>
           <div class="nhom">{nhom.nhom}</div>
-          {nhom.muc.map((muc) => (
-            <a href={muc.href}>{muc.nhan}</a>
-          ))}
+          {nhom.muc.map((muc) =>
+            muc.href ? (
+              <a href={muc.href}>{muc.nhan}</a>
+            ) : (
+              <span class="muc-cho">{muc.nhan}</span>
+            ),
+          )}
         </>
       ))
     }
@@ -193,6 +208,15 @@ const DANH_MUC: NhomMenu[] = [
   }
   .bang-menu a:hover {
     color: var(--teal);
+  }
+  /* Mục chờ link: nhìn ra ngay là chưa bấm được, không phải link hỏng. */
+  .bang-menu .muc-cho {
+    display: block;
+    padding: 0.6rem 0.4rem;
+    color: var(--chu-mo);
+    border-bottom: 1px solid var(--vien);
+    font-size: 0.98rem;
+    cursor: default;
   }
   .bang-menu .nhom {
     font-size: 0.72rem;

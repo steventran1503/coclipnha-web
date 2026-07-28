@@ -21,6 +21,16 @@ import { dongDonDep, sinhTenFile, bangMau } from "../lib/nguonSuThat";
 // Dùng ở mọi chỗ trang chủ minh hoạ một đơn cụ thể — không dùng mã tự đặt.
 const MA_DON_1 = "SHOPEEVTPVN2606875138465";
 
+// HAI video YouTube khác nhau, đừng lẫn (chốt 28/07/2026):
+//  - VIDEO_DEMO (đầu trang, trong khung "Quét thử"): đoạn NGẮN quay màn hình
+//    app chạy một ca gói hàng — trả lời câu "app chạy ra sao".
+//  - VIDEO_HUONG_DAN (cuối trang, khối VD-01): đoạn ĐẦY ĐỦ hướng dẫn mọi tính
+//    năng — trả lời câu "dùng thế nào".
+// Cả hai là Tài sản chờ chủ dự án cấp (tests/tai-san-cho-cap.md mục 8a/8b):
+// điền mã video vào đúng hằng số dưới đây là chạy, không phải sửa gì thêm.
+const VIDEO_DEMO: string | undefined = undefined;
+const VIDEO_HUONG_DAN: string | undefined = undefined;
+
 const titD = await layKhoi("TIT-D");
 const nd02 = await layKhoi("ND-02");
 const nd04 = await layKhoi("ND-04");
@@ -102,7 +112,7 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
 >
   <BangTrangThai trangThai="ready" variant="trang" id="bang-trang" />
 
-  <!-- ============ HERO (TIT-D) ============ -->
+  {/* ============ HERO (TIT-D) ============ */}
   <header
     class="khoi"
     id="canh-hero"
@@ -124,7 +134,7 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     </h1>
     <p class="mo-dau" style="margin:1.2rem 0 1.3rem;">{titD.data.dien_giai}</p>
 
-    <!-- Dòng 3 nhịp (FR-022): tóm cả quy trình trong một hơi, ngay dưới tít -->
+    {/* Dòng 3 nhịp (FR-022): tóm cả quy trình trong một hơi, ngay dưới tít */}
     <p class="ba-nhip may">
       <span>📦 quét mã vận đơn</span><span class="mui-ten" aria-hidden="true"
         >→</span
@@ -140,15 +150,18 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
       <a class="nut nut--vien" href="#video-that">Xem app chạy thật</a>
     </p>
 
-    <QuetThu />
+    <QuetThu videoId={VIDEO_DEMO} />
     <p class="chu-mo" style="font-size:.85rem;margin-top:.8rem;">
       ▲ Cảnh dựng lại từ giao diện thật: chữ, màu, tên file, dòng nhật ký lấy
-      đúng từ phần mềm — shop tải về là gặp đúng màn hình này. Bấm nút để xem
-      lại.
+      đúng từ phần mềm — shop tải về là gặp đúng màn hình này. {
+        VIDEO_DEMO
+          ? "Bấm nút để xem đoạn quay màn hình app chạy thật."
+          : "Đoạn quay màn hình app chạy thật sẽ đặt ngay trong khung này."
+      }
     </p>
   </header>
 
-  <!-- ============ ND-02: NỖI ĐAU ============ -->
+  {/* ============ ND-02: NỖI ĐAU ============ */}
   <section class="khoi khoi--hep khoi--noi-full khoi--do" data-bang="nen">
     <span class="nhan-log" style="color:var(--do);"
       >chuyện xảy ra khi chưa có gì làm chứng</span
@@ -174,17 +187,24 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     }
   </section>
 
-  <!-- ============ GP-04: HÀNG HOÀN ============ -->
+  {/* ============ GP-04: HÀNG HOÀN ============ */}
   <section class="khoi" data-bang="rec" data-ma={MA_DON_1}>
-    <span class="nhan-log">khác biệt lớn nhất — chưa đối thủ nào có</span>
+    {
+      /* Nhãn này TRƯỚC ĐÂY viết "chưa đối thủ nào có" — bỏ đi (rà soát 28/07,
+         D2): vừa là câu so sánh đối thủ mà FR-023 đã cấm, vừa là khẳng định
+         không ai kiểm chứng được. */
+    }
+    <span class="nhan-log">khác biệt lớn nhất</span>
     <h2>{gp04.data.cau_chot}</h2>
     <p class="mo-dau" style="margin-bottom:1.6rem;">{gp04.data.dien_giai}</p>
     <div class="hai-canh hien">
       <div class="canh">
         <span class="nhan-canh">LÚC GỬI ĐI</span>
-        <!-- Vật thể trong khung phải NHÌN THẤY được tương phản nhau, nếu không
+        {
+          /* Vật thể trong khung phải NHÌN THẤY được tương phản nhau, nếu không
              câu "đặt cạnh nhau là thấy ngay bên trong đã đổi hay chưa" thành
-             câu nói suông (T060). Ví dụ lấy đúng từ ND-02: sạc dự phòng ↔ quần cũ. -->
+             câu nói suông (T060). Ví dụ lấy đúng từ ND-02: sạc dự phòng ↔ quần cũ. */
+        }
         <div class="vat vat--hop">HỘP SẠC<br />NGUYÊN SEAL</div>
         <Watermark maDon={MA_DON_1} gio="2026-07-10 09:12:30" />
       </div>
@@ -200,7 +220,7 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     </p>
   </section>
 
-  <!-- ============ HD-01..03: BA BƯỚC ============ -->
+  {/* ============ HD-01..03: BA BƯỚC ============ */}
   <section class="khoi khoi--noi-full" data-bang="ready">
     <span class="nhan-log">cách dùng — đúng ba bước, không có bước thứ tư</span>
     <h2>Việc của shop vẫn y như mọi ngày</h2>
@@ -218,19 +238,21 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     </div>
   </section>
 
-  <!-- ============ GP-01 + ND-04 + SS: BẢNG SO SÁNH ============ -->
+  {/* ============ GP-01 + ND-04 + SS: BẢNG SO SÁNH ============ */}
   <section class="khoi khoi--hep" data-bang="rec" data-ma={MA_DON_1}>
     <span class="nhan-log">vì sao không đơn nào bị sót</span>
     <h2>{gp01.data.cau_chot}</h2>
     <p class="mo-dau">{gp01.data.dien_giai}</p>
 
-    <!-- FR-023: chỉ so với quay bằng điện thoại, KHÔNG so với đối thủ nào -->
+    {/* FR-023: chỉ so với quay bằng điện thoại, KHÔNG so với đối thủ nào */}
     <h3 style="margin:2.4rem 0 .6rem;">{nd04.data.cau_chot}</h3>
     <p class="mo-dau" style="margin-bottom:1.4rem;">{nd04.data.dien_giai}</p>
     <div style="overflow-x:auto;">
-      <!-- th + scope: không phải trang trí — trình đọc màn hình phải đọc được
+      {
+        /* th + scope: không phải trang trí — trình đọc màn hình phải đọc được
            "ô này thuộc cột CoClipNha, dòng ...", nếu để td trắng thì bảng chỉ
-           là một đống chữ rời (Lighthouse: td-has-header, sửa ở T046). -->
+           là một đống chữ rời (Lighthouse: td-has-header, sửa ở T046). */
+      }
       <table class="bang-tn bang-ss hien">
         <thead>
           <tr>
@@ -254,7 +276,7 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     </div>
   </section>
 
-  <!-- ============ GP-03: WATERMARK GIỜ THẬT ============ -->
+  {/* ============ GP-03: WATERMARK GIỜ THẬT ============ */}
   <section class="khoi" data-bang="rec" data-ma={MA_DON_1}>
     <span class="nhan-log">mã và giờ đóng thẳng lên hình</span>
     <h2>{gp03.data.cau_chot}</h2>
@@ -265,12 +287,12 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     </div>
   </section>
 
-  <!-- ============ GP-02: TÌM LẠI VIDEO ============ -->
+  {/* ============ GP-02: TÌM LẠI VIDEO ============ */}
   <section class="khoi khoi--hep khoi--noi-full" data-bang="saved">
     <span class="nhan-log">lúc khách khiếu nại — tìm lại trong 5 giây</span>
     <h2>{gp02.data.cau_chot}</h2>
     <p class="mo-dau" style="margin-bottom:1.6rem;">{gp02.data.dien_giai}</p>
-    <!-- T062: chứng minh trực quan cho câu "dán vào, video hiện ra" -->
+    {/* T062: chứng minh trực quan cho câu "dán vào, video hiện ra" */}
     <DongNhatKy
       dong={[
         { loai: "mo", text: `Thư mục video · tìm: ${MA_DON_1}` },
@@ -281,7 +303,7 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     />
   </section>
 
-  <!-- ============ GP-06 + GP-07 ============ -->
+  {/* ============ GP-06 + GP-07 ============ */}
   <section class="khoi" data-bang="ready">
     <span class="nhan-log">còn ổ cứng thì sao?</span>
     <h2>{gp06.data.cau_chot}</h2>
@@ -293,7 +315,7 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
         </p>
       </div>
       <div>
-        <!-- T063: thẻ ổ cứng + dòng tự dọn — chữ và màu lấy từ app thật -->
+        {/* T063: thẻ ổ cứng + dòng tự dọn — chữ và màu lấy từ app thật */}
         <div class="the-app the-app--teal hien" style="margin-bottom:1rem;">
           <div class="tieu-de-the">💾 Ổ lưu video (D:)</div>
           <div class="thanh-o">
@@ -313,7 +335,7 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     </div>
   </section>
 
-  <!-- ============ GP-05 ============ -->
+  {/* ============ GP-05 ============ */}
   <section
     class="khoi khoi--hep khoi--noi-full khoi--teal-vien"
     data-bang="ready"
@@ -323,7 +345,7 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     <p class="mo-dau">{gp05.data.dien_giai}</p>
   </section>
 
-  <!-- ============ TB-03: TIỀN BỎ RA vs TIỀN MẤT (đúng 1 dòng, FR-024) ====== -->
+  {/* ============ TB-03: TIỀN BỎ RA vs TIỀN MẤT (đúng 1 dòng, FR-024) ====== */}
   <section class="khoi khoi--hep" data-bang="ready">
     <p class="cau-roi">{tb03.data.cau_chot}</p>
     <p class="chu-mo" style="font-size:.9rem;margin-top:.5rem;">
@@ -331,7 +353,7 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     </p>
   </section>
 
-  <!-- ============ BC-01 + TN ============ -->
+  {/* ============ BC-01 + TN ============ */}
   <section class="khoi" data-bang="warn">
     <span class="nhan-log">sinh ra từ một bàn đóng gói thật</span>
     <h2>Không phải sản phẩm nghĩ ra trong phòng máy lạnh</h2>
@@ -358,7 +380,7 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     </div>
   </section>
 
-  <!-- ============ NGƯỜI DÙNG ĐẦU TIÊN ============ -->
+  {/* ============ NGƯỜI DÙNG ĐẦU TIÊN ============ */}
   <section class="khoi" data-bang="nen">
     <span class="nhan-log">người dùng đầu tiên</span>
     <h2>
@@ -369,7 +391,7 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     </div>
   </section>
 
-  <!-- ============ SM-01 ============ -->
+  {/* ============ SM-01 ============ */}
   <section
     class="khoi khoi--hep khoi--noi-full khoi--teal-vien"
     data-bang="nen"
@@ -383,15 +405,15 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     <p class="mo-dau" style="margin:0 auto;">{sm01.data.dien_giai}</p>
   </section>
 
-  <!-- ============ VD-01 ============ -->
+  {/* ============ VD-01 ============ */}
   <section class="khoi khoi--hep" id="video-that" data-bang="nen">
     <span class="nhan-log">nói thì hay — thật không?</span>
     <h2>{vd01.data.cau_chot}</h2>
     <p class="mo-dau" style="margin-bottom:1.6rem;">{vd01.data.dien_giai}</p>
-    <YoutubeFacade tieuDeVideo={vd01.data.cau_chot} />
+    <YoutubeFacade tieuDeVideo={vd01.data.cau_chot} videoId={VIDEO_HUONG_DAN} />
   </section>
 
-  <!-- ============ KG-01 ============ -->
+  {/* ============ KG-01 ============ */}
   <section
     class="khoi khoi--hep khoi--noi-full"
     id="tai-ve"
@@ -416,7 +438,7 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     </p>
   </section>
 
-  <!-- ============ TG-01..06 + KN-02: TRỢ GIÚP ============ -->
+  {/* ============ TG-01..06 + KN-02: TRỢ GIÚP ============ */}
   <section class="khoi" data-bang="nen">
     <span class="nhan-log">trợ giúp &amp; phản hồi</span>
     <h2>Cần gì thêm, vào đây</h2>
@@ -430,7 +452,7 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
         ))
       }
     </div>
-    <!-- T068: kênh hỏi nhanh (KN-02) — link m.me thật chờ chủ dự án cấp (FR-021) -->
+    {/* T068: kênh hỏi nhanh (KN-02) — link m.me thật chờ chủ dự án cấp (FR-021) */}
     <div class="the-app the-app--teal hien hoi-nhanh">
       <div>
         <strong style="font-family:var(--font-tit);font-size:1.05rem;"
@@ -657,24 +679,10 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
   );
   cacMuc.forEach((m) => quanSatBang.observe(m));
 
-  // Khi khối hero (chứa Quét thử) còn trong tầm nhìn, băng bám đỉnh đổi theo
-  // ĐÚNG kịch bản Quét thử đang chạy — nghe sự kiện QuetThu.astro phát ra.
-  // Đo tầm nhìn bằng getBoundingClientRect ngay lúc nhận sự kiện, KHÔNG dùng
-  // thêm một IntersectionObserver nữa: IO chỉ báo khi trình duyệt vẽ khung
-  // hình, nên trong tab nền / cửa sổ chưa hiện nó im lặng và băng đỉnh đứng
-  // hình dù kịch bản vẫn chạy. Đo trực tiếp thì lúc nào cũng đúng.
-  const canhHero = document.getElementById("canh-hero");
-  function heroDangHien() {
-    if (!canhHero) return false;
-    const r = canhHero.getBoundingClientRect();
-    return r.bottom > 0 && r.top < window.innerHeight;
-  }
-  document.addEventListener("quetthu:trangthai", (e) => {
-    if (!heroDangHien()) return;
-    const chiTiet = (e as CustomEvent<{ trangThai: string; maDon?: string }>)
-      .detail;
-    datBang(chiTiet.trangThai, chiTiet.maDon);
-  });
+  // GỠ 28/07/2026: trước đây có thêm một đoạn nghe sự kiện
+  // "quetthu:trangthai" để băng bám đỉnh chạy theo kịch bản Quét thử 5 bước.
+  // Kịch bản đó đã thay bằng video thật, không còn phát sự kiện nào nữa —
+  // băng bám đỉnh giờ chỉ đổi theo mục đang cuộn tới (đoạn ngay trên).
 
   // Hiện dần khi cuộn tới (FR-004, FR-011) — cuộn vẫn tự do, không khóa/cướp
   // cuộn (FR-012): chỉ đổi opacity/transform bằng CSS, không chặn wheel/touch.

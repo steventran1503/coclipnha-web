@@ -1,17 +1,33 @@
 ---
 // T029/T030 — US2 "Tải app và vượt SmartScreen yên tâm" (FR-015..FR-018).
-// Thứ tự khối bám đúng bản đồ mục 9 `kho-thong-diep.md`:
-//   KG-01 → TB-01 (yêu cầu camera, NÓI TRƯỚC nút tải) → TB-02 → PB-04
-//   (kèm 2 hình SmartScreen T027) → PB-03 → VD-01.
+//
+// THỨ TỰ KHỐI — chốt 28/07/2026 (chủ dự án chọn "cách A"), đừng đảo lại:
+//   KG-01 nút tải + nút Camera đề xuất → PB-04 (2 hình SmartScreen T027) →
+//   PB-03 → TB-01 thân + TB-02 + thẻ thiết bị → VD-01.
+//
+// CÁCH GIỮ FR-015 KHI NÚT TẢI Ở TRÊN CÙNG — đọc kỹ trước khi sửa:
+// FR-015 bắt "yêu cầu camera lấy nét tự động PHẢI xuất hiện TRƯỚC nút tải".
+// Lý do có thật: shop tải về, cài xong mới biết webcam mình không lấy nét
+// được thì mất công vô ích. Nên yêu cầu đó vẫn đứng trên nút — nhưng rút gọn
+// còn ĐÚNG MỘT DÒNG (câu chốt TB-01) kèm liên kết #camera, còn phần thân dài
+// đẩy xuống dưới. Đừng bỏ dòng .dieu-kien đó đi để "cho gọn": bỏ là vi phạm
+// FR-015 ngay lúc điền link tải vào (đúng lỗi F1 đã bắt sáng 28/07).
+//
+// TB-01 và phần gợi ý mẫu là HAI khối tách bạch, không được gộp: gộp lại thì
+// người đọc tưởng phải mua đúng hãng mới chạy được app (ghi chú "VIẾT SAO CHO
+// ĐÚNG" của chính khối TB-01).
+//
 // Mọi câu nội dung đọc qua layKhoi() (FR-003); chữ trong trang chỉ là nhãn
 // điều hướng/tiêu đề mục.
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SmartScreenHuongDan from "../components/SmartScreenHuongDan.astro";
 import GiayPhepFfmpeg from "../components/GiayPhepFfmpeg.astro";
 import YoutubeFacade from "../components/YoutubeFacade.astro";
+import TheThietBi from "../components/TheThietBi.astro";
 import VanBan from "../components/VanBan.astro";
 import { layKhoi } from "../lib/khoiNoiDung";
 import { duongDan } from "../lib/duongDan";
+import { thietBiGoiY } from "../lib/thietBi";
 
 const kg01 = await layKhoi("KG-01");
 const tb01 = await layKhoi("TB-01");
@@ -39,18 +55,63 @@ const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
 // Còn null thì nút hiện trạng thái "sắp có" CÓ NGHĨA — không để link chết,
 // cũng không chép ghi chú nội bộ "(Demo — …)" của bản demo (FR-021).
 const LINK_TAI: string | null = null;
+
+// Video hướng dẫn đầy đủ (khối VD-01) — cùng mã video với khối cuối trang chủ,
+// là Tài sản chờ cấp (tests/tai-san-cho-cap.md mục 8b).
+const VIDEO_HUONG_DAN: string | undefined = undefined;
+
+// Dữ liệu có cấu trúc cho Google (Schema.org SoftwareApplication) — khai đúng
+// những gì có thật: phần mềm chạy Windows 10/11, giá 0 đồng, tiếng Việt.
+//
+// KHÔNG khai `aggregateRating` hay `review`: chưa có đánh giá khách hàng thật
+// nào (FR-019). Khai sao giả là lý do Google phạt tay, mà cũng đi ngược đúng
+// thứ cả web này đang bán — chữ tin.
+//
+// `downloadUrl` chỉ khai khi đã có link tải thật; khai một đường dẫn không
+// tồn tại thì Google báo lỗi dữ liệu có cấu trúc.
+const schemaPhanMem = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "CoClipNha",
+  applicationCategory: "MultimediaApplication",
+  operatingSystem: "Windows 10, Windows 11",
+  inLanguage: "vi",
+  description:
+    "Phần mềm ghi hình đóng gói cho shop bán hàng online: quét mã vận đơn là tự động quay, video mang tên mã đơn, đóng sẵn mã và giờ lên hình để làm bằng chứng chống tráo hàng.",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "VND",
+  },
+  ...(LINK_TAI ? { downloadUrl: LINK_TAI } : {}),
+};
 ---
 
 <BaseLayout
   tieuDe="Tải CoClipNha — miễn phí cho Windows 10 và 11"
   moTaMeta="Tải CoClipNha về máy tính bàn gói hàng. Miễn phí, không cần tài khoản. Đọc trước yêu cầu camera và cách vượt cảnh báo Windows chỉ với 2 cú bấm."
 >
+  <script
+    slot="head"
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(schemaPhanMem)}
+  />
   <main>
-    <!-- ============ KG-01: nút tải ============ -->
+    {/* ====== KG-01: nút tải, ngay đầu trang — kèm ĐIỀU KIỆN đứng trước ====
+        Điều kiện camera rút còn MỘT dòng (câu chốt TB-01) đặt trên nút, thoả
+        FR-015; phần thân TB-01 + gợi ý mẫu nằm ở khối "Camera nào chạy tốt?"
+        phía dưới, bấm nút cam là tới. */}
     <section class="khoi khoi--hep" data-bang="ready">
       <p class="lan-ve"><a href={duongDan()}>← Trang chủ</a></p>
-      <span class="nhan-log">{kg01.data.dien_giai}</span>
+      <span class="nhan-log">miễn phí</span>
       <h1>Tải CoClipNha</h1>
+      <p class="dan-nhap">{kg01.data.dien_giai}</p>
+
+      <p class="dieu-kien">
+        <strong>Một điều kiện duy nhất:</strong> {tb01.data.cau_chot}{" "}
+        <a href="#camera">Camera của shop có đạt không? →</a>
+      </p>
 
       <p class="cho-nut">
         {
@@ -64,42 +125,22 @@ const LINK_TAI: string | null = null;
             </span>
           )
         }
+        <a class="nut nut--cam nut--to" href={duongDan("thiet-bi/")}>
+          📷 Camera đề xuất
+        </a>
       </p>
       {
         !LINK_TAI && (
           <p class="chu-mo ghi-chu">
             Bản cài đang trong khâu đóng gói cuối. Trong lúc chờ, shop cứ đọc
-            hết trang này — hai thứ cần chuẩn bị (camera và cảnh báo Windows)
-            đều nằm ngay dưới đây, để lúc có bản cài là dùng được luôn.
+            hết trang này — cảnh báo Windows lúc cài nằm ngay dưới đây, để lúc
+            có bản cài là dùng được luôn.
           </p>
         )
       }
     </section>
 
-    <!-- ============ TB-01: yêu cầu camera — NÓI TRƯỚC ============ -->
-    <section class="khoi khoi--hep" data-bang="warn">
-      <span class="nhan-log">đọc trước khi tải</span>
-      <h2 id="camera">{tb01.data.cau_chot}</h2>
-      <div class="the-app the-app--do">
-        <p>{tb01.data.dien_giai}</p>
-        {tb01Them && <p class="them">Ngoài yêu cầu đó, {tb01Them}</p>}
-      </div>
-    </section>
-
-    <!-- ============ TB-02: gợi ý camera (có hoa hồng) ============ -->
-    <section class="khoi khoi--hep" data-bang="ready">
-      <div class="the-app the-app--teal">
-        <div class="tieu-de-the">Gợi ý camera — link có hoa hồng</div>
-        <p><VanBan text={tb02.data.dien_giai} /></p>
-        <p class="cho-cap">
-          Danh sách mẫu gợi ý đang chờ chọn xong — sẽ đặt ngay tại đây, kèm ghi
-          rõ link nào có hoa hồng.
-        </p>
-        <p class="chot">{tb02.data.cau_chot}</p>
-      </div>
-    </section>
-
-    <!-- ============ PB-04 + hình SmartScreen (T027) ============ -->
+    {/* ============ PB-04 + hình SmartScreen (T027) ============ */}
     <section class="khoi khoi--hep" data-bang="warn">
       <span class="nhan-log">đừng hoảng</span>
       <h2>{pb04.data.cau_chot}</h2>
@@ -118,21 +159,52 @@ const LINK_TAI: string | null = null;
       </p>
     </section>
 
-    <!-- ============ PB-03: máy yếu ============ -->
+    {/* ============ PB-03: máy yếu ============ */}
     <section class="khoi khoi--hep" data-bang="ready">
       <h2>{pb03.data.cau_chot}</h2>
       <p class="mo-dau">{pb03.data.dien_giai}</p>
     </section>
 
-    <!-- ============ VD-01: xem thử ============ -->
+    {/* ====== TB-01 (thân) + TB-02 + thiết bị đề xuất ======================
+        TB-01 và phần gợi ý mẫu là HAI khối tách bạch, không được gộp: gộp
+        lại thì người đọc tưởng phải mua đúng hãng mới chạy được app (ghi chú
+        "VIẾT SAO CHO ĐÚNG" của chính khối TB-01). */}
+    <section class="khoi khoi--hep" data-bang="warn" id="camera">
+      <span class="nhan-log">đọc trước khi mua camera</span>
+      <h2>Camera nào chạy tốt?</h2>
+
+      <div class="the-app the-app--do">
+        <div class="tieu-de-the">{tb01.data.cau_chot}</div>
+        <p>{tb01.data.dien_giai}</p>
+        {tb01Them && <p class="them">Ngoài yêu cầu đó, {tb01Them}</p>}
+      </div>
+
+      <p class="mo-dau doan gioi-thieu-tb">
+        <VanBan text={tb02.data.dien_giai} />
+      </p>
+
+      <div class="luoi-tb">
+        {thietBiGoiY.map((tb) => <TheThietBi thietBi={tb} gon={true} />)}
+      </div>
+
+      <p class="chu-mo ghi-chu">
+        Shop đang có sẵn camera lấy nét tự động thì dùng luôn, không cần mua
+        thêm gì. <a href={duongDan("thiet-bi/")}>Xem kỹ từng mẫu →</a>
+      </p>
+    </section>
+
+    {/* ============ VD-01: xem thử ============ */}
     <section class="khoi khoi--hep" data-bang="nen">
       <h2>{vd01.data.cau_chot}</h2>
       <p class="mo-dau doan">{vd01.data.dien_giai}</p>
-      <YoutubeFacade tieuDeVideo={vd01.data.cau_chot} />
+      <YoutubeFacade
+        tieuDeVideo={vd01.data.cau_chot}
+        videoId={VIDEO_HUONG_DAN}
+      />
     </section>
   </main>
 
-  <!-- FR-018: ghi nhận giấy phép ffmpeg, đặt ở chân trang dùng chung -->
+  {/* FR-018: ghi nhận giấy phép ffmpeg, đặt ở chân trang dùng chung */}
   <GiayPhepFfmpeg slot="giay-phep" />
 </BaseLayout>
 
@@ -151,8 +223,25 @@ const LINK_TAI: string | null = null;
     font-size: 0.9rem;
     margin-bottom: 1.2rem;
   }
+  /* Điều kiện camera rút gọn — đứng NGAY TRÊN nút tải (FR-015). Viền cam
+     cùng màu nút "Camera đề xuất" để mắt nối được hai thứ với nhau. */
+  .dieu-kien {
+    border-left: 3px solid var(--cam);
+    padding: 0.55rem 0 0.55rem 0.9rem;
+    margin: 1.4rem 0 0;
+    max-width: 42rem;
+    color: var(--chu-diu);
+    font-size: 0.98rem;
+  }
+  /* Hai nút cạnh nhau; màn hình hẹp thì tự xuống dòng chứ không tràn ngang */
   .cho-nut {
-    margin: 1.4rem 0 0.6rem;
+    margin: 1.2rem 0 0.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .gioi-thieu-tb {
+    margin-top: 1.4rem;
   }
   .nut--to {
     display: inline-block;
@@ -180,16 +269,18 @@ const LINK_TAI: string | null = null;
   .the-app .them {
     color: var(--chu-mo);
   }
-  .the-app .cho-cap {
-    font-style: italic;
-    color: var(--chu-mo);
-    font-size: 0.9rem;
-  }
-  .the-app .chot {
-    font-weight: 600;
-    color: var(--chu);
-  }
   .doan {
     margin-bottom: 1.6rem;
+  }
+  .dan-nhap {
+    color: var(--chu-diu);
+    margin-bottom: 1.4rem;
+    max-width: 42rem;
+  }
+  .luoi-tb {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    margin-bottom: 1rem;
   }
 </style>

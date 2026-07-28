@@ -1,0 +1,118 @@
+---
+// Thẻ một thiết bị đề xuất — dùng chung cho trang Tải về và trang Thiết bị
+// đề xuất, nên đổi kiểu dáng một lần là hai trang cùng đổi.
+//
+// FR-008: câu công khai hoa hồng (CAU_MINH_BACH) gắn cứng vào thẻ, ngay dưới
+// nút mua. Không có công tắc nào tắt được từ file dữ liệu — cố ý như vậy.
+import { CAU_MINH_BACH, tenDayDu, type ThietBi } from "../lib/thietBi";
+import { duongDan } from "../lib/duongDan";
+
+interface Props {
+  thietBi: ThietBi;
+  /** true = bản gọn cho trang Tải về (không hiện ảnh lớn). */
+  gon?: boolean;
+}
+const { thietBi: tb, gon = false } = Astro.props;
+---
+
+<div class="the-app the-app--teal the-tb">
+  {
+    !gon &&
+      (tb.anh ? (
+        <img
+          class="anh-tb"
+          src={duongDan(`anh/${tb.anh}`)}
+          alt={`Camera ${tenDayDu(tb)}`}
+          width="320"
+          height="320"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div class="anh-tb anh-tb--cho" role="status">
+          <span aria-hidden="true">📷</span>
+          <span>Ảnh camera sắp có</span>
+        </div>
+      ))
+  }
+
+  <div class="tieu-de-the">{tenDayDu(tb)}</div>
+  <p class="vi-sao">{tb.vi_sao}</p>
+  {tb.da_test && <p class="da-test">✔ {tb.da_test}</p>}
+
+  <p class="hang-nut">
+    {
+      tb.link ? (
+        <a
+          class="nut nut--vien"
+          href={tb.link}
+          rel="nofollow sponsored noopener"
+          target="_blank"
+        >
+          Xem camera{tb.noi_ban ? ` trên ${tb.noi_ban}` : ""} →
+        </a>
+      ) : (
+        <span class="nut nut--vien nut-cho" role="status">
+          Link mua — sắp có
+        </span>
+      )
+    }
+  </p>
+  <p class="minh-bach">{CAU_MINH_BACH}</p>
+</div>
+
+<style>
+  .the-tb {
+    display: flex;
+    flex-direction: column;
+  }
+  .anh-tb {
+    display: block;
+    width: 100%;
+    max-width: 12rem;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #0b0e14;
+    margin-bottom: 0.9rem;
+  }
+  .anh-tb--cho {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border: 1px dashed var(--vien);
+    color: var(--chu-mo);
+    font-size: 0.82rem;
+    text-align: center;
+  }
+  .vi-sao {
+    font-size: 0.93rem;
+    color: var(--chu-diu);
+    margin-bottom: 0.6rem;
+  }
+  .da-test {
+    font-size: 0.88rem;
+    color: var(--teal);
+    margin-bottom: 0.8rem;
+  }
+  .hang-nut {
+    margin: auto 0 0.6rem;
+  }
+  .nut-cho {
+    opacity: 0.75;
+    cursor: default;
+    font-size: 0.9rem;
+  }
+  /* Câu công khai hoa hồng: nhỏ nhưng luôn nằm sát nút, không đẩy xuống cuối
+     trang (FR-008 — "ngay cạnh link"). */
+  .minh-bach {
+    font-size: 0.8rem;
+    color: var(--chu-mo);
+    border-top: 1px dashed var(--vien);
+    padding-top: 0.55rem;
+    margin: 0;
+  }
+</style>

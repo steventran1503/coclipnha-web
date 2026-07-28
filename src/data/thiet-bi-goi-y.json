@@ -1,0 +1,53 @@
+{
+  "_huong_dan_sua": [
+    "ĐÂY LÀ NƠI DUY NHẤT khai thiết bị đề xuất. Sửa ở đây là cả trang Tải về",
+    "lẫn trang Thiết bị đề xuất đổi theo — không phải sửa hai nơi.",
+    "",
+    "Đổi sang camera đời mới hơn: sửa thẳng dòng của camera cũ, hoặc thêm một",
+    "khối mới rồi đặt 'con_ban' = false cho khối cũ (khối đã tắt sẽ không hiện",
+    "trên web nữa nhưng vẫn giữ lại để xem lịch sử).",
+    "",
+    "Ý nghĩa từng ô:",
+    "  ten        — tên hiển thị trên web (ngắn gọn, đúng tên hãng).",
+    "  model      — mã model chính xác. Chưa chắc thì để trống, web tự ẩn.",
+    "  uu_tien    — 1 là hiện trước, 2 hiện sau. Camera ưu tiên đặt số nhỏ hơn.",
+    "  vi_sao     — một câu vì sao đề xuất camera này (hiện trên thẻ).",
+    "  da_test    — mô tả ngắn việc đã chạy thử THẬT. CHỈ viết khi đã test thật.",
+    "  anh        — tên file ảnh trong thư mục public/anh/ (vd 'camera-emeet.webp').",
+    "               Chưa có ảnh thì để null, web hiện ô chờ gọn gàng.",
+    "  link       — link mua có hoa hồng. Chưa có thì để null, nút hiện 'sắp có'.",
+    "  noi_ban    — tên sàn/nơi bán, hiện trên nút (vd 'Shopee').",
+    "  con_ban    — false là ẩn khỏi web (ngừng đề xuất).",
+    "",
+    "LUẬT KHÔNG ĐƯỢC PHÁ (FR-008): mỗi thẻ có link đều tự kèm câu công khai",
+    "hoa hồng — câu đó nằm trong mã web, không tắt được từ file này. Nếu muốn",
+    "đổi cách viết câu đó thì sửa CAU_MINH_BACH trong src/lib/thietBi.ts."
+  ],
+  "cap_nhat_lan_cuoi": "2026-07-28",
+  "thiet_bi": [
+    {
+      "ma": "emeet",
+      "ten": "EMEET",
+      "model": "",
+      "uu_tien": 1,
+      "vi_sao": "Bắt nét nhanh ở khoảng gần đúng tầm để thùng hàng trước camera — đưa vận đơn vào là đọc ra mã ngay, không phải rê tới rê lui.",
+      "da_test": "Đã chạy thật trên bàn đóng gói của ZIN ZIN MOTOR với CoClipNha.",
+      "anh": null,
+      "link": null,
+      "noi_ban": "",
+      "con_ban": true
+    },
+    {
+      "ma": "ugreen",
+      "ten": "Ugreen",
+      "model": "",
+      "uu_tien": 2,
+      "vi_sao": "Lựa chọn nhẹ tiền hơn mà vẫn có lấy nét tự động — đủ dùng cho bàn gói mỗi ngày.",
+      "da_test": "Đã chạy thử với CoClipNha, hoạt động tốt.",
+      "anh": null,
+      "link": null,
+      "noi_ban": "",
+      "con_ban": true
+    }
+  ]
+}

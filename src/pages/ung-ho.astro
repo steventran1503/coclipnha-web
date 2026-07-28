@@ -1,12 +1,16 @@
 ---
-// T037/T038/T039 — US4 "Cân nhắc ủng hộ": KG-02 → KG-03 → BC-01.
+// T037/T038 — US4 "Cân nhắc ủng hộ": KG-02 → BC-01.
 //
-// Hai cách ủng hộ đặt CẠNH NHAU chứ không xếp trên dưới: cách 2 (mua camera
-// qua link hoa hồng) là để shop không dư tiền vẫn có đường đỡ một tay, đặt
-// dưới cùng thì mất tác dụng đó (KG-03 "Vì sao đưa vào").
+// ĐỔI 28/07/2026 (chủ dự án chốt): BỎ khối "Cách 2 — ủng hộ mà không tốn đồng
+// nào" (mua camera qua link hoa hồng, khối KG-03) khỏi trang này. Lý do là
+// chính chủ dự án nêu: đặt link camera dưới chữ "ủng hộ" khiến shop nghĩ mua
+// camera là đã đỡ đủ rồi, trong khi khoản hoa hồng rất nhỏ — kết quả là mất
+// luôn khoản ủng hộ thật. Nay trang này chỉ còn MỘT đường ủng hộ: chuyển
+// khoản. Link camera vẫn sống ở trang Tải về và trang Thiết bị đề xuất, đúng
+// vai trò "gợi ý thiết bị" chứ không phải "cách ủng hộ".
 //
-// FR-008/T039: ghi chú minh bạch hoa hồng đặt NGAY CẠNH link, dùng đúng giọng
-// đã dùng ở trang Tải về (TB-02) để hai chỗ không lệch nhau.
+// Kèm theo: hồ sơ spec (US4 mô tả "2 cách ủng hộ") cần sửa cho khớp — đã ghi
+// vào báo cáo rà soát 28/07.
 import BaseLayout from "../layouts/BaseLayout.astro";
 import NguoiDungDauTien from "../components/NguoiDungDauTien.astro";
 import VanBan from "../components/VanBan.astro";
@@ -14,9 +18,7 @@ import { layKhoi } from "../lib/khoiNoiDung";
 import { duongDan } from "../lib/duongDan";
 
 const kg02 = await layKhoi("KG-02");
-const kg03 = await layKhoi("KG-03");
 const bc01 = await layKhoi("BC-01");
-const tb02 = await layKhoi("TB-02");
 const tt10 = await layKhoi("TT-10");
 const tt11 = await layKhoi("TT-11");
 
@@ -29,7 +31,7 @@ const ANH_VIETQR: string | null = null;
 
 <BaseLayout
   tieuDe="Ủng hộ CoClipNha"
-  moTaMeta="CoClipNha luôn miễn phí. Ai thấy có ích thì ủng hộ — chuyển khoản VietQR, hoặc mua camera qua link gợi ý (có hoa hồng, giá shop trả không đổi)."
+  moTaMeta="CoClipNha luôn miễn phí, không khoá tính năng nào. Ai thấy có ích thì ủng hộ tùy tâm bằng chuyển khoản — không ủng hộ vẫn dùng đủ."
 >
   <main class="khoi khoi--hep">
     <p class="lan-ve"><a href={duongDan()}>← Trang chủ</a></p>
@@ -37,10 +39,10 @@ const ANH_VIETQR: string | null = null;
     <h1>{kg02.data.nut ?? "Ủng hộ CoClipNha"}</h1>
     <p class="doan lon">{kg02.data.dien_giai}</p>
 
-    <div class="hai-cach">
-      <!-- Cách 1: chuyển khoản (T038) -->
+    <div class="cach-ung-ho">
+      {/* Chuyển khoản VietQR — đường ủng hộ duy nhất trên trang (T038) */}
       <div class="the-app the-app--teal">
-        <div class="tieu-de-the">Cách 1 — {tt10.data.cau_chot}</div>
+        <div class="tieu-de-the">{tt10.data.cau_chot}</div>
         {
           ANH_VIETQR ? (
             <img
@@ -54,23 +56,11 @@ const ANH_VIETQR: string | null = null;
           ) : (
             <div class="khung-qr" role="status">
               <span class="o-qr" aria-hidden="true" />
-              <p>Mã VietQR đang chờ cập nhật — sẽ đặt đúng tại ô này.</p>
+              <p>Mã chuyển khoản sắp có — tụi mình đang chuẩn bị.</p>
             </div>
           )
         }
         <p class="nho">{tt10.data.dien_giai}</p>
-      </div>
-
-      <!-- Cách 2: KG-03 + ghi chú minh bạch (T039) -->
-      <div class="the-app the-app--teal">
-        <div class="tieu-de-the">Cách 2 — Ủng hộ mà không tốn đồng nào</div>
-        <p class="nho">{kg03.data.dien_giai}</p>
-        <p class="nho">
-          <a href={`${duongDan("tai-ve/")}#camera`}>Xem gợi ý camera →</a>
-        </p>
-        <p class="minh-bach">
-          Nói rõ: <VanBan text={tb02.data.dien_giai} />
-        </p>
       </div>
     </div>
 
@@ -111,23 +101,14 @@ const ANH_VIETQR: string | null = null;
     font-size: 1.05rem;
     margin-bottom: 2rem;
   }
-  .hai-cach {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  .cach-ung-ho {
+    max-width: 26rem;
     margin-bottom: 2.4rem;
   }
   .nho {
     font-size: 0.93rem;
     color: var(--chu-diu);
     margin-bottom: 0.7rem;
-  }
-  .minh-bach {
-    font-size: 0.82rem;
-    color: var(--chu-mo);
-    border-top: 1px dashed var(--vien);
-    padding-top: 0.6rem;
-    margin: 0;
   }
   .khung-qr {
     display: flex;

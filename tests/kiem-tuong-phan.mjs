@@ -59,6 +59,8 @@ const CAP = [
   ["Liên kết teal trên nền thẻ", bien("teal"), bien("the"), 4.5],
   ["Nhãn log teal trên nền khối tối", bien("teal"), bien("log-nen"), 4.5],
   ["Chữ trên nút chính (nền teal)", "#0b1220", bien("teal"), 4.5],
+  ["Chữ trên nút cam (Camera đề xuất)", "#1b1206", bien("cam"), 4.5],
+  ["Nút cam nổi trên nền trang (ranh giới nút)", bien("cam"), bien("nen"), 3],
   ["Cảnh báo đỏ trên nền trang", bien("do"), bien("nen"), 4.5],
   ["Chữ nhật ký trên nền nhật ký", bien("log-chu"), bien("log-nen"), 4.5],
   // Bẫy đã biết: teal sáng làm CHỮ trên nền sáng. Giữ hai dòng này vĩnh viễn —

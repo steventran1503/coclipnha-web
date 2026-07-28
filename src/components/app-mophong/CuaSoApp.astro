@@ -30,14 +30,14 @@ const mau = bangMau.dark;
   id={id}
   style={`--app-bg:${mau.bg};--app-panel:${mau.panel};--app-bd:${mau.panel_bd};--app-bottom:${mau.bottom};--app-text:${mau.text};--app-muted:${mau.muted};--app-teal:${mau.teal};--app-teal-ink:${mau.teal_ink};--app-stop-bg:${mau.stop_bg};--app-stop-fg:${mau.stop_fg};--app-btn:${mau.btn_bg};--app-exit:${mau.exit_fg};--app-disk-ok:${mau.disk_ok};`}
 >
-  <!-- Thanh tiêu đề cửa sổ Windows của app (ảnh app thật: chỉ "CoClipNha PRO v2.0") -->
+  {/* Thanh tiêu đề cửa sổ Windows của app (ảnh app thật: chỉ "CoClipNha PRO v2.0") */}
   <div class="thanh-tieu-de">
     <span class="logo-c" aria-hidden="true"></span>
     <span class="ten-app">CoClipNha PRO v2.0</span>
     <span class="nut-ws" aria-hidden="true">—&nbsp;▢&nbsp;✕</span>
   </div>
 
-  <!-- Băng trạng thái (component truyền vào qua slot "bang") -->
+  {/* Băng trạng thái (component truyền vào qua slot "bang") */}
   <slot name="bang" />
 
   <div class="than">
@@ -79,7 +79,7 @@ const mau = bangMau.dark;
     </aside>
   </div>
 
-  <!-- Thanh công cụ dưới (chữ chép đúng ảnh app thật) -->
+  {/* Thanh công cụ dưới (chữ chép đúng ảnh app thật) */}
   <div class="thanh-duoi" aria-hidden="true">
     <span class="o-gia">📋 Nhật ký ▾</span>
     <span class="o-gia an-mobile">📷 Camera 0 ▾</span>

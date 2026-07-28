@@ -1,0 +1,110 @@
+---
+// Trang "Thiết bị đề xuất" (chủ dự án chốt 28/07/2026).
+//
+// Vì sao tách thành trang riêng: danh sách camera sẽ đổi thường xuyên khi có
+// đời mới. Có trang riêng thì chỗ nào cần cũng chỉ trỏ về đây, và mỗi lần đổi
+// thiết bị chỉ sửa `src/data/thiet-bi-goi-y.json` một lần — trang này lẫn
+// trang Tải về cùng đổi theo.
+//
+// Lời trên trang vẫn lấy từ kho thông điệp (FR-003): TB-01 nói yêu cầu bắt
+// buộc, TB-02 nói chuyện gợi ý. Chỉ tên model / link / ảnh là dữ liệu sản
+// phẩm, nằm ở file JSON kia.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TheThietBi from "../components/TheThietBi.astro";
+import VanBan from "../components/VanBan.astro";
+import { layKhoi } from "../lib/khoiNoiDung";
+import { duongDan } from "../lib/duongDan";
+import { thietBiGoiY, capNhatLanCuoi } from "../lib/thietBi";
+
+const tb01 = await layKhoi("TB-01");
+const tb02 = await layKhoi("TB-02");
+// Câu "ngoài yêu cầu autofocus thì camera nào cũng chạy" — gọi ĐÍCH DANH nhãn
+// (cụm truong_khac còn chứa ghi chú nội bộ, tuyệt đối không đổ cả cụm ra trang).
+const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
+---
+
+<BaseLayout
+  tieuDe="Thiết bị đề xuất cho bàn gói — CoClipNha"
+  moTaMeta="Camera nào chạy tốt với CoClipNha: yêu cầu bắt buộc là lấy nét tự động, kèm vài mẫu đã chạy thử thật trên bàn đóng gói."
+>
+  <main class="khoi khoi--hep">
+    <p class="lan-ve"><a href={duongDan()}>← Trang chủ</a></p>
+    <span class="nhan-log">chọn camera cho bàn gói</span>
+    <h1>Thiết bị đề xuất</h1>
+
+    <div class="the-app the-app--do yeu-cau">
+      <div class="tieu-de-the">{tb01.data.cau_chot}</div>
+      <p>{tb01.data.dien_giai}</p>
+      {tb01Them && <p class="them">Ngoài yêu cầu đó, {tb01Them}</p>}
+    </div>
+
+    <h2>Mấy mẫu tụi mình đã chạy thử</h2>
+    <p class="doan"><VanBan text={tb02.data.dien_giai} /></p>
+
+    <div class="luoi-tb">
+      {thietBiGoiY.map((tb) => <TheThietBi thietBi={tb} />)}
+    </div>
+
+    <p class="chu-mo ghi-chu">
+      Danh sách soát lại lần cuối ngày {capNhatLanCuoi}. Có camera đời mới chạy
+      tốt hơn thì tụi mình đổi ngay tại trang này.
+    </p>
+
+    <p class="hang-nut">
+      <a class="nut nut--chinh" href={duongDan("tai-ve/")}
+        >Tải CoClipNha về máy →</a
+      >
+    </p>
+
+    <p class="lan-ve cuoi"><a href={duongDan()}>← Về trang chủ</a></p>
+  </main>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-family: var(--font-tit);
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    margin-bottom: 1.2rem;
+  }
+  h2 {
+    font-family: var(--font-tit);
+    font-size: 1.3rem;
+    margin: 2.2rem 0 0.7rem;
+  }
+  .lan-ve {
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+  .lan-ve.cuoi {
+    margin: 2.4rem 0 0;
+  }
+  .yeu-cau p {
+    font-size: 0.95rem;
+    color: var(--chu-diu);
+    margin-bottom: 0.6rem;
+  }
+  .yeu-cau p:last-child {
+    margin-bottom: 0;
+  }
+  .yeu-cau .them {
+    color: var(--chu-mo);
+  }
+  .doan {
+    color: var(--chu-diu);
+    margin-bottom: 1.4rem;
+    max-width: 44rem;
+  }
+  .luoi-tb {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    margin-bottom: 1.2rem;
+  }
+  .ghi-chu {
+    font-size: 0.88rem;
+    max-width: 42rem;
+  }
+  .hang-nut {
+    margin-top: 1.8rem;
+  }
+</style>

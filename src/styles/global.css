@@ -28,6 +28,13 @@
      teal trên nền SÁNG (vd trang FAQ/chân trang nếu sau này có khối nền
      sáng). Đừng dùng cho chữ trên nền tối — đã đo tương phản chỉ 3,75:1. */
   --teal-chu: #1f7a72;
+  /* Cam — nút phụ "Camera đề xuất" đứng cạnh nút tải (chốt 28/07). Cố ý khác
+     hẳn teal để mắt tách được hai nút ngay, nhưng vẫn là màu ấm/mời gọi chứ
+     KHÔNG mượn --do (đỏ dành riêng cho cảnh báo — mượn là người đọc tưởng
+     có lỗi). Chữ trên nền cam dùng #1b1206, đã đo trong
+     tests/kiem-tuong-phan.mjs. */
+  --cam: #e8873a;
+  --cam-dam: #d4762c;
   --do: #e5484d;
   --log-nen: #10151d;
   --log-chu: #d7e2f0;
@@ -160,6 +167,13 @@ h2 {
 }
 .nut--chinh:hover {
   background: #54c6be;
+}
+.nut--cam {
+  background: var(--cam);
+  color: #1b1206;
+}
+.nut--cam:hover {
+  background: var(--cam-dam);
 }
 .nut--vien {
   border: 1px solid var(--vien);

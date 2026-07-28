@@ -7,9 +7,31 @@ import { duongDan } from "../lib/duongDan";
 interface Props {
   tieuDe: string;
   moTaMeta: string;
+  /**
+   * Trang khung chờ (bài viết chưa soạn xong) đặt cờ này = true: gắn thẻ
+   * noindex để Google không xếp hạng một trang gần như trống. Trang trống bị
+   * index sẽ kéo tụt đánh giá chất lượng của CẢ site, không chỉ riêng nó.
+   * Bỏ cờ đi khi bài viết đã đầy đủ (đồng thời `daXong: true` ở baiViet.ts —
+   * chính cờ đó cũng quyết định trang có vào sitemap hay không).
+   */
+  khongIndex?: boolean;
 }
 
-const { tieuDe, moTaMeta } = Astro.props;
+const { tieuDe, moTaMeta, khongIndex = false } = Astro.props;
+
+// Địa chỉ chuẩn của trang (canonical) + thẻ chia sẻ mạng xã hội (OpenGraph).
+// Kênh chính của dự án là Facebook: không có mấy thẻ này thì dán link lên
+// nhóm sẽ ra một thẻ trơ, không tít không mô tả — người ta lướt qua luôn
+// (rà soát 28/07, I3).
+//
+// Địa chỉ dựng từ `site` trong astro.config.mjs, nên khi DNS coclipnha.com
+// trỏ xong (T002) và đổi `site` là mọi thẻ tự đúng theo, không phải sửa tay.
+const diaChiTrang = new URL(Astro.url.pathname, Astro.site).href;
+
+// ẢNH CHIA SẺ: chưa có (Tài sản chờ cấp). Cần một tấm 1200×630 đặt vào
+// `public/anh/chia-se.jpg` rồi bỏ chú thích dòng dưới. Thà thiếu thẻ ảnh còn
+// hơn khai một đường dẫn ảnh không tồn tại — Facebook sẽ hiện ô vỡ.
+const ANH_CHIA_SE: string | null = null;
 
 // Cloudflare Web Analytics (không cookie) — token thật lấy từ dashboard
 // Cloudflare khi chủ dự án tạo site đo lường, đặt vào biến môi trường
@@ -24,6 +46,31 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{tieuDe}</title>
     <meta name="description" content={moTaMeta} />
+    {khongIndex && <meta name="robots" content="noindex, follow" />}
+    <link rel="canonical" href={diaChiTrang} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CoClipNha" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:title" content={tieuDe} />
+    <meta property="og:description" content={moTaMeta} />
+    <meta property="og:url" content={diaChiTrang} />
+    {
+      ANH_CHIA_SE && (
+        <>
+          <meta
+            property="og:image"
+            content={new URL(duongDan(`anh/${ANH_CHIA_SE}`), Astro.site).href}
+          />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+        </>
+      )
+    }
+    <meta
+      name="twitter:card"
+      content={ANH_CHIA_SE ? "summary_large_image" : "summary"}
+    />
     <link rel="stylesheet" href={duongDan("fonts/fonts.css")} />
     <link rel="icon" type="image/svg+xml" href={duongDan("favicon.svg")} />
     <link rel="icon" href={duongDan("favicon.ico")} />
@@ -39,9 +86,16 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     }
   </head>
   <body>
-    <!-- T055/FR-025: cả trang là cửa sổ CoClipNha phóng to — hồn cốt hướng
+    {
+      /* T055/FR-025: cả trang là cửa sổ CoClipNha phóng to — hồn cốt hướng
          "Ca trực" đã duyệt. Thanh này chỉ trang trí (aria-hidden), không phải
-         điều khiển thật, nên không nhận tiêu điểm bàn phím. -->
+         điều khiển thật, nên không nhận tiêu điểm bàn phím.
+
+         Ghi chú viết trong dấu ngoặc nhọn kiểu này, KHÔNG dùng comment HTML:
+         comment HTML sẽ nằm nguyên trong trang đã xuất bản, ai xem mã nguồn
+         cũng đọc được tên task nội bộ. Dạng này chỉ sống trong mã nguồn
+         (rà soát 28/07, D1). */
+    }
     <div class="thanh-win" aria-hidden="true">
       <span class="logo-c"></span>
       <span class="ten-win"
