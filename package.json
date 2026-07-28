@@ -14,7 +14,7 @@
     "format": "prettier --write .",
     "kiem:tuong-phan": "node tests/kiem-tuong-phan.mjs",
     "kiem:phuc-vu": "astro preview --port 4331",
-    "kiem:link": "linkinator http://localhost:4331/coclipnha-web/ --recurse --skip \"^(?!http://localhost:4331)\"",
+    "kiem:link": "linkinator http://localhost:4331/ --recurse --skip \"^(?!http://localhost:4331)\"",
     "kiem:lighthouse": "lhci autorun --config=tests/lighthouse.config.json"
   },
   "dependencies": {

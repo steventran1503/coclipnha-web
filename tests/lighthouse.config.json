@@ -13,8 +13,14 @@
     "astro dev chạy ở 4321 — chấm nhầm vào đó thì Lighthouse đo bản dev có",
     "HMR/dev-toolbar, điểm sai bét. Cổng riêng để không bao giờ đụng.",
     "",
-    "Khi DNS coclipnha.com trỏ xong (T002) và base bị xoá khỏi astro.config:",
-    "bỏ đoạn '/coclipnha-web' trong các URL dưới đây."
+    "29/07/2026 — DNS đã trỏ, base đã xoá: các URL dưới đây nay ở gốc.",
+    "",
+    "lhci autorun hay chết EPERM lúc dọn thư mục tạm trên Windows (bản Chrome",
+    "150). Chạy tay từng trang thì được:",
+    "  npm run kiem:phuc-vu          (cửa sổ khác, để chạy nền)",
+    "  npx lighthouse http://localhost:4331/<trang>/ --chrome-flags=\"--headless=new\"",
+    "Đừng dùng lại MỘT trình duyệt cho nhiều lượt (--port=9222): hay báo NO_FCP",
+    "giả, điểm 0 dù trang bình thường. Mỗi trang một trình duyệt mới thì ổn."
   ],
   "ci": {
     "collect": {
@@ -22,14 +28,15 @@
       "startServerReadyPattern": "localhost:4331",
       "numberOfRuns": 1,
       "url": [
-        "http://localhost:4331/coclipnha-web/",
-        "http://localhost:4331/coclipnha-web/tai-ve/",
-        "http://localhost:4331/coclipnha-web/ung-ho/",
-        "http://localhost:4331/coclipnha-web/gioi-thieu/",
-        "http://localhost:4331/coclipnha-web/bai-viet/",
-        "http://localhost:4331/coclipnha-web/bai-viet/hang-hoan/",
-        "http://localhost:4331/coclipnha-web/tro-giup/huong-dan/",
-        "http://localhost:4331/coclipnha-web/tro-giup/cau-hoi/"
+        "http://localhost:4331/",
+        "http://localhost:4331/tai-ve/",
+        "http://localhost:4331/thiet-bi/",
+        "http://localhost:4331/ung-ho/",
+        "http://localhost:4331/gioi-thieu/",
+        "http://localhost:4331/bai-viet/",
+        "http://localhost:4331/bai-viet/hang-hoan/",
+        "http://localhost:4331/tro-giup/huong-dan/",
+        "http://localhost:4331/tro-giup/cau-hoi/"
       ]
     },
     "assert": {

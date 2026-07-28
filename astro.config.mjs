@@ -16,14 +16,18 @@ const DUONG_BAI_CHUA_XONG = DE_TAI_BAI_VIET.filter((t) => !t.daXong).map(
   (t) => `/bai-viet/${t.slug}/`,
 );
 
-// site/base tạm trỏ GitHub Pages mặc định (dạng .github.io/coclipnha-web) —
-// khi DNS coclipnha.com trỏ xong (T002, chủ dự án làm sau khi web hoàn
-// thiện): đổi site thành "https://coclipnha.com", xoá base, thêm public/CNAME
-// chứa "coclipnha.com" (thêm CNAME sớm sẽ làm GitHub tự chuyển hướng URL
-// .github.io sang domain chưa phân giải — mất luôn đường xem thử tạm thời).
+// Tên miền thật coclipnha.com (T002, đổi 29/07/2026). Không còn `base` vì web
+// nay nằm ở GỐC tên miền chứ không phải thư mục con /coclipnha-web nữa.
+//
+// ⚠️ Đi kèm `public/CNAME` — hai thứ phải đổi CÙNG LÚC và chỉ đẩy lên SAU KHI
+// DNS đã phân giải. Đẩy sớm là GitHub chuyển hướng luôn địa chỉ .github.io
+// sang tên miền chưa sống, mất cả đường xem thử tạm.
+//
+// Muốn quay lại địa chỉ tạm (vd tên miền có sự cố): đặt lại
+// site: "https://steventran1503.github.io", base: "/coclipnha-web", và XOÁ
+// public/CNAME.
 export default defineConfig({
-  site: "https://steventran1503.github.io",
-  base: "/coclipnha-web",
+  site: "https://coclipnha.com",
   integrations: [
     sitemap({
       filter: (trang) =>
