@@ -71,6 +71,33 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
       name="twitter:card"
       content={ANH_CHIA_SE ? "summary_large_image" : "summary"}
     />
+    {/* Nạp trước 3 file font THẬT SỰ dùng ở màn hình đầu (chữ thân bài
+        thường + đậm, và font tiêu đề) — bản vietnamese vì trang toàn tiếng
+        Việt. Không có mấy dòng này thì trình duyệt vẽ bằng font hệ thống rồi
+        mới đổi sang font riêng, chữ nhảy một nhịp: đo được CLS 0,25 và điểm
+        hiệu năng tụt còn 87 (Lighthouse 28/07). Đừng bỏ. Chỉ nạp trước 3 file
+        — nạp trước cả 8 file lại giành băng thông của chính trang. */}
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href={duongDan("fonts/be-vietnam-pro-400-normal-vietnamese.woff2")}
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href={duongDan("fonts/be-vietnam-pro-700-normal-vietnamese.woff2")}
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href={duongDan("fonts/bricolage-grotesque-700-normal-vietnamese.woff2")}
+    />
     <link rel="stylesheet" href={duongDan("fonts/fonts.css")} />
     <link rel="icon" type="image/svg+xml" href={duongDan("favicon.svg")} />
     <link rel="icon" href={duongDan("favicon.ico")} />

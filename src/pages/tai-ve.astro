@@ -233,6 +233,13 @@ const schemaPhanMem = {
     color: var(--chu-diu);
     font-size: 0.98rem;
   }
+  /* Liên kết trong dòng này PHẢI gạch chân: nó nằm lọt giữa câu chữ xám, chỉ
+     khác màu 1,63 lần — người mù màu không thấy đó là chỗ bấm được. Gạch chân
+     là dấu hiệu thứ hai không phụ thuộc màu (WCAG 1.4.1). Đừng bỏ cho gọn. */
+  .dieu-kien a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
   /* Hai nút cạnh nhau; màn hình hẹp thì tự xuống dòng chứ không tràn ngang */
   .cho-nut {
     margin: 1.2rem 0 0.6rem;
