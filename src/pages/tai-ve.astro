@@ -45,16 +45,23 @@ const tt13 = await layKhoi("TT-13");
 // tuyệt đối không đổ cả cụm ra trang).
 const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
 
-// T030/FR-016 — nút tải phải trỏ `…/releases/latest/download/…` để LUÔN là
-// bản mới nhất, không phải sửa web mỗi lần phát hành.
+// T030/FR-016 — nút tải trỏ `…/releases/latest/download/…` nên LUÔN là bản
+// mới nhất: phát hành bản sau chỉ cần tải file lên GitHub Releases, KHÔNG
+// phải sửa dòng này.
 //
-// ⚠ CHỜ CHỦ DỰ ÁN: bản đóng gói .exe cuối là US7 của spec 003, chưa xong; kho
-// mã app cũng chưa có remote GitHub nên chưa có đường Releases nào tồn tại.
-// Khi có, chỉ cần điền đúng MỘT hằng số này (dạng:
-// "https://github.com/<chủ kho>/<tên kho>/releases/latest/download/CoClipNha-Setup.exe").
-// Còn null thì nút hiện trạng thái "sắp có" CÓ NGHĨA — không để link chết,
-// cũng không chép ghi chú nội bộ "(Demo — …)" của bản demo (FR-021).
-const LINK_TAI: string | null = null;
+// ĐIỀN THẬT 30/07/2026 — bản 2.2.0 đã nghiệm thu máy sạch. Đã thử tải qua
+// đường này và đối chiếu SHA-256 khớp bản build trên máy.
+//
+// ⚠️ Tên file trên Releases PHẢI luôn là `CoClipNha-Setup.exe` (KHÔNG mang số
+// phiên bản). Tải lên với tên có số là đường `latest/download` trả 404 và nút
+// tải chết mà không ai hay — trang vẫn hiện nút xanh bình thường.
+// ⚠️ Bản phát hành trên GitHub KHÔNG được tích "pre-release": đường
+// `latest` bỏ qua bản pre-release.
+//
+// Đặt lại `null` là nút tự về trạng thái "sắp có" CÓ NGHĨA (không phải nút
+// chết) — dùng khi cần tạm rút bản tải về.
+const LINK_TAI: string | null =
+  "https://github.com/steventran1503/coclipnha-web/releases/latest/download/CoClipNha-Setup.exe";
 
 // Video hướng dẫn đầy đủ (khối VD-01) — cùng mã video với khối cuối trang chủ,
 // là Tài sản chờ cấp (tests/tai-san-cho-cap.md mục 8b).
@@ -118,6 +125,7 @@ const schemaPhanMem = {
           LINK_TAI ? (
             <a class="nut nut--chinh nut--to" href={LINK_TAI} rel="noopener">
               {kg01.data.nut ?? kg01.data.cau_chot}
+              <span class="co-file"> · 68 MB · Windows 10/11</span>
             </a>
           ) : (
             <span class="nut nut--to nut--sap-co" role="status">
@@ -239,6 +247,16 @@ const schemaPhanMem = {
   .dieu-kien a {
     text-decoration: underline;
     text-underline-offset: 3px;
+  }
+  /* Cỡ file + hệ điều hành ghi ngay trên nút: shop dùng 3G/4G cần biết tải
+     nặng bao nhiêu TRƯỚC khi bấm, và biết ngay máy mình có chạy được không.
+     Nhỏ và mờ hơn chữ nút để không tranh chỗ với lời mời bấm. */
+  .co-file {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 400;
+    opacity: 0.72;
+    margin-top: 0.15rem;
   }
   /* Hai nút cạnh nhau; màn hình hẹp thì tự xuống dòng chứ không tràn ngang */
   .cho-nut {
