@@ -1,0 +1,15 @@
+# Chỉ đường cho máy tìm kiếm. Mặc định: cho phép thu thập TẤT CẢ.
+#
+# Trang chưa xong (7 bài viết còn khung chờ) KHÔNG chặn ở đây mà chặn bằng
+# thẻ <meta name="robots" content="noindex"> trong chính trang đó
+# (BaseLayout.astro, cờ `khongIndex`). Hai cách này khác nhau:
+#   - chặn ở đây  = Google KHÔNG ĐỌC trang, nên không thấy cả thẻ noindex,
+#                   trang vẫn có thể lọt vào kết quả tìm kiếm dưới dạng
+#                   một dòng trống trơn
+#   - thẻ noindex = Google đọc trang rồi CHỦ ĐỘNG không xếp hạng — đúng ý
+# Vì vậy đừng thêm dòng Disallow cho mấy trang chưa xong.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://coclipnha.com/sitemap-index.xml
