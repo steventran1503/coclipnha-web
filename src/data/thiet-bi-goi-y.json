@@ -23,18 +23,18 @@
     "hoa hồng — câu đó nằm trong mã web, không tắt được từ file này. Nếu muốn",
     "đổi cách viết câu đó thì sửa CAU_MINH_BACH trong src/lib/thietBi.ts."
   ],
-  "cap_nhat_lan_cuoi": "2026-07-28",
+  "cap_nhat_lan_cuoi": "2026-08-19",
   "thiet_bi": [
     {
       "ma": "emeet",
       "ten": "EMEET",
-      "model": "",
+      "model": "C60E",
       "uu_tien": 1,
       "vi_sao": "Bắt nét nhanh ở khoảng gần đúng tầm để thùng hàng trước camera — đưa vận đơn vào là đọc ra mã ngay, không phải rê tới rê lui.",
       "da_test": "Đã chạy thật trên bàn đóng gói của ZIN ZIN MOTOR với CoClipNha.",
-      "anh": null,
-      "link": null,
-      "noi_ban": "",
+      "anh": "camera-emeet.webp",
+      "link": "https://s.shopee.vn/4Vc7SUYtsC",
+      "noi_ban": "Shopee",
       "con_ban": true
     },
     {

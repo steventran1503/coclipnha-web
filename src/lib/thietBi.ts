@@ -27,19 +27,18 @@ export interface ThietBi {
 }
 
 /**
- * Câu công khai bắt buộc đặt ngay cạnh mọi link có hoa hồng (FR-008, SC-006).
+ * Nhãn công khai bắt buộc đặt ngay cạnh mọi link có hoa hồng (FR-008, SC-006).
  *
- * Chủ dự án chọn nhãn "link tài trợ" (28/07/2026) thay cho "link có hoa
- * hồng". Giữ nguyên nhãn đó, nhưng vế sau PHẢI nói rõ tiền ở đâu ra: "tài
- * trợ" trơ trọi dễ bị hiểu là bên bán cho tiền dự án, trong khi thực tế là
- * hoa hồng tính trên chính đơn hàng của shop — nói thiếu vế đó là công khai
- * không trung thực.
+ * Chủ dự án chốt 19/08/2026: rút còn đúng nhãn "Link tài trợ", bỏ vế giải
+ * thích "nơi bán trích hoa hồng..., giá shop trả không đổi" của bản 28/07 vì
+ * câu đó dài, đọc nặng nề giữa thẻ camera. Nhãn trơ vẫn là công khai hợp lệ
+ * (Shopee Affiliate và Google chỉ đòi có công khai, không đòi câu chữ nào).
  *
- * ĐƯỢC sửa cách viết. KHÔNG được bỏ hẳn: bỏ là vi phạm FR-008 và cả nghĩa vụ
- * công khai quan hệ thương mại khi giới thiệu sản phẩm có nhận hoa hồng.
+ * ĐƯỢC sửa cách viết. KHÔNG được bỏ hẳn: bỏ là vi phạm FR-008, và mất công
+ * khai thì rủi ro thật là Shopee khoá tài khoản tiếp thị + Google xếp trang
+ * vào nhóm gài link.
  */
-export const CAU_MINH_BACH =
-  "Link tài trợ — nơi bán trích hoa hồng cho CoClipNha, giá shop trả không đổi.";
+export const CAU_MINH_BACH = "Link tài trợ";
 
 /** Thiết bị còn đề xuất, đã xếp theo ưu tiên (số nhỏ hiện trước). */
 export const thietBiGoiY: ThietBi[] = (duLieu.thiet_bi as ThietBi[])
