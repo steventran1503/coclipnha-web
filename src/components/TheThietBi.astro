@@ -106,13 +106,13 @@ const { thietBi: tb, gon = false } = Astro.props;
     cursor: default;
     font-size: 0.9rem;
   }
-  /* Câu công khai hoa hồng: nhỏ nhưng luôn nằm sát nút, không đẩy xuống cuối
-     trang (FR-008 — "ngay cạnh link"). */
+  /* Nhãn công khai hoa hồng: nhỏ nhưng luôn nằm sát nút, không đẩy xuống cuối
+     trang (FR-008 — "ngay cạnh link"). Không kẻ vạch ngăn: nhãn nay rút còn
+     hai chữ (19/08/2026), một đường kẻ ngang cả thẻ chỉ để đỡ hai chữ trông
+     nặng hơn chính cái nó ngăn. */
   .minh-bach {
     font-size: 0.8rem;
     color: var(--chu-mo);
-    border-top: 1px dashed var(--vien);
-    padding-top: 0.55rem;
     margin: 0;
   }
 </style>
