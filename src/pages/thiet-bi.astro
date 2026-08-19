@@ -14,7 +14,7 @@ import TheThietBi from "../components/TheThietBi.astro";
 import VanBan from "../components/VanBan.astro";
 import { layKhoi } from "../lib/khoiNoiDung";
 import { duongDan } from "../lib/duongDan";
-import { thietBiGoiY, capNhatLanCuoi } from "../lib/thietBi";
+import { thietBiGoiY, phuKienGoiY, capNhatLanCuoi } from "../lib/thietBi";
 
 const tb01 = await layKhoi("TB-01");
 const tb02 = await layKhoi("TB-02");
@@ -49,6 +49,30 @@ const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
       Danh sách soát lại lần cuối ngày {capNhatLanCuoi}. Có camera đời mới chạy
       tốt hơn thì tụi mình đổi ngay tại trang này.
     </p>
+
+    {
+      /* Phụ kiện — đặt SAU phần camera và tách hẳn ra (chủ dự án chốt
+         19/08/2026). Không trộn chung lưới với camera: camera là yêu cầu bắt
+         buộc, giá đỡ chỉ là món cho tiện. Trang Tải về cố ý KHÔNG hiện mục
+         này. Khối tự ẩn khi chưa đề xuất phụ kiện nào. */
+      phuKienGoiY.length > 0 && (
+        <>
+          <h2>Gắn thêm cho tiện: giá đỡ camera</h2>
+          <p class="doan">
+            Không bắt buộc — camera kê tạm cũng quay được. Nhưng kẹp camera lên
+            giá đỡ rồi kẹp giá đỡ vào mép bàn gói thì người đóng hàng đẩy camera
+            tới chỗ nào cũng được, nhanh và gọn: đơn to đơn nhỏ đều chỉnh được
+            khung hình vừa vặn ngay trong lúc gói.
+          </p>
+
+          <div class="luoi-tb">
+            {phuKienGoiY.map((tb) => (
+              <TheThietBi thietBi={tb} />
+            ))}
+          </div>
+        </>
+      )
+    }
 
     <p class="hang-nut">
       <a class="nut nut--chinh" href={duongDan("tai-ve/")}

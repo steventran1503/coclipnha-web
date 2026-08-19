@@ -13,10 +13,15 @@ import duLieu from "../data/thiet-bi-goi-y.json";
  * lần là cả hai trang cùng đổi (yêu cầu chủ dự án 28/07/2026).
  */
 
+/** 'camera' = thiết bị bắt buộc; 'phu_kien' = món gắn thêm (giá đỡ...). */
+export type LoaiThietBi = "camera" | "phu_kien";
+
 export interface ThietBi {
   ma: string;
   ten: string;
   model: string;
+  /** Bỏ trống trong JSON thì hiểu là "camera" (xem loaiCua). */
+  loai?: LoaiThietBi;
   uu_tien: number;
   vi_sao: string;
   da_test: string;
@@ -40,10 +45,41 @@ export interface ThietBi {
  */
 export const CAU_MINH_BACH = "Link tài trợ";
 
-/** Thiết bị còn đề xuất, đã xếp theo ưu tiên (số nhỏ hiện trước). */
-export const thietBiGoiY: ThietBi[] = (duLieu.thiet_bi as ThietBi[])
+/** Loại của một món, mặc định là camera khi JSON bỏ trống ô `loai`. */
+export function loaiCua(t: ThietBi): LoaiThietBi {
+  return t.loai ?? "camera";
+}
+
+const conDeXuat: ThietBi[] = (duLieu.thiet_bi as ThietBi[])
   .filter((t) => t.con_ban)
   .sort((a, b) => a.uu_tien - b.uu_tien);
+
+/**
+ * CAMERA còn đề xuất, đã xếp theo ưu tiên (số nhỏ hiện trước).
+ *
+ * Cố ý CHỈ có camera: trang Tải về cũng đọc danh sách này, mà ở đó câu chốt
+ * là "camera lấy nét tự động là yêu cầu BẮT BUỘC". Trộn phụ kiện vào đây thì
+ * người đọc tưởng phải mua thêm mới chạy được app.
+ */
+export const thietBiGoiY: ThietBi[] = conDeXuat.filter(
+  (t) => loaiCua(t) === "camera",
+);
+
+/**
+ * PHỤ KIỆN còn đề xuất (giá đỡ...) — chỉ trang Thiết bị đề xuất dùng tới,
+ * xếp sau phần camera (chủ dự án chốt 19/08/2026).
+ */
+export const phuKienGoiY: ThietBi[] = conDeXuat.filter(
+  (t) => loaiCua(t) === "phu_kien",
+);
+
+/**
+ * Danh xưng để ghép câu trên thẻ ("Xem camera…" / "Xem giá đỡ…"). Thẻ dùng
+ * chung cho cả hai loại nên không được ghi cứng chữ "camera" nữa.
+ */
+export function danhXung(t: ThietBi): string {
+  return loaiCua(t) === "phu_kien" ? "giá đỡ" : "camera";
+}
 
 /** Ngày chủ dự án soát lại danh sách lần cuối — hiện trên trang thiết bị. */
 export const capNhatLanCuoi: string = duLieu.cap_nhat_lan_cuoi;

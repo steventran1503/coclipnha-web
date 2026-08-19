@@ -4,7 +4,13 @@
 //
 // FR-008: câu công khai hoa hồng (CAU_MINH_BACH) gắn cứng vào thẻ, ngay dưới
 // nút mua. Không có công tắc nào tắt được từ file dữ liệu — cố ý như vậy.
-import { CAU_MINH_BACH, tenDayDu, type ThietBi } from "../lib/thietBi";
+import {
+  CAU_MINH_BACH,
+  danhXung,
+  loaiCua,
+  tenDayDu,
+  type ThietBi,
+} from "../lib/thietBi";
 import { duongDan } from "../lib/duongDan";
 
 interface Props {
@@ -13,6 +19,11 @@ interface Props {
   gon?: boolean;
 }
 const { thietBi: tb, gon = false } = Astro.props;
+// Thẻ dùng chung cho camera lẫn phụ kiện → chữ trên nút, mô tả ảnh và ô chờ
+// ảnh phải gọi đúng tên món, không được ghi cứng "camera" như bản đầu.
+const laPhuKien = loaiCua(tb) === "phu_kien";
+const nhan = danhXung(tb); // "camera" | "giá đỡ"
+const nhanHoa = nhan.charAt(0).toUpperCase() + nhan.slice(1);
 ---
 
 <div class="the-app the-app--teal the-tb">
@@ -22,7 +33,10 @@ const { thietBi: tb, gon = false } = Astro.props;
         <img
           class="anh-tb"
           src={duongDan(`anh/${tb.anh}`)}
-          alt={`Camera ${tenDayDu(tb)}`}
+          alt={
+            /* Tên phụ kiện đã tự chứa chữ "giá đỡ" → đừng ghép thêm lần nữa. */
+            laPhuKien ? `Ảnh ${tenDayDu(tb)}` : `${nhanHoa} ${tenDayDu(tb)}`
+          }
           width="320"
           height="320"
           loading="lazy"
@@ -30,8 +44,8 @@ const { thietBi: tb, gon = false } = Astro.props;
         />
       ) : (
         <div class="anh-tb anh-tb--cho" role="status">
-          <span aria-hidden="true">📷</span>
-          <span>Ảnh camera sắp có</span>
+          <span aria-hidden="true">{laPhuKien ? "🔩" : "📷"}</span>
+          <span>Ảnh {nhan} sắp có</span>
         </div>
       ))
   }
@@ -49,7 +63,8 @@ const { thietBi: tb, gon = false } = Astro.props;
           rel="nofollow sponsored noopener"
           target="_blank"
         >
-          Xem camera{tb.noi_ban ? ` trên ${tb.noi_ban}` : ""} →
+          Xem {nhan}
+          {tb.noi_ban ? ` trên ${tb.noi_ban}` : ""} →
         </a>
       ) : (
         <span class="nut nut--vien nut-cho" role="status">

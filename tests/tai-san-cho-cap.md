@@ -23,6 +23,7 @@ Cột "gắn vào đâu" ghi luôn nơi sửa, để lần cấp sau khỏi ph�
 | 12 | **Ngày đăng 7 bài viết còn lại** | Bài viết | "chưa có ngày đăng cụ thể" (không bịa mốc) | `src/lib/baiViet.ts` |
 | 13 | **Câu dẫn cho trang Bài viết** | Bài viết | Vào thẳng 8 thẻ, không có đoạn dẫn | viết 1 câu vào `kho-thong-diep.md` mục 7f rồi gắn vào `bai-viet/index.astro` |
 | 14 | **Ảnh chia sẻ mạng xã hội** (1200×630) | Toàn site (thẻ OpenGraph) | Dán link lên Facebook ra thẻ có tít + mô tả nhưng KHÔNG có ảnh | ảnh vào `public/anh/chia-se.jpg` rồi điền `ANH_CHIA_SE` trong `BaseLayout.astro` |
+| ~~15~~ | ~~**Ảnh giá đỡ camera**~~ — **ĐÃ CÓ 19/08/2026** | Thiết bị đề xuất | Thẻ giá đỡ đã đủ ảnh + tên + lý do + dòng "đã chạy thử" + nút mua sống | xong — `public/anh/gia-do-camera.webp`, gốc JPG chủ dự án cấp ở `QR module/assets/` |
 
 ## Nhắc khi gắn tài sản vào
 

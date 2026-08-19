@@ -10,8 +10,14 @@
     "Ý nghĩa từng ô:",
     "  ten        — tên hiển thị trên web (ngắn gọn, đúng tên hãng).",
     "  model      — mã model chính xác. Chưa chắc thì để trống, web tự ẩn.",
-    "  uu_tien    — 1 là hiện trước, 2 hiện sau. Camera ưu tiên đặt số nhỏ hơn.",
-    "  vi_sao     — một câu vì sao đề xuất camera này (hiện trên thẻ).",
+    "  loai       — 'camera' hoặc 'phu_kien'. Camera hiện ở CẢ trang Tải về lẫn",
+    "               trang Thiết bị đề xuất; phụ kiện (giá đỡ...) CHỈ hiện ở",
+    "               trang Thiết bị đề xuất, xếp sau phần camera. Cố ý như vậy:",
+    "               trang Tải về đang nói 'camera là yêu cầu BẮT BUỘC', chèn",
+    "               phụ kiện vào đó dễ làm người đọc tưởng cũng phải mua.",
+    "               Bỏ trống ô này thì web hiểu là 'camera'.",
+    "  uu_tien    — 1 là hiện trước, 2 hiện sau. Đếm riêng trong từng loại.",
+    "  vi_sao     — một câu vì sao đề xuất món này (hiện trên thẻ).",
     "  da_test    — mô tả ngắn việc đã chạy thử THẬT. CHỈ viết khi đã test thật.",
     "  anh        — tên file ảnh trong thư mục public/anh/ (vd 'camera-emeet.webp').",
     "               Chưa có ảnh thì để null, web hiện ô chờ gọn gàng.",
@@ -29,6 +35,7 @@
       "ma": "emeet",
       "ten": "EMEET",
       "model": "C60E",
+      "loai": "camera",
       "uu_tien": 1,
       "vi_sao": "Bắt nét nhanh ở khoảng gần đúng tầm để thùng hàng trước camera — đưa vận đơn vào là đọc ra mã ngay, không phải rê tới rê lui.",
       "da_test": "Đội ngũ phát triển đã chạy thật nhiều tháng trên bàn đóng gói của ZIN ZIN MOTOR, qua hàng chục nghìn đơn hàng — tới nay vẫn ổn định.",
@@ -41,6 +48,7 @@
       "ma": "ugreen",
       "ten": "Ugreen",
       "model": "",
+      "loai": "camera",
       "uu_tien": 2,
       "vi_sao": "Lựa chọn nhẹ tiền hơn mà vẫn có lấy nét tự động — đủ dùng cho bàn gói mỗi ngày.",
       "da_test": "Đã chạy thử với CoClipNha, hoạt động tốt.",
@@ -48,6 +56,19 @@
       "link": null,
       "noi_ban": "",
       "con_ban": false
+    },
+    {
+      "ma": "gia-do-thep",
+      "ten": "Giá đỡ webcam bằng thép",
+      "model": "",
+      "loai": "phu_kien",
+      "uu_tien": 1,
+      "vi_sao": "Kẹp thẳng vào mép bàn gói, cần xoay được mọi hướng — đơn to đơn nhỏ chỉ cần đẩy camera tới đúng chỗ trong một giây, khỏi kê chồng sách hay dọn lại cả bàn.",
+      "da_test": "Tụi mình đang dùng thật cái này để giữ camera trên bàn đóng gói.",
+      "anh": "gia-do-camera.webp",
+      "link": "https://s.shopee.vn/1BLfY69Q8N",
+      "noi_ban": "Shopee",
+      "con_ban": true
     }
   ]
 }
