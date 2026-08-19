@@ -8,6 +8,11 @@
 // đã chốt ở README-noi-dung.md — nhãn/tít mục không vào kho nội dung); nội
 // dung từng lời hứa đọc qua layKhoi (PB-01/PB-02/TB-02), không hardcode câu
 // (FR-003).
+//
+// Tít lời hứa thứ ba đổi "Minh bạch chuyện hoa hồng" -> "Không ép mua camera
+// nào" (19/08/2026): TB-02 nay không còn vế giải thích hoa hồng, để tít cũ thì
+// tít hứa một đằng nội dung nói một nẻo — đọc như đang né. Công khai hoa hồng
+// vẫn còn, nằm ở nhãn "Link tài trợ" sát nút mua trên thẻ camera.
 import BaseLayout from "../layouts/BaseLayout.astro";
 import VanBan from "../components/VanBan.astro";
 import { layKhoi } from "../lib/khoiNoiDung";
@@ -24,7 +29,7 @@ const kg02 = await layKhoi("KG-02");
 
 <BaseLayout
   tieuDe="Về CoClipNha — sinh ra từ một bàn đóng gói thật"
-  moTaMeta="CoClipNha ra đời từ bàn đóng gói của ZIN ZIN MOTOR, không phải sản phẩm nghĩ ra trong phòng máy lạnh. Miễn phí thật, video không rời máy shop, minh bạch chuyện hoa hồng."
+  moTaMeta="CoClipNha ra đời từ bàn đóng gói của ZIN ZIN MOTOR, không phải sản phẩm nghĩ ra trong phòng máy lạnh. Miễn phí thật, video không rời máy shop, không ép mua camera nào."
 >
   <main class="khoi khoi--hep">
     <p class="lan-ve"><a href={duongDan()}>← Trang chủ</a></p>
@@ -64,7 +69,7 @@ const kg02 = await layKhoi("KG-02");
         <strong>Video không rời khỏi máy shop</strong> — {pb02.data.dien_giai}
       </li>
       <li>
-        <strong>Minh bạch chuyện hoa hồng</strong> — <VanBan
+        <strong>Không ép mua camera nào</strong> — <VanBan
           text={tb02.data.dien_giai}
         />
       </li>

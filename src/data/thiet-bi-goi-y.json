@@ -31,7 +31,7 @@
       "model": "C60E",
       "uu_tien": 1,
       "vi_sao": "Bắt nét nhanh ở khoảng gần đúng tầm để thùng hàng trước camera — đưa vận đơn vào là đọc ra mã ngay, không phải rê tới rê lui.",
-      "da_test": "Đã chạy thật trên bàn đóng gói của ZIN ZIN MOTOR với CoClipNha.",
+      "da_test": "Đội ngũ phát triển đã chạy thật nhiều tháng trên bàn đóng gói của ZIN ZIN MOTOR, qua hàng chục nghìn đơn hàng — tới nay vẫn ổn định.",
       "anh": "camera-emeet.webp",
       "link": "https://s.shopee.vn/4Vc7SUYtsC",
       "noi_ban": "Shopee",
@@ -47,7 +47,7 @@
       "anh": null,
       "link": null,
       "noi_ban": "",
-      "con_ban": true
+      "con_ban": false
     }
   ]
 }

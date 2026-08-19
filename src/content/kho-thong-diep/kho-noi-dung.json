@@ -1,7 +1,7 @@
 {
   "_meta": {
     "sinh_boi": "docs/web/xuat_kho_noi_dung.py — script CHỈ ĐỌC",
-    "sinh_luc": "2026-08-19 18:29:31",
+    "sinh_luc": "2026-08-19 19:32:11",
     "nguon": "docs\\web\\kho-thong-diep.md",
     "luu_y": "ĐỪNG sửa tay file này — sửa kho-thong-diep.md rồi chạy lại script."
   },
@@ -553,12 +553,12 @@
       "ma": "TB-02",
       "nhom": "TB",
       "cau_chot": "Mua qua link tụi mình gợi ý, shop không tốn thêm đồng nào mà vẫn đỡ được tụi mình một tay.",
-      "dien_giai": "CoClipNha gợi ý vài mẫu camera đã dùng thật và chạy tốt (hướng Ugreen, EMEET). Nếu shop mua qua link này thì CoClipNha nhận được một khoản hoa hồng từ nơi bán — **giá shop trả không đổi**. Shop mua camera khác cũng hoàn toàn bình thường, miễn có lấy nét tự động.",
+      "dien_giai": "CoClipNha chỉ gợi ý camera đã dùng thật trên bàn đóng gói và chạy tốt. Shop mua camera khác cũng hoàn toàn bình thường, miễn có lấy nét tự động.",
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
       "truong_khac": {
-        "LUẬT MINH BẠCH — BẮT BUỘC": "mọi chỗ có link hoa hồng đều phải ghi rõ ngay cạnh link rằng đó là link có hoa hồng và giá không đổi. Lý do: cả sản phẩm này bán bằng chữ TIN. Giấu chuyện ăn hoa hồng mà bị phát hiện thì mất sạch thứ quý nhất, đổi lấy vài trăm nghìn. Nói thẳng ra thì nó còn thành điểm cộng — xem KG-03.",
+        "LUẬT MINH BẠCH — BẮT BUỘC": "mọi link hoa hồng phải có nhãn công khai ngay cạnh link. Chủ dự án chốt 19/08/2026: nhãn rút còn đúng chữ **\"Link tài trợ\"** và bỏ vế giải thích khỏi đoạn dẫn này. Nhãn đó KHÔNG được bỏ nốt — mất công khai là rủi ro Shopee Affiliate khoá tài khoản (mất luôn hoa hồng chưa trả) và Google xếp trang vào nhóm gài link. Lý do gốc vẫn còn nguyên: sản phẩm này bán bằng chữ TIN, giấu chuyện ăn hoa hồng mà bị phát hiện thì mất sạch thứ quý nhất, đổi lấy vài trăm nghìn.",
         "KHÔNG được": "nói dối là \"camera tốt nhất\", chê camera hãng khác, hay ngụ ý phải mua đúng mẫu này app mới chạy."
       },
       "trang_su_dung": [

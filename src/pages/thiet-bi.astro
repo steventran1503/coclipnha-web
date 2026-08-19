@@ -94,10 +94,14 @@ const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
     margin-bottom: 1.4rem;
     max-width: 44rem;
   }
+  /* auto-FILL chứ không auto-fit: từ 19/08/2026 chỉ còn MỘT camera đề xuất,
+     auto-fit sẽ kéo thẻ duy nhất giãn hết chiều ngang khung — ảnh 12rem nằm
+     lọt thỏm trong thẻ rộng gấp ba. auto-fill giữ thẻ đúng bề ngang một cột.
+     Thêm camera thứ hai vào lại thì cách xếp không đổi gì. */
   .luoi-tb {
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
     margin-bottom: 1.2rem;
   }
   .ghi-chu {
