@@ -1,7 +1,7 @@
 {
   "_meta": {
     "sinh_boi": "docs/web/xuat_kho_noi_dung.py — script CHỈ ĐỌC",
-    "sinh_luc": "2026-07-28 15:07:30",
+    "sinh_luc": "2026-08-19 18:13:22",
     "nguon": "docs\\web\\kho-thong-diep.md",
     "luu_y": "ĐỪNG sửa tay file này — sửa kho-thong-diep.md rồi chạy lại script."
   },
@@ -19,6 +19,7 @@
       },
       "trang_su_dung": [
         "index",
+        "gioi-thieu",
         "ung-ho"
       ]
     },
@@ -221,6 +222,7 @@
       "canh_cho_video": null,
       "truong_khac": {},
       "trang_su_dung": [
+        "gioi-thieu",
         "ung-ho"
       ]
     },
@@ -326,7 +328,8 @@
       "canh_cho_video": null,
       "truong_khac": {},
       "trang_su_dung": [
-        "tro-giup/cau-hoi"
+        "tro-giup/cau-hoi",
+        "gioi-thieu"
       ]
     },
     {
@@ -339,7 +342,8 @@
       "canh_cho_video": null,
       "truong_khac": {},
       "trang_su_dung": [
-        "tro-giup/cau-hoi"
+        "tro-giup/cau-hoi",
+        "gioi-thieu"
       ]
     },
     {
@@ -447,7 +451,26 @@
         "Chỗ đặt": "khối riêng gần cuối trang chủ, trước nút Tải về; nhắc lại ở chân trang. Lưu ý: app đang ghi *\"Vì một Việt Nam không còn tráo hàng.\"* — cảnh dựng lại app phải giữ ĐÚNG câu trong app (Luật 1); câu SM-01 là của riêng web. Muốn đồng bộ app theo câu mới là việc sửa app, cần duyệt riêng."
       },
       "trang_su_dung": [
-        "index"
+        "index",
+        "gioi-thieu"
+      ]
+    },
+    {
+      "ma": "SM-02",
+      "nhom": "SM",
+      "cau_chot": "Sinh ra để đồng hành cùng tiểu thương và startup Việt.",
+      "dien_giai": "CoClipNha hoàn toàn miễn phí — không chỉ để shop gác lại gánh nặng chi phí, mà còn là cách đội ngũ CoClipNha chung tay hỗ trợ các hộ kinh doanh và startup Việt xây dựng quy trình minh bạch, bảo vệ hoạt động kinh doanh và vững bước phát triển.",
+      "nut": null,
+      "cot_them": [],
+      "canh_cho_video": null,
+      "truong_khac": {
+        "Ký tên": "— Đội ngũ CoClipNha",
+        "Chỗ đặt": "**Câu chốt** làm dòng nhãn nhỏ trên tít trang chủ (thay câu \"phần mềm miễn phí cho bàn đóng gói của shop Việt\" — gỡ 19/08/2026). **Câu đỡ** làm khối cam kết có ký tên, đặt NGAY DƯỚI hàng nút Tải về (không phải trên nút: chỗ shop nghi \"tải xong có đòi tiền không\" là lúc mắt chạm nút); nhắc lại đầy đủ ở trang \"Về CoClipNha\" dưới ô Sứ mệnh, và ở trang \"Ủng hộ\"."
+      },
+      "trang_su_dung": [
+        "index",
+        "gioi-thieu",
+        "ung-ho"
       ]
     },
     {
@@ -539,7 +562,8 @@
         "KHÔNG được": "nói dối là \"camera tốt nhất\", chê camera hãng khác, hay ngụ ý phải mua đúng mẫu này app mới chạy."
       },
       "trang_su_dung": [
-        "tai-ve"
+        "tai-ve",
+        "gioi-thieu"
       ]
     },
     {
@@ -587,7 +611,7 @@
       "ma": "TG-03",
       "nhom": "TG",
       "cau_chot": "Tải mã QR điều khiển",
-      "dien_giai": "Mã START/STOP để in dán ở bàn quay.",
+      "dien_giai": "Hai mã in ra dán ở bàn gói: một mã dừng video, một mã quay đơn ngoài.",
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
@@ -759,8 +783,8 @@
     {
       "ma": "TT-02",
       "nhom": "TT",
-      "cau_chot": "Hai mã in sẵn, dán ở bàn quay là dùng cả năm.",
-      "dien_giai": "Bản in **khổ A6** (105×148mm — cùng khổ vận đơn shop đang in) và bản **A4 xếp 4 mã cắt rời** cho máy in thường.",
+      "cau_chot": "In 2 mã này bằng giấy in nhiệt, tương tự như in mã vận đơn, sau đó dán mỗi mã lên một mặt của tấm bìa cứng hoặc bìa carton. Khi mã QR bị hỏng, mờ hoặc không còn nhận diện được, chỉ cần in mã mới và dán đè lên mã cũ là có thể tiếp tục sử dụng.",
+      "dien_giai": "Bản in **khổ A6** — file PDF (105×148mm — cùng khổ vận đơn shop đang in), hai mã hai trang. Cần mấy tờ thì chọn số bản ngay lúc in.",
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
@@ -773,7 +797,7 @@
       "ma": "TT-03",
       "nhom": "TT",
       "cau_chot": "Mã PAUSE — dừng & lưu",
-      "dien_giai": "Đưa vào khung hình là video đang quay được lưu lại ngay — dùng khi gói xong mà chưa có đơn kế tiếp.",
+      "dien_giai": "Đưa mã này vào khung hình là video đang quay được lưu lại ngay — dùng khi gói xong mà chưa có đơn kế tiếp. Tới đơn sau, chỉ cần đưa mã vận đơn mới vào khung hình là máy quay tiếp, không phải đụng gì tới máy tính.",
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
@@ -786,7 +810,7 @@
       "ma": "TT-04",
       "nhom": "TT",
       "cau_chot": "Mã START — Đơn Ngoài",
-      "dien_giai": "Dùng khi cần quay mà không có mã vận đơn — ví dụ mở thùng hàng hoàn đã mất mã. Video đặt tên \"Don Hang\" kèm số thứ tự.",
+      "dien_giai": "Dùng khi cần quay mà không có mã vận đơn — ví dụ quay đơn ngoài sàn, mở thùng hàng hoàn đã mất mã. Video đặt tên \"Don Hang\" kèm số thứ tự.",
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,

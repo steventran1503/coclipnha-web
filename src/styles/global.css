@@ -285,6 +285,26 @@ footer a {
   color: var(--teal);
 }
 
+/* Khối cam kết SM-02 ("miễn phí — vì sao") — dùng chung 3 trang: trang chủ
+   (dưới nút Tải về), Về CoClipNha (dưới ô Sứ mệnh), Ủng hộ. Kiểu "lời hứa có
+   người đứng tên": chữ nhỉnh hơn thân bài + dòng ký tên, để đoạn văn dài đọc
+   ra lời cam kết chứ không ra đoạn quảng cáo. Dùng kèm .the-app--teal. */
+.cam-ket {
+  max-width: 44rem;
+  margin: 0 0 2.4rem;
+}
+.cam-ket .cau-cam-ket {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--chu);
+  margin: 0;
+}
+.cam-ket .ky-ten {
+  font-size: 0.85rem;
+  color: var(--chu-mo);
+  margin: 0.6rem 0 0;
+}
+
 @media (max-width: 480px) {
   .khoi {
     padding: 3.5rem 1rem;

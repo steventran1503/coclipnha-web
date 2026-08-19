@@ -15,6 +15,7 @@ import { duongDan } from "../lib/duongDan";
 
 const bc01 = await layKhoi("BC-01");
 const sm01 = await layKhoi("SM-01");
+const sm02 = await layKhoi("SM-02");
 const pb01 = await layKhoi("PB-01");
 const pb02 = await layKhoi("PB-02");
 const tb02 = await layKhoi("TB-02");
@@ -36,6 +37,20 @@ const kg02 = await layKhoi("KG-02");
       <div class="tieu-de-the">Sứ mệnh</div>
       <p class="cau-chot-sm">{sm01.data.cau_chot}</p>
       <p class="nho">{sm01.data.dien_giai}</p>
+    </div>
+
+    {
+      /* SM-02 — vì sao miễn phí. Nối ngay sau ô Sứ mệnh: SM-01 nói đích
+        đến, SM-02 nói cách đi tới đó. Cùng khối chữ với trang chủ và trang
+        Ủng hộ — sửa ở kho thông điệp là cả ba trang đổi theo. */
+    }
+    <div class="the-app the-app--teal cam-ket">
+      <p class="cau-cam-ket">{sm02.data.dien_giai}</p>
+      {
+        sm02.data.truong_khac["Ký tên"] && (
+          <p class="ky-ten">{sm02.data.truong_khac["Ký tên"]}</p>
+        )
+      }
     </div>
 
     <h2>Ba lời hứa giữ được</h2>

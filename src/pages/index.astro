@@ -53,6 +53,12 @@ const tn = await Promise.all(
   ["TN-01", "TN-02", "TN-03", "TN-04", "TN-06", "TN-07"].map(layKhoi),
 );
 const sm01 = await layKhoi("SM-01");
+const sm02 = await layKhoi("SM-02");
+// Dòng nhãn nhỏ trên tít: câu chốt SM-02 (thay câu cũ "phần mềm miễn phí
+// cho bàn đóng gói của shop Việt", gỡ 19/08/2026 theo chủ dự án). Bỏ dấu
+// chấm cuối cho khớp nhịp các nhãn khác — nhãn trên web không chấm câu.
+const nhanHero = sm02.data.cau_chot.replace(/\.$/, "");
+const kyTenSm02 = sm02.data.truong_khac["Ký tên"];
 const vd01 = await layKhoi("VD-01");
 const kg01 = await layKhoi("KG-01");
 const kn02 = await layKhoi("KN-02");
@@ -119,9 +125,7 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     data-bang="nen"
     style="padding-top:2.4rem;"
   >
-    <span class="nhan-log"
-      >phần mềm miễn phí cho bàn đóng gói của shop Việt</span
-    >
+    <span class="nhan-log">{nhanHero}</span>
     <h1 class="tit-hero">
       {
         titD.data.cau_chot.split(". ").map((cau, i) => (
@@ -149,6 +153,17 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
       >
       <a class="nut nut--vien" href="#video-that">Xem app chạy thật</a>
     </p>
+
+    {
+      /* SM-02 — lời cam kết miễn phí, đặt NGAY DƯỚI nút Tải về (chủ dự án chốt
+        19/08/2026): chỗ shop nghi "tải xong có đòi tiền không" chính là lúc
+        mắt chạm nút. Đặt trên nút là trả lời câu chưa ai hỏi, lại đẩy nút và
+        khung Quét thử khỏi màn hình đầu trên điện thoại. */
+    }
+    <div class="the-app the-app--teal cam-ket">
+      <p class="cau-cam-ket">{sm02.data.dien_giai}</p>
+      {kyTenSm02 && <p class="ky-ten">{kyTenSm02}</p>}
+    </div>
 
     <QuetThu videoId={VIDEO_DEMO} />
     <p class="chu-mo" style="font-size:.85rem;margin-top:.8rem;">
@@ -345,7 +360,9 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     <p class="mo-dau">{gp05.data.dien_giai}</p>
   </section>
 
-  {/* ============ TB-03: TIỀN BỎ RA vs TIỀN MẤT (đúng 1 dòng, FR-024) ====== */}
+  {
+    /* ============ TB-03: TIỀN BỎ RA vs TIỀN MẤT (đúng 1 dòng, FR-024) ====== */
+  }
   <section class="khoi khoi--hep" data-bang="ready">
     <p class="cau-roi">{tb03.data.cau_chot}</p>
     <p class="chu-mo" style="font-size:.9rem;margin-top:.5rem;">
@@ -452,7 +469,9 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
         ))
       }
     </div>
-    {/* T068: kênh hỏi nhanh (KN-02) — link m.me thật chờ chủ dự án cấp (FR-021) */}
+    {
+      /* T068: kênh hỏi nhanh (KN-02) — link m.me thật chờ chủ dự án cấp (FR-021) */
+    }
     <div class="the-app the-app--teal hien hoi-nhanh">
       <div>
         <strong style="font-family:var(--font-tit);font-size:1.05rem;"

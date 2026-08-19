@@ -18,6 +18,7 @@ import { layKhoi } from "../lib/khoiNoiDung";
 import { duongDan } from "../lib/duongDan";
 
 const kg02 = await layKhoi("KG-02");
+const sm02 = await layKhoi("SM-02");
 const bc01 = await layKhoi("BC-01");
 const tt10 = await layKhoi("TT-10");
 const tt11 = await layKhoi("TT-11");
@@ -38,6 +39,19 @@ const ANH_VIETQR: string | null = null;
     <span class="nhan-log">miễn phí thật — ủng hộ tùy tâm</span>
     <h1>{kg02.data.nut ?? "Ủng hộ CoClipNha"}</h1>
     <p class="doan lon">{kg02.data.dien_giai}</p>
+
+    {
+      /* SM-02 — đặt TRƯỚC mã chuyển khoản: shop đang cân nhắc chuyện tiền,
+        phải biết vì sao phần mềm miễn phí trước khi nhìn thấy mã ủng hộ. */
+    }
+    <div class="the-app the-app--teal cam-ket">
+      <p class="cau-cam-ket">{sm02.data.dien_giai}</p>
+      {
+        sm02.data.truong_khac["Ký tên"] && (
+          <p class="ky-ten">{sm02.data.truong_khac["Ký tên"]}</p>
+        )
+      }
+    </div>
 
     <div class="cach-ung-ho">
       {/* Chuyển khoản VietQR — đường ủng hộ duy nhất trên trang (T038) */}
