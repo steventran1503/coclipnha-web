@@ -1,7 +1,7 @@
 {
   "_meta": {
     "sinh_boi": "docs/web/xuat_kho_noi_dung.py — script CHỈ ĐỌC",
-    "sinh_luc": "2026-08-19 18:13:22",
+    "sinh_luc": "2026-08-19 18:29:31",
     "nguon": "docs\\web\\kho-thong-diep.md",
     "luu_y": "ĐỪNG sửa tay file này — sửa kho-thong-diep.md rồi chạy lại script."
   },
@@ -350,7 +350,7 @@
       "ma": "PB-03",
       "nhom": "PB",
       "cau_chot": "Máy yếu có chạy nổi không?",
-      "dien_giai": "Chạy được. Có năm mức nén để hạ tải, máy yếu chọn mức nhẹ là quay mượt.",
+      "dien_giai": "Chạy được. Máy chạy Windows 10/11 với chip Intel từ đời 4 trở lên (loại có sẵn card màn hình tích hợp — hầu hết máy văn phòng bán ra từ 2013 tới nay) là quay tốt. Máy AMD hoặc máy cũ hơn vẫn dùng được, chỉ cần hạ mức nén. Phần mềm có năm mức nén: cứ chọn mức nào máy quay mượt, không giật là đúng mức của máy đó — không cần biết thêm thông số nào.",
       "cot_them": [],
       "nut": null,
       "canh_cho_video": null,
