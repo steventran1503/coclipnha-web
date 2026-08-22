@@ -35,17 +35,38 @@ jobs:
       - name: Dựng bản tĩnh
         run: npm run build
 
-      - name: Bật máy chủ xem thử (cổng 4331)
-        run: npm run kiem:phuc-vu &
-
-      - name: Chờ máy chủ sẵn sàng
-        run: npx wait-on http://localhost:4331/coclipnha-web/ --timeout 60000
+      # Bật máy chủ và chờ nó sẵn sàng phải nằm CHUNG một bước: mỗi `run:` là
+      # một phiên shell riêng, tách ra thì tiến trình nền thành con mồ côi, sống
+      # chết tùy lúc. Gộp lại còn được cái lợi thứ hai: hỏng thì in nhật ký máy
+      # chủ ra ngay, không để CI đỏ suông một dòng "Timed out" như trước.
+      #
+      # ⚠️ Đường dẫn phải là GỐC `/`. Web từng chạy dưới base /coclipnha-web
+      # (GitHub Pages thư mục con); ngày 29/07/2026 chuyển sang tên miền thật
+      # coclipnha.com thì `base` đã xoá khỏi astro.config.mjs, nhưng dòng chờ
+      # ở đây bị bỏ sót — từ đó luồng này Đỏ LIÊN TỤC 10 lần push mà không ai
+      # để ý. Đổi base lần nữa thì sửa CẢ đây, tests/lighthouse.config.json
+      # và script `kiem:link` trong package.json.
+      - name: Bật máy chủ xem thử (cổng 4331) rồi chờ sẵn sàng
+        run: |
+          npm run kiem:phuc-vu > /tmp/may-chu-xem-thu.log 2>&1 &
+          npx wait-on http://localhost:4331/ --timeout 60000 || {
+            echo "::error::Máy chủ xem thử không lên — nhật ký bên dưới"
+            cat /tmp/may-chu-xem-thu.log
+            exit 1
+          }
 
       - name: Kiểm liên kết nội bộ chết
         # --skip: chỉ soi link trong nhà. Link ra ngoài (ffmpeg.org, Facebook,
         # GitHub Releases...) do bên kia quản, họ đổi đường dẫn thì CI của web
         # không có lý do gì đỏ đèn.
         run: npm run kiem:link
+
+      # Lighthouse tự bật máy chủ của nó (startServerCommand trong
+      # tests/lighthouse.config.json) cũng ở cổng 4331 — để máy chủ cũ còn sống
+      # là đụng cổng (EADDRINUSE), lhci treo chờ dấu hiệu sẵn sàng rồi chết.
+      - name: Tắt máy chủ xem thử (nhường cổng 4331 cho Lighthouse)
+        if: always()
+        run: pkill -f "astro preview" || true
 
       - name: Lighthouse (Performance/Accessibility/SEO ≥ 90, chế độ điện thoại)
         run: npx lhci autorun --config=tests/lighthouse.config.json
