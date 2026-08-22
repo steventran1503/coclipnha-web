@@ -18,6 +18,8 @@ import { duongDan } from "../lib/duongDan";
 import { dongDonDep, sinhTenFile, bangMau } from "../lib/nguonSuThat";
 // Mã video để MỘT chỗ cho mọi trang — xem chú thích trong src/lib/video.ts.
 import { VIDEO_DEMO, VIDEO_HUONG_DAN } from "../lib/video";
+// Link kênh cũng để MỘT chỗ — xem src/lib/kenhKetNoi.ts.
+import { LINK_MESSENGER } from "../lib/kenhKetNoi";
 
 // Hai mã vận đơn Shopee THẬT của ZIN ZIN MOTOR (chủ dự án cấp 24-25/07/2026).
 // Dùng ở mọi chỗ trang chủ minh hoạ một đơn cụ thể — không dùng mã tự đặt.
@@ -498,7 +500,8 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
       }
     </div>
     {
-      /* T068: kênh hỏi nhanh (KN-02) — link m.me thật chờ chủ dự án cấp (FR-021) */
+      /* T068: kênh hỏi nhanh (KN-02) — link m.me thật đã có 22/08/2026, khai ở
+         src/lib/kenhKetNoi.ts; chưa có thì tự về dạng chữ chờ (FR-021) */
     }
     <div class="the-app the-app--teal hien hoi-nhanh">
       <div>
@@ -509,9 +512,17 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
           {kn02.data.dien_giai}
         </p>
       </div>
-      <span class="nut nut--vien nut-cho"
-        >💬 {kn02.data.nut} — đang chờ link</span
-      >
+      {
+        LINK_MESSENGER ? (
+          <a class="nut nut--vien" href={LINK_MESSENGER} rel="noopener">
+            💬 {kn02.data.nut}
+          </a>
+        ) : (
+          <span class="nut nut--vien nut-cho">
+            💬 {kn02.data.nut} — đang chờ link
+          </span>
+        )
+      }
     </div>
   </section>
 </BaseLayout>

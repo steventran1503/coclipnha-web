@@ -1,7 +1,7 @@
 {
   "_meta": {
     "sinh_boi": "docs/web/xuat_kho_noi_dung.py — script CHỈ ĐỌC",
-    "sinh_luc": "2026-08-22 20:15:57",
+    "sinh_luc": "2026-08-22 20:19:51",
     "nguon": "docs\\web\\kho-thong-diep.md",
     "luu_y": "ĐỪNG sửa tay file này — sửa kho-thong-diep.md rồi chạy lại script."
   },
@@ -266,7 +266,7 @@
       "cot_them": [],
       "canh_cho_video": null,
       "truong_khac": {
-        "Cần chủ dự án cấp": "link TikTok — **CHỜ CẤP**. Đã có 22/08/2026: kênh YouTube https://www.youtube.com/@coclipnha · Facebook page https://www.facebook.com/profile.php?id=61593523655589."
+        "Đã có đủ link 22/08/2026": "kênh YouTube https://www.youtube.com/@coclipnha · Facebook page https://www.facebook.com/profile.php?id=61593523655589 · TikTok https://www.tiktok.com/@coclipnha."
       },
       "trang_su_dung": []
     },
@@ -280,7 +280,7 @@
       "canh_cho_video": null,
       "truong_khac": {
         "Chỗ đặt": "khối trợ giúp trang chủ, trang Góp ý, trang Báo lỗi, chân trang.",
-        "Cần chủ dự án cấp": "link `m.me/…` — **CHỜ CẤP**."
+        "Đã có 22/08/2026": "link nhắn tin https://m.me/61593523655589 (số của chính Facebook page ở KN-01)."
       },
       "trang_su_dung": []
     },

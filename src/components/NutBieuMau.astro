@@ -5,6 +5,7 @@
 // KN-02 "CHỜ CẤP"). Chưa có thì hiện thẻ nói thẳng đang chờ — không href="#"
 // (link chết), không chép ghi chú nội bộ "(Demo — …)" (FR-021).
 import { layKhoi } from "../lib/khoiNoiDung";
+import { LINK_MESSENGER } from "../lib/kenhKetNoi";
 
 interface Props {
   /** Chữ trên nút mở biểu mẫu, vd "Mở biểu mẫu góp ý". */
@@ -13,7 +14,10 @@ interface Props {
   linkBieuMau?: string | null;
   /** Trang này có mời nhắn tin Messenger không (KN-02 chỉ đặt ở góp ý/báo lỗi). */
   coMessenger?: boolean;
-  /** Link m.me/… thật khi chủ dự án cấp. */
+  /**
+   * Link m.me/… — mặc định lấy từ `src/lib/kenhKetNoi.ts` (chỗ khai DUY NHẤT),
+   * chỉ truyền vào khi cần đè cho riêng một trang.
+   */
   linkMessenger?: string | null;
 }
 
@@ -21,7 +25,7 @@ const {
   nhanBieuMau,
   linkBieuMau = null,
   coMessenger = false,
-  linkMessenger = null,
+  linkMessenger = LINK_MESSENGER ?? null,
 } = Astro.props;
 
 const kn02 = coMessenger ? await layKhoi("KN-02") : null;
