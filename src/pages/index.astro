@@ -318,7 +318,22 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     <h2>{gp03.data.cau_chot}</h2>
     <p class="mo-dau" style="margin-bottom:1.6rem;">{gp03.data.dien_giai}</p>
     <div class="khung-minh-hoa hien">
-      <span class="ghi-chu-khung">(bàn gói của shop)</span>
+      {
+        /* Cận cảnh cắt từ CHÍNH tấm "lúc gửi đi" của GP-04 (cùng bàn, cùng góc
+           máy) — cố ý cắt gần hơn để không phải tấm y hệt lặp lại lần hai trên
+           một trang. Ở đây watermark chạy đồng hồ thật (gioSong), nên khung
+           hình phải khác GP-04: cùng một khung mà hai giờ khác nhau là tự mâu
+           thuẫn với chính câu "mã và giờ không ai cãi được". */
+      }
+      <img
+        class="anh-canh"
+        src={duongDan("anh/hang-luc-gui-di-can-canh.webp")}
+        alt="Cận cảnh bàn gói: món hàng còn nguyên seal đang được đặt vào thùng carton."
+        width="1280"
+        height="720"
+        loading="lazy"
+        decoding="async"
+      />
       <Watermark maDon={MA_DON_1} gioSong={true} />
     </div>
   </section>
@@ -578,7 +593,8 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
   /* Dải tối mỏng ở đáy khung: watermark là chữ trắng, phải đọc được cả khi
      mép dưới ảnh có mảng sáng (màng xốp, giấy). Nằm TRÊN ảnh nhưng DƯỚI
      watermark (z-index 4) và nhãn góc (z-index 5). */
-  .hai-canh .canh::after {
+  .hai-canh .canh::after,
+  .khung-minh-hoa::after {
     content: "";
     position: absolute;
     inset: auto 0 0 0;
@@ -605,14 +621,6 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     border-radius: 10px;
     border: 1px solid var(--vien);
     background: linear-gradient(150deg, #151e2e 0%, #0c111a 70%);
-  }
-  .ghi-chu-khung {
-    position: absolute;
-    left: 50%;
-    top: 46%;
-    transform: translate(-50%, -50%);
-    color: var(--chu-mo);
-    font-size: 0.9rem;
   }
   .bang-ss td,
   .bang-ss th {
