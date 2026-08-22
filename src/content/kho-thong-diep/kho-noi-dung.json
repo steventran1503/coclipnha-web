@@ -1,7 +1,7 @@
 {
   "_meta": {
     "sinh_boi": "docs/web/xuat_kho_noi_dung.py — script CHỈ ĐỌC",
-    "sinh_luc": "2026-08-22 17:50:16",
+    "sinh_luc": "2026-08-22 18:38:54",
     "nguon": "docs\\web\\kho-thong-diep.md",
     "luu_y": "ĐỪNG sửa tay file này — sửa kho-thong-diep.md rồi chạy lại script."
   },
@@ -965,6 +965,71 @@
       },
       "trang_su_dung": [
         "tai-ve"
+      ]
+    },
+    {
+      "ma": "TT-15",
+      "nhom": "TT",
+      "cau_chot": "Bước 1 — chép mã vận đơn khách gửi.",
+      "dien_giai": "Trong tin nhắn khách gửi, bôi đen mã vận đơn của đơn đang khiếu nại rồi nhấn `Ctrl + C`.",
+      "nut": null,
+      "cot_them": [],
+      "canh_cho_video": null,
+      "truong_khac": {},
+      "trang_su_dung": [
+        "tro-giup/huong-dan"
+      ]
+    },
+    {
+      "ma": "TT-16",
+      "nhom": "TT",
+      "cau_chot": "Bước 2 — mở thư mục lưu video của shop.",
+      "dien_giai": "Không nhớ đang lưu ở đâu thì bấm nút 📁 góc dưới bên phải app — hộp thoại mở ra ngay tại thư mục đang lưu.",
+      "nut": null,
+      "cot_them": [],
+      "canh_cho_video": null,
+      "truong_khac": {},
+      "trang_su_dung": [
+        "tro-giup/huong-dan"
+      ]
+    },
+    {
+      "ma": "TT-17",
+      "nhom": "TT",
+      "cau_chot": "Bước 3 — dán mã vào ô tìm kiếm.",
+      "dien_giai": "Bấm vào ô tìm kiếm ở góc trên bên phải cửa sổ thư mục, nhấn `Ctrl + V` rồi `Enter`.",
+      "nut": null,
+      "cot_them": [],
+      "canh_cho_video": null,
+      "truong_khac": {},
+      "trang_su_dung": [
+        "tro-giup/huong-dan"
+      ]
+    },
+    {
+      "ma": "TT-18",
+      "nhom": "TT",
+      "cau_chot": "Bước 4 — video của đúng đơn đó hiện ra.",
+      "dien_giai": "Mở lên là thấy mã đơn và giờ in sẵn trên hình — gửi thẳng cho khách hoặc cho sàn.",
+      "nut": null,
+      "cot_them": [],
+      "canh_cho_video": null,
+      "truong_khac": {},
+      "trang_su_dung": [
+        "tro-giup/huong-dan"
+      ]
+    },
+    {
+      "ma": "TT-19",
+      "nhom": "TT",
+      "cau_chot": "Không cần nhớ hôm đó là ngày mấy.",
+      "dien_giai": "Video xếp theo thư mục từng ngày, nhưng ô tìm kiếm lục cả các thư mục con — cứ dán mã đơn vào là ra.",
+      "nut": null,
+      "cot_them": [],
+      "canh_cho_video": null,
+      "truong_khac": {},
+      "trang_su_dung": [
+        "tro-giup/huong-dan"
       ]
     },
     {

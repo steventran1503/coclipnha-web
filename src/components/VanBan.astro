@@ -3,6 +3,10 @@
 // nhấn — content collection giữ nguyên chuỗi thô (data-model.md không định
 // nghĩa kiểu markup), nên tầng hiển thị phải tự đổi **...** sang <strong>
 // thay vì để lộ dấu sao nguyên văn. Thoát HTML trước khi chèn thẻ của mình.
+//
+// `dấu huyền` → <kbd>: các bước tìm lại video (TT-15..19) nhắc phím tắt
+// Ctrl + C / Ctrl + V / Enter. Cho ra <kbd> để phím nổi hẳn khỏi câu văn,
+// người không rành máy tính nhìn là biết "cái này bấm trên bàn phím".
 interface Props {
   text: string;
 }
@@ -13,7 +17,9 @@ function thoatHtml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-const html = thoatHtml(text).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+const html = thoatHtml(text)
+  .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+  .replace(/`([^`]+)`/g, "<kbd>$1</kbd>");
 ---
 
 <Fragment set:html={html} />

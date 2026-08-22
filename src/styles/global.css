@@ -70,6 +70,20 @@ a {
 img {
   max-width: 100%;
 }
+/* Phím bấm trong câu văn (VanBan đổi `Ctrl + C` thành <kbd>): vẽ như phím
+   thật để người không rành máy tính nhận ra ngay đây là phím trên bàn phím,
+   không phải chữ thường. Nền/viền lấy biến màu nên tự đúng ở cả 2 bộ màu. */
+kbd {
+  font-family: var(--font-may);
+  font-size: 0.88em;
+  white-space: nowrap;
+  padding: 0.1em 0.45em;
+  border: 1px solid var(--vien);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: var(--the);
+  color: var(--chu);
+}
 
 /* ===== Tiện ích cấp trang (dùng chung mọi trang nội dung, không riêng trang
    chủ) — kế thừa từ bản demo "Ca trực" đã duyệt (T018). ===== */

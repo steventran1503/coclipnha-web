@@ -8,6 +8,8 @@
 import TrangTroGiup from "../../layouts/TrangTroGiup.astro";
 import YoutubeFacade from "../../components/YoutubeFacade.astro";
 import BangTrangThai from "../../components/app-mophong/BangTrangThai.astro";
+// VanBan đổi `Ctrl + C` trong kho thông điệp thành phím bấm <kbd>.
+import VanBan from "../../components/VanBan.astro";
 import { layKhoi } from "../../lib/khoiNoiDung";
 import { duongDan } from "../../lib/duongDan";
 import { qrDieuKhien } from "../../lib/nguonSuThat";
@@ -20,6 +22,12 @@ const vd01 = await layKhoi("VD-01");
 // riêng ở cuối trang, kèm khung video hướng dẫn riêng (clip 8, mục 10 kho
 // thông điệp).
 const gp02 = await layKhoi("GP-02");
+// Bốn bước làm cụ thể + câu kết — chữ nằm trong kho thông điệp (mục 7f) chứ
+// KHÔNG gõ vào đây, để chủ dự án sửa câu mà không phải đụng mã (FR-003).
+const buocTimLai = await Promise.all(
+  ["TT-15", "TT-16", "TT-17", "TT-18"].map(layKhoi),
+);
+const tt19 = await layKhoi("TT-19");
 const hd = await Promise.all(["HD-01", "HD-02", "HD-03"].map(layKhoi));
 const tt01 = await layKhoi("TT-01");
 
@@ -68,6 +76,38 @@ const BUOC: { bang: "ready" | "rec" | "saved"; maDon?: string }[] = [
     <p class="nhan-muc">Lúc khách nhắn tin khiếu nại</p>
     <h2>{gp02.data.cau_chot}</h2>
     <p class="doan">{gp02.data.dien_giai}</p>
+
+    <ol class="cac-buoc-tim">
+      {
+        buocTimLai.map((khoi) => (
+          <li>
+            <strong>{khoi.data.cau_chot}</strong>{" "}
+            <VanBan text={khoi.data.dien_giai} />
+          </li>
+        ))
+      }
+    </ol>
+
+    {
+      /* Ảnh chụp THẬT trên máy shop (chủ dự án cấp 22/08/2026): ô tìm kiếm đã
+         dán mã đơn, kết quả đúng một video mang chính mã đó. Khung viền vàng
+         là của ảnh gốc, cố ý giữ — nó chỉ thẳng vào hai chỗ cần nhìn. */
+    }
+    <figure class="anh-tim">
+      <img
+        src={duongDan("anh/tim-lai-video-o-tim-kiem.webp")}
+        alt="Cửa sổ thư mục Windows: mã vận đơn đã dán vào ô tìm kiếm góc trên bên phải, kết quả hiện đúng một video mang chính mã đơn đó."
+        width="1592"
+        height="380"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>
+        <strong>{tt19.data.cau_chot}</strong>
+        {tt19.data.dien_giai}
+      </figcaption>
+    </figure>
+
     <YoutubeFacade
       tieuDeVideo={gp02.data.cau_chot}
       videoId={VIDEO_TIM_LAI}
@@ -97,6 +137,35 @@ const BUOC: { bang: "ready" | "rec" | "saved"; maDon?: string }[] = [
   }
   .tim-lai .doan {
     margin-bottom: 1rem;
+  }
+  .cac-buoc-tim {
+    margin: 1.4rem 0 1.8rem;
+    padding-left: 1.3rem;
+    display: grid;
+    gap: 0.9rem;
+  }
+  .cac-buoc-tim li {
+    padding-left: 0.3rem;
+  }
+  .cac-buoc-tim strong {
+    color: var(--chu);
+  }
+  /* Ảnh chụp màn hình rất ngang (1592×380): để tràn hết bề ngang cột chữ,
+     viền mỏng cho tách khỏi nền tối chứ không đóng khung nặng. */
+  .anh-tim {
+    margin: 0 0 1.8rem;
+  }
+  .anh-tim img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--vien);
+    border-radius: 8px;
+  }
+  .anh-tim figcaption {
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--chu-mo);
   }
   .nhan-muc {
     font-size: 0.85rem;
