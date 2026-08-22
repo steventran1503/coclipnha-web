@@ -68,7 +68,11 @@ const nghiaVu = tt14.data.truong_khac["Nghĩa vụ kèm theo"];
     margin-bottom: 0.6rem;
   }
   .giay-phep p {
-    margin-bottom: 0.6rem;
+    /* Chân trang canh giữa (global.css `footer { text-align:center }`), nhưng
+       hộp 46rem này KHÔNG có lề tự động nên bị dính mép trái khi màn hình
+       rộng — chữ canh giữa trong hộp mà cả khối lệch trái so với phần trên.
+       `margin-inline: auto` kéo hộp về giữa; đừng bỏ. */
+    margin: 0 auto 0.6rem;
     max-width: 46rem;
   }
   .giay-phep code {
