@@ -128,7 +128,6 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
       <span class="ten-win"
         >CoClipNha PRO v2.0 — Sponsored by ZIN ZIN MOTOR</span
       >
-      <span class="nut-win">—&nbsp;▢&nbsp;✕</span>
     </div>
     <MenuBaGach />
     <slot />
@@ -144,19 +143,30 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     align-items: center;
     gap: 0.55rem;
     padding: 0.35rem 0.9rem;
+    /* Chừa chỗ bên phải cho nút menu ☰ (position:fixed, top:0.9rem
+       right:1rem, rộng 2.2rem — xem MenuBaGach.astro) đang nổi đúng góc này.
+       Không chừa thì ở đầu trang (chưa cuộn) nút ☰ đè lên cuối dòng chữ.
+       Cùng lý do và cùng số đo với .bang-mophong--trang trong
+       BangTrangThai.astro — sửa chỗ này thì ngó luôn chỗ kia. */
+    padding-right: 3.6rem;
     background: #131822;
     border-bottom: 1px solid var(--vien);
     font-size: 0.72rem;
     color: var(--chu-mo);
+  }
+  /* Màn hình hẹp: hạ cỡ chữ để dòng "Sponsored by ZIN ZIN MOTOR" hiện ĐỦ,
+     không bị cắt — tên nhà tài trợ phải đọc được trọn trên điện thoại.
+     Trên 420px thì cỡ 0.72rem đã vừa, không cần hạ. */
+  @media (max-width: 420px) {
+    .thanh-win {
+      font-size: 0.62rem;
+    }
   }
   .thanh-win .ten-win {
     flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  .thanh-win .nut-win {
-    letter-spacing: 0.1em;
   }
   .thanh-win .logo-c {
     width: 0.9rem;
