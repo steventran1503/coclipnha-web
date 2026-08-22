@@ -18,6 +18,7 @@ import {
   thietBiGoiY,
   phuKienGoiY,
   manHinhGoiY,
+  mayTinhGoiY,
   capNhatLanCuoi,
 } from "../lib/thietBi";
 
@@ -30,11 +31,11 @@ const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
 
 <BaseLayout
   tieuDe="Thiết bị đề xuất cho bàn gói — CoClipNha"
-  moTaMeta="Camera nào chạy tốt với CoClipNha: bắt buộc phải lấy nét tự động. Kèm giá đỡ camera và cỡ màn hình nên mua cho bàn đóng gói."
+  moTaMeta="Camera nào chạy tốt với CoClipNha: bắt buộc phải lấy nét tự động. Kèm giá đỡ, cỡ màn hình và máy tính nên chọn cho bàn đóng gói."
 >
   <main class="khoi khoi--hep">
     <p class="lan-ve"><a href={duongDan()}>← Trang chủ</a></p>
-    <span class="nhan-log">chọn camera, giá đỡ và màn hình cho bàn gói</span>
+    <span class="nhan-log">chọn thiết bị cho bàn gói</span>
     <h1>Thiết bị đề xuất</h1>
 
     <div class="the-app the-app--do yeu-cau">
@@ -54,6 +55,18 @@ const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
       Danh sách soát lại lần cuối ngày {capNhatLanCuoi}. Có camera đời mới chạy
       tốt hơn thì tụi mình đổi ngay tại trang này.
     </p>
+
+    <div class="the-app the-app--teal tan-dung">
+      <div class="tieu-de-the">Thứ gì shop đang có thì cứ dùng lại</div>
+      <p>
+        Máy tính, màn hình, giá đỡ — cửa hàng có sẵn rồi thì không việc gì phải
+        mua mới. Mấy mục dưới đây chỉ dành cho shop còn thiếu.
+      </p>
+      <p>
+        Riêng <b>camera</b> thì nên mua đúng mẫu đội ngũ CoClipNha đề xuất ở trên:
+        camera là chỗ quyết định video có đọc được mã vận đơn hay không.
+      </p>
+    </div>
 
     {
       /* Phụ kiện — đặt SAU phần camera và tách hẳn ra (chủ dự án chốt
@@ -100,7 +113,7 @@ const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
             Tụi mình khuyên <b>2 điểm gói trên một máy</b> là vừa đẹp,{" "}
             <b>tối đa 3 điểm</b>. Đông hơn nữa thì nên tách sang máy thứ hai.
           </p>
-          <div class="the-app the-app--do yeu-cau co-man-hinh">
+          <div class="the-app the-app--do yeu-cau khoi-xen">
             <div class="tieu-de-the">
               Màn hình 22 inch Full HD là đủ — đừng mua to hơn.
             </div>
@@ -114,6 +127,60 @@ const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
             {manHinhGoiY.map((tb) => (
               <TheThietBi thietBi={tb} />
             ))}
+          </div>
+        </>
+      )
+    }
+
+    {
+      /* Máy tính cho bàn gói (chủ dự án chốt 22/08/2026). Đặt CUỐI vì đây là
+         món shop hay có sẵn nhất — đọc tới đây rồi mới tính chuyện sắm máy.
+         Hai link là MÁY CŨ: câu nói rõ chuyện đó nằm ngay trên lưới thẻ,
+         KHÔNG được bỏ (xem lib/thietBi.ts → mayTinhGoiY). Khối tự ẩn khi
+         chưa đề xuất máy nào. */
+      mayTinhGoiY.length > 0 && (
+        <>
+          <h2>Máy tính cho bàn gói</h2>
+          <p class="doan">
+            CoClipNha nhẹ, máy văn phòng bình thường là chạy được. Shop đang có
+            máy tính ở quầy thì cứ dùng máy đó. Phần dưới dành cho shop muốn sắm
+            riêng một máy cho bàn gói.
+          </p>
+
+          <div class="the-app the-app--do yeu-cau khoi-xen">
+            <div class="tieu-de-the">
+              Hai máy dưới đây là máy cũ, không phải máy mới.
+            </div>
+            <p>
+              Máy văn phòng đã qua sử dụng — rẻ hơn hẳn máy mới mà chạy
+              CoClipNha vẫn dư sức. Tụi mình nói trước để shop biết mình đang
+              xem cái gì. Muốn máy mới nguyên hộp thì mua ở đâu cũng được, không
+              cần theo link này.
+            </p>
+          </div>
+
+          <div class="luoi-tb">
+            {mayTinhGoiY.map((tb) => (
+              <TheThietBi thietBi={tb} />
+            ))}
+          </div>
+
+          <div class="the-app the-app--teal cau-hinh">
+            <div class="tieu-de-the">Cấu hình vừa đủ cho bàn gói</div>
+            <p class="dong-cau-hinh">
+              Intel Core i3-8100 · RAM 8 GB · SSD 256 GB
+            </p>
+            <ul>
+              <li>
+                <b>Nhớ dặn người bán chia thêm một ổ đĩa riêng khoảng 120 GB</b>{" "}
+                rồi cho CoClipNha lưu video vào ổ đó. Video nằm gọn một chỗ, tìm
+                lại nhanh, không lẫn với phần mềm trong máy.
+              </li>
+              <li>
+                Đây chỉ là cấu hình <b>đề xuất</b>, không phải mức tối thiểu.
+                Máy chip Intel đời 4 – 5 vẫn chạy tốt.
+              </li>
+            </ul>
           </div>
         </>
       )
@@ -173,10 +240,39 @@ const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
     grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
     margin-bottom: 1.2rem;
   }
-  /* Khối "22 inch là đủ" dùng lại kiểu thẻ đỏ của khối yêu cầu camera ở đầu
-     trang: đây cũng là một lời dặn dễ mua sai, không phải đoạn văn thường. */
-  .co-man-hinh {
+  .tan-dung {
+    margin: 1.2rem 0 0.4rem;
+  }
+  .tan-dung p {
+    font-size: 0.95rem;
+    color: var(--chu-diu);
+    margin-bottom: 0.6rem;
+  }
+  .tan-dung p:last-child {
+    margin-bottom: 0;
+  }
+  /* Khối dặn dò xen giữa hai mục ("22 inch là đủ", "đây là máy cũ"): dùng lại
+     kiểu thẻ đỏ của khối yêu cầu camera đầu trang — đều là chỗ dễ mua sai,
+     không phải đoạn văn thường. */
+  .khoi-xen {
     margin-bottom: 1.4rem;
+  }
+  .cau-hinh {
+    margin-bottom: 0.4rem;
+  }
+  .dong-cau-hinh {
+    font-family: var(--font-tit);
+    font-size: 1.05rem;
+    margin-bottom: 0.7rem;
+  }
+  .cau-hinh ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: var(--chu-diu);
+    font-size: 0.95rem;
+  }
+  .cau-hinh li + li {
+    margin-top: 0.5rem;
   }
   .ghi-chu {
     font-size: 0.88rem;

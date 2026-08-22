@@ -16,9 +16,10 @@ import duLieu from "../data/thiet-bi-goi-y.json";
 /**
  * 'camera'   = thiết bị bắt buộc;
  * 'phu_kien' = món gắn thêm cho tiện (giá đỡ...);
- * 'man_hinh' = màn hình cho bàn gói (mỗi điểm gói một cái — chốt 22/08/2026).
+ * 'man_hinh' = màn hình cho bàn gói (mỗi điểm gói một cái — chốt 22/08/2026);
+ * 'may_tinh' = máy tính chạy CoClipNha (link là MÁY CŨ — chốt 22/08/2026).
  */
-export type LoaiThietBi = "camera" | "phu_kien" | "man_hinh";
+export type LoaiThietBi = "camera" | "phu_kien" | "man_hinh" | "may_tinh";
 
 export interface ThietBi {
   ma: string;
@@ -91,6 +92,18 @@ export const manHinhGoiY: ThietBi[] = conDeXuat.filter(
 );
 
 /**
+ * MÁY TÍNH còn đề xuất — chỉ trang Thiết bị đề xuất dùng tới, xếp cuối cùng
+ * (chủ dự án chốt 22/08/2026).
+ *
+ * Hai link hiện tại là MÁY CŨ (đã qua sử dụng). Câu nói rõ chuyện đó nằm
+ * trong trang `thiet-bi.astro`, ngay trên lưới thẻ — ĐỪNG bỏ: người đọc bấm
+ * vào mới biết là máy cũ thì mất lòng tin, đúng thứ sản phẩm này sống bằng.
+ */
+export const mayTinhGoiY: ThietBi[] = conDeXuat.filter(
+  (t) => loaiCua(t) === "may_tinh",
+);
+
+/**
  * Danh xưng để ghép câu trên thẻ ("Xem camera…" / "Xem giá đỡ…" / "Xem màn
  * hình…"). Thẻ dùng chung cho mọi loại nên không được ghi cứng chữ "camera".
  */
@@ -98,6 +111,7 @@ const DANH_XUNG: Record<LoaiThietBi, string> = {
   camera: "camera",
   phu_kien: "giá đỡ",
   man_hinh: "màn hình",
+  may_tinh: "máy tính",
 };
 
 export function danhXung(t: ThietBi): string {

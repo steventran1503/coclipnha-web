@@ -19,13 +19,20 @@ interface Props {
   gon?: boolean;
 }
 const { thietBi: tb, gon = false } = Astro.props;
-// Thẻ dùng chung cho camera lẫn phụ kiện → chữ trên nút, mô tả ảnh và ô chờ
-// ảnh phải gọi đúng tên món, không được ghi cứng "camera" như bản đầu.
-const laPhuKien = loaiCua(tb) === "phu_kien";
+// Thẻ dùng chung cho mọi loại món → chữ trên nút, mô tả ảnh và ô chờ ảnh
+// phải gọi đúng tên món, không được ghi cứng "camera" như bản đầu.
+// Món không phải camera đặt tên tự mô tả sẵn trong JSON ("Màn hình Philips",
+// "Máy mini HP ProDesk") nên mô tả ảnh lấy thẳng tên, khỏi ghép danh xưng.
+const tenTuMoTa = loaiCua(tb) !== "camera";
 const nhan = danhXung(tb); // "camera" | "giá đỡ" | "màn hình"
 // Biểu tượng ô chờ ảnh, theo loại món. Thêm loại mới vào JSON mà quên thêm
 // vào đây thì TypeScript báo lỗi ngay lúc build — cố ý khai đủ khoá.
-const BIEU_TUONG = { camera: "📷", phu_kien: "🔩", man_hinh: "🖥️" };
+const BIEU_TUONG = {
+  camera: "📷",
+  phu_kien: "🔩",
+  man_hinh: "🖥️",
+  may_tinh: "💻",
+};
 const nhanHoa = nhan.charAt(0).toUpperCase() + nhan.slice(1);
 ---
 
@@ -36,10 +43,7 @@ const nhanHoa = nhan.charAt(0).toUpperCase() + nhan.slice(1);
         <img
           class="anh-tb"
           src={duongDan(`anh/${tb.anh}`)}
-          alt={
-            /* Tên phụ kiện đã tự chứa chữ "giá đỡ" → đừng ghép thêm lần nữa. */
-            laPhuKien ? `Ảnh ${tenDayDu(tb)}` : `${nhanHoa} ${tenDayDu(tb)}`
-          }
+          alt={tenTuMoTa ? `Ảnh ${tenDayDu(tb)}` : `${nhanHoa} ${tenDayDu(tb)}`}
           width="320"
           height="320"
           loading="lazy"
