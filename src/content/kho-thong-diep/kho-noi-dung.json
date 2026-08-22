@@ -1,7 +1,7 @@
 {
   "_meta": {
     "sinh_boi": "docs/web/xuat_kho_noi_dung.py — script CHỈ ĐỌC",
-    "sinh_luc": "2026-08-19 19:32:11",
+    "sinh_luc": "2026-08-21 16:07:04",
     "nguon": "docs\\web\\kho-thong-diep.md",
     "luu_y": "ĐỪNG sửa tay file này — sửa kho-thong-diep.md rồi chạy lại script."
   },
@@ -9,14 +9,12 @@
     {
       "ma": "BC-01",
       "nhom": "BC",
-      "cau_chot": "Phần mềm này ra đời từ một cửa hàng thật, đang dùng thật.",
-      "dien_giai": "ZIN ZIN MOTOR dùng CoClipNha hằng ngày và đã khiếu nại thành công nhiều lần nhờ video quay lúc đóng gói. CoClipNha không phải sản phẩm nghĩ ra trong phòng máy lạnh — nó sinh ra từ đúng cái bàn đóng gói này.",
+      "cau_chot": "Không phải sản phẩm nghĩ ra trong phòng máy lạnh.",
+      "dien_giai": "CoClipNha không bắt đầu từ một bản kế hoạch kinh doanh, mà từ một việc có thật: shop bị khách kêu thiếu hàng, sai hàng, mà không có gì trong tay để nói lại. Đội ngũ CoClipNha làm phần mềm rồi mang thẳng ra bàn đóng gói thật để thử — chạy sai chỗ nào sửa chỗ đó, chứ không đoán.",
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,
-      "truong_khac": {
-        "Cần chủ dự án cấp": "logo ZIN ZIN MOTOR (PNG nền trong), địa chỉ trang/ fanpage để đặt liên kết, và nếu được thì **1–2 ảnh chụp màn hình vụ khiếu nại đã xử thắng** (che thông tin khách hàng)."
-      },
+      "truong_khac": {},
       "trang_su_dung": [
         "index",
         "gioi-thieu",
@@ -33,6 +31,23 @@
       "canh_cho_video": null,
       "truong_khac": {},
       "trang_su_dung": []
+    },
+    {
+      "ma": "BC-03",
+      "nhom": "BC",
+      "cau_chot": "ZIN ZIN MOTOR — shop đầu tiên dùng CoClipNha thật mỗi ngày.",
+      "dien_giai": "ZIN ZIN MOTOR (phụ tùng xe máy) là đối tác đồng hành từ những bản chạy thử đầu tiên: dùng hằng ngày trên bàn đóng gói, và đã khiếu nại thành công nhiều lần nhờ video quay lúc gói hàng. Mọi tính năng đều được thử lửa ở đây trước khi tới tay shop khác.",
+      "nut": null,
+      "cot_them": [],
+      "canh_cho_video": null,
+      "truong_khac": {
+        "LUẬT": "ZIN ZIN MOTOR là **đối tác thử nghiệm**, không phải chủ sở hữu phần mềm. KHÔNG viết \"CoClipNha sinh ra từ ZIN ZIN MOTOR\". Cũng KHÔNG viết câu khẳng định hai bên độc lập (kiểu \"tiền ủng hộ không về ZIN ZIN MOTOR đồng nào\") — tách bạch bằng cách không nhắc, không phải bằng cách phủ nhận. Khối này KHÔNG đặt ở trang Ủng hộ.",
+        "Cần chủ dự án cấp": "logo ZIN ZIN MOTOR (PNG nền trong), địa chỉ trang/ fanpage để đặt liên kết, và nếu được thì **1–2 ảnh chụp màn hình vụ khiếu nại đã xử thắng** (che thông tin khách hàng)."
+      },
+      "trang_su_dung": [
+        "index",
+        "gioi-thieu"
+      ]
     },
     {
       "ma": "BV",
@@ -55,7 +70,7 @@
       "canh_cho_video": null,
       "truong_khac": {
         "Luật": "không bịa đánh giá, không thuê viết. Ô đánh giá ĐỂ TRỐNG cho tới khi có lời thật từ shop dùng thật (xin kèm tên shop + cho phép đăng).",
-        "Cách dựng khi chưa có": "1 thẻ ZIN ZIN MOTOR (bằng chứng thật BC-01) + các ô trống ghi thẳng *\"Ô này để trống cho tới khi có đánh giá thật — tụi mình không bịa đánh giá.\"* Chính ô trống là điểm cộng niềm tin.",
+        "Cách dựng khi chưa có": "1 thẻ ZIN ZIN MOTOR mang đúng nhãn **\"đối tác thử nghiệm\"** (nội dung lấy từ BC-03) + các ô trống ghi thẳng *\"Ô này để trống cho tới khi có đánh giá thật — tụi mình không bịa đánh giá.\"* Chính ô trống là điểm cộng niềm tin. Thẻ ZIN ZIN MOTOR **không được** để lẫn thành đánh giá của khách — đó là đối tác thử nghiệm, không phải người dùng độc lập.",
         "Cần chủ dự án cấp": "lời nhận xét thật (chụp màn hình tin nhắn càng tốt)."
       },
       "trang_su_dung": []
@@ -901,7 +916,7 @@
       "ma": "TT-11",
       "nhom": "TT",
       "cau_chot": "Tiền ủng hộ đi về đâu?",
-      "dien_giai": "CoClipNha sinh ra từ bàn đóng gói của **ZIN ZIN MOTOR** và đang được nuôi bằng tiền túi. Đóng góp của shop giúp trả các chi phí giữ phần mềm sống: tên miền, chứng chỉ ký số (để Windows hết cảnh báo khi cài), và thời gian làm thêm tính năng theo góp ý của chính shop.",
+      "dien_giai": "CoClipNha do **đội ngũ CoClipNha** làm ra và tự bỏ tiền túi nuôi — không có nhà đầu tư, không bán dữ liệu, không quảng cáo. Đóng góp của shop đi thẳng vào các chi phí giữ phần mềm sống: tên miền, chứng chỉ ký số (để Windows hết cảnh báo khi cài), và thời gian làm thêm tính năng theo góp ý của chính shop.",
       "nut": null,
       "cot_them": [],
       "canh_cho_video": null,

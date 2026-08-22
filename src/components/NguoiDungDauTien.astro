@@ -1,30 +1,44 @@
 ---
-// Khối "Người dùng đầu tiên" — dùng chung ở US1 (trang chủ) và US4 (Ủng hộ).
+// Khối "Người dùng đầu tiên" — thẻ ĐỐI TÁC THỬ NGHIỆM (BC-03).
+//
+// TÁCH VAI 21/08/2026 (chủ dự án chốt): trước đây thẻ này lấy chữ từ BC-01,
+// mà BC-01 khi đó kể "CoClipNha sinh ra từ bàn đóng gói của ZIN ZIN MOTOR" —
+// đọc ra là phần mềm thuộc về một cửa hàng phụ tùng xe máy, và tiền ủng hộ
+// chảy về đó. Nay tách đôi:
+//   · BC-01 = đội ngũ phát triển (ai làm ra phần mềm, tiền ủng hộ nuôi gì)
+//   · BC-03 = ZIN ZIN MOTOR — đối tác thử nghiệm + shop dùng đầu tiên
+// ĐỪNG gộp lại. Xem LUẬT trong khối BC-03 (kho-thong-diep.md mục 6).
+//
 // LUẬT (kho-thong-diep.md §7e, DG-01): không bịa đánh giá, không gắn sao —
-// FR-019. Chỉ 1 dẫn chứng thật (BC-01, ZIN ZIN MOTOR) + ô trống ghi rõ lý do.
+// FR-019. Thẻ này PHẢI mang nhãn vai "đối tác thử nghiệm" để không bị đọc nhầm
+// thành lời khen của một khách hàng độc lập.
 //
-// Dùng cau_chot (câu chốt ngắn) chứ KHÔNG dùng dien_giai của BC-01: trang chủ
-// (index.astro mục "BC-01 + TN") đã in dien_giai đầy đủ ngay phía trên khối
-// này — dùng lại y nguyên đoạn đó ở đây sẽ lặp chữ 2 lần liền kề trên cùng
-// trang. cau_chot là câu ngắn hơn, không trùng.
-//
-// Câu "Ô này để trống…" nay đọc thẳng từ khối DG-01 (T053, đợt vá US1
-// 25/07/2026). Trước đó phải chép cứng vì `xuat_kho_noi_dung.py` không trích
-// được câu nằm trong bullet "Cách dựng khi chưa có" — đã sửa: DG-01 giờ có
-// nhãn **Câu chốt**/**Diễn giải** riêng trong kho-thong-diep.md và script đọc
-// được trọn bullet nhiều dòng. KHÔNG chép cứng lại chữ ở đây (FR-003, SC-003).
+// Nhãn vai + tên shop là nhãn cấu trúc trang (như tít mục) nên không vào kho nội
+// dung, theo ranh giới đã chốt ở README-noi-dung.md. Còn chữ thân thẻ thì đọc
+// từ kho, KHÔNG chép cứng (FR-003, SC-003).
 import { layKhoi } from "../lib/khoiNoiDung";
 
-const bc01 = await layKhoi("BC-01");
+interface Props {
+  /** Hiện câu "ô này để trống cho tới khi có đánh giá thật" (DG-01). Chỉ
+   * bật ở chỗ thẻ đứng trong mục Đánh giá (trang chủ); trang "Về CoClipNha"
+   * kể xuất xứ nên không cần. */
+  hienGhiChuDanhGia?: boolean;
+}
+const { hienGhiChuDanhGia = true } = Astro.props;
+
+const bc03 = await layKhoi("BC-03");
 const dg01 = await layKhoi("DG-01");
 ---
 
 <div class="nguoi-dung-dau-tien">
   <div class="the-app">
-    <div class="tieu-de-the">ZIN ZIN MOTOR — phụ tùng xe máy</div>
-    <p>{bc01.data.cau_chot}</p>
+    <div class="hang-tieu-de">
+      <span class="tieu-de-the">ZIN ZIN MOTOR</span>
+      <span class="nhan-vai">đối tác thử nghiệm</span>
+    </div>
+    <p>{bc03.data.dien_giai}</p>
   </div>
-  <p class="ghi-chu">{dg01.data.dien_giai}</p>
+  {hienGhiChuDanhGia && <p class="ghi-chu">{dg01.data.dien_giai}</p>}
 </div>
 
 <style>
@@ -39,12 +53,27 @@ const dg01 = await layKhoi("DG-01");
     border-radius: 10px;
     padding: 1rem 1.1rem;
   }
+  .hang-tieu-de {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
   .tieu-de-the {
     font-size: 0.72rem;
     letter-spacing: 0.08em;
     color: var(--chu-mo);
     text-transform: uppercase;
-    margin-bottom: 0.4rem;
+  }
+  .nhan-vai {
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: var(--chu-mo);
+    border: 1px solid var(--vien);
+    border-radius: 999px;
+    padding: 0.12rem 0.5rem;
+    white-space: nowrap;
   }
   .the-app p {
     font-size: 0.95rem;

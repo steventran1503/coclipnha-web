@@ -1,8 +1,11 @@
 ---
-// T042/US6 — "Về CoClipNha": câu chuyện ZIN ZIN MOTOR (BC-01) + khối sứ mệnh
-// (SM-01). Acceptance Scenario 1 (spec.md US6): kể xuất xứ, KHÔNG gắn sao
-// đánh giá — đây là chuyện gốc gác phần mềm, không phải lời khen khách hàng
-// (khác NguoiDungDauTien.astro, chỗ đó mới là "Đánh giá"/DG-01).
+// T042/US6 — "Về CoClipNha": xuất xứ phần mềm (BC-01 đội ngũ + BC-03 đối tác
+// thử nghiệm) + khối sứ mệnh (SM-01). Acceptance Scenario 1 (spec.md US6): kể
+// xuất xứ, KHÔNG gắn sao đánh giá.
+//
+// Tách vai 21/08/2026: thẻ ZIN ZIN MOTOR ở đây đứng với vai đối tác thử nghiệm,
+// nên tắt câu ghi chú DG-01 ("ô này để trống...") — câu đó chỉ hợp chỗ thẻ
+// nằm trong mục Đánh giá của trang chủ.
 //
 // "Ba lời hứa" bên dưới là tít mục viết tay (cấu trúc trang, theo ranh giới
 // đã chốt ở README-noi-dung.md — nhãn/tít mục không vào kho nội dung); nội
@@ -14,6 +17,7 @@
 // tít hứa một đằng nội dung nói một nẻo — đọc như đang né. Công khai hoa hồng
 // vẫn còn, nằm ở nhãn "Link tài trợ" sát nút mua trên thẻ camera.
 import BaseLayout from "../layouts/BaseLayout.astro";
+import NguoiDungDauTien from "../components/NguoiDungDauTien.astro";
 import VanBan from "../components/VanBan.astro";
 import { layKhoi } from "../lib/khoiNoiDung";
 import { duongDan } from "../lib/duongDan";
@@ -28,15 +32,24 @@ const kg02 = await layKhoi("KG-02");
 ---
 
 <BaseLayout
-  tieuDe="Về CoClipNha — sinh ra từ một bàn đóng gói thật"
-  moTaMeta="CoClipNha ra đời từ bàn đóng gói của ZIN ZIN MOTOR, không phải sản phẩm nghĩ ra trong phòng máy lạnh. Miễn phí thật, video không rời máy shop, không ép mua camera nào."
+  tieuDe="Về CoClipNha — làm ra từ một việc có thật ở bàn đóng gói"
+  moTaMeta="CoClipNha do đội ngũ CoClipNha làm ra, không phải sản phẩm nghĩ ra trong phòng máy lạnh. Miễn phí thật, video không rời máy shop, không ép mua camera nào."
 >
   <main class="khoi khoi--hep">
     <p class="lan-ve"><a href={duongDan()}>← Trang chủ</a></p>
-    <span class="nhan-log">sinh ra từ một bàn đóng gói thật</span>
+    <span class="nhan-log">vì sao có phần mềm này</span>
     <h1>Về CoClipNha</h1>
 
     <p class="doan lon">{bc01.data.dien_giai}</p>
+
+    {
+      /* BC-03 — đối tác thử nghiệm. Đặt ngay sau chuyện đội ngũ: BC-01 nói ai
+        làm ra, BC-03 nói nó được thử ở đâu. Hai vai khác nhau, không ghép chung
+        một đoạn (LUẬT trong khối BC-03). */
+    }
+    <div class="khoi-doi-tac">
+      <NguoiDungDauTien hienGhiChuDanhGia={false} />
+    </div>
 
     <div class="the-app the-app--teal khoi-su-menh">
       <div class="tieu-de-the">Sứ mệnh</div>
@@ -93,6 +106,9 @@ const kg02 = await layKhoi("KG-02");
   .lan-ve {
     font-size: 0.9rem;
     margin-bottom: 1.2rem;
+  }
+  .khoi-doi-tac {
+    margin: 1.6rem 0;
   }
   .lan-ve.cuoi {
     margin: 2.4rem 0 0;

@@ -1,6 +1,12 @@
 ---
 // T037/T038 — US4 "Cân nhắc ủng hộ": KG-02 → BC-01.
 //
+// TÁCH VAI 21/08/2026 (chủ dự án chốt): trang tiền bạc KHÔNG nhắc tên cửa
+// hàng nào. Đã gỡ thẻ đối tác ZIN ZIN MOTOR (BC-03) khỏi trang này — để nó
+// ngay dưới mã chuyển khoản là shop đọc ra "tiền ủng hộ chảy về cửa hàng phụ
+// tùng xe máy". BC-01 (đội ngũ phát triển) thì ở lại, đó mới là nơi nhận tiền.
+// ĐỪNG gắn BC-03 vào đây lần nữa (LUẬT trong khối BC-03).
+//
 // ĐỔI 28/07/2026 (chủ dự án chốt): BỎ khối "Cách 2 — ủng hộ mà không tốn đồng
 // nào" (mua camera qua link hoa hồng, khối KG-03) khỏi trang này. Lý do là
 // chính chủ dự án nêu: đặt link camera dưới chữ "ủng hộ" khiến shop nghĩ mua
@@ -12,7 +18,6 @@
 // Kèm theo: hồ sơ spec (US4 mô tả "2 cách ủng hộ") cần sửa cho khớp — đã ghi
 // vào báo cáo rà soát 28/07.
 import BaseLayout from "../layouts/BaseLayout.astro";
-import NguoiDungDauTien from "../components/NguoiDungDauTien.astro";
 import VanBan from "../components/VanBan.astro";
 import { layKhoi } from "../lib/khoiNoiDung";
 import { duongDan } from "../lib/duongDan";
@@ -81,8 +86,6 @@ const ANH_VIETQR: string | null = null;
     <h2>{tt11.data.cau_chot}</h2>
     <p class="doan"><VanBan text={tt11.data.dien_giai} /></p>
     <p class="doan">{bc01.data.dien_giai}</p>
-
-    <NguoiDungDauTien />
 
     <p class="lan-ve cuoi"><a href={duongDan()}>← Về trang chủ</a></p>
   </main>

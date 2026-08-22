@@ -2,7 +2,7 @@
 // T044/US6 — bài viết đầy đủ đầu tiên, chủ đề "hàng hoàn" (ND-02 + GP-04),
 // giọng văn tham khảo docs/web/demo-ca-truc/bai-hang-hoan.html. Toàn bộ đoạn
 // văn đọc qua layKhoi (ND-02 nỗi đau, ND-03 vì sao cần bằng chứng, GP-04 cách
-// CoClipNha xử, BC-01 dẫn chứng thật) — không viết lại nội dung tay, chỉ ghép
+// CoClipNha xử, BC-03 dẫn chứng thật) — không viết lại nội dung tay, chỉ ghép
 // thứ tự + tít mục (FR-003). ND-02.dien_giai có markdown **in đậm** nên qua
 // VanBan như T025 đã sửa ở trang chủ.
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -13,13 +13,13 @@ import { duongDan } from "../../lib/duongDan";
 const nd02 = await layKhoi("ND-02");
 const nd03 = await layKhoi("ND-03");
 const gp04 = await layKhoi("GP-04");
-const bc01 = await layKhoi("BC-01");
+const bc03 = await layKhoi("BC-03");
 const kg01 = await layKhoi("KG-01");
 ---
 
 <BaseLayout
   tieuDe={`${nd02.data.cau_chot} — CoClipNha`}
-  moTaMeta={`${nd02.data.cau_chot} ${gp04.data.cau_chot} Chuyện thật từ bàn đóng gói ZIN ZIN MOTOR.`}
+  moTaMeta={`${nd02.data.cau_chot} ${gp04.data.cau_chot} Chuyện thật từ bàn đóng gói.`}
 >
   <main class="khoi khoi--hep">
     <p class="lan-ve">
@@ -38,7 +38,7 @@ const kg01 = await layKhoi("KG-01");
     <h2>{gp04.data.cau_chot}</h2>
     <p class="doan">{gp04.data.dien_giai}</p>
     <p class="doan">
-      {bc01.data.dien_giai}
+      {bc03.data.dien_giai}
     </p>
 
     <p class="hang-nut">

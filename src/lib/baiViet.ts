@@ -29,7 +29,9 @@ export const DE_TAI_BAI_VIET: DeTaiBaiViet[] = [
   // tít/tóm tắt thẻ; khi viết bài đầy đủ thì THÂN BÀI mới dùng HD-01..03
   // (chốt 28/07 khi kiểm lại Phase 8 — xem tasks.md).
   { slug: "huong-dan-3-buoc", maChinh: "TG-01", daXong: false },
-  { slug: "zin-zin-motor", maChinh: "BC-01", daXong: false },
+  // Bai "zin-zin-motor" ke chuyen SHOP, nen doc BC-03 (doi tac thu nghiem)
+  // chu khong phai BC-01 (doi ngu phat trien) — tach vai 21/08/2026.
+  { slug: "zin-zin-motor", maChinh: "BC-03", daXong: false },
   {
     slug: "mien-phi-va-ung-ho",
     maChinh: "PB-01",
