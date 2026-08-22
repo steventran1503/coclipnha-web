@@ -12,7 +12,8 @@
  */
 export const LINK_YOUTUBE: string | undefined =
   "https://www.youtube.com/@coclipnha";
-export const LINK_FACEBOOK: string | undefined = undefined;
+export const LINK_FACEBOOK: string | undefined =
+  "https://www.facebook.com/profile.php?id=61593523655589";
 export const LINK_TIKTOK: string | undefined = undefined;
 /** Link nhắn tin Messenger dạng `https://m.me/…`. */
 export const LINK_MESSENGER: string | undefined = undefined;

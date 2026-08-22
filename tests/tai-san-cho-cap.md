@@ -9,9 +9,9 @@ Cột "gắn vào đâu" ghi luôn nơi sửa, để lần cấp sau khỏi ph�
 | # | Thứ còn thiếu | Trang bị ảnh hưởng | Web đang xử ra sao | Gắn vào đâu khi có |
 |---|---|---|---|---|
 | 1 | **Link tải bản cài** (GitHub Releases) | Tải về | Nút xám "Tải về miễn phí — sắp có" + câu giải thích đang đóng gói | `src/pages/tai-ve.astro` — đổi nút sang `…/releases/latest/download/…` |
-| 2 | **Link Facebook page** | Mọi trang (menu + chân trang) | "ⓕ Facebook page — sắp có", chữ mờ, không bấm được | **CHỈ MỘT CHỖ**: `src/lib/kenhKetNoi.ts` — điền `LINK_FACEBOOK` (menu + chân trang cùng đọc) |
+| ~~2~~ | ~~**Link Facebook page**~~ — **ĐÃ CÓ 22/08/2026** | Mọi trang (menu + chân trang) | Menu hiện "ⓕ Facebook page" bấm được, chân trang hiện viên "ⓕ Facebook" bấm được | xong — `src/lib/kenhKetNoi.ts` (`LINK_FACEBOOK` = https://www.facebook.com/profile.php?id=61593523655589) |
 | 3 | **Link TikTok** | Mọi trang | "♪ TikTok — sắp có" | `src/lib/kenhKetNoi.ts` — điền `LINK_TIKTOK` |
-| 4 | **Link nhắn tin Messenger** (`m.me/…`) | Mọi trang + Góp ý + Báo lỗi + trang chủ | "💬 Nhắn tin qua Facebook — đang chờ link" | `src/lib/kenhKetNoi.ts` — điền `LINK_MESSENGER` (menu + chân trang); trang chủ + 2 trang trợ giúp còn ghi riêng, sửa nốt khi cấp |
+| 4 | **Link nhắn tin Messenger** (`m.me/…`) | Mọi trang + Góp ý + Báo lỗi + trang chủ | "💬 Nhắn tin qua Facebook — đang chờ link" | `src/lib/kenhKetNoi.ts` — điền `LINK_MESSENGER` (menu + chân trang); trang chủ + 2 trang trợ giúp còn ghi riêng, sửa nốt khi cấp. Đã thử 22/08/2026: `https://m.me/61593523655589` (số của Facebook page) dẫn đúng hộp thoại của page — chỉ chờ chủ dự án gật là bật |
 | 5 | **3 link biểu mẫu** (góp ý / báo lỗi / yêu cầu phần mềm) | 3 trang trợ giúp | "Biểu mẫu … — sắp mở" | `src/components/NutBieuMau.astro` |
 | 6 | **Ảnh mã VietQR** | Ủng hộ | Ô vuông "Mã chuyển khoản sắp có — tụi mình đang chuẩn bị" | `src/pages/ung-ho.astro` + ảnh vào `public/anh/` |
 | 7 | **Link mua + ảnh 2 camera** (EMEET ưu tiên, Ugreen) | Tải về, Thiết bị đề xuất | Thẻ camera đã có tên + lý do + dòng "đã chạy thử"; nút hiện "Link mua — sắp có", ảnh hiện ô chờ | **CHỈ MỘT CHỖ**: `src/data/thiet-bi-goi-y.json` (ô `link`, `anh`, `noi_ban`, `model`). Sửa một lần, cả hai trang cùng đổi. Câu công khai hoa hồng tự gắn kèm, không tắt được |
