@@ -16,20 +16,12 @@ import NguoiDungDauTien from "../components/NguoiDungDauTien.astro";
 import { layKhoi } from "../lib/khoiNoiDung";
 import { duongDan } from "../lib/duongDan";
 import { dongDonDep, sinhTenFile, bangMau } from "../lib/nguonSuThat";
+// Mã video để MỘT chỗ cho mọi trang — xem chú thích trong src/lib/video.ts.
+import { VIDEO_DEMO, VIDEO_HUONG_DAN } from "../lib/video";
 
 // Hai mã vận đơn Shopee THẬT của ZIN ZIN MOTOR (chủ dự án cấp 24-25/07/2026).
 // Dùng ở mọi chỗ trang chủ minh hoạ một đơn cụ thể — không dùng mã tự đặt.
 const MA_DON_1 = "SHOPEEVTPVN2606875138465";
-
-// HAI video YouTube khác nhau, đừng lẫn (chốt 28/07/2026):
-//  - VIDEO_DEMO (đầu trang, trong khung "Quét thử"): đoạn NGẮN quay màn hình
-//    app chạy một ca gói hàng — trả lời câu "app chạy ra sao".
-//  - VIDEO_HUONG_DAN (cuối trang, khối VD-01): đoạn ĐẦY ĐỦ hướng dẫn mọi tính
-//    năng — trả lời câu "dùng thế nào".
-// Cả hai là Tài sản chờ chủ dự án cấp (tests/tai-san-cho-cap.md mục 8a/8b):
-// điền mã video vào đúng hằng số dưới đây là chạy, không phải sửa gì thêm.
-const VIDEO_DEMO: string | undefined = undefined;
-const VIDEO_HUONG_DAN: string | undefined = undefined;
 
 const titD = await layKhoi("TIT-D");
 const nd02 = await layKhoi("ND-02");

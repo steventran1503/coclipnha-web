@@ -23,6 +23,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SmartScreenHuongDan from "../components/SmartScreenHuongDan.astro";
 import GiayPhepFfmpeg from "../components/GiayPhepFfmpeg.astro";
 import YoutubeFacade from "../components/YoutubeFacade.astro";
+// Video hướng dẫn đầy đủ (khối VD-01) — cùng mã video với trang chủ và
+// trang Hướng dẫn, khai chung ở src/lib/video.ts.
+import { VIDEO_HUONG_DAN } from "../lib/video";
 import TheThietBi from "../components/TheThietBi.astro";
 import VanBan from "../components/VanBan.astro";
 import { layKhoi } from "../lib/khoiNoiDung";
@@ -63,10 +66,6 @@ const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
 const LINK_TAI: string | null =
   "https://github.com/steventran1503/coclipnha-web/releases/latest/download/CoClipNha-Setup.exe";
 
-// Video hướng dẫn đầy đủ (khối VD-01) — cùng mã video với khối cuối trang chủ,
-// là Tài sản chờ cấp (tests/tai-san-cho-cap.md mục 8b).
-const VIDEO_HUONG_DAN: string | undefined = undefined;
-
 // Dữ liệu có cấu trúc cho Google (Schema.org SoftwareApplication) — khai đúng
 // những gì có thật: phần mềm chạy Windows 10/11, giá 0 đồng, tiếng Việt.
 //
@@ -105,10 +104,12 @@ const schemaPhanMem = {
     set:html={JSON.stringify(schemaPhanMem)}
   />
   <main>
-    {/* ====== KG-01: nút tải, ngay đầu trang — kèm ĐIỀU KIỆN đứng trước ====
+    {
+      /* ====== KG-01: nút tải, ngay đầu trang — kèm ĐIỀU KIỆN đứng trước ====
         Điều kiện camera rút còn MỘT dòng (câu chốt TB-01) đặt trên nút, thoả
         FR-015; phần thân TB-01 + gợi ý mẫu nằm ở khối "Camera nào chạy tốt?"
-        phía dưới, bấm nút cam là tới. */}
+        phía dưới, bấm nút cam là tới. */
+    }
     <section class="khoi khoi--hep" data-bang="ready">
       <p class="lan-ve"><a href={duongDan()}>← Trang chủ</a></p>
       <span class="nhan-log">miễn phí</span>
@@ -116,7 +117,8 @@ const schemaPhanMem = {
       <p class="dan-nhap">{kg01.data.dien_giai}</p>
 
       <p class="dieu-kien">
-        <strong>Một điều kiện duy nhất:</strong> {tb01.data.cau_chot}{" "}
+        <strong>Một điều kiện duy nhất:</strong>
+        {tb01.data.cau_chot}{" "}
         <a href="#camera">Camera của shop có đạt không? →</a>
       </p>
 
@@ -173,10 +175,12 @@ const schemaPhanMem = {
       <p class="mo-dau">{pb03.data.dien_giai}</p>
     </section>
 
-    {/* ====== TB-01 (thân) + TB-02 + thiết bị đề xuất ======================
+    {
+      /* ====== TB-01 (thân) + TB-02 + thiết bị đề xuất ======================
         TB-01 và phần gợi ý mẫu là HAI khối tách bạch, không được gộp: gộp
         lại thì người đọc tưởng phải mua đúng hãng mới chạy được app (ghi chú
-        "VIẾT SAO CHO ĐÚNG" của chính khối TB-01). */}
+        "VIẾT SAO CHO ĐÚNG" của chính khối TB-01). */
+    }
     <section class="khoi khoi--hep" data-bang="warn" id="camera">
       <span class="nhan-log">đọc trước khi mua camera</span>
       <h2>Camera nào chạy tốt?</h2>

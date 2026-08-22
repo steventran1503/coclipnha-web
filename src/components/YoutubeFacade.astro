@@ -5,9 +5,18 @@
 interface Props {
   videoId?: string;
   tieuDeVideo: string;
+  // Chữ hiện lúc CHƯA có mã video. Một trang có thể đặt 2 khung chờ cạnh nhau
+  // (Hướng dẫn: video đầy đủ + video tìm lại video) — để mặc định cả hai thì
+  // hai ô chờ giống hệt nhau, người xem tưởng lỗi lặp. Truyền chữ riêng cho
+  // từng khung để nói rõ khung nào đang chờ video gì.
+  chuCho?: string;
 }
 
-const { videoId, tieuDeVideo } = Astro.props;
+const {
+  videoId,
+  tieuDeVideo,
+  chuCho = "Video demo đang được quay — sẽ nhúng tại đây.",
+} = Astro.props;
 ---
 
 {
@@ -36,7 +45,7 @@ const { videoId, tieuDeVideo } = Astro.props;
         ▶
       </span>
       <p>
-        Video demo đang được quay — sẽ nhúng tại đây.
+        {chuCho}
         <br />
         Chỉ khi shop bấm mới nạp YouTube, không có cookie theo dõi trước đó.
       </p>

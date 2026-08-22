@@ -1,7 +1,7 @@
 {
   "_meta": {
     "sinh_boi": "docs/web/xuat_kho_noi_dung.py — script CHỈ ĐỌC",
-    "sinh_luc": "2026-08-21 16:07:04",
+    "sinh_luc": "2026-08-22 17:50:16",
     "nguon": "docs\\web\\kho-thong-diep.md",
     "luu_y": "ĐỪNG sửa tay file này — sửa kho-thong-diep.md rồi chạy lại script."
   },
@@ -98,7 +98,8 @@
       "canh_cho_video": "bôi đen mã đơn trong tin nhắn khách → dán vào ô tìm → video hiện ra ngay.",
       "truong_khac": {},
       "trang_su_dung": [
-        "index"
+        "index",
+        "tro-giup/huong-dan"
       ]
     },
     {

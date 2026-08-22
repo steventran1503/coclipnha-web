@@ -15,8 +15,9 @@ Cột "gắn vào đâu" ghi luôn nơi sửa, để lần cấp sau khỏi ph�
 | 5 | **3 link biểu mẫu** (góp ý / báo lỗi / yêu cầu phần mềm) | 3 trang trợ giúp | "Biểu mẫu … — sắp mở" | `src/components/NutBieuMau.astro` |
 | 6 | **Ảnh mã VietQR** | Ủng hộ | Ô vuông "Mã chuyển khoản sắp có — tụi mình đang chuẩn bị" | `src/pages/ung-ho.astro` + ảnh vào `public/anh/` |
 | 7 | **Link mua + ảnh 2 camera** (EMEET ưu tiên, Ugreen) | Tải về, Thiết bị đề xuất | Thẻ camera đã có tên + lý do + dòng "đã chạy thử"; nút hiện "Link mua — sắp có", ảnh hiện ô chờ | **CHỈ MỘT CHỖ**: `src/data/thiet-bi-goi-y.json` (ô `link`, `anh`, `noi_ban`, `model`). Sửa một lần, cả hai trang cùng đổi. Câu công khai hoa hồng tự gắn kèm, không tắt được |
-| 8a | **Video demo NGẮN** (quay màn hình app chạy một ca gói) | Trang chủ — trong khung "Quét thử" đầu trang | Nút hiện "📷 Video app chạy thật — sắp có"; cảnh app tĩnh vẫn hiện đầy đủ | `src/pages/index.astro` — điền `VIDEO_DEMO` |
-| 8b | **Video hướng dẫn ĐẦY ĐỦ** (mọi tính năng) | Trang chủ (cuối trang), Tải về | Mặt tiền giả YouTube dạng chờ | `index.astro` + `tai-ve.astro` — điền `VIDEO_HUONG_DAN` |
+| 8a | **Video demo NGẮN** (quay màn hình app chạy một ca gói) | Trang chủ — trong khung "Quét thử" đầu trang | Nút hiện "📷 Video app chạy thật — sắp có"; cảnh app tĩnh vẫn hiện đầy đủ | `src/lib/video.ts` — điền `VIDEO_DEMO` |
+| 8b | **Video hướng dẫn ĐẦY ĐỦ** (mọi tính năng) | Trang chủ (cuối trang), Tải về, **Hướng dẫn** | Mặt tiền giả YouTube dạng chờ | `src/lib/video.ts` — điền `VIDEO_HUONG_DAN`, **một chỗ cho cả ba trang** |
+| 8c | **Video TÌM LẠI VIDEO lúc khách khiếu nại** (clip 8 trong bản đồ video, khối GP-02) | Hướng dẫn (mục cuối trang) | Mặt tiền giả YouTube dạng chờ, chữ chờ nói rõ đang chờ video nào | `src/lib/video.ts` — điền `VIDEO_TIM_LAI` |
 | ~~9~~ | ~~**File in mã QR A6 + A4**~~ — **ĐÃ CÓ 19/08/2026** | Tải mã QR điều khiển | Trang hiện ảnh hai mã + nút tải PDF A6 sống. Bản A4 4-mã-cắt-rời **bỏ hẳn** (chủ dự án chốt: in mấy tờ thì chọn số bản lúc in) | xong — `public/in/coclipnha-ma-qr-a6.pdf`, ảnh ở `public/anh/qr-*.webp`, gốc JPG ở `public/in/` |
 | 10 | **Đánh giá khách hàng thật** | Trang chủ | Cố ý CHƯA có khối đánh giá — chỉ có "Người dùng đầu tiên" kể chuyện ZIN ZIN MOTOR, không gắn sao (FR-019) | chỉ thêm khi có đánh giá thật, không bịa |
 | 11 | **Tên miền `coclipnha.com`** (DNS) | Toàn site | Chạy tạm ở `steventran1503.github.io/coclipnha-web` | `astro.config.mjs`: đổi `site`, xoá `base`, thêm `public/CNAME` — làm SAU khi web hoàn thiện |
@@ -33,5 +34,9 @@ Cột "gắn vào đâu" ghi luôn nơi sửa, để lần cấp sau khỏi ph�
   `CAU_MINH_BACH` trong `src/lib/thietBi.ts`, đừng xoá.
 - Cấp mã video YouTube thì kiểm lại trang vẫn nhẹ: mặt tiền giả chỉ tải iframe
   khi người xem bấm — đừng đổi thành iframe nhúng thẳng.
+- Ba mã video khai ở **một chỗ duy nhất** là `src/lib/video.ts`. Trước 22/08/2026
+  mỗi trang tự khai một hằng số riêng và trang Hướng dẫn thì quên hẳn — điền mã
+  ở trang chủ xong khung bên đó vẫn nằm im ở chữ "đang chờ" mà không ai biết.
+  ⛔ Đừng khai lại hằng số mã video trong từng trang nữa.
 - Mỗi lần gắn xong: chạy `npm run build`, `npm run kiem:link`, rồi soát lại
   `tests/checklist-tay-web.md` mục 8.

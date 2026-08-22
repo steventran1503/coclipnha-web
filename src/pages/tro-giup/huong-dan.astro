@@ -11,8 +11,15 @@ import BangTrangThai from "../../components/app-mophong/BangTrangThai.astro";
 import { layKhoi } from "../../lib/khoiNoiDung";
 import { duongDan } from "../../lib/duongDan";
 import { qrDieuKhien } from "../../lib/nguonSuThat";
+// Mã video khai chung một chỗ cho mọi trang — xem src/lib/video.ts.
+import { VIDEO_HUONG_DAN, VIDEO_TIM_LAI } from "../../lib/video";
 
 const vd01 = await layKhoi("VD-01");
+// GP-02 — "bôi đen mã khách nhắn, dán vào, video hiện ra". Đây là việc shop
+// làm lúc CẦN bằng chứng, khác hẳn ba bước lúc gói; nên tách hẳn một mục
+// riêng ở cuối trang, kèm khung video hướng dẫn riêng (clip 8, mục 10 kho
+// thông điệp).
+const gp02 = await layKhoi("GP-02");
 const hd = await Promise.all(["HD-01", "HD-02", "HD-03"].map(layKhoi));
 const tt01 = await layKhoi("TT-01");
 
@@ -30,7 +37,11 @@ const BUOC: { bang: "ready" | "rec" | "saved"; maDon?: string }[] = [
   moTaMeta="Hướng dẫn dùng CoClipNha từng bước: mở app, đưa mã vận đơn qua camera, quét mã đơn kế tiếp. Kèm mã QR PAUSE để dừng giữa chừng."
 >
   <p class="doan">{vd01.data.dien_giai}</p>
-  <YoutubeFacade tieuDeVideo={vd01.data.cau_chot} />
+  <YoutubeFacade
+    tieuDeVideo={vd01.data.cau_chot}
+    videoId={VIDEO_HUONG_DAN}
+    chuCho="Video hướng dẫn đầy đủ đang được quay — sẽ nhúng tại đây."
+  />
 
   <div class="cac-buoc">
     {
@@ -49,6 +60,21 @@ const BUOC: { bang: "ready" | "rec" | "saved"; maDon?: string }[] = [
     }
   </div>
 
+  <section class="buoc tim-lai">
+    {
+      /* Nhãn dẫn là chữ chương trình (báo đây là tình huống khác ba bước ở
+        trên); tít và đoạn văn lấy nguyên văn GP-02 từ kho thông điệp (FR-003). */
+    }
+    <p class="nhan-muc">Lúc khách nhắn tin khiếu nại</p>
+    <h2>{gp02.data.cau_chot}</h2>
+    <p class="doan">{gp02.data.dien_giai}</p>
+    <YoutubeFacade
+      tieuDeVideo={gp02.data.cau_chot}
+      videoId={VIDEO_TIM_LAI}
+      chuCho="Video chỉ từng thao tác tìm lại video lúc khách khiếu nại đang được quay — sẽ nhúng tại đây."
+    />
+  </section>
+
   <p class="ghi-chu chu-mo">
     {tt01.data.cau_chot} (<code>{qrDieuKhien.pause}</code>){" "}
     <a href={duongDan("tro-giup/tai-qr/")}>{tt01.data.dien_giai}</a>
@@ -65,6 +91,17 @@ const BUOC: { bang: "ready" | "rec" | "saved"; maDon?: string }[] = [
   }
   .buoc {
     margin-bottom: 2.2rem;
+  }
+  .tim-lai {
+    margin-top: 3rem;
+  }
+  .tim-lai .doan {
+    margin-bottom: 1rem;
+  }
+  .nhan-muc {
+    font-size: 0.85rem;
+    color: var(--chu-mo);
+    margin-bottom: 0.3rem;
   }
   .nhan-bang {
     font-size: 0.85rem;
