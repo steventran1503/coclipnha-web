@@ -22,7 +22,10 @@ const { thietBi: tb, gon = false } = Astro.props;
 // Thẻ dùng chung cho camera lẫn phụ kiện → chữ trên nút, mô tả ảnh và ô chờ
 // ảnh phải gọi đúng tên món, không được ghi cứng "camera" như bản đầu.
 const laPhuKien = loaiCua(tb) === "phu_kien";
-const nhan = danhXung(tb); // "camera" | "giá đỡ"
+const nhan = danhXung(tb); // "camera" | "giá đỡ" | "màn hình"
+// Biểu tượng ô chờ ảnh, theo loại món. Thêm loại mới vào JSON mà quên thêm
+// vào đây thì TypeScript báo lỗi ngay lúc build — cố ý khai đủ khoá.
+const BIEU_TUONG = { camera: "📷", phu_kien: "🔩", man_hinh: "🖥️" };
 const nhanHoa = nhan.charAt(0).toUpperCase() + nhan.slice(1);
 ---
 
@@ -44,7 +47,7 @@ const nhanHoa = nhan.charAt(0).toUpperCase() + nhan.slice(1);
         />
       ) : (
         <div class="anh-tb anh-tb--cho" role="status">
-          <span aria-hidden="true">{laPhuKien ? "🔩" : "📷"}</span>
+          <span aria-hidden="true">{BIEU_TUONG[loaiCua(tb)]}</span>
           <span>Ảnh {nhan} sắp có</span>
         </div>
       ))

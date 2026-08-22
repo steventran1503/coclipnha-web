@@ -13,8 +13,12 @@ import duLieu from "../data/thiet-bi-goi-y.json";
  * lần là cả hai trang cùng đổi (yêu cầu chủ dự án 28/07/2026).
  */
 
-/** 'camera' = thiết bị bắt buộc; 'phu_kien' = món gắn thêm (giá đỡ...). */
-export type LoaiThietBi = "camera" | "phu_kien";
+/**
+ * 'camera'   = thiết bị bắt buộc;
+ * 'phu_kien' = món gắn thêm cho tiện (giá đỡ...);
+ * 'man_hinh' = màn hình cho bàn gói (mỗi điểm gói một cái — chốt 22/08/2026).
+ */
+export type LoaiThietBi = "camera" | "phu_kien" | "man_hinh";
 
 export interface ThietBi {
   ma: string;
@@ -74,11 +78,30 @@ export const phuKienGoiY: ThietBi[] = conDeXuat.filter(
 );
 
 /**
- * Danh xưng để ghép câu trên thẻ ("Xem camera…" / "Xem giá đỡ…"). Thẻ dùng
- * chung cho cả hai loại nên không được ghi cứng chữ "camera" nữa.
+ * MÀN HÌNH còn đề xuất — chỉ trang Thiết bị đề xuất dùng tới, xếp sau phụ kiện
+ * (chủ dự án chốt 22/08/2026).
+ *
+ * Vì sao KHÔNG gộp vào `phu_kien`: chữ trên nút và ô chờ ảnh lấy theo loại;
+ * gộp vào thì nút màn hình sẽ hiện "Xem giá đỡ trên Shopee". Và mục màn hình
+ * nói chuyện khác hẳn — bao nhiêu điểm gói thì bấy nhiêu màn hình — không nên
+ * nằm chung mục giá đỡ camera.
  */
+export const manHinhGoiY: ThietBi[] = conDeXuat.filter(
+  (t) => loaiCua(t) === "man_hinh",
+);
+
+/**
+ * Danh xưng để ghép câu trên thẻ ("Xem camera…" / "Xem giá đỡ…" / "Xem màn
+ * hình…"). Thẻ dùng chung cho mọi loại nên không được ghi cứng chữ "camera".
+ */
+const DANH_XUNG: Record<LoaiThietBi, string> = {
+  camera: "camera",
+  phu_kien: "giá đỡ",
+  man_hinh: "màn hình",
+};
+
 export function danhXung(t: ThietBi): string {
-  return loaiCua(t) === "phu_kien" ? "giá đỡ" : "camera";
+  return DANH_XUNG[loaiCua(t)];
 }
 
 /** Ngày chủ dự án soát lại danh sách lần cuối — hiện trên trang thiết bị. */

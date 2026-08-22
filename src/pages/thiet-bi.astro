@@ -14,7 +14,12 @@ import TheThietBi from "../components/TheThietBi.astro";
 import VanBan from "../components/VanBan.astro";
 import { layKhoi } from "../lib/khoiNoiDung";
 import { duongDan } from "../lib/duongDan";
-import { thietBiGoiY, phuKienGoiY, capNhatLanCuoi } from "../lib/thietBi";
+import {
+  thietBiGoiY,
+  phuKienGoiY,
+  manHinhGoiY,
+  capNhatLanCuoi,
+} from "../lib/thietBi";
 
 const tb01 = await layKhoi("TB-01");
 const tb02 = await layKhoi("TB-02");
@@ -67,6 +72,46 @@ const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
 
           <div class="luoi-tb">
             {phuKienGoiY.map((tb) => (
+              <TheThietBi thietBi={tb} />
+            ))}
+          </div>
+        </>
+      )
+    }
+
+    {
+      /* Màn hình cho bàn gói (chủ dự án chốt 22/08/2026). Đặt SAU giá đỡ và
+         tách riêng khỏi mục đó: đây không phải món "gắn thêm cho tiện" mà là
+         chuyện bố trí chỗ làm — bao nhiêu điểm gói thì bấy nhiêu màn hình.
+         Trang Tải về cố ý KHÔNG hiện mục này (xem lý do ở lib/thietBi.ts).
+         Khối tự ẩn khi chưa đề xuất màn hình nào. */
+      manHinhGoiY.length > 0 && (
+        <>
+          <h2>Mỗi điểm gói một màn hình</h2>
+          <p class="doan">
+            Một máy tính chạy được nhiều điểm gói cùng lúc, mỗi điểm một camera
+            riêng. Nhưng nhân viên đứng ở điểm gói nào cũng cần nhìn được màn
+            hình của điểm đó, để biết máy đã bắt được mã đơn và đang quay hay
+            chưa. Vậy nên: một điểm gói thì một màn hình, hai điểm gói thì hai
+            màn hình — cắm thêm màn hình vào cùng một máy tính, mỗi người theo
+            dõi đơn của mình, khỏi phải ngó sang chỗ người khác.
+          </p>
+          <p class="doan">
+            Tụi mình khuyên <b>2 điểm gói trên một máy</b> là vừa đẹp,{" "}
+            <b>tối đa 3 điểm</b>. Đông hơn nữa thì nên tách sang máy thứ hai.
+          </p>
+          <div class="the-app the-app--do yeu-cau co-man-hinh">
+            <div class="tieu-de-the">
+              Màn hình 22 inch Full HD là đủ — đừng mua to hơn.
+            </div>
+            <p>
+              Bàn gói chỗ nào cũng để hàng. Màn hình lớn hơn chỉ ăn thêm diện
+              tích làm việc chứ không giúp gói nhanh hơn, mà giá lại cao hơn.
+            </p>
+          </div>
+
+          <div class="luoi-tb">
+            {manHinhGoiY.map((tb) => (
               <TheThietBi thietBi={tb} />
             ))}
           </div>
@@ -127,6 +172,11 @@ const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
     gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
     margin-bottom: 1.2rem;
+  }
+  /* Khối "22 inch là đủ" dùng lại kiểu thẻ đỏ của khối yêu cầu camera ở đầu
+     trang: đây cũng là một lời dặn dễ mua sai, không phải đoạn văn thường. */
+  .co-man-hinh {
+    margin-bottom: 1.4rem;
   }
   .ghi-chu {
     font-size: 0.88rem;
