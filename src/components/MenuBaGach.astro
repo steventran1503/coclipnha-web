@@ -1,10 +1,26 @@
 ---
 import { duongDan } from "../lib/duongDan";
+import {
+  LINK_YOUTUBE,
+  LINK_FACEBOOK,
+  LINK_TIKTOK,
+  LINK_MESSENGER,
+} from "../lib/kenhKetNoi";
 
 interface MucMenu {
   nhan: string;
   /** Bỏ trống = tài sản chưa có link thật (FR-021) → hiện chữ mờ, KHÔNG bấm được. */
   href?: string;
+  /** Link ra ngoài web (kênh mạng xã hội) — thêm rel="noopener". */
+  ngoai?: boolean;
+}
+
+/**
+ * Mục kênh: có link thật thì bấm được, chưa có thì chữ mờ "sắp có".
+ * Link khai ở MỘT chỗ `src/lib/kenhKetNoi.ts`, đừng ghi cứng lại ở đây.
+ */
+function mucKenh(nhan: string, href?: string): MucMenu {
+  return href ? { nhan, href, ngoai: true } : { nhan: `${nhan} — sắp có` };
 }
 interface NhomMenu {
   nhom: string;
@@ -44,14 +60,16 @@ const DANH_MUC: NhomMenu[] = [
     ],
   },
   {
-    // Ba mục này chưa có link thật (FR-021). Trước đây để href="#" nên bấm
-    // được mà không đi đâu — người đọc tưởng web hỏng (rà soát 28/07, P1).
-    // Nay bỏ href: hiện chữ mờ, không bấm được, đúng cách chân trang đang làm.
+    // Mục nào chưa có link thật (FR-021) thì KHÔNG có href. Trước đây để
+    // href="#" nên bấm được mà không đi đâu — người đọc tưởng web hỏng (rà
+    // soát 28/07, P1). Nay bỏ href: hiện chữ mờ, không bấm được, đúng cách
+    // chân trang đang làm. YouTube đã có link thật từ 22/08/2026.
     nhom: "Kết nối",
     muc: [
-      { nhan: "ⓕ Facebook page — sắp có" },
-      { nhan: "♪ TikTok — sắp có" },
-      { nhan: "💬 Nhắn tin Messenger — sắp có" },
+      mucKenh("▶ Kênh YouTube", LINK_YOUTUBE),
+      mucKenh("ⓕ Facebook page", LINK_FACEBOOK),
+      mucKenh("♪ TikTok", LINK_TIKTOK),
+      mucKenh("💬 Nhắn tin Messenger", LINK_MESSENGER),
     ],
   },
 ];
@@ -79,7 +97,9 @@ const DANH_MUC: NhomMenu[] = [
           <div class="nhom">{nhom.nhom}</div>
           {nhom.muc.map((muc) =>
             muc.href ? (
-              <a href={muc.href}>{muc.nhan}</a>
+              <a href={muc.href} rel={muc.ngoai ? "noopener" : undefined}>
+                {muc.nhan}
+              </a>
             ) : (
               <span class="muc-cho">{muc.nhan}</span>
             ),

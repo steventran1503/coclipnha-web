@@ -5,15 +5,29 @@
 //
 // T067 (đợt vá US1): khôi phục 3 hàng đã mất so với bản demo đã duyệt — hàng
 // kênh kết nối (KN-01/KN-02), hàng liên kết toàn trang, link Bài viết.
-// Link mạng xã hội THẬT còn chờ chủ dự án cấp (FR-021) → hiện dạng chữ mờ
-// "đang chờ", KHÔNG dùng href="#" giả vờ bấm được.
+// Link kênh khai ở MỘT chỗ: `src/lib/kenhKetNoi.ts`. Kênh nào chưa có link
+// thật (FR-021) thì hiện dạng chữ mờ "đang chờ", KHÔNG dùng href="#" giả vờ
+// bấm được. YouTube đã có link thật từ 22/08/2026.
 import { layKhoi } from "../lib/khoiNoiDung";
 import { duongDan } from "../lib/duongDan";
+import {
+  LINK_YOUTUBE,
+  LINK_FACEBOOK,
+  LINK_TIKTOK,
+  LINK_MESSENGER,
+} from "../lib/kenhKetNoi";
 
 const sm01 = await layKhoi("SM-01");
 const gp05 = await layKhoi("GP-05");
 const kn01 = await layKhoi("KN-01");
 const kn02 = await layKhoi("KN-02");
+
+const KENH: { nhan: string; href?: string }[] = [
+  { nhan: "▶ YouTube", href: LINK_YOUTUBE },
+  { nhan: "ⓕ Facebook", href: LINK_FACEBOOK },
+  { nhan: "♪ TikTok", href: LINK_TIKTOK },
+  { nhan: `💬 ${kn02.data.nut}`, href: LINK_MESSENGER },
+];
 
 const TRANG = [
   ["Trang chủ", ""],
@@ -41,9 +55,17 @@ const TRANG = [
   </p>
 
   <p class="hang-ket-noi">
-    <span class="cho-link">ⓕ Facebook — đang chờ link</span>
-    <span class="cho-link">♪ TikTok — đang chờ link</span>
-    <span class="cho-link">💬 {kn02.data.nut} — đang chờ link</span>
+    {
+      KENH.map((kenh) =>
+        kenh.href ? (
+          <a class="link-kenh" href={kenh.href} rel="noopener">
+            {kenh.nhan}
+          </a>
+        ) : (
+          <span class="cho-link">{kenh.nhan} — đang chờ link</span>
+        ),
+      )
+    }
   </p>
   <p class="chu-mo cho-ghi-chu">{kn01.data.dien_giai}</p>
 
@@ -93,6 +115,19 @@ const TRANG = [
     border: 1px dashed var(--vien);
     border-radius: 999px;
     padding: 0.1rem 0.7rem;
+  }
+  /* Kênh ĐÃ có link thật: cùng dáng viên thuốc nhưng viền liền + chữ rõ, để
+     nhìn ra ngay cái nào bấm được. */
+  .link-kenh {
+    color: var(--chu-diu);
+    border: 1px solid var(--vien);
+    border-radius: 999px;
+    padding: 0.1rem 0.7rem;
+    text-decoration: none;
+  }
+  .link-kenh:hover {
+    color: var(--teal);
+    border-color: var(--teal);
   }
   .cho-ghi-chu {
     font-size: 0.8rem;

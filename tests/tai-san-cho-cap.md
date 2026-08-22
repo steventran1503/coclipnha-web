@@ -9,9 +9,9 @@ Cột "gắn vào đâu" ghi luôn nơi sửa, để lần cấp sau khỏi ph�
 | # | Thứ còn thiếu | Trang bị ảnh hưởng | Web đang xử ra sao | Gắn vào đâu khi có |
 |---|---|---|---|---|
 | 1 | **Link tải bản cài** (GitHub Releases) | Tải về | Nút xám "Tải về miễn phí — sắp có" + câu giải thích đang đóng gói | `src/pages/tai-ve.astro` — đổi nút sang `…/releases/latest/download/…` |
-| 2 | **Link Facebook page** | Mọi trang (menu + chân trang) | "ⓕ Facebook page — sắp có", chữ mờ, không bấm được | `MenuBaGach.astro` (điền `href`) + `ChanTrang.astro` |
-| 3 | **Link TikTok** | Mọi trang | "♪ TikTok — sắp có" | như trên |
-| 4 | **Link nhắn tin Messenger** (`m.me/…`) | Mọi trang + Góp ý + Báo lỗi + trang chủ | "💬 Nhắn tin qua Facebook — đang chờ link" | như trên + 2 trang trợ giúp |
+| 2 | **Link Facebook page** | Mọi trang (menu + chân trang) | "ⓕ Facebook page — sắp có", chữ mờ, không bấm được | **CHỈ MỘT CHỖ**: `src/lib/kenhKetNoi.ts` — điền `LINK_FACEBOOK` (menu + chân trang cùng đọc) |
+| 3 | **Link TikTok** | Mọi trang | "♪ TikTok — sắp có" | `src/lib/kenhKetNoi.ts` — điền `LINK_TIKTOK` |
+| 4 | **Link nhắn tin Messenger** (`m.me/…`) | Mọi trang + Góp ý + Báo lỗi + trang chủ | "💬 Nhắn tin qua Facebook — đang chờ link" | `src/lib/kenhKetNoi.ts` — điền `LINK_MESSENGER` (menu + chân trang); trang chủ + 2 trang trợ giúp còn ghi riêng, sửa nốt khi cấp |
 | 5 | **3 link biểu mẫu** (góp ý / báo lỗi / yêu cầu phần mềm) | 3 trang trợ giúp | "Biểu mẫu … — sắp mở" | `src/components/NutBieuMau.astro` |
 | 6 | **Ảnh mã VietQR** | Ủng hộ | Ô vuông "Mã chuyển khoản sắp có — tụi mình đang chuẩn bị" | `src/pages/ung-ho.astro` + ảnh vào `public/anh/` |
 | 7 | **Link mua + ảnh 2 camera** (EMEET ưu tiên, Ugreen) | Tải về, Thiết bị đề xuất | Thẻ camera đã có tên + lý do + dòng "đã chạy thử"; nút hiện "Link mua — sắp có", ảnh hiện ô chờ | **CHỈ MỘT CHỖ**: `src/data/thiet-bi-goi-y.json` (ô `link`, `anh`, `noi_ban`, `model`). Sửa một lần, cả hai trang cùng đổi. Câu công khai hoa hồng tự gắn kèm, không tắt được |
@@ -25,6 +25,7 @@ Cột "gắn vào đâu" ghi luôn nơi sửa, để lần cấp sau khỏi ph�
 | 13 | **Câu dẫn cho trang Bài viết** | Bài viết | Vào thẳng 8 thẻ, không có đoạn dẫn | viết 1 câu vào `kho-thong-diep.md` mục 7f rồi gắn vào `bai-viet/index.astro` |
 | 14 | **Ảnh chia sẻ mạng xã hội** (1200×630) | Toàn site (thẻ OpenGraph) | Dán link lên Facebook ra thẻ có tít + mô tả nhưng KHÔNG có ảnh | ảnh vào `public/anh/chia-se.jpg` rồi điền `ANH_CHIA_SE` trong `BaseLayout.astro` |
 | ~~15~~ | ~~**Ảnh giá đỡ camera**~~ — **ĐÃ CÓ 19/08/2026** | Thiết bị đề xuất | Thẻ giá đỡ đã đủ ảnh + tên + lý do + dòng "đã chạy thử" + nút mua sống | xong — `public/anh/gia-do-camera.webp`, gốc JPG chủ dự án cấp ở `QR module/assets/` |
+| ~~16~~ | ~~**Link kênh YouTube**~~ — **ĐÃ CÓ 22/08/2026** | Mọi trang (menu + chân trang) | Menu hiện "▶ Kênh YouTube" bấm được, chân trang hiện viên "▶ YouTube" bấm được | xong — `src/lib/kenhKetNoi.ts` (`LINK_YOUTUBE` = https://www.youtube.com/@coclipnha). ⚠️ Kênh CHƯA có video nào — đây chỉ là link kênh, KHÔNG phải 3 mã video ở mục 8a/8b/8c |
 
 ## Nhắc khi gắn tài sản vào
 
@@ -34,6 +35,9 @@ Cột "gắn vào đâu" ghi luôn nơi sửa, để lần cấp sau khỏi ph�
   `CAU_MINH_BACH` trong `src/lib/thietBi.ts`, đừng xoá.
 - Cấp mã video YouTube thì kiểm lại trang vẫn nhẹ: mặt tiền giả chỉ tải iframe
   khi người xem bấm — đừng đổi thành iframe nhúng thẳng.
+- Link **kênh** mạng xã hội khai ở **một chỗ duy nhất** là
+  `src/lib/kenhKetNoi.ts` (YouTube/Facebook/TikTok/Messenger) — menu ba gạch và
+  chân trang cùng đọc từ đó. Đừng ghi cứng link vào từng component.
 - Ba mã video khai ở **một chỗ duy nhất** là `src/lib/video.ts`. Trước 22/08/2026
   mỗi trang tự khai một hằng số riêng và trang Hướng dẫn thì quên hẳn — điền mã
   ở trang chủ xong khung bên đó vẫn nằm im ở chữ "đang chờ" mà không ai biết.
