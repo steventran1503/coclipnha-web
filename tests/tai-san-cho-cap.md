@@ -18,6 +18,7 @@ Cột "gắn vào đâu" ghi luôn nơi sửa, để lần cấp sau khỏi ph�
 | 8a | **Video demo NGẮN** (quay màn hình app chạy một ca gói) | Trang chủ — trong khung "Quét thử" đầu trang | Nút hiện "📷 Video app chạy thật — sắp có"; cảnh app tĩnh vẫn hiện đầy đủ | `src/lib/video.ts` — điền `VIDEO_DEMO` |
 | 8b | **Video hướng dẫn ĐẦY ĐỦ** (mọi tính năng) | Trang chủ (cuối trang), Tải về, **Hướng dẫn** | Mặt tiền giả YouTube dạng chờ | `src/lib/video.ts` — điền `VIDEO_HUONG_DAN`, **một chỗ cho cả ba trang** |
 | 8c | **Video TÌM LẠI VIDEO lúc khách khiếu nại** (clip 8 trong bản đồ video, khối GP-02) | Hướng dẫn (mục cuối trang) | Mặt tiền giả YouTube dạng chờ, chữ chờ nói rõ đang chờ video nào | `src/lib/video.ts` — điền `VIDEO_TIM_LAI` |
+| ~~8d~~ | ~~**Video hướng dẫn CÀI ĐẶT** (tải xong rồi cài thế nào)~~ — **ĐÃ CÓ 22/08/2026** | Tải về | Khối "Tải xong rồi cài thế nào?" nằm ngay dưới nút tải, mặt tiền giả bấm mới nạp | xong — `src/lib/video.ts` (`VIDEO_CAI_DAT` = `BrhCx9mKIas`, video "Cách cài đặt CoClipNha – Phần mềm quay video chống trao hàng (Miễn phí)"). Đây là loại video THỨ TƯ, không thay cho 8a/8b/8c |
 | ~~9~~ | ~~**File in mã QR A6 + A4**~~ — **ĐÃ CÓ 19/08/2026** | Tải mã QR điều khiển | Trang hiện ảnh hai mã + nút tải PDF A6 sống. Bản A4 4-mã-cắt-rời **bỏ hẳn** (chủ dự án chốt: in mấy tờ thì chọn số bản lúc in) | xong — `public/in/coclipnha-ma-qr-a6.pdf`, ảnh ở `public/anh/qr-*.webp`, gốc JPG ở `public/in/` |
 | 10 | **Đánh giá khách hàng thật** | Trang chủ | Cố ý CHƯA có khối đánh giá — chỉ có "Người dùng đầu tiên" kể chuyện ZIN ZIN MOTOR, không gắn sao (FR-019) | chỉ thêm khi có đánh giá thật, không bịa |
 | 11 | **Tên miền `coclipnha.com`** (DNS) | Toàn site | Chạy tạm ở `steventran1503.github.io/coclipnha-web` | `astro.config.mjs`: đổi `site`, xoá `base`, thêm `public/CNAME` — làm SAU khi web hoàn thiện |
@@ -38,9 +39,12 @@ Cột "gắn vào đâu" ghi luôn nơi sửa, để lần cấp sau khỏi ph�
 - Link **kênh** mạng xã hội khai ở **một chỗ duy nhất** là
   `src/lib/kenhKetNoi.ts` (YouTube/Facebook/TikTok/Messenger) — menu ba gạch và
   chân trang cùng đọc từ đó. Đừng ghi cứng link vào từng component.
-- Ba mã video khai ở **một chỗ duy nhất** là `src/lib/video.ts`. Trước 22/08/2026
+- Bốn mã video khai ở **một chỗ duy nhất** là `src/lib/video.ts`. Trước 22/08/2026
   mỗi trang tự khai một hằng số riêng và trang Hướng dẫn thì quên hẳn — điền mã
   ở trang chủ xong khung bên đó vẫn nằm im ở chữ "đang chờ" mà không ai biết.
   ⛔ Đừng khai lại hằng số mã video trong từng trang nữa.
+- ⛔ Đừng dồn video CÀI ĐẶT vào ô `VIDEO_HUONG_DAN` cho tiện: ô đó hiện ở ba
+  trang dưới tít VD-01 "Xem một ca đóng gói thật" — người xem bấm vào sẽ thấy
+  nội dung khác hẳn tít.
 - Mỗi lần gắn xong: chạy `npm run build`, `npm run kiem:link`, rồi soát lại
   `tests/checklist-tay-web.md` mục 8.

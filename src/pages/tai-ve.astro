@@ -2,8 +2,10 @@
 // T029/T030 — US2 "Tải app và vượt SmartScreen yên tâm" (FR-015..FR-018).
 //
 // THỨ TỰ KHỐI — chốt 28/07/2026 (chủ dự án chọn "cách A"), đừng đảo lại:
-//   KG-01 nút tải + nút Camera đề xuất → PB-04 (2 hình SmartScreen T027) →
-//   PB-03 → TB-01 thân + TB-02 + thẻ thiết bị → VD-01.
+//   KG-01 nút tải + nút Camera đề xuất → VIDEO CÀI ĐẶT (thêm 22/08/2026) →
+//   PB-04 (2 hình SmartScreen T027) → PB-03 → TB-01 thân + TB-02 + thẻ thiết
+//   bị → VD-01.
+// Khối video cài đặt chèn ngay sau nút tải, KHÔNG đảo thứ tự các khối cũ.
 //
 // CÁCH GIỮ FR-015 KHI NÚT TẢI Ở TRÊN CÙNG — đọc kỹ trước khi sửa:
 // FR-015 bắt "yêu cầu camera lấy nét tự động PHẢI xuất hiện TRƯỚC nút tải".
@@ -24,8 +26,9 @@ import SmartScreenHuongDan from "../components/SmartScreenHuongDan.astro";
 import GiayPhepFfmpeg from "../components/GiayPhepFfmpeg.astro";
 import YoutubeFacade from "../components/YoutubeFacade.astro";
 // Video hướng dẫn đầy đủ (khối VD-01) — cùng mã video với trang chủ và
-// trang Hướng dẫn, khai chung ở src/lib/video.ts.
-import { VIDEO_HUONG_DAN } from "../lib/video";
+// trang Hướng dẫn, khai chung ở src/lib/video.ts. VIDEO_CAI_DAT là video
+// RIÊNG của trang này (cài phần mềm vào máy), đừng lẫn với VIDEO_HUONG_DAN.
+import { VIDEO_CAI_DAT, VIDEO_HUONG_DAN } from "../lib/video";
 import TheThietBi from "../components/TheThietBi.astro";
 import VanBan from "../components/VanBan.astro";
 import { layKhoi } from "../lib/khoiNoiDung";
@@ -149,6 +152,30 @@ const schemaPhanMem = {
         )
       }
     </section>
+
+    {
+      /* ====== Video CÀI ĐẶT (thêm 22/08/2026) =============================
+        Đặt ngay dưới nút tải vì đó đúng là việc kế tiếp shop phải làm: file
+        vừa tải về rồi cài thế nào. Mã video khai ở src/lib/video.ts
+        (VIDEO_CAI_DAT) — ĐỪNG ghi cứng mã vào đây. Tít mục là chữ chương
+        trình (nhãn điều hướng), không phải câu kho thông điệp. Không có mã
+        thì cả khối ẩn hẳn, không để lại ô chờ. */
+    }
+    {
+      VIDEO_CAI_DAT && (
+        <section class="khoi khoi--hep" data-bang="ready">
+          <span class="nhan-log">xem trước khi cài</span>
+          <h2>Tải xong rồi cài thế nào?</h2>
+          <p class="mo-dau">
+            Video quay màn hình các bước cài CoClipNha vào máy Windows.
+          </p>
+          <YoutubeFacade
+            tieuDeVideo="Cách cài đặt CoClipNha"
+            videoId={VIDEO_CAI_DAT}
+          />
+        </section>
+      )
+    }
 
     {/* ============ PB-04 + hình SmartScreen (T027) ============ */}
     <section class="khoi khoi--hep" data-bang="warn">
