@@ -23,10 +23,11 @@
 // tối hay che chữ lên là xoá đúng thứ người xem cần đọc. Mọi chú thích nằm
 // DƯỚI ảnh (viết ở src/pages/index.astro ngay sau khối này).
 //
-// Ảnh đã làm mờ tên / số điện thoại / địa chỉ khách trên tem vận đơn — đọc
-// chú thích ANH_POSTER_APP ở src/lib/video.ts trước khi thay ảnh khác.
+// Ảnh đã làm mờ tên / số điện thoại / địa chỉ khách, mã QR trên tem và người
+// soi trong gương phía sau — đọc
+// chú thích ANH_APP_DANG_GHI ở src/lib/video.ts trước khi thay ảnh khác.
 import { duongDan } from "../../lib/duongDan";
-import { ANH_POSTER_APP, ANH_POSTER_APP_2X } from "../../lib/video";
+import { ANH_APP_DANG_GHI, ANH_APP_DANG_GHI_2X } from "../../lib/video";
 
 interface Props {
   /**
@@ -40,14 +41,14 @@ interface Props {
 const { videoId } = Astro.props;
 
 const ALT_ANH =
-  "Phần mềm gói hàng thương mại điện tử có mã QR CoClipNha — ảnh chụp màn hình thật trên máy tính, đang chờ quét mã vận đơn";
+  "Phần mềm gói hàng thương mại điện tử có mã QR CoClipNha — ảnh chụp màn hình thật trên máy tính: băng đỏ đang ghi hình kèm mã vận đơn, mã đơn và giờ hiện ngay trên khung hình";
 // sizes="100vw": khung ảnh chiếm gần trọn cột chữ ở mọi bề ngang (đo 24/08/2026:
 // 1.048px trên máy 1280px, 358px trên iPhone 390px), nên khai 100vw là máy màn
 // hình nét tự lấy tấm 1920. `loading="lazy"`: khối này nằm dưới màn hình đầu
 // (đo: cách đỉnh trang 979px trên điện thoại) — đặt eager là giành đường truyền
 // với phần chữ đầu trang, làm tụt điểm tốc độ.
-const ANH_1X = duongDan(ANH_POSTER_APP);
-const ANH_2X = duongDan(ANH_POSTER_APP_2X);
+const ANH_1X = duongDan(ANH_APP_DANG_GHI);
+const ANH_2X = duongDan(ANH_APP_DANG_GHI_2X);
 ---
 
 <div class="anh-app" id="quet-thu" data-video-id={videoId}>
