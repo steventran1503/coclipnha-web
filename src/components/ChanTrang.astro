@@ -114,7 +114,10 @@ const TRANG = [
     color: var(--chu-mo);
     border: 1px dashed var(--vien);
     border-radius: 999px;
-    padding: 0.1rem 0.7rem;
+    padding: 0.1rem 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
   /* Kênh ĐÃ có link thật: cùng dáng viên thuốc nhưng viền liền + chữ rõ, để
      nhìn ra ngay cái nào bấm được. */
@@ -122,8 +125,14 @@ const TRANG = [
     color: var(--chu-diu);
     border: 1px solid var(--vien);
     border-radius: 999px;
-    padding: 0.1rem 0.7rem;
+    padding: 0.1rem 0.9rem;
     text-decoration: none;
+    /* 44px = vùng chạm tối thiểu cho ngón tay (rà soát bố cục 24/08/2026).
+       Dùng min-height + inline-flex thay vì padding dọc để viên thuốc không
+       phình chữ ra, chỉ rộng vùng bấm. */
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
   .link-kenh:hover {
     color: var(--teal);
@@ -136,6 +145,13 @@ const TRANG = [
   .hang-trang {
     margin-top: 1rem;
     font-size: 0.85rem;
-    line-height: 2;
+    /* line-height 2 cũ cho khoảng cách đẹp nhưng vùng bấm chỉ cao 17px —
+       bấm hụt trên điện thoại. Nay lấy khoảng cách bằng padding của chính
+       thẻ <a>, nên vùng chạm cao ~44px mà nhìn vẫn y như cũ. */
+    line-height: 1.2;
+  }
+  .hang-trang a {
+    display: inline-block;
+    padding: 0.9rem 0.35rem;
   }
 </style>

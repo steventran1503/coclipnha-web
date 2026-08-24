@@ -73,7 +73,10 @@ const nghiaVu = tt14.data.truong_khac["Nghĩa vụ kèm theo"];
        rộng — chữ canh giữa trong hộp mà cả khối lệch trái so với phần trên.
        `margin-inline: auto` kéo hộp về giữa; đừng bỏ. */
     margin: 0 auto 0.6rem;
-    max-width: 46rem;
+    /* 34em ≈ 68 ký tự/dòng. Trước là 46rem (736px): với cỡ chữ 14px của khối
+       này thành 102 ký tự/dòng, mỏi mắt (rà soát bố cục 24/08/2026). Dùng
+       `em` để co theo cỡ chữ — đừng đổi sang `ch`, xem chú thích global.css. */
+    max-width: 34em;
   }
   .giay-phep code {
     font-family: var(--font-may, monospace);

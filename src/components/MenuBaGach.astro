@@ -131,8 +131,10 @@ const DANH_MUC: NhomMenu[] = [
     background: rgba(0, 0, 0, 0.35);
     color: #fff;
     border-radius: 6px;
-    width: 2.2rem;
-    height: 2.2rem;
+    /* 2.75rem = 44px: vùng chạm tối thiểu cho ngón tay (rà soát 24/08/2026).
+       Trước là 2.2rem (35px) — bấm hụt, nhất là khi cầm máy một tay. */
+    width: 2.75rem;
+    height: 2.75rem;
     font-size: 1.15rem;
     line-height: 1;
   }

@@ -80,6 +80,9 @@ const tieuDeTab = tenTrang.includes("CoClipNha")
   }
   .trang-con .ghi-chu {
     font-size: 0.9rem;
-    max-width: 44rem;
+    /* 44rem (704px) với cỡ chữ 14,4px = 94 ký tự/dòng — quá dài để đọc thoải
+       mái (rà soát bố cục 24/08/2026). 34em ≈ 68 ký tự, khớp luật chung
+       trong global.css. */
+    max-width: 34em;
   }
 </style>

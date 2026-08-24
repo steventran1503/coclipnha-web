@@ -232,6 +232,28 @@ h2 {
   display: block;
 }
 
+/* Bề rộng dòng chữ dễ đọc: ~68 ký tự/dòng. Không đặt cho MỌI đoạn (chân trang
+   căn giữa sẽ lệch), chỉ cho chữ nằm trong khối RỘNG — thẻ .the-app và các ghi
+   chú — nơi đo được 131–149 ký tự/dòng trên màn 1280px (rà soát 24/08/2026).
+   Trong khối hẹp 696px thì luật này không đổi gì vì chữ vốn đã ngắn hơn.
+   ⚠ Dùng `em`, ĐỪNG dùng `ch`: chữ "0" của font Be Vietnam Pro rộng 0,68em nên
+   68ch hoá ra ~92 ký tự thật — đặt bằng ch là tưởng đã chặn mà chưa chặn gì. */
+/* Link "← Trang chủ" ở đầu/cuối trang con: chữ chỉ cao 18px nên bấm hụt trên
+   điện thoại (rà soát bố cục 24/08/2026). Padding kéo vùng chạm lên ~44px mà
+   không đổi cỡ chữ. Luật để ở đây vì .lan-ve được khai lại trong 8 file trang;
+   sửa một chỗ ăn cả 8. */
+.lan-ve a {
+  display: inline-block;
+  padding: 0.6rem 0.3rem;
+}
+
+.the-app p {
+  max-width: 34em;
+}
+.ghi-chu {
+  max-width: 34em;
+}
+
 .the-app {
   background: var(--the);
   border: 1px solid var(--vien);

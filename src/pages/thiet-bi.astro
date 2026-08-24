@@ -276,7 +276,9 @@ const tb01Them = tb01.data.truong_khac["Ngoài yêu cầu đó"];
   }
   .ghi-chu {
     font-size: 0.88rem;
-    max-width: 42rem;
+    /* 42rem (672px) với cỡ chữ 14px = 92 ký tự/dòng — quá dài (rà soát bố cục
+       24/08/2026). 34em ≈ 68 ký tự, khớp luật chung trong global.css. */
+    max-width: 34em;
   }
   .hang-nut {
     margin-top: 1.8rem;
