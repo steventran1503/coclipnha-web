@@ -58,3 +58,19 @@ export const ANH_APP_DANG_GHI =
  */
 export const ANH_APP_DANG_GHI_2X =
   "anh/phan-mem-quay-video-ma-qr-van-don-coclipnha-1671.webp";
+
+/**
+ * Hai câu cho khối ảnh app ĐẦU TRANG CHỦ, đặt ngay DƯỚI khung ảnh — cùng kiểu
+ * với câu dưới ô video VD-01 cuối trang (chủ dự án yêu cầu 24/08/2026: "có
+ * logo play và dưới logo có dòng chữ như phần ở cuối trang").
+ *
+ * `CHU_DUOI_QUET_THU` chỉ hiện khi ĐÃ có `VIDEO_DEMO`; chưa có thì hiện
+ * `CHU_CHO_QUET_THU` và nút play để XÁM, không bấm được (FR-021 — chưa có
+ * video thì đừng mời bấm). Điền `VIDEO_DEMO` là nút tự đỏ + câu tự đổi.
+ *
+ * ⚠️ Nếu sau này trỏ `VIDEO_DEMO` sang một video KHÁC nội dung (ví dụ video
+ * hướng dẫn cài đặt) thì phải sửa câu dưới đây cho khớp — người xem bấm vào mà
+ * thấy nội dung khác câu mời là mất tin ngay.
+ */
+export const CHU_DUOI_QUET_THU = "Bấm play để xem app chạy thật";
+export const CHU_CHO_QUET_THU = "Video app chạy thật — sắp có";

@@ -27,7 +27,12 @@
 // soi trong gương phía sau — đọc
 // chú thích ANH_APP_DANG_GHI ở src/lib/video.ts trước khi thay ảnh khác.
 import { duongDan } from "../../lib/duongDan";
-import { ANH_APP_DANG_GHI, ANH_APP_DANG_GHI_2X } from "../../lib/video";
+import {
+  ANH_APP_DANG_GHI,
+  ANH_APP_DANG_GHI_2X,
+  CHU_DUOI_QUET_THU,
+  CHU_CHO_QUET_THU,
+} from "../../lib/video";
 
 interface Props {
   /**
@@ -64,7 +69,7 @@ const ANH_2X = duongDan(ANH_APP_DANG_GHI_2X);
       decoding="async"
     />
     {
-      videoId && (
+      videoId ? (
         /* Mặt tiền giả (FR-009): KHÔNG nạp iframe cho tới khi người xem bấm.
            Không JS thì thẻ <a> vẫn mở thẳng video trên YouTube — ngõ ra thật,
            không phải nút chết. */
@@ -73,13 +78,29 @@ const ANH_2X = duongDan(ANH_APP_DANG_GHI_2X);
           data-vai="nut"
           href={`https://www.youtube.com/watch?v=${videoId}`}
           rel="noopener"
-          aria-label="Xem đoạn quay màn hình app chạy thật"
+          aria-label={CHU_DUOI_QUET_THU}
         >
           <span aria-hidden="true">▶</span>
         </a>
+      ) : (
+        /* Chưa có video: vẫn hiện logo play cho người xem hiểu đây là chỗ sẽ
+           có video, nhưng ĐỂ XÁM và KHÔNG bấm được (FR-021) — giống hệt ô
+           video VD-01 cuối trang. Điền VIDEO_DEMO là nhánh trên tự chạy. */
+        <span
+          class="nut-play-anh nut-play-anh--tat"
+          role="status"
+          aria-label={CHU_CHO_QUET_THU}
+        >
+          <span aria-hidden="true">▶</span>
+        </span>
       )
     }
   </div>
+
+  {/* Dòng chữ ngay DƯỚI khung — cùng kiểu với câu dưới ô video VD-01. */}
+  <p class="chu-duoi-khung-anh">
+    {videoId ? CHU_DUOI_QUET_THU : CHU_CHO_QUET_THU}
+  </p>
 </div>
 
 <style>
@@ -120,6 +141,22 @@ const ANH_2X = duongDan(ANH_APP_DANG_GHI_2X);
     font-size: 1.4rem;
     text-decoration: none;
     box-shadow: 0 0 0 6px rgba(8, 11, 16, 0.45);
+  }
+
+  /* Nút play lúc CHƯA có video: xám, không bấm được. Vòng tối dày hơn nút đỏ
+     vì nền là ảnh SÁNG (khối này cố ý không phủ tối — xem chú thích đầu file). */
+  .nut-play-anh--tat {
+    background: var(--vien);
+    color: var(--chu-mo);
+    box-shadow: 0 0 0 6px rgba(8, 11, 16, 0.55);
+    cursor: default;
+  }
+
+  .chu-duoi-khung-anh {
+    margin-top: 0.6rem;
+    text-align: center;
+    color: var(--chu-mo);
+    font-size: 0.9rem;
   }
 
   /* Khi đã bấm: iframe thế chỗ cả tấm ảnh, giữ nguyên khung bo góc bao quanh. */
