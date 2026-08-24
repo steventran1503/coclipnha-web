@@ -28,7 +28,12 @@ import YoutubeFacade from "../components/YoutubeFacade.astro";
 // Video hướng dẫn đầy đủ (khối VD-01) — cùng mã video với trang chủ và
 // trang Hướng dẫn, khai chung ở src/lib/video.ts. VIDEO_CAI_DAT là video
 // RIÊNG của trang này (cài phần mềm vào máy), đừng lẫn với VIDEO_HUONG_DAN.
-import { VIDEO_CAI_DAT, VIDEO_HUONG_DAN } from "../lib/video";
+import {
+  VIDEO_CAI_DAT,
+  VIDEO_HUONG_DAN,
+  CHU_DUOI_VD01,
+  ANH_POSTER_APP,
+} from "../lib/video";
 import TheThietBi from "../components/TheThietBi.astro";
 import VanBan from "../components/VanBan.astro";
 import { layKhoi } from "../lib/khoiNoiDung";
@@ -239,6 +244,8 @@ const schemaPhanMem = {
       <YoutubeFacade
         tieuDeVideo={vd01.data.cau_chot}
         videoId={VIDEO_HUONG_DAN}
+        chuDuoi={CHU_DUOI_VD01}
+        anhNen={ANH_POSTER_APP}
       />
     </section>
   </main>

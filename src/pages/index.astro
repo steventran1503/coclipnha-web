@@ -17,7 +17,12 @@ import { layKhoi } from "../lib/khoiNoiDung";
 import { duongDan } from "../lib/duongDan";
 import { dongDonDep, sinhTenFile, bangMau } from "../lib/nguonSuThat";
 // Mã video để MỘT chỗ cho mọi trang — xem chú thích trong src/lib/video.ts.
-import { VIDEO_DEMO, VIDEO_HUONG_DAN } from "../lib/video";
+import {
+  VIDEO_DEMO,
+  VIDEO_HUONG_DAN,
+  CHU_DUOI_VD01,
+  ANH_POSTER_APP,
+} from "../lib/video";
 // Link kênh cũng để MỘT chỗ — xem src/lib/kenhKetNoi.ts.
 import { LINK_MESSENGER } from "../lib/kenhKetNoi";
 
@@ -457,7 +462,12 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     <span class="nhan-log">nói thì hay — thật không?</span>
     <h2>{vd01.data.cau_chot}</h2>
     <p class="mo-dau" style="margin-bottom:1.6rem;">{vd01.data.dien_giai}</p>
-    <YoutubeFacade tieuDeVideo={vd01.data.cau_chot} videoId={VIDEO_HUONG_DAN} />
+    <YoutubeFacade
+      tieuDeVideo={vd01.data.cau_chot}
+      videoId={VIDEO_HUONG_DAN}
+      chuDuoi={CHU_DUOI_VD01}
+      anhNen={ANH_POSTER_APP}
+    />
   </section>
 
   {/* ============ KG-01 ============ */}

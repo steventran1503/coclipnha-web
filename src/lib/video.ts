@@ -28,3 +28,22 @@ export const VIDEO_TIM_LAI: string | undefined = undefined;
 // Chủ dự án cấp 22/08/2026 — "Cách cài đặt CoClipNha – Phần mềm quay video
 // chống trao hàng (Miễn phí)", kênh Coclipnha.
 export const VIDEO_CAI_DAT: string | undefined = "BrhCx9mKIas";
+
+/**
+ * Câu đặt DƯỚI khung video VD-01 ("Xem một ca đóng gói thật") — hiện ở trang
+ * chủ, trang Tải về và trang Hướng dẫn. Chỉ hiện khi ĐÃ có mã video; chưa có
+ * thì ô video nói "đang được quay", không mời bấm.
+ * Khai một chỗ cho cả 3 trang, đừng chép lại vào từng trang.
+ */
+export const CHU_DUOI_VD01 = "Bấm play để xem phiên gói hàng thật";
+
+/**
+ * Ảnh nền TỰ LƯU cho khung video: ảnh chụp màn hình app thật (chủ dự án cấp
+ * 24/08/2026), ĐÃ làm mờ tên / số điện thoại / địa chỉ khách trên tem vận đơn.
+ * ⛔ Đừng thay bằng ảnh chưa che — bản gốc còn thông tin khách hàng thật.
+ *
+ * Dùng ở hai chỗ: mặc định cho ô video ĐANG CHỜ (mọi khung), và làm ảnh đại
+ * diện cho video VD-01 khi đã có mã — lúc đó web không phải gọi ra
+ * `i.ytimg.com` nữa, ảnh cũng nét hơn (ảnh YouTube chỉ 480×360 cho khung 16:9).
+ */
+export const ANH_POSTER_APP = "anh/phan-mem-goi-hang-ma-qr-coclipnha.webp";

@@ -1,4 +1,6 @@
 ---
+import { duongDan } from "../lib/duongDan";
+import { ANH_POSTER_APP } from "../lib/video";
 // Mặt tiền giả YouTube (FR-009): không nạp iframe cho tới khi bấm.
 // videoId là Tài sản chờ cấp (data-model.md → Tài sản chờ cấp) — chưa có
 // thật thì hiện trạng thái "đang chờ", không để trống/vỡ layout.
@@ -10,13 +12,32 @@ interface Props {
   // hai ô chờ giống hệt nhau, người xem tưởng lỗi lặp. Truyền chữ riêng cho
   // từng khung để nói rõ khung nào đang chờ video gì.
   chuCho?: string;
+  /**
+   * Ảnh nền TỰ LƯU (đường dẫn trong `public/`, không có dấu "/" đầu).
+   * - Ô ĐANG CHỜ video: mặc định lấy ảnh chụp màn hình app thật, để khung
+   *   không còn là ô đen trống.
+   * - Ô ĐÃ có video: bỏ trống thì dùng ảnh đại diện của YouTube; truyền vào
+   *   thì web không phải gọi ra `i.ytimg.com` nữa (ảnh cũng nét hơn, vì ảnh
+   *   YouTube chỉ 480×360 nhét vào khung 16:9).
+   */
+  anhNen?: string;
+  /** Câu mô tả đặt DƯỚI khung, vd "Bấm play để xem một gói hàng thật". */
+  chuDuoi?: string;
 }
 
 const {
   videoId,
   tieuDeVideo,
   chuCho = "Video demo đang được quay — sẽ nhúng tại đây.",
+  anhNen,
+  chuDuoi,
 } = Astro.props;
+
+// Đường dẫn ảnh khai ở src/lib/video.ts (một chỗ cho cả component lẫn 3 trang
+// dùng nó) — xem chú thích ANH_POSTER_APP bên đó trước khi đổi.
+const ALT_ANH_APP =
+  "Phần mềm gói hàng thương mại điện tử có mã QR CoClipNha — màn hình thật đang chờ quét mã vận đơn";
+const anhCho = anhNen ?? ANH_POSTER_APP;
 ---
 
 {
@@ -29,11 +50,15 @@ const {
       aria-label={`Xem video: ${tieuDeVideo} (mở YouTube)`}
     >
       <img
-        src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
-        alt={tieuDeVideo}
+        src={
+          anhNen
+            ? duongDan(anhNen)
+            : `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+        }
+        alt={anhNen ? ALT_ANH_APP : tieuDeVideo}
         loading="lazy"
-        width="480"
-        height="360"
+        width={anhNen ? "1280" : "480"}
+        height={anhNen ? "720" : "360"}
       />
       <span class="nut-play" aria-hidden="true">
         ▶
@@ -41,7 +66,17 @@ const {
     </a>
   ) : (
     <div class="mat-tien-yt mat-tien-yt--cho" role="status">
-      <span class="nut-play" aria-hidden="true">
+      <img
+        src={duongDan(anhCho)}
+        alt={ALT_ANH_APP}
+        loading="lazy"
+        width="1280"
+        height="720"
+      />
+      <span class="phu-toi" aria-hidden="true" />
+      {/* Nút play XÁM và KHÔNG bấm được: chưa có video thì đừng mời bấm
+          (FR-021). Có mã video là nhánh trên tự chạy, nút thành đỏ bấm được. */}
+      <span class="nut-play nut-play--tat" aria-hidden="true">
         ▶
       </span>
       <p>
@@ -51,6 +86,12 @@ const {
       </p>
     </div>
   )
+}
+
+{
+  /* Câu "Bấm play..." CHỈ hiện khi đã có mã video — chưa có mà mời bấm thì
+     người đọc bấm hụt (FR-021). Điền mã vào src/lib/video.ts là câu tự hiện. */
+  videoId && chuDuoi && <p class="chu-duoi-khung">{chuDuoi}</p>
 }
 
 <style>
@@ -78,11 +119,19 @@ const {
     gap: 0.8rem;
     text-align: center;
     padding: 1.5rem;
-    color: var(--chu-mo);
+    /* Chữ --chu-diu (không phải --chu-mo) vì nền nay là ẢNH đã phủ tối 66%:
+       chỗ sáng nhất của ảnh cho tương phản 5,80:1 với --chu-diu (đạt AA) nhưng
+       chỉ 3,53:1 với --chu-mo (trượt). Đã đo, đừng đổi lại. */
+    color: var(--chu-diu);
     font-size: 0.9rem;
   }
   .mat-tien-yt--cho p {
     max-width: 30rem;
+    /* Tấm nền riêng cho chữ: cùng chỗ sáng nhất của ảnh vẫn cho 11:1 (đã đo).
+       Xem chú thích ở `.phu-toi` trước khi chỉnh. */
+    background: rgba(8, 11, 16, 0.78);
+    padding: 0.5rem 0.85rem;
+    border-radius: 8px;
   }
   .nut-play {
     position: relative;
@@ -103,6 +152,34 @@ const {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+  /* Ô đang chờ: ảnh app thật nằm dưới, phủ tối để chữ đọc được (đã đo tương
+     phản: chữ --chu-mo trên nền phủ này vẫn đạt AA). */
+  .mat-tien-yt--cho .phu-toi {
+    position: absolute;
+    inset: 0;
+    /* 45% (chủ dự án chốt 24/08/2026): ảnh app hiện rõ. ⚠ Ở mức này chữ đặt
+       THẲNG lên ảnh chỉ đạt 3,12:1 — trượt chuẩn AA (cần 4,5:1) — nên đoạn chữ
+       phải có tấm nền riêng bên dưới (xem `.mat-tien-yt--cho p`). Bỏ tấm nền
+       đó đi là chữ hết đọc được ở chỗ ảnh sáng. */
+    background: rgba(8, 11, 16, 0.45);
+  }
+  .mat-tien-yt--cho .nut-play,
+  .mat-tien-yt--cho p {
+    position: relative;
+    z-index: 2;
+  }
+  .nut-play--tat {
+    background: var(--vien);
+    color: var(--chu-mo);
+    /* Viền tối để nút không lẫn vào chỗ sáng của ảnh nền. */
+    box-shadow: 0 0 0 4px rgba(8, 11, 16, 0.45);
+  }
+  .chu-duoi-khung {
+    margin-top: 0.6rem;
+    text-align: center;
+    color: var(--chu-mo);
+    font-size: 0.9rem;
   }
 </style>
 

@@ -14,7 +14,12 @@ import { layKhoi } from "../../lib/khoiNoiDung";
 import { duongDan } from "../../lib/duongDan";
 import { qrDieuKhien } from "../../lib/nguonSuThat";
 // Mã video khai chung một chỗ cho mọi trang — xem src/lib/video.ts.
-import { VIDEO_HUONG_DAN, VIDEO_TIM_LAI } from "../../lib/video";
+import {
+  VIDEO_HUONG_DAN,
+  VIDEO_TIM_LAI,
+  CHU_DUOI_VD01,
+  ANH_POSTER_APP,
+} from "../../lib/video";
 
 const vd01 = await layKhoi("VD-01");
 // GP-02 — "bôi đen mã khách nhắn, dán vào, video hiện ra". Đây là việc shop
@@ -49,6 +54,8 @@ const BUOC: { bang: "ready" | "rec" | "saved"; maDon?: string }[] = [
     tieuDeVideo={vd01.data.cau_chot}
     videoId={VIDEO_HUONG_DAN}
     chuCho="Video hướng dẫn đầy đủ đang được quay — sẽ nhúng tại đây."
+    chuDuoi={CHU_DUOI_VD01}
+    anhNen={ANH_POSTER_APP}
   />
 
   <div class="cac-buoc">

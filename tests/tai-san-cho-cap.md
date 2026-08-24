@@ -28,6 +28,8 @@ Cột "gắn vào đâu" ghi luôn nơi sửa, để lần cấp sau khỏi ph�
 | ~~15~~ | ~~**Ảnh giá đỡ camera**~~ — **ĐÃ CÓ 19/08/2026** | Thiết bị đề xuất | Thẻ giá đỡ đã đủ ảnh + tên + lý do + dòng "đã chạy thử" + nút mua sống | xong — `public/anh/gia-do-camera.webp`, gốc JPG chủ dự án cấp ở `QR module/assets/` |
 | ~~16~~ | ~~**Link kênh YouTube**~~ — **ĐÃ CÓ 22/08/2026** | Mọi trang (menu + chân trang) | Menu hiện "▶ Kênh YouTube" bấm được, chân trang hiện viên "▶ YouTube" bấm được | xong — `src/lib/kenhKetNoi.ts` (`LINK_YOUTUBE` = https://www.youtube.com/@coclipnha). ⚠️ Kênh CHƯA có video nào — đây chỉ là link kênh, KHÔNG phải 3 mã video ở mục 8a/8b/8c |
 
+| ~~17~~ | ~~**Ảnh chụp màn hình app thật**~~ — **ĐÃ CÓ 24/08/2026** | Trang chủ, Tải về, Hướng dẫn (3 ô video) | Ô video đang chờ nay hiện ảnh app thật, phủ tối 45%, nút play xám không bấm được | xong — `public/anh/phan-mem-goi-hang-ma-qr-coclipnha.webp`, đường dẫn khai ở `src/lib/video.ts` (`ANH_POSTER_APP`). ⛔ Ảnh đã **làm mờ tên/SĐT/địa chỉ khách** trên tem; bản gốc chưa che nằm ở `QR module/Screenshot app/` — đừng đăng bản đó |
+
 ## Nhắc khi gắn tài sản vào
 
 - Cấp link **có hoa hồng** thì câu công khai phải nằm ngay cạnh link (FR-008).
@@ -36,6 +38,9 @@ Cột "gắn vào đâu" ghi luôn nơi sửa, để lần cấp sau khỏi ph�
   `CAU_MINH_BACH` trong `src/lib/thietBi.ts`, đừng xoá.
 - Cấp mã video YouTube thì kiểm lại trang vẫn nhẹ: mặt tiền giả chỉ tải iframe
   khi người xem bấm — đừng đổi thành iframe nhúng thẳng.
+- Điền mã cho **VIDEO_HUONG_DAN** thì ô VD-01 tự đổi: nút play xám → đỏ bấm
+  được, và câu **"Bấm play để xem phiên gói hàng thật"** (`CHU_DUOI_VD01`) tự
+  hiện dưới khung. Không phải sửa gì thêm ở 3 trang.
 - Link **kênh** mạng xã hội khai ở **một chỗ duy nhất** là
   `src/lib/kenhKetNoi.ts` (YouTube/Facebook/TikTok/Messenger) — menu ba gạch và
   chân trang cùng đọc từ đó. Đừng ghi cứng link vào từng component.
