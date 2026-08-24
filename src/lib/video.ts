@@ -47,3 +47,14 @@ export const CHU_DUOI_VD01 = "Bấm play để xem phiên gói hàng thật";
  * `i.ytimg.com` nữa, ảnh cũng nét hơn (ảnh YouTube chỉ 480×360 cho khung 16:9).
  */
 export const ANH_POSTER_APP = "anh/phan-mem-goi-hang-ma-qr-coclipnha.webp";
+
+/**
+ * Bản NÉT GẤP ĐÔI của cùng tấm ảnh trên (1920×1080, 72 KB) — chỉ dùng làm
+ * `srcset` cho khối ảnh app đầu trang chủ. Từ 24/08/2026 khối đó KHÔNG còn
+ * dựng lại giao diện bằng HTML nữa mà hiện thẳng ảnh chụp màn hình, nên chữ
+ * trong ảnh chính là chữ người xem đọc: máy màn hình nét (điện thoại đời mới,
+ * MacBook) phải được tấm 1920 thì chữ app mới khỏi nhoè.
+ * ⛔ Hai tấm 1280 và 1920 phải luôn CÙNG một ảnh gốc đã che thông tin khách.
+ */
+export const ANH_POSTER_APP_2X =
+  "anh/phan-mem-goi-hang-ma-qr-coclipnha-1920.webp";

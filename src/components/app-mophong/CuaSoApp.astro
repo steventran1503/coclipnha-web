@@ -1,4 +1,13 @@
 ---
+// ⛔ TỪ 24/08/2026: FILE NÀY KHÔNG CÒN ĐƯỢC DÙNG Ở ĐÂU.
+// Nơi duy nhất gọi nó là khối đầu trang chủ (QuetThu.astro), mà khối đó đã chuyển
+// sang hiện thẳng ẢNH CHỤP MÀN HÌNH THẬT — chủ dự án chốt, vì bản dựng HTML này
+// co giãn theo bề ngang máy: trên điện thoại cột thẻ bên phải rớt xuống thành dãy
+// dọc, người xem hiểu nhầm thành "app điện thoại". Lý do đầy đủ + số đo: xem chú
+// thích đầu QuetThu.astro.
+// Giữ file lại vì đây là bản dựng lại giao diện app duy nhất bằng HTML (có thể
+// cần lại cho mục đích khác). Muốn xoá hẳn thì cứ xoá — Git còn lưu.
+//
 // Cửa sổ CoClipNha dựng lại ĐẦY ĐỦ (T054, FR-025) — hồn cốt hướng "Ca trực"
 // đã duyệt: người xem nhìn phát là nhận ra "đây đúng là màn hình app", nên câu
 // chú thích "shop tải về là gặp đúng màn hình này" mới là câu nói thật.
@@ -30,7 +39,9 @@ const mau = bangMau.dark;
   id={id}
   style={`--app-bg:${mau.bg};--app-panel:${mau.panel};--app-bd:${mau.panel_bd};--app-bottom:${mau.bottom};--app-text:${mau.text};--app-muted:${mau.muted};--app-teal:${mau.teal};--app-teal-ink:${mau.teal_ink};--app-stop-bg:${mau.stop_bg};--app-stop-fg:${mau.stop_fg};--app-btn:${mau.btn_bg};--app-exit:${mau.exit_fg};--app-disk-ok:${mau.disk_ok};`}
 >
-  {/* Thanh tiêu đề cửa sổ Windows của app (ảnh app thật: chỉ "CoClipNha PRO v2.0") */}
+  {
+    /* Thanh tiêu đề cửa sổ Windows của app (ảnh app thật: chỉ "CoClipNha PRO v2.0") */
+  }
   <div class="thanh-tieu-de">
     <span class="logo-c" aria-hidden="true"></span>
     <span class="ten-app">CoClipNha PRO v2.0</span>

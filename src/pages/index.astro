@@ -22,6 +22,7 @@ import {
   VIDEO_HUONG_DAN,
   CHU_DUOI_VD01,
   ANH_POSTER_APP,
+  ANH_POSTER_APP_2X,
 } from "../lib/video";
 // Link kênh cũng để MỘT chỗ — xem src/lib/kenhKetNoi.ts.
 import { LINK_MESSENGER } from "../lib/kenhKetNoi";
@@ -165,13 +166,23 @@ const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
     </div>
 
     <QuetThu videoId={VIDEO_DEMO} />
+    {
+      /* Chú thích ĐẶT DƯỚI ảnh, không đè lên ảnh (đổi hướng 24/08/2026): từ khi
+        khối này là ẢNH CHỤP MÀN HÌNH THẬT thì chữ trong ảnh chính là thứ người
+        xem cần đọc — che lên là xoá mất nội dung. Xem thêm chú thích đầu
+        file QuetThu.astro. */
+    }
     <p class="chu-mo" style="font-size:.85rem;margin-top:.8rem;max-width:34em;">
-      ▲ Cảnh dựng lại từ giao diện thật: chữ, màu, tên file, dòng nhật ký lấy
-      đúng từ phần mềm — shop tải về là gặp đúng màn hình này. {
+      ▲ Ảnh chụp màn hình thật, không phải hình vẽ lại — shop tải về là gặp đúng
+      màn hình này. Tên, số điện thoại và địa chỉ khách trên tem vận đơn đã được
+      làm mờ. {
         VIDEO_DEMO
-          ? "Bấm nút để xem đoạn quay màn hình app chạy thật."
+          ? "Bấm nút play để xem đoạn quay màn hình app chạy thật."
           : "Đoạn quay màn hình app chạy thật sẽ đặt ngay trong khung này."
       }
+      <a href={duongDan(ANH_POSTER_APP_2X)} target="_blank" rel="noopener"
+        >Xem ảnh to để đọc rõ chữ trong app</a
+      >.
     </p>
   </header>
 

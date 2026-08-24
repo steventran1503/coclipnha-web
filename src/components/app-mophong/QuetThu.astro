@@ -1,220 +1,128 @@
 ---
-// Khối "Quét thử" đầu trang chủ — dựng cửa sổ app đầy đủ (CuaSoApp,
-// T054/FR-025) ở đúng một cảnh tĩnh "đang ghi hình", kèm nút mở VIDEO THẬT.
+// Khối ảnh app ĐẦU TRANG CHỦ (trước đây gọi là "Quét thử").
 //
-// ĐỔI HƯỚNG 28/07/2026 (chủ dự án chốt, thay quyết định cũ ở FR-005):
-// trước đây nút "Quét thử" chạy một kịch bản 5 bước dựng bằng JavaScript.
-// Kịch bản đó mỗi lần app thêm tính năng là phải sửa lại code demo. Nay nút
-// mở thẳng video chủ dự án tự quay: cập nhật tính năng chỉ cần quay lại
-// video, không đụng code. Video ngắn ở ĐẦU trang (xem app chạy ra sao);
-// video hướng dẫn đầy đủ mọi tính năng vẫn nằm cuối trang chủ (khối VD-01).
+// ĐỔI HƯỚNG 24/08/2026 — chủ dự án chốt sau khi tự xem trang trên điện thoại:
+// bỏ hẳn phần dựng lại giao diện bằng HTML (component CuaSoApp + băng trạng
+// thái + watermark + dòng nhật ký), thay bằng ẢNH CHỤP MÀN HÌNH THẬT, dùng
+// CHUNG cho cả điện thoại lẫn máy tính.
 //
-// Cảnh tĩnh phía sau nút vẫn giữ nguyên vai trò cũ và VẪN PHẢI ĐÚNG SỰ THẬT
-// mã nguồn (FR-006): băng đỏ + watermark + dòng nhật ký lấy từ
-// nguon-su-that.json, không gõ tay. Tắt JavaScript hay chặn YouTube thì
-// người xem vẫn thấy trọn cảnh này và hiểu app làm gì (FR-010).
+// Vì sao đổi: bản dựng HTML co giãn theo bề ngang máy. Đo trên web thật ngày
+// 24/08/2026: ở 390px (iPhone 12–15) cả cửa sổ cao 1.060px — hơn 1,3 màn hình
+// điện thoại — mà khung camera chỉ còn 20% chiều cao, trong khi cụm thẻ phụ
+// (thương hiệu, donate, nhân viên, hôm nay, ổ đĩa) rớt xuống thành một dãy dọc
+// full chiều ngang chiếm 44%. Người xem đọc từ trên xuống ra "đây là app điện
+// thoại", tức hiểu sai chính thứ mình đang bán. Ảnh chụp thì KHÔNG co giãn
+// được: tỉ lệ bố cục giữ y nguyên trên mọi máy.
 //
-// Mã vận đơn trong khung là vận đơn THẬT của ZIN ZIN MOTOR (chủ dự án cấp
-// 25/07/2026), ảnh đã che ô "Đến" chứa tên khách trước khi vào Git.
-import CuaSoApp from "./CuaSoApp.astro";
-import BangTrangThai from "./BangTrangThai.astro";
-import Watermark from "./Watermark.astro";
-import DongNhatKy from "./DongNhatKy.astro";
-import { dongDaLuu, sinhTenFile } from "../../lib/nguonSuThat";
+// Cái mất đã cân nhắc và chấp nhận: chữ trong app thu nhỏ theo bề ngang máy.
+// Bù lại bằng tấm 1920 trong `srcset` (máy màn hình nét lấy tấm nét) và link
+// "xem ảnh to" đặt dưới ảnh ở trang chủ.
+//
+// ⛔ KHÔNG phủ tối tấm ảnh này và KHÔNG đặt chữ đè lên nó. Ô video VD-01 phủ
+// tối 45% vì ở đó ảnh chỉ làm NỀN cho chữ; ở đây ảnh CHÍNH LÀ nội dung — phủ
+// tối hay che chữ lên là xoá đúng thứ người xem cần đọc. Mọi chú thích nằm
+// DƯỚI ảnh (viết ở src/pages/index.astro ngay sau khối này).
+//
+// Ảnh đã làm mờ tên / số điện thoại / địa chỉ khách trên tem vận đơn — đọc
+// chú thích ANH_POSTER_APP ở src/lib/video.ts trước khi thay ảnh khác.
 import { duongDan } from "../../lib/duongDan";
+import { ANH_POSTER_APP, ANH_POSTER_APP_2X } from "../../lib/video";
 
 interface Props {
   /**
    * Mã video YouTube demo ngắn. Tài sản chờ chủ dự án cấp
-   * (`tests/tai-san-cho-cap.md` mục 8a) — chưa có thì nút hiện trạng thái
-   * "sắp có" có nghĩa, KHÔNG để nút chết.
+   * (`tests/tai-san-cho-cap.md` mục 8a) — CHƯA có mã thì KHÔNG hiện nút play
+   * (FR-021: không mời bấm vào chỗ chưa có gì); câu "video sắp có" nói ở dòng
+   * chú thích dưới ảnh. Có mã là nút play đỏ tự hiện giữa ảnh.
    */
   videoId?: string;
 }
 const { videoId } = Astro.props;
 
-const MA_DON_1 = "SHOPEEVTPVN2606875138465";
-// Ảnh vận đơn thật, đã thu nhỏ còn 380px + đổi sang WebP (T046 — Lighthouse
-// chấm trang chủ mất điểm vì tấm JPG gốc nặng 457 KB trong khi khung hiển thị
-// chỉ rộng 160px). Bản JPG gốc vẫn nằm trong public/anh/ để sau này cần xuất
-// lại cỡ khác — đừng xoá, cũng đừng trỏ src về nó.
-const ANH_DON_1 = duongDan("anh/van-don-shopee-that.webp");
-const ANH_RONG = 380;
-const ANH_CAO_1 = 536;
-const GIO_MAU = "2026-07-25_09-12-30";
-const TEN_FILE_1 = sinhTenFile(MA_DON_1, GIO_MAU);
-
-// Thời lượng + dung lượng dòng log: theo đúng công thức đã chốt ở
-// PROMPT-SPEC-004 (RÀ SOÁT DEMO 24/07 điểm 3) — "size = thời lượng × ~1,3
-// MB/phút, vd 3:12 ≈ 4,3 MB". Đây là mốc ĐO THẬT từ file video thật, dùng cho
-// dòng nhật ký; khác với mốc CÔNG BỐ (~10 MB/5 phút) dùng khi nói chuyện dung
-// lượng ổ cứng — công bố cố tình nặng hơn đo thật để không bao giờ hứa nhẹ hơn
-// thực tế. Cả hai vẫn là MỘT bộ số nhất quán (FR-007), không phải hai mốc chọi
-// nhau.
-const MB_MOI_GIAY = 1.3 / 60;
-const GIAY_DON_1 = 192; // 3 phút 12 giây — một đơn gói hàng thật
-
-const DONG_LOG_TINH = [
-  { loai: "mo" as const, text: "📷 Camera 0 sẵn sàng (1280×720)" },
-  { loai: "mo" as const, text: `🎬 Bắt đầu ghi video: ${TEN_FILE_1}` },
-  {
-    loai: "ok" as const,
-    text: dongDaLuu(TEN_FILE_1, GIAY_DON_1 * MB_MOI_GIAY, GIAY_DON_1),
-  },
-];
+const ALT_ANH =
+  "Phần mềm gói hàng thương mại điện tử có mã QR CoClipNha — ảnh chụp màn hình thật trên máy tính, đang chờ quét mã vận đơn";
+// sizes="100vw": khung ảnh chiếm gần trọn cột chữ ở mọi bề ngang (đo 24/08/2026:
+// 1.048px trên máy 1280px, 358px trên iPhone 390px), nên khai 100vw là máy màn
+// hình nét tự lấy tấm 1920. `loading="lazy"`: khối này nằm dưới màn hình đầu
+// (đo: cách đỉnh trang 979px trên điện thoại) — đặt eager là giành đường truyền
+// với phần chữ đầu trang, làm tụt điểm tốc độ.
+const ANH_1X = duongDan(ANH_POSTER_APP);
+const ANH_2X = duongDan(ANH_POSTER_APP_2X);
 ---
 
-<div class="quet-thu" id="quet-thu" data-video-id={videoId}>
-  <CuaSoApp>
-    <BangTrangThai
-      slot="bang"
-      trangThai="rec"
-      maDon={MA_DON_1}
-      variant="app"
-      id="qt-bang"
+<div class="anh-app" id="quet-thu" data-video-id={videoId}>
+  <div class="khung-anh" data-vai="khung">
+    <img
+      src={ANH_1X}
+      srcset={`${ANH_1X} 1280w, ${ANH_2X} 1920w`}
+      sizes="100vw"
+      alt={ALT_ANH}
+      width="1280"
+      height="720"
+      loading="lazy"
+      decoding="async"
     />
-
-    <div class="khung-ngam" data-vai="khung">
-      <span class="goc g1"></span><span class="goc g2"></span><span
-        class="goc g3"></span><span class="goc g4"></span>
-
-      <span class="nhan-dung-lai">Cảnh dựng lại</span>
-
-      <div class="phieu" data-vai="phieu">
-        <img
-          src={ANH_DON_1}
-          alt="Vận đơn Shopee thật của ZIN ZIN MOTOR"
-          class="phieu-anh"
-          width={ANH_RONG}
-          height={ANH_CAO_1}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
-      <div data-vai="wm">
-        <Watermark maDon={MA_DON_1} gio="2026-07-25 09:12:33" gioSong={true} />
-      </div>
-
-      {
-        videoId ? (
-          /* Mặt tiền giả (FR-009): KHÔNG nạp iframe cho tới khi người xem bấm.
-             Không JS thì thẻ <a> vẫn mở thẳng video trên YouTube — ngõ ra
-             thật, không phải nút chết. */
-          <a
-            class="nut nut--chinh nut-quet-thu"
-            data-vai="nut"
-            href={`https://www.youtube.com/watch?v=${videoId}`}
-            rel="noopener"
-          >
-            📷 Quét thử — xem app chạy thật
-          </a>
-        ) : (
-          <span class="nut nut-quet-thu nut-quet-thu--cho" role="status">
-            📷 Video app chạy thật — sắp có
-          </span>
-        )
-      }
-    </div>
-
-    <Fragment slot="nhat-ky">
-      <DongNhatKy id="qt-log" dong={DONG_LOG_TINH} />
-    </Fragment>
-  </CuaSoApp>
+    {
+      videoId && (
+        /* Mặt tiền giả (FR-009): KHÔNG nạp iframe cho tới khi người xem bấm.
+           Không JS thì thẻ <a> vẫn mở thẳng video trên YouTube — ngõ ra thật,
+           không phải nút chết. */
+        <a
+          class="nut-play-anh"
+          data-vai="nut"
+          href={`https://www.youtube.com/watch?v=${videoId}`}
+          rel="noopener"
+          aria-label="Xem đoạn quay màn hình app chạy thật"
+        >
+          <span aria-hidden="true">▶</span>
+        </a>
+      )
+    }
+  </div>
 </div>
 
 <style>
-  .khung-ngam {
+  .khung-anh {
     position: relative;
-    background: #0b0e14;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
     overflow: hidden;
-    aspect-ratio: 16 / 10;
-    border-radius: 8px;
     border: 1px solid var(--vien);
+    background: #0b0e14;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.5);
   }
-  .goc {
+  .khung-anh img {
     position: absolute;
-    width: 1.4rem;
-    height: 1.4rem;
-    border: 2px solid rgba(61, 184, 176, 0.75);
-    z-index: 3;
-  }
-  .goc.g1 {
-    top: 0.7rem;
-    left: 0.7rem;
-    border-width: 2px 0 0 2px;
-  }
-  .goc.g2 {
-    top: 0.7rem;
-    right: 0.7rem;
-    border-width: 2px 2px 0 0;
-  }
-  .goc.g3 {
-    bottom: 0.7rem;
-    left: 0.7rem;
-    border-width: 0 0 2px 2px;
-  }
-  .goc.g4 {
-    bottom: 0.7rem;
-    right: 0.7rem;
-    border-width: 0 2px 2px 0;
-  }
-
-  /* Nhãn "Cảnh dựng lại" nằm TRONG khung (chốt RÀ SOÁT DEMO 24/07 điểm 2):
-     người xem không được nhầm cảnh mô phỏng này với video quay thật. */
-  .nhan-dung-lai {
-    position: absolute;
-    top: 0.7rem;
-    left: 2.4rem;
-    z-index: 5;
-    font-family: var(--font-may);
-    font-size: 0.68rem;
-    letter-spacing: 0.05em;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    padding: 0.15rem 0.5rem;
-    border-radius: 4px;
-  }
-
-  .phieu {
-    position: absolute;
-    left: 50%;
-    top: 44%;
-    transform: translate(-50%, -50%) rotate(-2deg);
-    z-index: 2;
-    width: min(10rem, 34%);
-  }
-  .phieu-anh {
+    inset: 0;
     display: block;
     width: 100%;
-    height: auto;
-    border-radius: 4px;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+    height: 100%;
+    object-fit: cover;
   }
 
-  .nut-quet-thu {
+  /* Nút play: 4,4rem ≈ 70px — vượt mức chạm tối thiểu 44px (rà soát 24/08).
+     Vòng tối quanh nút để nút không lẫn vào chỗ sáng của ảnh. */
+  .nut-play-anh {
     position: absolute;
-    bottom: 1.1rem;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    z-index: 6;
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
-    border: 0;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .nut-quet-thu--cho {
-    background: rgba(4, 6, 10, 0.72);
-    border: 1px dashed var(--vien);
-    color: var(--chu-mo);
-    cursor: default;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.4rem;
+    height: 4.4rem;
+    border-radius: 50%;
+    background: var(--do);
+    color: #fff;
+    font-size: 1.4rem;
+    text-decoration: none;
+    box-shadow: 0 0 0 6px rgba(8, 11, 16, 0.45);
   }
 
-  /* Khi đã bấm: iframe thế chỗ cả khung ngắm, giữ nguyên khung cửa sổ app
-     bao quanh để người xem không mất ngữ cảnh "đây là màn hình phần mềm". */
-  .khung-ngam :global(iframe) {
+  /* Khi đã bấm: iframe thế chỗ cả tấm ảnh, giữ nguyên khung bo góc bao quanh. */
+  .khung-anh :global(iframe) {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -225,7 +133,7 @@ const DONG_LOG_TINH = [
 </style>
 
 <script>
-  // JS chỉ tăng cường: bấm nút thì nạp video ngay trong khung ngắm bằng
+  // JS chỉ tăng cường: bấm nút thì nạp video ngay trong khung ảnh bằng
   // youtube-nocookie.com (FR-009). Không JS, thẻ <a> mở YouTube ở tab
   // thường — vẫn xem được video, chỉ là rời trang.
   const goc = document.getElementById("quet-thu");
