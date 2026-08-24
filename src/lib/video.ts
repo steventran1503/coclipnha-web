@@ -48,40 +48,13 @@ export const CHU_DUOI_VD01 = "Bấm play để xem phiên gói hàng thật";
  */
 export const ANH_POSTER_APP = "anh/phan-mem-goi-hang-ma-qr-coclipnha.webp";
 
-/**
- * Bản NÉT GẤP ĐÔI của cùng tấm ảnh trên (1920×1080, 72 KB) — chỉ dùng làm
- * `srcset` cho khối ảnh app đầu trang chủ. Từ 24/08/2026 khối đó KHÔNG còn
- * dựng lại giao diện bằng HTML nữa mà hiện thẳng ảnh chụp màn hình, nên chữ
- * trong ảnh chính là chữ người xem đọc: máy màn hình nét (điện thoại đời mới,
- * MacBook) phải được tấm 1920 thì chữ app mới khỏi nhoè.
- * ⛔ Hai tấm 1280 và 1920 phải luôn CÙNG một ảnh gốc đã che thông tin khách.
- */
-export const ANH_POSTER_APP_2X =
-  "anh/phan-mem-goi-hang-ma-qr-coclipnha-1920.webp";
-
-/**
- * Ảnh chụp màn hình app lúc ĐANG GHI HÌNH (chụp 24/07/2026, chủ dự án duyệt
- * dùng 24/08/2026) — dùng cho khối ảnh ĐẦU TRANG CHỦ.
- *
- * Vì sao tấm riêng, không dùng chung ANH_POSTER_APP: tấm kia chụp lúc app ở
- * trạng thái "Sẵn sàng" (chưa quay, 0 video, chưa nhập tên nhân viên) — hợp
- * cho ô video đang chờ, nhưng đầu trang chủ cần kể đúng chuyện app làm gì:
- * băng ĐỎ "ĐANG GHI HÌNH: <mã đơn>", chữ mã đơn + giờ cháy trên hình,
- * "Rec by Coclipnha", dòng nhật ký sinh tên file. Hai tấm khác nhau cũng để
- * trang chủ không hiện CÙNG một ảnh hai lần (đầu trang + ô video VD-01).
- *
- * ⛔ ĐÃ làm mờ: khối người nhận trên tem (tên, số điện thoại, địa chỉ), mã QR
- * trên tem, mã đơn hàng in lại ở cuối tem, và người soi trong gương phía sau.
- * Bản GỐC chưa che nằm ở `QR module/Screenshot app/dark thêm - đang ghi
- * hình.png` — ĐỪNG đăng bản đó. Bản đã che lưu cạnh bên, đuôi tên
- * "- DA CHE THONG TIN KHACH".
- *
- * Mã vận đơn 861879430644 CỐ Ý để nguyên: chính app in nó ra ở băng đỏ và ở
- * watermark — che đi là mất đúng thứ khối này muốn chứng minh; đây cũng là
- * đơn của chính ZIN ZIN MOTOR, cùng loại với mã đơn đã công bố ở nơi khác.
- */
 export const ANH_APP_DANG_GHI =
-  "anh/phan-mem-goi-hang-ma-qr-coclipnha-dang-ghi-hinh.webp";
-/** Bản nét gấp đôi (1920×1080, 111 KB) của ảnh trên — cho `srcset` + link "xem ảnh to". */
+  "anh/phan-mem-quay-video-ma-qr-van-don-coclipnha.webp";
+/**
+ * Bản CỠ GỐC (1671×940, 101 KB) của ảnh trên — cho `srcset` + link "xem ảnh to".
+ * ⚠ Ảnh gốc chủ dự án cấp chỉ rộng 1672px nên KHÔNG có bản 1920: phóng to lên
+ * chỉ làm chữ nhoè thêm chứ không nét hơn. Muốn nét hơn phải chụp lại ở màn
+ * hình to hơn.
+ */
 export const ANH_APP_DANG_GHI_2X =
-  "anh/phan-mem-goi-hang-ma-qr-coclipnha-dang-ghi-hinh-1920.webp";
+  "anh/phan-mem-quay-video-ma-qr-van-don-coclipnha-1671.webp";

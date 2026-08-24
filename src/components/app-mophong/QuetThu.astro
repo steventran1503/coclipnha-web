@@ -15,7 +15,7 @@
 // được: tỉ lệ bố cục giữ y nguyên trên mọi máy.
 //
 // Cái mất đã cân nhắc và chấp nhận: chữ trong app thu nhỏ theo bề ngang máy.
-// Bù lại bằng tấm 1920 trong `srcset` (máy màn hình nét lấy tấm nét) và link
+// Bù lại bằng tấm cỡ gốc trong `srcset` (máy màn hình nét lấy tấm nét) và link
 // "xem ảnh to" đặt dưới ảnh ở trang chủ.
 //
 // ⛔ KHÔNG phủ tối tấm ảnh này và KHÔNG đặt chữ đè lên nó. Ô video VD-01 phủ
@@ -41,10 +41,10 @@ interface Props {
 const { videoId } = Astro.props;
 
 const ALT_ANH =
-  "Phần mềm gói hàng thương mại điện tử có mã QR CoClipNha — ảnh chụp màn hình thật trên máy tính: băng đỏ đang ghi hình kèm mã vận đơn, mã đơn và giờ hiện ngay trên khung hình";
+  "Phần mềm quay video bằng mã QR vận đơn CoClipNha — ảnh chụp màn hình thật: app đang ghi hình một đơn, mã đơn và giờ hiện ngay trên khung hình, camera soi tem vận đơn tại bàn gói của shop";
 // sizes="100vw": khung ảnh chiếm gần trọn cột chữ ở mọi bề ngang (đo 24/08/2026:
 // 1.048px trên máy 1280px, 358px trên iPhone 390px), nên khai 100vw là máy màn
-// hình nét tự lấy tấm 1920. `loading="lazy"`: khối này nằm dưới màn hình đầu
+// hình nét tự lấy tấm cỡ gốc. `loading="lazy"`: khối này nằm dưới màn hình đầu
 // (đo: cách đỉnh trang 979px trên điện thoại) — đặt eager là giành đường truyền
 // với phần chữ đầu trang, làm tụt điểm tốc độ.
 const ANH_1X = duongDan(ANH_APP_DANG_GHI);
@@ -55,7 +55,7 @@ const ANH_2X = duongDan(ANH_APP_DANG_GHI_2X);
   <div class="khung-anh" data-vai="khung">
     <img
       src={ANH_1X}
-      srcset={`${ANH_1X} 1280w, ${ANH_2X} 1920w`}
+      srcset={`${ANH_1X} 1280w, ${ANH_2X} 1671w`}
       sizes="100vw"
       alt={ALT_ANH}
       width="1280"
