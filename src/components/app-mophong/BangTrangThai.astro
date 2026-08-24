@@ -158,6 +158,44 @@ const goiY = layGoiYBang(trangThai);
       font-size: 0.84rem;
     }
   }
+  /* ≤420px: cụm ngày giờ + bộ đếm REC có `white-space: nowrap` nên không đủ
+     chỗ đứng cạnh dòng chữ trạng thái dài ("ĐANG GHI HÌNH: <mã đơn>"). Trước
+     đây nó tràn ra ngoài: trang Hướng dẫn trôi ngang 13px ở 375px và 28px ở
+     360px, còn ở trang chủ thì bị khung `.cua-so` (overflow:hidden) cắt cụt
+     30–45px — mất đúng cái đồng hồ, thứ đáng khoe nhất (rà soát bố cục
+     24/08/2026). Nay cho băng xuống dòng: đồng hồ nằm riêng một dòng, vẫn căn
+     phải như app thật. ⛔ Đừng gỡ `min-width: 0` — thiếu nó thì flex item
+     không co được và băng lại tràn. */
+  @media (max-width: 420px) {
+    /* CHỈ trạng thái "rec" — đây là trạng thái duy nhất tràn (chữ dài
+       "ĐANG GHI HÌNH: <mã đơn>" + bộ đếm REC). Cho cả 3 trạng thái xuống dòng
+       thì băng "Sẵn sàng" cũng cao thêm 8–54px mà chẳng để làm gì. */
+    .bang-mophong[data-trang-thai="rec"] {
+      flex-wrap: wrap;
+    }
+    .bang-mophong[data-trang-thai="rec"] .noi-dung {
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+    .bang-mophong[data-trang-thai="rec"] .gio {
+      width: 100%;
+      margin-left: 0;
+    }
+    /* Trên một dòng riêng thì ngày / giờ / bộ đếm REC nằm CẠNH nhau cho gọn —
+       xếp chồng như bản rộng sẽ đội băng lên 139px, chiếm gần hết màn hình. */
+    .bang-mophong[data-trang-thai="rec"] .ngay,
+    .bang-mophong[data-trang-thai="rec"] .rec-dem {
+      display: inline;
+    }
+    /* Ba cụm nằm cạnh nhau thì phải có khe — trong mã nguồn chúng dính liền
+       nhau, thiếu khe là ra "22/08/202620:42:44". */
+    .bang-mophong[data-trang-thai="rec"] .ngay {
+      margin-right: 0.6em;
+    }
+    .bang-mophong[data-trang-thai="rec"] .rec-dem {
+      margin-left: 0.6em;
+    }
+  }
 </style>
 
 <script>
