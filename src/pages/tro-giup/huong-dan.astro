@@ -36,6 +36,25 @@ const tt19 = await layKhoi("TT-19");
 const hd = await Promise.all(["HD-01", "HD-02", "HD-03"].map(layKhoi));
 const tt01 = await layKhoi("TT-01");
 
+// TT-20 — thẻ tải sổ tay PDF, đặt NGAY ĐẦU TRANG (chốt chủ dự án 27/08/2026:
+// tài liệu hướng dẫn ra dạng PDF tải về, KHÔNG trải chữ ra trang). Ba bước
+// HD-01..03 bên dưới vẫn giữ nguyên dạng chữ — người tìm Google đọc được ngay
+// mà không phải tải file.
+// Nguồn dựng PDF nằm ở kho mã app `docs/so-tay-nguoi-dung/` — sửa chữ thì dựng
+// lại ở đó rồi chép đè file dưới đây, ĐỪNG sửa PDF bằng tay.
+const tt20 = await layKhoi("TT-20");
+const FILE_SO_TAY = "in/so-tay-dung-coclipnha.pdf";
+// Cỡ file đọc TẠI LÚC BUILD chứ không gõ tay: thay PDF mới mà quên sửa con số
+// là web nói dối người tải. Thiếu file → không hiện cỡ, nút vẫn sống.
+let coSoTay: string | null = null;
+try {
+  const { statSync } = await import("node:fs");
+  const duong = new URL(`../../../public/${FILE_SO_TAY}`, import.meta.url);
+  coSoTay = (statSync(duong).size / (1024 * 1024)).toFixed(1).replace(".", ",");
+} catch {
+  coSoTay = null;
+}
+
 // Mỗi bước kèm băng app đang ở trạng thái nào — dựng bằng chính component
 // mô phỏng của trang chủ, không vẽ lại.
 const BUOC: { bang: "ready" | "rec" | "saved"; maDon?: string }[] = [
@@ -49,6 +68,20 @@ const BUOC: { bang: "ready" | "rec" | "saved"; maDon?: string }[] = [
   maTg="TG-01"
   moTaMeta="Hướng dẫn dùng CoClipNha từng bước: mở app, đưa mã vận đơn qua camera, quét mã đơn kế tiếp. Kèm mã QR PAUSE để dừng giữa chừng."
 >
+  <aside class="the-so-tay">
+    <p class="nhan-muc">Bản đầy đủ · in ra được</p>
+    <h2>{tt20.data.cau_chot}</h2>
+    <p class="doan">{tt20.data.dien_giai}</p>
+    <p class="hang-nut">
+      <a class="nut nut--chinh" href={duongDan(FILE_SO_TAY)} download>
+        {tt20.data.nut}
+      </a>
+    </p>
+    <p class="ghi-chu chu-mo">
+      File PDF{coSoTay && ` · ${coSoTay} MB`} · in khổ A4 · không cần tài khoản
+    </p>
+  </aside>
+
   <p class="doan">{vd01.data.dien_giai}</p>
   <YoutubeFacade
     tieuDeVideo={vd01.data.cau_chot}
@@ -127,12 +160,46 @@ const BUOC: { bang: "ready" | "rec" | "saved"; maDon?: string }[] = [
     <a href={duongDan("tro-giup/tai-qr/")}>{tt01.data.dien_giai}</a>
   </p>
   <p class="ghi-chu chu-mo">
-    Bản hướng dẫn kèm ảnh chụp màn hình từng bước đang được chuẩn bị — sẽ bổ
-    sung ngay tại trang này.
+    Muốn xem từng bước kèm ảnh chụp màn hình thì tải <b>sổ tay PDF</b> ở đầu
+    trang — trong đó có cả tờ dán bàn gói, cắt rời được.
   </p>
 </TrangTroGiup>
 
 <style>
+  /* Thẻ tải sổ tay — thứ đầu tiên người vào trang nhìn thấy. Nền thẻ + viền
+     teal mảnh để tách khỏi phần chữ bên dưới mà không hét lên như một quảng
+     cáo. Nút dùng lại .nut/.nut--chinh của global.css, không đẻ kiểu mới. */
+  .the-so-tay {
+    background: var(--the);
+    border: 1px solid var(--vien);
+    border-left: 3px solid var(--teal);
+    border-radius: 10px;
+    padding: 1.4rem 1.5rem 1.5rem;
+    margin-bottom: 2.2rem;
+  }
+  .the-so-tay h2 {
+    margin-bottom: 0.5rem;
+  }
+  .the-so-tay .doan {
+    margin-bottom: 1.1rem;
+  }
+  .the-so-tay .hang-nut {
+    margin: 0 0 0.7rem;
+  }
+  /* Vùng chạm 44px theo đúng luật đã chốt cho toàn site; máy hẹp thì nút tràn
+     hết bề ngang thẻ cho dễ bấm bằng ngón cái. */
+  .the-so-tay .nut {
+    min-height: 44px;
+  }
+  @media (max-width: 420px) {
+    .the-so-tay .nut {
+      display: block;
+      text-align: center;
+    }
+  }
+  .the-so-tay .ghi-chu {
+    margin: 0;
+  }
   .cac-buoc {
     margin-top: 2.4rem;
   }

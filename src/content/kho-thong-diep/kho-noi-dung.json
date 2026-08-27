@@ -1,7 +1,7 @@
 {
   "_meta": {
     "sinh_boi": "docs/web/xuat_kho_noi_dung.py — script CHỈ ĐỌC",
-    "sinh_luc": "2026-08-22 20:19:51",
+    "sinh_luc": "2026-08-27 16:57:00",
     "nguon": "docs\\web\\kho-thong-diep.md",
     "luu_y": "ĐỪNG sửa tay file này — sửa kho-thong-diep.md rồi chạy lại script."
   },
@@ -1025,6 +1025,19 @@
       "cau_chot": "Không cần nhớ hôm đó là ngày mấy.",
       "dien_giai": "Video xếp theo thư mục từng ngày, nhưng ô tìm kiếm lục cả các thư mục con — cứ dán mã đơn vào là ra.",
       "nut": null,
+      "cot_them": [],
+      "canh_cho_video": null,
+      "truong_khac": {},
+      "trang_su_dung": [
+        "tro-giup/huong-dan"
+      ]
+    },
+    {
+      "ma": "TT-20",
+      "nhom": "TT",
+      "cau_chot": "Sổ tay dùng CoClipNha — tải về, in ra để ở bàn gói.",
+      "dien_giai": "14 trang khổ A4, viết cho người chưa quen máy tính: thiết lập lần đầu, ba việc làm mỗi ngày, bảy chuyện hay gặp và cách xử, cách tìm lại video lúc khách khiếu nại. Trang cuối là tờ dán bàn gói, cắt rời được.",
+      "nut": "Tải sổ tay (PDF)",
       "cot_them": [],
       "canh_cho_video": null,
       "truong_khac": {},
