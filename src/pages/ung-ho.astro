@@ -28,11 +28,27 @@ const bc01 = await layKhoi("BC-01");
 const tt10 = await layKhoi("TT-10");
 const tt11 = await layKhoi("TT-11");
 
-// T038 — ảnh mã VietQR là Tài sản chờ cấp (data-model.md). Đặt file vào
+// T038 — ảnh mã VietQR. ĐÃ CÓ 29/08/2026 (chủ dự án cấp). Đặt file vào
 // `public/anh/` rồi điền tên vào đây là hiện ảnh thật; còn null thì hiện ô
 // vuông "đang chờ" đúng kích thước, không vỡ bố cục và không nói dối là đã có
 // (FR-021).
-const ANH_VIETQR: string | null = null;
+//
+// Ảnh gốc chủ dự án cấp (ảnh chụp app ngân hàng, nền vàng + hình đồng xu) nằm
+// ở `QR module/assets/QR ngan hang ung ho - goc.jpg`. Bản trên web đã CẮT lấy
+// đúng tấm thẻ trắng và nén webp KHÔNG MẤT DỮ LIỆU (lossless) — ⛔ đừng nén
+// lại kiểu thường, mã QR mà hao chi tiết là app ngân hàng quét không ra.
+const ANH_VIETQR: string | null = "ma-vietqr-ung-ho-coclipnha.webp";
+
+// Chữ in kèm mã, cho ai xem trên máy tính bàn muốn chuyển khoản tay.
+// ⛔ BẮT BUỘC khớp với nội dung bên trong ảnh QR. Đã giải mã ảnh ngày
+// 29/08/2026 để đối chiếu: BIN 970407 = Techcombank, số tài khoản
+// 19029159530034, mã tĩnh (không gắn sẵn số tiền). Nếu đổi ảnh QR thì phải
+// giải mã lại rồi sửa 3 dòng dưới đây cho khớp — sai một chữ số là tiền ủng
+// hộ chạy sang tài khoản người lạ.
+const NGAN_HANG = "Techcombank";
+const CHU_TAI_KHOAN = "TRAN THANH BINH";
+const SO_TAI_KHOAN = "19029159530034";
+const SO_TAI_KHOAN_DE_DOC = "1902 9159 5300 34";
 ---
 
 <BaseLayout
@@ -67,9 +83,9 @@ const ANH_VIETQR: string | null = null;
             <img
               class="anh-qr"
               src={duongDan(`anh/${ANH_VIETQR}`)}
-              alt="Mã VietQR ủng hộ CoClipNha — quét bằng app ngân hàng"
-              width="220"
-              height="220"
+              alt={`Mã VietQR ủng hộ CoClipNha — ${NGAN_HANG}, ${CHU_TAI_KHOAN}, số tài khoản ${SO_TAI_KHOAN_DE_DOC}`}
+              width="808"
+              height="901"
               loading="lazy"
             />
           ) : (
@@ -80,6 +96,53 @@ const ANH_VIETQR: string | null = null;
           )
         }
         <p class="nho">{tt10.data.dien_giai}</p>
+
+        {
+          /* Chữ kèm mã (chủ dự án chốt 29/08/2026): người xem trên máy tính
+            bàn không quét được mã trên chính màn hình mình, phải có số để
+            chép tay. Nút "Chép số" ẩn sẵn trong HTML, script mới bỏ ẩn —
+            không JS thì số vẫn đọc và bôi đen được. */
+        }
+        {
+          ANH_VIETQR && (
+            <div class="thong-tin-ck">
+              <p class="nho hoac">Hoặc chuyển khoản tay:</p>
+              <dl class="bang-ck">
+                <div class="dong-ck">
+                  <dt>Ngân hàng</dt>
+                  <dd>{NGAN_HANG}</dd>
+                </div>
+                <div class="dong-ck">
+                  <dt>Chủ tài khoản</dt>
+                  <dd>{CHU_TAI_KHOAN}</dd>
+                </div>
+                <div class="dong-ck">
+                  <dt>Số tài khoản</dt>
+                  <dd>
+                    <span class="so-tk" id="so-tai-khoan">
+                      {SO_TAI_KHOAN_DE_DOC}
+                    </span>
+                    <button
+                      type="button"
+                      class="nut-chep"
+                      id="nut-chep-stk"
+                      data-so={SO_TAI_KHOAN}
+                      hidden
+                    >
+                      Chép số
+                    </button>
+                  </dd>
+                </div>
+              </dl>
+              <p
+                class="bao-chep"
+                id="bao-chep"
+                role="status"
+                aria-live="polite"
+              />
+            </div>
+          )
+        }
       </div>
     </div>
 
@@ -90,6 +153,40 @@ const ANH_VIETQR: string | null = null;
     <p class="lan-ve cuoi"><a href={duongDan()}>← Về trang chủ</a></p>
   </main>
 </BaseLayout>
+
+<script>
+  // JS chỉ tăng cường: nút "Chép số" để hidden sẵn trong HTML, script mới bỏ
+  // ẩn. Trình duyệt không chép được (hoặc tắt JS) thì nút không bao giờ hiện
+  // — số tài khoản vẫn nằm đó, bôi đen chép tay được như thường.
+  const nutChep = document.getElementById(
+    "nut-chep-stk",
+  ) as HTMLButtonElement | null;
+  const baoChep = document.getElementById("bao-chep");
+
+  if (nutChep && navigator.clipboard) {
+    nutChep.hidden = false;
+    nutChep.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(nutChep.dataset.so ?? "");
+        if (baoChep) baoChep.textContent = "Đã chép số tài khoản ✓";
+      } catch {
+        // Trình duyệt chặn chép tự động (hay gặp trên máy công ty / trình
+        // duyệt cũ): bôi đen sẵn số giúp shop, chỉ cần bấm Ctrl+C.
+        const so = document.getElementById("so-tai-khoan");
+        if (so) {
+          const vung = document.createRange();
+          vung.selectNodeContents(so);
+          const chon = window.getSelection();
+          chon?.removeAllRanges();
+          chon?.addRange(vung);
+        }
+        if (baoChep)
+          baoChep.textContent =
+            "Máy không cho chép tự động — số đã bôi đen sẵn, shop bấm Ctrl+C nhé.";
+      }
+    });
+  }
+</script>
 
 <style>
   h1 {
@@ -140,19 +237,92 @@ const ANH_VIETQR: string | null = null;
     color: var(--chu-mo);
     max-width: 15rem;
   }
-  .o-qr,
-  .anh-qr {
+  .o-qr {
     width: 8.5rem;
     height: 8.5rem;
     border-radius: 8px;
     background: #0b0e14;
     border: 1px dashed var(--vien);
   }
+  /* Ảnh QR thật KHÔNG ép vuông: tấm thẻ ngân hàng cao hơn rộng (808×901).
+     Ép vuông là mã bị bóp méo hoặc thừa viền. Để rộng ~240px cho app điện
+     thoại soi màn hình máy tính vẫn bắt được mã. */
   .anh-qr {
     display: block;
-    margin: 0.8rem auto 1rem;
-    border-style: solid;
+    width: 100%;
+    max-width: 15rem;
+    height: auto;
+    margin: 0.9rem auto 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--vien);
     background: #fff;
-    object-fit: contain;
+  }
+  .thong-tin-ck {
+    border-top: 1px solid var(--vien);
+    margin-top: 0.4rem;
+    padding-top: 0.9rem;
+  }
+  .hoac {
+    margin-bottom: 0.7rem;
+  }
+  .bang-ck {
+    margin: 0;
+  }
+  /* Nhãn nằm TRÊN giá trị (không nằm cạnh): thẻ này hẹp, máy 320px mà xếp
+     ngang là số tài khoản bị đẩy trôi ngang. */
+  .dong-ck + .dong-ck {
+    margin-top: 0.7rem;
+  }
+  .dong-ck dt {
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--chu-mo);
+    margin-bottom: 0.15rem;
+  }
+  .dong-ck dd {
+    margin: 0;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .so-tk {
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+    color: var(--teal);
+  }
+  .nut-chep {
+    min-height: 44px;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    border: 1px solid var(--vien);
+    background: transparent;
+    color: var(--chu-diu);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.2s,
+      color 0.2s;
+  }
+  .nut-chep:hover {
+    border-color: var(--teal);
+    color: var(--chu);
+  }
+  .nut-chep:active {
+    transform: scale(0.97);
+  }
+  /* Chừa sẵn một dòng: báo "đã chép" hiện lên không làm nhảy bố cục. */
+  .bao-chep {
+    font-size: 0.85rem;
+    color: var(--teal);
+    margin: 0.6rem 0 0;
+    min-height: 1.3em;
   }
 </style>
