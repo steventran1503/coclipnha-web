@@ -1,7 +1,7 @@
 {
   "_meta": {
     "sinh_boi": "docs/web/xuat_kho_noi_dung.py — script CHỈ ĐỌC",
-    "sinh_luc": "2026-08-27 16:57:00",
+    "sinh_luc": "2026-09-29 18:43:55",
     "nguon": "docs\\web\\kho-thong-diep.md",
     "luu_y": "ĐỪNG sửa tay file này — sửa kho-thong-diep.md rồi chạy lại script."
   },
@@ -1042,6 +1042,7 @@
       "canh_cho_video": null,
       "truong_khac": {},
       "trang_su_dung": [
+        "tai-ve",
         "tro-giup/huong-dan"
       ]
     },
@@ -1063,6 +1064,819 @@
         "tai-ve",
         "tro-giup/huong-dan"
       ]
+    }
+  ],
+  "bai_viet": [
+    {
+      "slug": "quay-tay-khong-ben",
+      "tit": "Quay video đóng gói hàng bằng điện thoại: vì sao chỉ giữ được vài hôm",
+      "mo_ta": "Shop nào cũng biết nên quay video đóng gói hàng, nhưng quay bằng điện thoại thì vài hôm là bỏ. Lý do nằm ở bốn việc lặt vặt đi kèm mỗi đơn — và cách để mã vận đơn tự bật máy quay.",
+      "tu_khoa": [
+        "quay video đóng gói hàng",
+        "quay video đóng hàng",
+        "quay video khi đóng gói",
+        "video đóng gói làm bằng chứng"
+      ],
+      "ngay_dang": "2026-09-29",
+      "ngay_sua": "2026-09-29",
+      "tom_tat": "Quay video đóng gói bằng điện thoại hay bị bỏ giữa chừng không phải vì shop lười, mà vì mỗi đơn kéo theo bốn việc tay: bấm quay, bấm dừng, đặt tên, cất vào thư mục. Bỏ được bốn việc đó — để máy nhìn thấy mã vận đơn là tự quay, tự đặt tên theo mã — thì việc quay mới trụ được qua những ngày trăm đơn.",
+      "than_bai": [
+        {
+          "loai": "p",
+          "chu": "Hỏi shop nào cũng nghe một câu: \"Biết là nên quay lại lúc gói hàng chứ.\" Rồi hỏi tiếp \"Shop còn quay không?\" thì phần lớn cười trừ. Tuần đầu quay đều, tuần thứ hai quay đơn to, tuần thứ ba thì chỉ nhớ ra lúc khách nhắn khiếu nại — mà lúc đó đơn đã đi mất rồi."
+        },
+        {
+          "loai": "p",
+          "chu": "Chuyện này không phải do shop lười. Quay video đóng gói bằng điện thoại có một cái giá ẩn, và cái giá đó tính theo **từng đơn**."
+        },
+        {
+          "loai": "h2",
+          "chu": "Bốn việc tay đi kèm mỗi đơn"
+        },
+        {
+          "loai": "p",
+          "chu": "Mỗi lần quay một đơn bằng điện thoại, người gói phải làm thêm bốn việc chẳng liên quan gì tới gói hàng:"
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "**Bấm quay** trước khi mở thùng. Tay đang cầm băng keo, cầm hàng, phải bỏ xuống để bấm.",
+            "**Bấm dừng** khi dán xong. Quên bấm là một video dài nửa tiếng dính năm đơn vào nhau.",
+            "**Đặt tên video.** Điện thoại tự đặt kiểu VID_20260712 — không ai biết đó là đơn nào.",
+            "**Cất vào đúng chỗ.** Chép sang máy tính, xếp theo ngày, dọn bớt khi điện thoại báo đầy bộ nhớ."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Ngày gói mười đơn thì bốn việc đó còn chịu được. Ngày gói trăm đơn là bốn trăm lần làm thêm. Đến mùa sale, việc bị cắt đầu tiên luôn là việc không trực tiếp ra tiền — tức là quay video."
+        },
+        {
+          "loai": "h2",
+          "chu": "Đến lúc cần thì không tìm ra"
+        },
+        {
+          "loai": "p",
+          "chu": "Kể cả shop kiên trì quay đủ thì vẫn vướng chỗ thứ hai: tìm lại. Khách nhắn khiếu nại một đơn gửi từ tuần trước. Shop mở thư viện điện thoại ra là cả trăm video tên na ná nhau, phải nhớ hôm đó ngày mấy, rồi mở từng cái ra dò mã trên thùng. Mười lăm phút sau vẫn chưa thấy, trong khi khách đang chờ trả lời."
+        },
+        {
+          "loai": "p",
+          "chu": "Một video quay rồi mà không tìm ra lúc cần thì cũng như chưa quay."
+        },
+        {
+          "loai": "h2",
+          "chu": "Cách làm khác: để mã vận đơn tự bật máy quay"
+        },
+        {
+          "loai": "p",
+          "chu": "CoClipNha bỏ hẳn bốn việc tay kia bằng cách dùng chính thứ đã có sẵn trên mọi thùng hàng: **mã vận đơn**. Một camera cắm vào máy tính, chĩa xuống bàn gói. Mở app lên là camera chạy, không có nút Bắt đầu nào để bấm."
+        },
+        {
+          "loai": "ol",
+          "muc": [
+            "Shop dán mã vận đơn lên thùng như mọi khi, đưa qua trước camera. Máy nhận ra mã, kêu bíp và quay ngay.",
+            "Gói bình thường. Mã vận đơn và giờ được in thẳng lên từng khung hình.",
+            "Gói xong, đưa mã đơn kế tiếp vào. Video đơn cũ tự lưu, **tên video chính là mã vận đơn**, kèm ngày giờ và tên người gói."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Không có nút nào để quên bấm, nên không có đơn nào bị sót. Việc của người gói vẫn y như trước: dán mã, gói hàng."
+        },
+        {
+          "loai": "h2",
+          "chu": "Đặt cạnh nhau cho dễ so"
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "**Bấm quay từng đơn** — điện thoại: tự nhớ, quên là mất. CoClipNha: quét mã là quay.",
+            "**Tên video** — điện thoại: VID_20260712.mp4. CoClipNha: chính là mã vận đơn.",
+            "**Tìm video lúc khiếu nại** — điện thoại: lục cả trăm video. CoClipNha: dán mã đơn vào ô tìm kiếm là ra.",
+            "**Quay lúc mở hàng hoàn** — điện thoại: ít ai nhớ quay. CoClipNha: quét lại mã đơn đó là có thêm video chiều về."
+          ]
+        },
+        {
+          "loai": "h2",
+          "chu": "Cần chuẩn bị gì"
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "Một máy tính Windows 10 hoặc 11. Máy văn phòng cũ vẫn chạy được.",
+            "Một webcam USB **có lấy nét tự động**. Đây là điều kiện, không phải lời khuyên: camera lấy nét cố định cho ra mã vận đơn mờ, máy đọc không ra mã. Ngoài yêu cầu đó thì camera nào cũng được — xem [Thiết bị đề xuất](/thiet-bi/).",
+            "Một giá đỡ để camera nhìn thẳng xuống mặt bàn gói."
+          ]
+        },
+        {
+          "loai": "h2",
+          "chu": "Mấy điều để video thật sự dùng được làm bằng chứng"
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "Góc máy thấy trọn mặt bàn và hai tay người gói, không chỉ thấy cái thùng.",
+            "Quay từ lúc hàng còn nguyên tem, nguyên hộp cho tới lúc dán kín thùng — một mạch, không ngắt giữa chừng.",
+            "Để món hàng và số lượng lướt qua trước camera trước khi cho vào thùng.",
+            "Không cắt ghép video. Video liền mạch, có mã và giờ trên hình mới có sức nặng."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Video không bảo đảm shop thắng mọi khiếu nại — không ai hứa được điều đó. Nhưng có video thì shop có cái để nói, thay vì chỉ có lời kể. Muốn thử thì [tải CoClipNha về](/tai-ve/) hoặc xem trước [hướng dẫn ba bước](/bai-viet/huong-dan-3-buoc/)."
+        }
+      ],
+      "hoi_dap": [
+        {
+          "hoi": "Có cần bấm nút gì để bắt đầu quay không?",
+          "dap": "Không. Mở app lên là camera chạy. Đưa mã vận đơn qua trước camera là máy tự quay, đưa mã đơn kế tiếp là video đơn cũ tự lưu."
+        },
+        {
+          "hoi": "Quay bằng camera điện thoại được không?",
+          "dap": "Không. CoClipNha dùng webcam USB cắm vào máy tính Windows, và camera phải có lấy nét tự động để đọc rõ mã vận đơn."
+        },
+        {
+          "hoi": "Đơn không có mã vận đơn thì quay sao?",
+          "dap": "Bấm nút Đơn Ngoài hoặc đưa mã QR START in sẵn vào khung hình. Video tự đặt tên Don Hang 001, 002… đếm lại từ đầu mỗi ngày."
+        }
+      ],
+      "nguon": [],
+      "so_chu": 755
+    },
+    {
+      "slug": "co-bang-chung",
+      "tit": "Khách báo thiếu hàng, sai hàng: shop lấy gì làm bằng chứng?",
+      "mo_ta": "Khách nhắn \"mở ra thiếu một món\" — shop nhớ rõ mình bỏ đủ nhưng nhớ không phải bằng chứng. Video đóng gói thế nào mới đủ sức làm bằng chứng khi khiếu nại, và nên trình bày ra sao.",
+      "tu_khoa": [
+        "bằng chứng khi khách báo thiếu hàng",
+        "khách khiếu nại thiếu hàng",
+        "video đóng gói làm bằng chứng",
+        "khiếu nại sàn thương mại điện tử"
+      ],
+      "ngay_dang": "2026-09-29",
+      "ngay_sua": "2026-09-29",
+      "tom_tat": "Khi khách báo thiếu hàng hay sai hàng, thứ có sức nặng nhất là một video quay liền mạch lúc gói đúng đơn đó: thấy rõ món hàng, số lượng, mã vận đơn và thời điểm quay. Không có video thì lời shop chỉ là lời shop. Video không bảo đảm thắng, nhưng nó cho shop cái để nói.",
+      "than_bai": [
+        {
+          "loai": "p",
+          "chu": "Đơn đã giao đi rồi. Khách nhắn: \"Mở ra thiếu một món.\" Hoặc: \"Shop gửi sai màu.\" Shop nhớ rõ hôm đó mình bỏ đủ, còn đếm lại hai lần. Nhưng nhớ thì không phải là bằng chứng. Cãi qua cãi lại một hồi, nhiều shop chọn đền cho xong chuyện — mất tiền hàng, mất công, lại thêm một đánh giá xấu."
+        },
+        {
+          "loai": "h2",
+          "chu": "Vì sao \"shop nhớ rõ\" không đủ"
+        },
+        {
+          "loai": "p",
+          "chu": "Khi khách và shop nói ngược nhau, người đứng giữa — sàn, đơn vị vận chuyển, hay chính khách — không có cách nào biết ai đúng nếu chỉ nghe kể. Bên nào đưa ra được hình ảnh thì bên đó có cửa. Shop nói đúng mà không chứng minh được thì vẫn có thể thua."
+        },
+        {
+          "loai": "p",
+          "chu": "Nên câu hỏi không phải là \"shop có gửi đủ không\", mà là \"shop có **chứng minh** được mình gửi đủ không\"."
+        },
+        {
+          "loai": "h2",
+          "chu": "Video đóng gói thế nào mới gọi là bằng chứng"
+        },
+        {
+          "loai": "p",
+          "chu": "Không phải video nào cũng dùng được. Một video có sức nặng thường có đủ bốn thứ:"
+        },
+        {
+          "loai": "ol",
+          "muc": [
+            "**Đúng đơn.** Thấy được mã vận đơn trong video — không thì ai cũng hỏi được \"sao biết video này là đơn đó?\".",
+            "**Đúng lúc.** Có thời điểm quay rõ ràng, khớp với ngày shop giao hàng cho bên vận chuyển.",
+            "**Thấy rõ món hàng.** Từng món, số lượng, màu, tình trạng — lướt qua trước camera trước khi cho vào thùng.",
+            "**Liền mạch.** Một mạch từ lúc hàng còn nguyên tới lúc dán kín thùng, không ngắt, không cắt ghép."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "CoClipNha lo sẵn hai thứ đầu: **mã vận đơn và giờ được in thẳng lên từng khung hình**, chữ trắng viền đen, đọc rõ trên mọi nền. Video có tách khỏi tên file thì tự nó vẫn cho biết là đơn nào, quay lúc mấy giờ. Hai thứ sau là thói quen ở bàn gói: đặt camera thấy trọn mặt bàn, và cho hàng lướt qua trước ống kính."
+        },
+        {
+          "loai": "h2",
+          "chu": "Khi khách khiếu nại, làm theo thứ tự này"
+        },
+        {
+          "loai": "ol",
+          "muc": [
+            "**Tìm video của đúng đơn đó.** Với CoClipNha, chép mã vận đơn trong tin nhắn của khách, dán vào ô tìm kiếm của thư mục video — video hiện ra ngay. Cách làm chi tiết ở bài [tìm lại video trong 5 giây](/bai-viet/tim-video-5-giay/).",
+            "**Tự xem lại trước.** Xem hết video trước khi gửi. Nếu đúng là shop sót, nhận sớm còn hơn cãi.",
+            "**Gửi video, kèm vài dòng ngắn.** Nói rõ mã đơn, giờ quay, và mốc giây nào thấy món hàng khách nói thiếu.",
+            "**Làm theo quy trình của sàn.** Mỗi sàn có cách nộp bằng chứng và thời hạn khiếu nại riêng — shop xem đúng trang hướng dẫn người bán của sàn mình, đừng để quá hạn.",
+            "**Giữ video lại.** Đơn đang tranh chấp thì chép video đó sang một thư mục riêng, để chế độ tự dọn video cũ không xoá mất."
+          ]
+        },
+        {
+          "loai": "h2",
+          "chu": "Video giúp được gì, không giúp được gì"
+        },
+        {
+          "loai": "p",
+          "chu": "Video là **bằng chứng**, không phải lời bảo đảm. Nó không làm sàn xử cho shop mọi lần, và không ai nên hứa điều đó. Cái nó làm được là đổi thế \"lời shop chọi lời khách\" thành \"đây là hình ảnh, mời xem\". Nhiều khi chỉ cần gửi video cho khách xem là chuyện dừng ở đó, không cần tới sàn."
+        },
+        {
+          "loai": "p",
+          "chu": "Video cũng bảo vệ cả khách mua đúng: nếu đúng là shop gửi thiếu, video nói thật điều đó. Máy quay không đứng về phe nào — nó chỉ ghi lại."
+        },
+        {
+          "loai": "p",
+          "chu": "Còn một kiểu mất tiền nặng hơn thiếu hàng: hàng trả về không phải hàng shop gửi đi. Chuyện đó cần quay cả lúc mở hàng hoàn — đọc tiếp ở bài [hàng hoàn](/bai-viet/hang-hoan/)."
+        }
+      ],
+      "hoi_dap": [
+        {
+          "hoi": "Video đóng gói có chắc chắn giúp shop thắng khiếu nại không?",
+          "dap": "Không có gì chắc chắn. Video là bằng chứng giúp shop có cái để trình bày thay vì chỉ có lời kể; kết quả cuối cùng vẫn do quy trình của từng sàn quyết định."
+        },
+        {
+          "hoi": "Video cần thấy những gì để làm bằng chứng?",
+          "dap": "Thấy mã vận đơn, thời điểm quay, từng món hàng và số lượng, và quay liền mạch từ lúc hàng còn nguyên tới lúc dán kín thùng."
+        },
+        {
+          "hoi": "Nên giữ video đóng gói bao lâu?",
+          "dap": "Sổ tay CoClipNha gợi ý 40 ngày — dài hơn hạn khiếu nại thường gặp và chừa dư cho khách nhắn muộn. Đơn đang tranh chấp thì chép video ra thư mục riêng."
+        }
+      ],
+      "nguon": [],
+      "so_chu": 625
+    },
+    {
+      "slug": "huong-dan-3-buoc",
+      "tit": "Hướng dẫn quay video đóng gói tự động bằng mã vận đơn — 3 bước",
+      "mo_ta": "Cách cài và dùng CoClipNha, phần mềm quay video đóng gói miễn phí cho Windows: chuẩn bị gì, thiết lập lần đầu trong 5 phút, rồi mỗi ngày chỉ ba việc.",
+      "tu_khoa": [
+        "phần mềm quay video đóng gói",
+        "phần mềm quay video đóng hàng",
+        "cách quay video đóng gói tự động",
+        "quay video đóng gói bằng mã vận đơn"
+      ],
+      "ngay_dang": "2026-09-29",
+      "ngay_sua": "2026-09-29",
+      "tom_tat": "Cài CoClipNha lên máy Windows, cắm một webcam có lấy nét tự động chĩa xuống bàn gói, thiết lập một lần khoảng 5 phút. Từ đó mỗi ngày chỉ ba việc: mở app, đưa mã vận đơn qua camera để máy tự quay, gói xong quét mã đơn kế tiếp để video tự lưu theo tên mã đơn.",
+      "than_bai": [
+        {
+          "loai": "p",
+          "chu": "Bài này dành cho người đứng gói, kể cả người không rành máy tính. Làm theo thứ tự từ trên xuống là chạy được."
+        },
+        {
+          "loai": "h2",
+          "chu": "Cần có gì trước"
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "**Máy tính Windows 10 hoặc 11.** Máy văn phòng cũ vẫn chạy được; máy yếu thì hạ mức nén trong Cài đặt.",
+            "**Webcam USB có lấy nét tự động.** Không dùng được camera điện thoại. Camera lấy nét cố định cho ra mã vận đơn mờ, máy đọc không ra.",
+            "**Giá đỡ** để camera nhìn thẳng xuống mặt bàn gói.",
+            "**Chỗ trống trên ổ cứng.** Video khá nhẹ — xem bài [video đóng gói tốn bao nhiêu dung lượng](/bai-viet/khong-ton-o-cung/)."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Không cần internet để quay, không cần tạo tài khoản."
+        },
+        {
+          "loai": "h2",
+          "chu": "Cài vào máy (khoảng 2 phút)"
+        },
+        {
+          "loai": "p",
+          "chu": "Vào [trang Tải về](/tai-ve/), bấm Tải về miễn phí, mở file vừa tải và bấm theo hướng dẫn trên màn hình. Nếu Windows hiện hộp thoại xanh báo \"không rõ nhà phát hành\", đó là vì phần mềm chưa mua chứng chỉ ký số — bấm \"Thông tin thêm\" (More info) rồi \"Vẫn chạy\" (Run anyway)."
+        },
+        {
+          "loai": "h2",
+          "chu": "Thiết lập lần đầu (làm một lần, khoảng 5 phút)"
+        },
+        {
+          "loai": "ol",
+          "muc": [
+            "**Mở app và chờ.** Lần đầu hơi lâu vì máy đang tự dò sức quay. Thanh trên cùng chuyển xanh lá là sẵn sàng.",
+            "**Chọn đúng camera** ở ô có hình máy quay dưới đáy màn hình — thấy đúng mặt bàn gói trong khung hình lớn là đúng. App nhớ camera theo cổng USB, nên cứ để dây cắm cố định một cổng.",
+            "**Gõ tên người gói** vào ô Nhân viên đóng gói rồi ấn Enter. Tên này nằm luôn trong tên video.",
+            "**Chọn nơi lưu video** bằng nút hình thư mục. Máy có ổ D rộng thì nên để ở ổ D.",
+            "**Bật tự động xoá video cũ** trong Cài đặt, điền 40 ngày, rồi bấm Lưu cài đặt. Lưu ý: video bị dọn là mất hẳn, không nằm trong Thùng rác.",
+            "**In hai mã QR điều khiển** ở trang [Tải mã QR](/tro-giup/tai-qr/) — một mã PAUSE để dừng và lưu, một mã START cho đơn không có mã vận đơn. In bằng giấy in nhiệt như in vận đơn là được."
+          ]
+        },
+        {
+          "loai": "h2",
+          "chu": "Mỗi ngày chỉ ba việc"
+        },
+        {
+          "loai": "ol",
+          "muc": [
+            "**Mở CoClipNha lên.** Camera đã cắm sẵn, app mở ra là camera chạy. Chờ thanh trên cùng xanh lá.",
+            "**Dán mã vận đơn lên thùng như mọi khi, đưa qua trước camera.** Nghe tiếng bíp, thanh trên cùng chuyển đỏ là đang quay. Cứ gói bình thường.",
+            "**Gói xong, quét mã đơn kế tiếp.** Video đơn vừa rồi tự lưu, đặt tên theo mã đơn. Hết ca, bấm Thoát — đừng tắt máy ngang khi thanh còn đỏ."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Nhớ màu là đủ: **xanh lá = đang chờ mã, đỏ = đang quay.**"
+        },
+        {
+          "loai": "h2",
+          "chu": "Mấy tình huống hay gặp"
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "**Đơn không có mã vận đơn** (khách mua tại chỗ, gửi xe khách): bấm nút Đơn Ngoài hoặc đưa mã START vào khung hình. Video tên Don Hang 001, 002…",
+            "**Gói xong mà chưa có đơn kế tiếp:** đưa mã PAUSE vào khung hình hoặc bấm nút Dừng đỏ. Video được lưu ngay.",
+            "**Quay hỏng, muốn quay lại đúng mã đó:** đưa lại mã cũ thì app kêu cảnh báo \"đã quay rồi\" để tránh trùng. Đưa mã ra khỏi camera 2 giây rồi quét lại lần nữa là quay.",
+            "**Máy báo \"Mã QR này có đường link web\":** camera đang chỉ thấy mã QR quảng cáo in trên tem vận đơn. Xê tờ vận đơn cho mã vận đơn vào giữa khung hình.",
+            "**Đưa mã mãi không nhận:** cầm mã cách camera 20–30 cm, giữ yên 1–2 giây, tránh đèn chiếu loá mặt giấy. Vừa quét xong một mã thì app nghỉ đọc vài giây để khỏi quét trùng."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Bản đầy đủ có ảnh chụp từng màn hình nằm ở trang [Hướng dẫn sử dụng](/tro-giup/huong-dan/), kèm sổ tay PDF in ra để ở bàn gói."
+        }
+      ],
+      "hoi_dap": [
+        {
+          "hoi": "CoClipNha chạy trên máy nào?",
+          "dap": "Máy tính Windows 10 hoặc 11. Máy có chip Intel từ đời 4 trở lên là quay tốt; máy AMD hoặc máy cũ hơn vẫn dùng được, chỉ cần hạ mức nén."
+        },
+        {
+          "hoi": "Có cần internet không?",
+          "dap": "Không. Quay và lưu video hoàn toàn không cần mạng."
+        },
+        {
+          "hoi": "Một máy chạy được mấy bàn gói?",
+          "dap": "Một máy chạy được nhiều bàn, mỗi bàn một camera riêng; app nhớ mỗi bàn cắm camera ở cổng USB nào."
+        }
+      ],
+      "nguon": [],
+      "so_chu": 671
+    },
+    {
+      "slug": "zin-zin-motor",
+      "tit": "Chuyện thật: shop phụ tùng xe máy dùng video đóng gói làm bằng chứng",
+      "mo_ta": "Hàng hoàn, tráo hàng, khách kêu thiếu — chuyện báo chí kể không hiếm. Và chuyện của ZIN ZIN MOTOR, đối tác thử nghiệm dùng CoClipNha trên bàn gói mỗi ngày.",
+      "tu_khoa": [
+        "shop online bị tráo hàng",
+        "người bán bị khiếu nại oan",
+        "hàng hoàn trả bị tráo",
+        "video đóng gói phụ tùng xe máy"
+      ],
+      "ngay_dang": "2026-09-29",
+      "ngay_sua": "2026-09-29",
+      "tom_tat": "Người bán online ở Việt Nam đang chịu tỷ lệ hàng hoàn cao, có cả hàng trả về đã bị dùng hay bị tráo — báo chí đã ghi lại nhiều lần. ZIN ZIN MOTOR, một shop phụ tùng xe máy, là đối tác thử nghiệm dùng CoClipNha hằng ngày từ những bản chạy thử đầu tiên và đã khiếu nại thành công nhiều lần nhờ video quay lúc gói hàng.",
+      "than_bai": [
+        {
+          "loai": "h2",
+          "chu": "Chuyện không của riêng shop nào"
+        },
+        {
+          "loai": "p",
+          "chu": "Ai bán online lâu đều có ít nhất một chuyện hàng hoàn để kể. Báo chí cũng đã kể nhiều lần."
+        },
+        {
+          "loai": "p",
+          "chu": "Tháng 7/2025, báo Thanh Niên đăng bài về làn sóng shop nhỏ rời sàn thương mại điện tử: chi phí tăng, lợi nhuận mỏng dần, và tỷ lệ hoàn hàng ở ngành thời trang được nêu vào khoảng 18–20%. Trong những lý do khiến người bán lỗ có cả hàng trả về đã qua sử dụng và trả hàng gian lận."
+        },
+        {
+          "loai": "p",
+          "chu": "Trước đó, tháng 6/2024, Kênh14 kể chuyện một shop quần áo: khách yêu cầu hoàn năm sản phẩm với lý do \"khác mô tả\", nhưng hàng trả về dính đầy vết bẩn lạ. Chủ shop phải tự chụp ảnh từng vết rồi làm việc với sàn."
+        },
+        {
+          "loai": "p",
+          "chu": "Điểm chung của những chuyện này: tới lúc cần, người bán phải chứng minh hàng mình gửi đi ra sao — mà nhiều khi trong tay không có gì ngoài trí nhớ."
+        },
+        {
+          "loai": "h2",
+          "chu": "ZIN ZIN MOTOR là ai"
+        },
+        {
+          "loai": "p",
+          "chu": "ZIN ZIN MOTOR là shop phụ tùng xe máy, và là **đối tác thử nghiệm** của CoClipNha — đồng hành từ những bản chạy thử đầu tiên. Nói rõ để người đọc tự cân: đây là shop cùng làm với đội ngũ CoClipNha để thử phần mềm, không phải một đánh giá độc lập."
+        },
+        {
+          "loai": "p",
+          "chu": "Phụ tùng thường là những món nhỏ, nhiều món na ná nhau, một đơn có khi vài chục chi tiết — đúng kiểu hàng dễ bị kêu \"thiếu một con\", \"sai một mã\". Với kiểu hàng này, lời \"shop nhớ là bỏ đủ rồi\" gần như không có sức nặng."
+        },
+        {
+          "loai": "h2",
+          "chu": "Một ngày ở bàn gói"
+        },
+        {
+          "loai": "p",
+          "chu": "Ở ZIN ZIN MOTOR, CoClipNha chạy hằng ngày trên bàn đóng gói, theo đúng cách mọi shop khác dùng: camera chĩa xuống mặt bàn, mở app lên là camera chạy. Mỗi đơn, người gói đưa mã vận đơn qua camera là máy tự quay; gói xong quét mã đơn kế tiếp là video đơn cũ tự lưu, tên chính là mã vận đơn. Không ai phải nhớ bấm quay."
+        },
+        {
+          "loai": "p",
+          "chu": "Khi có khiếu nại, shop tìm video theo mã đơn, mở ra là thấy mã và giờ in trên hình. Theo ghi nhận của đối tác, shop **đã khiếu nại thành công nhiều lần** nhờ video quay lúc gói hàng. Tụi mình không đưa ra con số cụ thể vì chưa có số đếm đủ chắc để công bố — thà không có số còn hơn một con số bịa."
+        },
+        {
+          "loai": "h2",
+          "chu": "Nơi mọi tính năng bị \"thử lửa\" trước"
+        },
+        {
+          "loai": "p",
+          "chu": "Bàn gói thật không giống máy của người viết phần mềm. Ở đó có đèn chiếu loá, tem vận đơn nhăn, camera bị đụng dây, ca đông đơn dồn dập. Mọi tính năng của CoClipNha đều được thử ở bàn gói thật trước khi tới tay shop khác. Những bản cập nhật gần đây — bỏ qua mã QR quảng cáo in thêm trên tem vận đơn, tự nối lại khi camera mất tín hiệu giữa chừng, nhớ camera theo cổng USB cho máy chạy hai bàn — đều đi qua vòng chạy thử đó."
+        },
+        {
+          "loai": "p",
+          "chu": "Cách làm là chạy sai chỗ nào sửa chỗ đó, chứ không đoán trong phòng."
+        },
+        {
+          "loai": "h2",
+          "chu": "Shop khác học được gì"
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "**Quay đều, không chọn đơn.** Đơn bị khiếu nại thường là đơn không ai ngờ. Để máy tự quay theo mã vận đơn thì không phải chọn.",
+            "**Quay cả chiều về.** Hàng hoàn về, quét lại chính mã vận đơn đó rồi mở thùng trước camera — có hai video của cùng một đơn để đặt cạnh nhau. Chi tiết ở bài [hàng hoàn](/bai-viet/hang-hoan/).",
+            "**Tìm được trong vài giây.** Video đặt tên theo mã vận đơn thì lúc khách nhắn là trả lời được ngay."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Shop muốn thử cách làm này thì [tải CoClipNha miễn phí](/tai-ve/). Nếu shop đã dùng và muốn kể chuyện của mình, [nhắn cho tụi mình](/tro-giup/gop-y/) — tụi mình chỉ đăng lời thật, có sự đồng ý của shop."
+        }
+      ],
+      "hoi_dap": [
+        {
+          "hoi": "ZIN ZIN MOTOR có liên quan gì tới CoClipNha?",
+          "dap": "ZIN ZIN MOTOR là đối tác thử nghiệm — shop đầu tiên dùng CoClipNha thật mỗi ngày, nơi các tính năng được chạy thử trước khi phát hành."
+        },
+        {
+          "hoi": "Tỷ lệ hoàn hàng của người bán online ở Việt Nam có cao không?",
+          "dap": "Theo báo Thanh Niên (tháng 7/2025), tỷ lệ hoàn hàng ở ngành thời trang trên sàn thương mại điện tử vào khoảng 18–20%, và hàng trả về đã qua sử dụng là một trong những nguyên nhân khiến người bán lỗ."
+        }
+      ],
+      "nguon": [
+        {
+          "ten": "Vì sao hàng loạt shop trên sàn điện tử dừng kinh doanh? — Báo Thanh Niên, 28/07/2025",
+          "url": "https://thanhnien.vn/vi-sao-hang-loat-shop-tren-san-dien-tu-dung-kinh-doanh-185250727211913663.htm"
+        },
+        {
+          "ten": "Màn hoàn hàng khiến người bán \"khóc thét\"… — Kênh14, 29/06/2024",
+          "url": "https://kenh14.vn/man-hoan-hang-khien-nguoi-ban-khoc-thet-khach-keu-quan-ao-khac-mo-ta-nhung-tra-do-toan-dau-vet-la-20240629004822463.chn"
+        }
+      ],
+      "so_chu": 670
+    },
+    {
+      "slug": "mien-phi-va-ung-ho",
+      "tit": "Phần mềm quay video đóng gói miễn phí: miễn phí thật đến đâu?",
+      "mo_ta": "CoClipNha miễn phí không giới hạn ngày, không khoá tính năng, không cần tài khoản. Vì sao làm vậy, shop thật sự phải bỏ tiền vào đâu, và tiền ủng hộ đi về đâu.",
+      "tu_khoa": [
+        "phần mềm quay video đóng gói miễn phí",
+        "phần mềm quay video đóng hàng miễn phí",
+        "CoClipNha có mất phí không"
+      ],
+      "ngay_dang": "2026-09-29",
+      "ngay_sua": "2026-09-29",
+      "tom_tat": "CoClipNha miễn phí thật: không giới hạn ngày dùng, không khoá tính năng, không tài khoản, không quảng cáo, không phí lưu trữ hằng tháng vì video nằm trên ổ cứng máy shop. Thứ duy nhất shop bỏ tiền là cái webcam. Ai thấy có ích thì ủng hộ tuỳ tâm; không ủng hộ vẫn dùng đủ.",
+      "than_bai": [
+        {
+          "loai": "p",
+          "chu": "Nghe \"miễn phí\" thì shop nào cũng nghi, và nghi là đúng. Nhiều thứ miễn phí trên mạng hoặc chỉ cho dùng thử vài ngày, hoặc khoá mất tính năng cần nhất, hoặc lấy tiền bằng đường khác. Bài này nói thẳng CoClipNha miễn phí tới đâu, để shop tự kiểm."
+        },
+        {
+          "loai": "h2",
+          "chu": "Miễn phí tới đâu"
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "**Không giới hạn ngày dùng.** Không có bản dùng thử hết hạn.",
+            "**Không khoá tính năng.** Tự quay theo mã vận đơn, mã và giờ in trên hình, quay hàng hoàn, nhiều bàn gói, tự dọn video cũ — dùng đủ hết.",
+            "**Không cần tài khoản.** Tải về, cài, dùng. Không đăng ký, không đăng nhập.",
+            "**Không quảng cáo** trong phần mềm.",
+            "**Không phí lưu trữ.** Video nằm trên ổ cứng máy shop, không có gói đám mây nào để trả hằng tháng."
+          ]
+        },
+        {
+          "loai": "h2",
+          "chu": "Vì sao miễn phí"
+        },
+        {
+          "loai": "p",
+          "chu": "Lời của đội ngũ, giữ nguyên: CoClipNha sinh ra để đồng hành cùng tiểu thương và startup Việt. Phần mềm hoàn toàn miễn phí — không chỉ để shop gác lại gánh nặng chi phí, mà còn là cách đội ngũ CoClipNha chung tay hỗ trợ các hộ kinh doanh và startup Việt xây dựng quy trình minh bạch, bảo vệ hoạt động kinh doanh và vững bước phát triển."
+        },
+        {
+          "loai": "p",
+          "chu": "Nói gọn hơn: shop nhỏ là bên dễ mất tiền oan nhất vì khiếu nại, cũng là bên ít dư tiền nhất để mua phần mềm. Thu tiền thì đúng những shop cần nhất lại không dùng."
+        },
+        {
+          "loai": "h2",
+          "chu": "Miễn phí nhưng không lấy gì của shop"
+        },
+        {
+          "loai": "p",
+          "chu": "Câu hỏi hợp lý tiếp theo: \"Không thu tiền thì kiếm tiền từ dữ liệu à?\" Không."
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "**Video không rời khỏi máy của shop.** Phần mềm không tải video lên mạng. CoClipNha không nhận được video của shop, kể cả khi muốn.",
+            "**Không bán dữ liệu, không quảng cáo.**",
+            "**Quay không cần internet.** Mất mạng vẫn quay bình thường."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Tụi mình không viết \"bảo mật tuyệt đối\", vì máy hỏng, máy mất, hay người trong shop chép video ra là chuyện phần mềm không kiểm soát được. Điều nói được và kiểm chứng được là: video nằm ở máy shop, không đi đâu cả."
+        },
+        {
+          "loai": "h2",
+          "chu": "Shop thật sự phải bỏ tiền vào đâu"
+        },
+        {
+          "loai": "p",
+          "chu": "Chỉ một thứ: **cái webcam**. Webcam phải có lấy nét tự động để đọc rõ mã vận đơn. Một cái webcam vài trăm nghìn — thường rẻ hơn một đơn bị tráo. Máy tính và ổ cứng thì dùng cái shop đang có."
+        },
+        {
+          "loai": "p",
+          "chu": "Có một chuyện nhỏ nên biết trước: vì chưa mua chứng chỉ ký số (thứ đó tốn vài triệu mỗi năm), Windows sẽ hiện cảnh báo lúc cài. Bấm \"Thông tin thêm\" rồi \"Vẫn chạy\" là xong."
+        },
+        {
+          "loai": "h2",
+          "chu": "Tiền ủng hộ đi về đâu"
+        },
+        {
+          "loai": "p",
+          "chu": "CoClipNha do đội ngũ CoClipNha làm ra và tự bỏ tiền túi nuôi — không có nhà đầu tư, không bán dữ liệu, không quảng cáo. Đóng góp của shop đi thẳng vào các chi phí giữ phần mềm sống: tên miền, chứng chỉ ký số để Windows hết cảnh báo khi cài, và thời gian làm thêm tính năng theo góp ý của chính shop."
+        },
+        {
+          "loai": "h2",
+          "chu": "Ba cách ủng hộ — cách nào cũng quý"
+        },
+        {
+          "loai": "ol",
+          "muc": [
+            "**Chuyển khoản** bằng mã VietQR ở [trang Ủng hộ](/ung-ho/) — bao nhiêu cũng quý.",
+            "**Mua camera qua link gợi ý** ở trang [Thiết bị đề xuất](/thiet-bi/). Link có ghi rõ nhãn \"Link tài trợ\": CoClipNha nhận hoa hồng từ nơi bán, giá shop trả không đổi một đồng.",
+            "**Kể cho shop khác nghe.** Không tốn gì, mà là cách giúp nhiều nhất."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Không ủng hộ vẫn dùng đủ, không bị nhắc, không bị khoá. [Tải CoClipNha về](/tai-ve/)."
+        }
+      ],
+      "hoi_dap": [
+        {
+          "hoi": "CoClipNha có mất phí không?",
+          "dap": "Không. Miễn phí, không giới hạn ngày dùng, không khoá tính năng, không cần tài khoản. Ai thấy có ích thì ủng hộ tuỳ tâm."
+        },
+        {
+          "hoi": "Video của shop có bị gửi lên mạng không?",
+          "dap": "Không. Video nằm trên ổ cứng máy shop; phần mềm không tải video lên mạng và không có tài khoản đăng nhập."
+        },
+        {
+          "hoi": "Sao Windows cảnh báo khi cài CoClipNha?",
+          "dap": "Vì phần mềm chưa mua chứng chỉ ký số. Bấm \"Thông tin thêm\" rồi \"Vẫn chạy\" là cài được."
+        }
+      ],
+      "nguon": [],
+      "so_chu": 610
+    },
+    {
+      "slug": "khong-ton-o-cung",
+      "tit": "Lưu video đóng gói hàng tốn bao nhiêu dung lượng ổ cứng?",
+      "mo_ta": "Một video đóng gói 5 phút khoảng 10 MB; gói 100 đơn mỗi ngày thì một tháng khoảng 30 GB. Cách tính cho shop mình, nên giữ video bao lâu, và vì sao không cần trả phí đám mây.",
+      "tu_khoa": [
+        "dung lượng video đóng gói",
+        "lưu video đóng gói bao lâu",
+        "lưu trữ video đóng hàng",
+        "video đóng gói tốn bao nhiêu GB"
+      ],
+      "ngay_dang": "2026-09-29",
+      "ngay_sua": "2026-09-29",
+      "tom_tat": "Với CoClipNha, một video đóng gói 5 phút chiếm khoảng 10 MB (số công bố làm tròn lên, đo thật nhẹ hơn). Gói 100 đơn mỗi ngày thì khoảng 1 GB mỗi ngày, 30 GB mỗi tháng — ổ cứng sẵn có trong máy là đủ, không cần trả phí đám mây. Đặt giữ video khoảng 40 ngày thì máy tự dọn video quá hạn, ổ không đầy.",
+      "than_bai": [
+        {
+          "loai": "p",
+          "chu": "Nhiều shop ngại quay video đóng gói vì nghĩ \"quay cả ngày thì đầy ổ, phải mua thêm ổ, hoặc phải thuê lưu trữ đám mây\". Thực tế nhẹ hơn nhiều người nghĩ. Bài này đưa con số, cách tự tính, và cách để khỏi phải nghĩ tới chuyện dọn ổ."
+        },
+        {
+          "loai": "h2",
+          "chu": "Con số: một video 5 phút khoảng 10 MB"
+        },
+        {
+          "loai": "p",
+          "chu": "Tụi mình đo trên video quay thật ở bàn gói: khoảng 1,3 MB cho mỗi phút quay. Nhưng trên web tụi mình **công bố số dè hơn thực tế** — làm tròn lên 10 MB cho một video 5 phút — để shop đo lại trên máy mình chỉ có thấy nhẹ hơn, không bao giờ thấy nặng hơn."
+        },
+        {
+          "loai": "p",
+          "chu": "10 MB là cỡ 2–3 tấm ảnh chụp bằng điện thoại đời mới."
+        },
+        {
+          "loai": "p",
+          "chu": "Video nặng hay nhẹ còn tuỳ cảnh quay và mức nén shop chọn. CoClipNha có năm mức nén: kéo sang trái thì video nhẹ hơn, kéo sang phải thì nét hơn nhưng nặng hơn. Sổ tay gợi ý để mức 3 — mức cân bằng giữa nét và nhẹ."
+        },
+        {
+          "loai": "h2",
+          "chu": "Tự tính cho shop mình"
+        },
+        {
+          "loai": "p",
+          "chu": "Công thức: **số đơn mỗi ngày × 10 MB × số ngày giữ video**, tính với mỗi đơn quay khoảng 5 phút."
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "Gói **30 đơn** mỗi ngày: khoảng 300 MB mỗi ngày, khoảng 9 GB mỗi tháng.",
+            "Gói **100 đơn** mỗi ngày: khoảng 1 GB mỗi ngày, khoảng 30 GB mỗi tháng.",
+            "Gói **300 đơn** mỗi ngày: khoảng 3 GB mỗi ngày, khoảng 90 GB mỗi tháng."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Trong app, ô \"Ổ lưu video\" ở cột phải tự tính còn trống bao nhiêu và còn quay được khoảng bao nhiêu giờ — không phải tự đếm."
+        },
+        {
+          "loai": "h2",
+          "chu": "Nên giữ video bao lâu"
+        },
+        {
+          "loai": "p",
+          "chu": "Video chỉ cần giữ tới khi hết khả năng bị khiếu nại. Sổ tay CoClipNha gợi ý **40 ngày**: dài hơn hạn khiếu nại thường gặp của các sàn, lại chừa dư cho khách nhắn muộn. Shop hay bị khiếu nại muộn thì để 60 ngày; ổ cứng chật thì hạ xuống 30, đừng thấp hơn. Hạn khiếu nại cụ thể thì shop xem đúng quy định của sàn mình đang bán."
+        },
+        {
+          "loai": "p",
+          "chu": "Ví dụ: 100 đơn mỗi ngày, giữ 40 ngày, cần khoảng 40 GB — ổ cứng của phần lớn máy tính văn phòng dư sức."
+        },
+        {
+          "loai": "p",
+          "chu": "Tụi mình không nói \"ổ cứng chứa được cả năm\": 30 GB mỗi tháng nhân 12 là 360 GB, nhiều máy không đủ. Cách đúng là giữ vừa đủ ngày, rồi để máy tự dọn."
+        },
+        {
+          "loai": "h2",
+          "chu": "Máy tự dọn, không ai phải canh"
+        },
+        {
+          "loai": "p",
+          "chu": "Trong Cài đặt, bật \"Tự động xoá video cũ\", điền số ngày muốn giữ, bấm Lưu. Từ đó mỗi lần mở app, máy tự xoá video cũ hơn mốc đó. Không ai phải nhớ, không ai phải ngồi lọc thư mục xoá tay, không sợ một hôm ổ đầy giữa ca."
+        },
+        {
+          "loai": "p",
+          "chu": "Hai điều cần biết cho chắc:"
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "**Xoá là mất hẳn**, không nằm trong Thùng rác. Đơn nào đang tranh chấp hay đơn giá trị lớn thì chép video đó sang thư mục riêng — máy chỉ dọn trong các thư mục ngày do nó tự tạo, video chép ra ngoài không bao giờ bị đụng tới.",
+            "Ổ sắp đầy thì app **báo trước nhưng vẫn cho quay** — không bao giờ chặn shop giữa ca."
+          ]
+        },
+        {
+          "loai": "h2",
+          "chu": "Không cần trả phí đám mây"
+        },
+        {
+          "loai": "p",
+          "chu": "Video lưu thẳng vào ổ cứng máy shop. Không có gói lưu trữ nào để mua, không có phí hằng tháng nào để trả, và không cần internet để quay. Nếu muốn có bản sao phòng máy hỏng, shop có thể chép định kỳ sang một ổ cứng rời — việc đó tuỳ shop, phần mềm không bắt buộc."
+        },
+        {
+          "loai": "h2",
+          "chu": "Máy có bị nặng không"
+        },
+        {
+          "loai": "p",
+          "chu": "Phần mềm nén video bằng card màn hình có sẵn trong máy nếu có, nên máy văn phòng cũ vẫn quay mượt. Máy Windows 10/11 với chip Intel từ đời 4 trở lên là quay tốt; máy yếu hơn thì hạ mức nén. Cứ chọn mức nào máy quay mượt, không giật là đúng mức của máy đó."
+        }
+      ],
+      "hoi_dap": [
+        {
+          "hoi": "Một video đóng gói chiếm bao nhiêu dung lượng?",
+          "dap": "Khoảng 10 MB cho video 5 phút (số công bố làm tròn lên; đo thật khoảng 1,3 MB mỗi phút). Nặng nhẹ còn tuỳ cảnh quay và mức nén."
+        },
+        {
+          "hoi": "Gói 100 đơn mỗi ngày thì một tháng cần bao nhiêu GB?",
+          "dap": "Khoảng 30 GB mỗi tháng. Nếu chỉ giữ video 40 ngày thì cần khoảng 40 GB, máy tự xoá video quá hạn."
+        },
+        {
+          "hoi": "Có phải trả phí lưu trữ đám mây không?",
+          "dap": "Không. Video nằm trên ổ cứng máy shop, không có gói cước nào để trả."
+        }
+      ],
+      "nguon": [],
+      "so_chu": 672
+    },
+    {
+      "slug": "tim-video-5-giay",
+      "tit": "Khách khiếu nại: cách tìm lại đúng video đóng gói trong 5 giây",
+      "mo_ta": "Video đặt tên theo mã vận đơn thì tìm lại chỉ cần chép mã khách gửi và dán vào ô tìm kiếm. Bốn bước cụ thể, cách đọc tên video, và làm gì khi tìm không ra.",
+      "tu_khoa": [
+        "tìm lại video đóng gói",
+        "tìm video đơn hàng khiếu nại",
+        "đặt tên video theo mã vận đơn",
+        "tìm video theo mã vận đơn"
+      ],
+      "ngay_dang": "2026-09-29",
+      "ngay_sua": "2026-09-29",
+      "tom_tat": "Với CoClipNha, mỗi video đóng gói được đặt tên bằng chính mã vận đơn. Khi khách khiếu nại, shop chép mã vận đơn trong tin nhắn, mở thư mục video, dán mã vào ô tìm kiếm của Windows — video đúng đơn hiện ra, không cần nhớ hôm đó ngày mấy.",
+      "than_bai": [
+        {
+          "loai": "p",
+          "chu": "Khách nhắn khiếu nại lúc shop đang bận nhất. Lúc đó, thời gian tìm ra video là thời gian khách phải chờ — và chờ càng lâu thì khách càng bực, càng dễ đánh giá xấu hoặc mở khiếu nại lên sàn. Quay được video mới là một nửa; nửa còn lại là **tìm ra nó thật nhanh**."
+        },
+        {
+          "loai": "h2",
+          "chu": "Vì sao tìm video thường mất cả buổi"
+        },
+        {
+          "loai": "p",
+          "chu": "Video quay bằng điện thoại hay camera thường được đặt tên theo giờ máy tự sinh, kiểu VID_20260712_143022. Muốn tìm đơn của khách, shop phải nhớ đơn đó gửi ngày nào, lọc ra cả chục video trong ngày, rồi mở từng cái xem mã trên thùng. Đơn gửi từ ba tuần trước thì gần như bó tay."
+        },
+        {
+          "loai": "h2",
+          "chu": "Tên video chính là mã vận đơn"
+        },
+        {
+          "loai": "p",
+          "chu": "CoClipNha đặt tên mỗi video bằng ba phần nối bằng dấu gạch dưới, ví dụ:"
+        },
+        {
+          "loai": "p",
+          "chu": "`861879430644_2026-07-24_15-39-06_TenNhanVien.mp4`"
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "**Phần đầu** là mã vận đơn (đơn không có mã thì là Don Hang 001, 002…).",
+            "**Phần giữa** là ngày và giờ bắt đầu quay.",
+            "**Phần cuối** là tên người gói."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Vì tên video chứa mã vận đơn, ô tìm kiếm có sẵn của Windows làm được hết phần việc còn lại."
+        },
+        {
+          "loai": "h2",
+          "chu": "Bốn bước tìm lại video"
+        },
+        {
+          "loai": "ol",
+          "muc": [
+            "**Chép mã vận đơn khách gửi.** Trong tin nhắn khách gửi, bôi đen mã vận đơn của đơn đang khiếu nại rồi nhấn `Ctrl + C`.",
+            "**Mở thư mục lưu video.** Không nhớ đang lưu ở đâu thì bấm nút hình thư mục ở góc dưới bên phải app — cửa sổ mở ra ngay tại thư mục đang lưu.",
+            "**Dán mã vào ô tìm kiếm.** Bấm vào ô tìm kiếm ở góc trên bên phải cửa sổ thư mục, nhấn `Ctrl + V` rồi `Enter`.",
+            "**Video của đúng đơn đó hiện ra.** Mở lên là thấy mã đơn và giờ in sẵn trên hình — gửi thẳng cho khách hoặc cho sàn."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Video xếp theo thư mục từng ngày, nhưng ô tìm kiếm lục cả các thư mục con — cứ dán mã đơn vào là ra, **không cần nhớ hôm đó là ngày mấy**."
+        },
+        {
+          "loai": "h2",
+          "chu": "Đơn hàng hoàn: hai video cùng một mã"
+        },
+        {
+          "loai": "p",
+          "chu": "Nếu shop quay cả lúc mở hàng hoàn (quét lại chính mã vận đơn đó rồi mở thùng trước camera), tìm theo mã sẽ ra **hai video**: một lúc gửi đi, một lúc nhận về. Phần giờ trong tên cho biết cái nào trước cái nào. Đặt hai video cạnh nhau là thấy ngay bên trong đã đổi hay chưa — xem thêm bài [hàng hoàn](/bai-viet/hang-hoan/)."
+        },
+        {
+          "loai": "h2",
+          "chu": "Tìm không ra thì kiểm mấy chỗ này"
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "**Mã có đúng không.** Chép thiếu một số hay dính thêm khoảng trắng là tìm không ra. Thử dán một đoạn cuối của mã thôi.",
+            "**Đúng thư mục chưa.** Máy có nhiều ổ, hoặc từng đổi nơi lưu, thì tìm ở cả thư mục cũ.",
+            "**Video đã quá hạn giữ chưa.** Nếu đã bật tự động xoá video cũ, video cũ hơn số ngày đã đặt đã bị dọn và không lấy lại được.",
+            "**Đơn quay bằng Đơn Ngoài.** Video tên Don Hang kèm số thứ tự — tìm theo ngày giờ trong tên thay vì theo mã."
+          ]
+        },
+        {
+          "loai": "h2",
+          "chu": "Trước khi gửi video đi"
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "Xem hết video một lượt. Nếu đúng là shop sót, nhận sớm còn hơn.",
+            "Ghi kèm vài dòng: mã đơn, giờ quay, mốc giây thấy món hàng đang bị hỏi.",
+            "Đơn đang tranh chấp thì chép video sang một thư mục riêng, để chế độ tự dọn không xoá mất giữa chừng."
+          ]
+        }
+      ],
+      "hoi_dap": [
+        {
+          "hoi": "Làm sao tìm lại video đóng gói của một đơn hàng?",
+          "dap": "Chép mã vận đơn trong tin nhắn khách, mở thư mục lưu video, dán mã vào ô tìm kiếm của Windows rồi Enter. Vì CoClipNha đặt tên video theo mã vận đơn nên video đúng đơn hiện ra ngay."
+        },
+        {
+          "hoi": "Có cần nhớ ngày gửi hàng không?",
+          "dap": "Không. Ô tìm kiếm lục cả các thư mục ngày bên trong, chỉ cần dán mã đơn."
+        },
+        {
+          "hoi": "Tên video gồm những gì?",
+          "dap": "Mã vận đơn, ngày giờ bắt đầu quay và tên người gói, nối bằng dấu gạch dưới."
+        }
+      ],
+      "nguon": [],
+      "so_chu": 591
     }
   ]
 }

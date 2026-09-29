@@ -15,9 +15,16 @@ interface Props {
    * chính cờ đó cũng quyết định trang có vào sitemap hay không).
    */
   khongIndex?: boolean;
+  /** "article" cho bài viết — Facebook/Zalo và máy tìm kiếm hiểu đây là bài, không phải trang giới thiệu. */
+  loaiOg?: "website" | "article";
 }
 
-const { tieuDe, moTaMeta, khongIndex = false } = Astro.props;
+const {
+  tieuDe,
+  moTaMeta,
+  khongIndex = false,
+  loaiOg = "website",
+} = Astro.props;
 
 // Địa chỉ chuẩn của trang (canonical) + thẻ chia sẻ mạng xã hội (OpenGraph).
 // Kênh chính của dự án là Facebook: không có mấy thẻ này thì dán link lên
@@ -49,7 +56,7 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     {khongIndex && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={diaChiTrang} />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={loaiOg} />
     <meta property="og:site_name" content="CoClipNha" />
     <meta property="og:locale" content="vi_VN" />
     <meta property="og:title" content={tieuDe} />

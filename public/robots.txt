@@ -12,4 +12,22 @@
 User-agent: *
 Allow: /
 
+# Trợ lý AI (ChatGPT, Claude, Perplexity, Gemini, Apple…): CHỦ ĐỘNG cho phép.
+# Dòng `User-agent: *` phía trên đã cho phép rồi — liệt kê tên từng bot ở
+# đây để ghi rõ ý định: web muốn được trợ lý AI đọc và trích dẫn khi shop
+# hỏi "phần mềm quay video đóng gói nào miễn phí". Đừng chặn các bot này
+# nếu không có lý do — chặn là CoClipNha biến mất khỏi câu trả lời của AI.
+# Bản tóm tắt dành riêng cho trợ lý AI: https://coclipnha.com/llms.txt
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+Allow: /
+
+
 Sitemap: https://coclipnha.com/sitemap-index.xml

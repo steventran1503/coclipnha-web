@@ -1,20 +1,26 @@
 ---
-// T045/US6 — khung chờ nội dung cho 7 đề tài chưa viết đầy đủ (DE_TAI_BAI_VIET
-// trong src/lib/baiViet.ts, daXong=false). Một route động thay vì 7 file
-// riêng — tránh lặp layout 7 lần (Nguyên tắc V), mỗi trang vẫn build tĩnh
-// riêng theo slug (getStaticPaths, output mặc định của Astro là tĩnh).
+// Một route động cho 7 đề tài trong DE_TAI_BAI_VIET (src/lib/baiViet.ts) —
+// trừ `hang-hoan` có file riêng. Tránh lặp layout 7 lần (Nguyên tắc V), mỗi
+// trang vẫn build tĩnh riêng theo slug.
 //
-// KHÔNG bịa ngày đăng cụ thể: chưa có ngày nào chủ dự án chốt (tasks.md T045
-// chỉ nói "ghi ngày dự kiến hoàn thiện" nhưng không kèm ngày thật nào) — theo
-// đúng luật "web thà không có con số nào còn hơn có một con số bịa" (BC-02,
-// kho-thong-diep.md), nói thẳng "chưa có ngày cụ thể" thay vì đặt đại một mốc.
+// daXong=true  → bài đầy đủ, chữ lấy từ collection "bai-viet" (mục 11
+//                kho-thong-diep.md). Có JSON-LD BlogPosting + FAQPage +
+//                BreadcrumbList để Google và trợ lý AI đọc đúng cấu trúc bài.
+// daXong=false → khung chờ noindex như cũ (29/09/2026: cả 7 bài đã viết,
+//                nhánh này giữ lại cho đề tài mới sau này).
+//
+// KHÔNG bịa ngày đăng: ngày lấy thẳng từ nhãn "Ngày đăng" trong kho thông
+// điệp; bài chưa viết thì nói thẳng "chưa có ngày cụ thể".
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ChuBaiViet from "../../components/ChuBaiViet.astro";
+import { getCollection, getEntry } from "astro:content";
 import { layKhoi } from "../../lib/khoiNoiDung";
 import { duongDan } from "../../lib/duongDan";
 import { DE_TAI_BAI_VIET } from "../../lib/baiViet";
 
 export async function getStaticPaths() {
-  return DE_TAI_BAI_VIET.filter((t) => !t.daXong).map((t) => ({
+  // hang-hoan.astro là file tĩnh riêng — route động bỏ qua để khỏi trùng đường.
+  return DE_TAI_BAI_VIET.filter((t) => t.slug !== "hang-hoan").map((t) => ({
     params: { slug: t.slug },
     props: { deTai: t },
   }));
@@ -23,50 +29,304 @@ export async function getStaticPaths() {
 const { deTai } = Astro.props;
 const chinh = await layKhoi(deTai.maChinh);
 const phu = deTai.maPhu ? await layKhoi(deTai.maPhu) : null;
+const bai = deTai.daXong ? await getEntry("bai-viet", deTai.slug) : null;
+if (deTai.daXong && !bai) {
+  throw new Error(
+    `Đề tài "${deTai.slug}" đánh dấu daXong nhưng chưa có bài trong mục 11 kho-thong-diep.md — chạy lại xuat_kho_noi_dung.py rồi chép JSON sang.`,
+  );
+}
+const kg01 = await layKhoi("KG-01");
+
+const ngayVN = (iso: string) => iso.split("-").reverse().join("/");
+// Tiếng Việt đếm theo tiếng (âm tiết); người đọc thường đi ~220 tiếng/phút.
+const phutDoc = bai ? Math.max(1, Math.ceil(bai.data.so_chu / 220)) : 0;
+
+// hang-hoan không nằm trong collection (file riêng) — tra danh sách thay vì
+// getEntry để khỏi cảnh báo "Entry not found" lúc build.
+const tatCaBai = await getCollection("bai-viet");
+// Bài liên quan: 2 bài đã xong kế tiếp trong danh sách (vòng lại đầu).
+const viTri = DE_TAI_BAI_VIET.findIndex((t) => t.slug === deTai.slug);
+const lienQuan = await Promise.all(
+  DE_TAI_BAI_VIET.map(
+    (_, i) => DE_TAI_BAI_VIET[(viTri + i + 1) % DE_TAI_BAI_VIET.length],
+  )
+    .filter((t) => t.daXong && t.slug !== deTai.slug)
+    .slice(0, 2)
+    .map(async (t) => {
+      const b = tatCaBai.find((x) => x.id === t.slug);
+      return {
+        slug: t.slug,
+        tit: b ? b.data.tit : (await layKhoi(t.maChinh)).data.cau_chot,
+      };
+    }),
+);
+
+// Dữ liệu có cấu trúc cần chữ thuần — bỏ dấu markdown kẻo bẩn kết quả tìm kiếm.
+const chuThuan = (s: string) =>
+  s
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/`([^`]+)`/g, "$1");
+
+const diaChi = new URL(Astro.url.pathname, Astro.site).href;
+const goc = new URL("/", Astro.site).href;
+const toChuc = { "@type": "Organization", name: "CoClipNha", url: goc };
+const jsonLd = bai
+  ? [
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: bai.data.tit,
+        description: bai.data.mo_ta,
+        abstract: bai.data.tom_tat,
+        keywords: bai.data.tu_khoa.join(", "),
+        datePublished: bai.data.ngay_dang,
+        dateModified: bai.data.ngay_sua,
+        inLanguage: "vi-VN",
+        wordCount: bai.data.so_chu,
+        mainEntityOfPage: diaChi,
+        url: diaChi,
+        author: { ...toChuc, name: "Đội ngũ CoClipNha" },
+        publisher: toChuc,
+        about: {
+          "@type": "SoftwareApplication",
+          name: "CoClipNha",
+          operatingSystem: "Windows 10, Windows 11",
+          applicationCategory: "BusinessApplication",
+          offers: { "@type": "Offer", price: "0", priceCurrency: "VND" },
+        },
+        ...(bai.data.nguon.length > 0 && {
+          citation: bai.data.nguon.map((n) => ({
+            "@type": "CreativeWork",
+            name: n.ten,
+            url: n.url,
+          })),
+        }),
+      },
+      ...(bai.data.hoi_dap.length > 0
+        ? [
+            {
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: bai.data.hoi_dap.map((h) => ({
+                "@type": "Question",
+                name: chuThuan(h.hoi),
+                acceptedAnswer: { "@type": "Answer", text: chuThuan(h.dap) },
+              })),
+            },
+          ]
+        : []),
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Trang chủ", item: goc },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Bài viết",
+            item: new URL("/bai-viet/", Astro.site).href,
+          },
+          { "@type": "ListItem", position: 3, name: bai.data.tit, item: diaChi },
+        ],
+      },
+    ]
+  : null;
+// Chặn chuỗi "</script>" lọt vào khối JSON-LD.
+const jsonLdChu = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : "";
 ---
 
-<BaseLayout
-  tieuDe={`${chinh.data.cau_chot} — CoClipNha`}
-  moTaMeta={`${chinh.data.cau_chot} — bài viết đang được soạn, sẽ đăng đầy đủ tại đây.`}
-  khongIndex={true}
->
-  <main class="khoi khoi--hep">
-    <p class="lan-ve">
-      <a href={duongDan("bai-viet/")}>← Bài viết</a>
-    </p>
-    <span class="nhan-log">đang soạn</span>
-    <h1>{chinh.data.cau_chot}</h1>
+{
+  bai ? (
+    <BaseLayout
+      tieuDe={`${bai.data.tit} — CoClipNha`}
+      moTaMeta={bai.data.mo_ta}
+      loaiOg="article"
+    >
+      <script
+        slot="head"
+        type="application/ld+json"
+        is:inline
+        set:html={jsonLdChu}
+      />
+      <meta
+        slot="head"
+        property="article:published_time"
+        content={bai.data.ngay_dang}
+      />
+      <meta
+        slot="head"
+        property="article:modified_time"
+        content={bai.data.ngay_sua}
+      />
+      <main class="khoi khoi--hep">
+        <nav class="lan-ve" aria-label="Đường dẫn">
+          <a href={duongDan()}>Trang chủ</a> ›{" "}
+          <a href={duongDan("bai-viet/")}>Bài viết</a>
+        </nav>
+        <article>
+          <span class="nhan-log">{chinh.data.cau_chot}</span>
+          <h1>{bai.data.tit}</h1>
+          <p class="thong-tin">
+            Đội ngũ CoClipNha · Đăng{" "}
+            <time datetime={bai.data.ngay_dang}>
+              {ngayVN(bai.data.ngay_dang)}
+            </time>
+            {bai.data.ngay_sua !== bai.data.ngay_dang && (
+              <>
+                {" "}
+                · Cập nhật{" "}
+                <time datetime={bai.data.ngay_sua}>
+                  {ngayVN(bai.data.ngay_sua)}
+                </time>
+              </>
+            )}{" "}
+            · Đọc khoảng {phutDoc} phút
+          </p>
 
-    <p class="doan">
-      {phu ? phu.data.cau_chot : chinh.data.dien_giai}
-    </p>
+          <aside class="tom-tat" aria-label="Tóm tắt nhanh">
+            <strong>Tóm tắt nhanh</strong>
+            <p>
+              <ChuBaiViet text={bai.data.tom_tat} />
+            </p>
+          </aside>
 
-    <div class="cho-noi-dung" role="status">
-      <p>
-        Bài viết đầy đủ về đề tài này đang được soạn — chưa có ngày đăng cụ thể.
-        Trong lúc chờ, shop đọc bài đã hoàn thiện hoặc xem app diễn trên trang
-        chủ.
-      </p>
-    </div>
+          <div class="than-bai">
+            {bai.data.than_bai.map((k) =>
+              k.loai === "h2" ? (
+                <h2>
+                  <ChuBaiViet text={k.chu} />
+                </h2>
+              ) : k.loai === "p" ? (
+                <p>
+                  <ChuBaiViet text={k.chu} />
+                </p>
+              ) : k.loai === "ul" ? (
+                <ul>
+                  {k.muc.map((m) => (
+                    <li>
+                      <ChuBaiViet text={m} />
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <ol>
+                  {k.muc.map((m) => (
+                    <li>
+                      <ChuBaiViet text={m} />
+                    </li>
+                  ))}
+                </ol>
+              ),
+            )}
+          </div>
 
-    <p class="hang-nut">
-      <a class="nut nut--vien" href={duongDan("bai-viet/hang-hoan/")}
-        >Đọc bài đã hoàn thiện →</a
-      >
-      <a class="nut nut--vien" href={duongDan()}>Xem app diễn trên trang chủ</a>
-    </p>
+          {bai.data.hoi_dap.length > 0 && (
+            <section class="hoi-dap" aria-labelledby="hoi-dap">
+              <h2 id="hoi-dap">Hỏi nhanh, đáp gọn</h2>
+              {bai.data.hoi_dap.map((h) => (
+                <div class="cap-hoi">
+                  <h3>
+                    <ChuBaiViet text={h.hoi} />
+                  </h3>
+                  <p>
+                    <ChuBaiViet text={h.dap} />
+                  </p>
+                </div>
+              ))}
+            </section>
+          )}
 
-    <p class="lan-ve cuoi">
-      <a href={duongDan("bai-viet/")}>← Các bài viết khác</a>
-    </p>
-  </main>
-</BaseLayout>
+          {bai.data.nguon.length > 0 && (
+            <section class="nguon" aria-labelledby="nguon">
+              <h2 id="nguon">Nguồn tham khảo</h2>
+              <ul>
+                {bai.data.nguon.map((n) => (
+                  <li>
+                    <a href={n.url} rel="noopener" target="_blank">
+                      {n.ten}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </article>
+
+        <div class="hang-nut">
+          <a class="nut nut--chinh" href={duongDan("tai-ve/")}>
+            {kg01.data.nut ?? kg01.data.cau_chot}
+          </a>
+          <a class="nut nut--vien" href={duongDan()}>
+            Xem app diễn trên trang chủ
+          </a>
+        </div>
+        {kg01.data.dien_giai && <p class="duoi-nut">{kg01.data.dien_giai}</p>}
+
+        {lienQuan.length > 0 && (
+          <section class="lien-quan" aria-labelledby="lien-quan">
+            <h2 id="lien-quan">Đọc tiếp</h2>
+            <div class="luoi-lq">
+              {lienQuan.map((l) => (
+                <a class="the-link" href={duongDan(`bai-viet/${l.slug}/`)}>
+                  <strong>{l.tit}</strong>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <p class="lan-ve cuoi">
+          <a href={duongDan("bai-viet/")}>← Các bài viết khác</a>
+        </p>
+      </main>
+    </BaseLayout>
+  ) : (
+    <BaseLayout
+      tieuDe={`${chinh.data.cau_chot} — CoClipNha`}
+      moTaMeta={`${chinh.data.cau_chot} — bài viết đang được soạn, sẽ đăng đầy đủ tại đây.`}
+      khongIndex={true}
+    >
+      <main class="khoi khoi--hep">
+        <p class="lan-ve">
+          <a href={duongDan("bai-viet/")}>← Bài viết</a>
+        </p>
+        <span class="nhan-log">đang soạn</span>
+        <h1>{chinh.data.cau_chot}</h1>
+
+        <p class="doan">{phu ? phu.data.cau_chot : chinh.data.dien_giai}</p>
+
+        <div class="cho-noi-dung" role="status">
+          <p>
+            Bài viết đầy đủ về đề tài này đang được soạn — chưa có ngày đăng cụ
+            thể. Trong lúc chờ, shop đọc bài đã hoàn thiện hoặc xem app diễn
+            trên trang chủ.
+          </p>
+        </div>
+
+        <p class="hang-nut">
+          <a class="nut nut--vien" href={duongDan("bai-viet/hang-hoan/")}>
+            Đọc bài đã hoàn thiện →
+          </a>
+          <a class="nut nut--vien" href={duongDan()}>
+            Xem app diễn trên trang chủ
+          </a>
+        </p>
+
+        <p class="lan-ve cuoi">
+          <a href={duongDan("bai-viet/")}>← Các bài viết khác</a>
+        </p>
+      </main>
+    </BaseLayout>
+  )
+}
 
 <style>
   h1 {
     font-family: var(--font-tit);
     font-size: clamp(1.7rem, 5vw, 2.4rem);
-    margin-bottom: 1.2rem;
+    line-height: 1.2;
+    margin: 0.4rem 0 0.8rem;
   }
   .lan-ve {
     font-size: 0.9rem;
@@ -74,6 +334,116 @@ const phu = deTai.maPhu ? await layKhoi(deTai.maPhu) : null;
   }
   .lan-ve.cuoi {
     margin: 2.4rem 0 0;
+  }
+  .thong-tin {
+    color: var(--chu-mo);
+    font-size: 0.88rem;
+    margin-bottom: 1.6rem;
+  }
+  .tom-tat {
+    border-left: 3px solid var(--teal);
+    background: var(--nen-app);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.2rem;
+    margin-bottom: 2rem;
+    max-width: 44em;
+  }
+  .tom-tat strong {
+    display: block;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.4rem;
+  }
+  .tom-tat p {
+    color: var(--chu);
+    font-size: 1.02rem;
+  }
+  .than-bai,
+  .hoi-dap,
+  .nguon {
+    max-width: 44em;
+  }
+  .than-bai p,
+  .than-bai li {
+    color: var(--chu-diu);
+  }
+  .than-bai p {
+    margin-bottom: 1.15rem;
+  }
+  .than-bai :global(strong) {
+    color: var(--chu);
+  }
+  .than-bai ul,
+  .than-bai ol,
+  .nguon ul {
+    margin: 0 0 1.3rem 1.3rem;
+  }
+  /* CSS chung (global.css) tắt kiểu danh sách — bật lại riêng trong bài, kẻo
+     "Bốn bước" mất số thứ tự và người đọc không biết bước nào trước. */
+  .than-bai ul,
+  .nguon ul {
+    list-style: disc;
+  }
+  .than-bai ol {
+    list-style: decimal;
+  }
+  .than-bai li::marker {
+    color: var(--teal);
+    font-weight: 700;
+  }
+  .than-bai li,
+  .nguon li {
+    margin-bottom: 0.55rem;
+    padding-left: 0.2rem;
+  }
+  .than-bai :global(code) {
+    font-family: var(--font-may);
+    font-size: 0.85em;
+    background: var(--the);
+    border: 1px solid var(--vien);
+    border-radius: 5px;
+    padding: 0.1em 0.4em;
+    overflow-wrap: anywhere;
+  }
+  h2 {
+    font-family: var(--font-tit);
+    font-size: 1.35rem;
+    line-height: 1.3;
+    margin: 2.2rem 0 0.8rem;
+  }
+  .hoi-dap {
+    margin-top: 2.4rem;
+    border-top: 1px solid var(--vien);
+  }
+  .cap-hoi {
+    margin-bottom: 1.2rem;
+  }
+  .cap-hoi h3 {
+    font-size: 1.02rem;
+    margin-bottom: 0.35rem;
+  }
+  .cap-hoi p {
+    color: var(--chu-diu);
+  }
+  .nguon li {
+    font-size: 0.92rem;
+  }
+  .hang-nut {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 2.4rem 0 0.5rem;
+  }
+  .duoi-nut {
+    color: var(--chu-mo);
+    font-size: 0.85rem;
+  }
+  .luoi-lq {
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
   }
   .doan {
     color: var(--chu-diu);
@@ -90,11 +460,5 @@ const phu = deTai.maPhu ? await layKhoi(deTai.maPhu) : null;
   .cho-noi-dung p {
     color: var(--chu-mo);
     font-size: 0.93rem;
-  }
-  .hang-nut {
-    display: flex;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-    margin: 0.4rem 0 0.8rem;
   }
 </style>

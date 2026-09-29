@@ -52,4 +52,35 @@ const khoThongDiep = defineCollection({
   }),
 });
 
-export const collections = { "kho-thong-diep": khoThongDiep };
+/**
+ * Bài viết đầy đủ (mục 11 kho-thong-diep.md, xuất cùng file JSON). Thân bài là
+ * danh sách khối đã tách sẵn — h2 / đoạn / danh sách — chữ bên trong còn giữ
+ * **in đậm**, `mã`, [liên kết](/…) để tầng hiển thị (ChuBaiViet.astro) đổi.
+ */
+const khoiThanBai = z.union([
+  z.object({ loai: z.enum(["h2", "p"]), chu: z.string() }),
+  z.object({ loai: z.enum(["ul", "ol"]), muc: z.array(z.string()) }),
+]);
+
+const baiViet = defineCollection({
+  loader: () =>
+    (khoNoiDung.bai_viet ?? []).map((bai) => ({ id: bai.slug, ...bai })),
+  schema: z.object({
+    slug: z.string(),
+    tit: z.string(),
+    mo_ta: z.string(),
+    tu_khoa: z.array(z.string()),
+    ngay_dang: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    ngay_sua: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    tom_tat: z.string(),
+    than_bai: z.array(khoiThanBai),
+    hoi_dap: z.array(z.object({ hoi: z.string(), dap: z.string() })),
+    nguon: z.array(z.object({ ten: z.string(), url: z.string().url() })),
+    so_chu: z.number(),
+  }),
+});
+
+export const collections = {
+  "kho-thong-diep": khoThongDiep,
+  "bai-viet": baiViet,
+};

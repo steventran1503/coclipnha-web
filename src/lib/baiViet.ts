@@ -21,23 +21,23 @@ export const DE_TAI_BAI_VIET: DeTaiBaiViet[] = [
     slug: "quay-tay-khong-ben",
     maChinh: "ND-04",
     maPhu: "GP-01",
-    daXong: false,
+    daXong: true,
   },
-  { slug: "co-bang-chung", maChinh: "ND-01", maPhu: "GP-03", daXong: false },
+  { slug: "co-bang-chung", maChinh: "ND-01", maPhu: "GP-03", daXong: true },
   // LỆCH CÓ CHỦ Ý so với mục 10 (mục 10 ghi HD-01..03): HD-01..03 là ba câu
   // dài mô tả từng bước, lấy làm tít thẻ thì tràn cả thẻ. Dùng TG-01 làm
   // tít/tóm tắt thẻ; khi viết bài đầy đủ thì THÂN BÀI mới dùng HD-01..03
   // (chốt 28/07 khi kiểm lại Phase 8 — xem tasks.md).
-  { slug: "huong-dan-3-buoc", maChinh: "TG-01", daXong: false },
+  { slug: "huong-dan-3-buoc", maChinh: "TG-01", daXong: true },
   // Bai "zin-zin-motor" ke chuyen SHOP, nen doc BC-03 (doi tac thu nghiem)
   // chu khong phai BC-01 (doi ngu phat trien) — tach vai 21/08/2026.
-  { slug: "zin-zin-motor", maChinh: "BC-03", daXong: false },
+  { slug: "zin-zin-motor", maChinh: "BC-03", daXong: true },
   {
     slug: "mien-phi-va-ung-ho",
     maChinh: "PB-01",
     maPhu: "KG-02",
-    daXong: false,
+    daXong: true,
   },
-  { slug: "khong-ton-o-cung", maChinh: "GP-06", maPhu: "GP-07", daXong: false },
-  { slug: "tim-video-5-giay", maChinh: "GP-02", daXong: false },
+  { slug: "khong-ton-o-cung", maChinh: "GP-06", maPhu: "GP-07", daXong: true },
+  { slug: "tim-video-5-giay", maChinh: "GP-02", daXong: true },
 ];

@@ -1,0 +1,39 @@
+---
+// Chữ trong thân bài viết (mục 11 kho-thong-diep.md) — giống VanBan nhưng hiểu
+// thêm [liên kết](/duong-dan/). Tách riêng thay vì nới VanBan: VanBan chạy trên
+// MỌI trang, nới nó là đổi cách hiện chữ ở cả site chỉ vì bài viết cần.
+//
+// `mã` → <kbd> khi là phím bấm (Ctrl, Enter…), còn lại → <code> (tên file
+// video trong bài tìm-video-5-giây — vẽ thành phím thì người đọc tưởng phải gõ).
+import { duongDan } from "../lib/duongDan";
+
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+
+function thoatHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+const LA_PHIM = /^(Ctrl|Enter|Shift|Alt|Tab|Esc)\b/;
+
+const html = thoatHtml(text)
+  .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, chu: string, url: string) => {
+    if (url.startsWith("/")) {
+      return `<a href="${duongDan(url.slice(1))}">${chu}</a>`;
+    }
+    return `<a href="${url}" rel="noopener" target="_blank">${chu}</a>`;
+  })
+  .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+  .replace(/`([^`]+)`/g, (_, ma: string) =>
+    LA_PHIM.test(ma) ? `<kbd>${ma}</kbd>` : `<code>${ma}</code>`,
+  );
+---
+
+<Fragment set:html={html} />

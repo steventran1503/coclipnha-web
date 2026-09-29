@@ -24,7 +24,12 @@ import {
   ANH_POSTER_APP,
 } from "../lib/video";
 // Link kênh cũng để MỘT chỗ — xem src/lib/kenhKetNoi.ts.
-import { LINK_MESSENGER } from "../lib/kenhKetNoi";
+import {
+  LINK_MESSENGER,
+  LINK_YOUTUBE,
+  LINK_FACEBOOK,
+  LINK_TIKTOK,
+} from "../lib/kenhKetNoi";
 
 // Hai mã vận đơn Shopee THẬT của ZIN ZIN MOTOR (chủ dự án cấp 24-25/07/2026).
 // Dùng ở mọi chỗ trang chủ minh hoạ một đơn cụ thể — không dùng mã tự đặt.
@@ -109,12 +114,41 @@ const nd02Tach = tachHaiKieu(nd02.data.dien_giai);
 // đúng khuôn `ten_file_video` trong nguồn sự thật, không gõ tay (FR-006).
 const FILE_GUI_DI = sinhTenFile(MA_DON_1, "2026-07-10_09-12-30");
 const FILE_NHAN_VE = sinhTenFile(MA_DON_1, "2026-07-18_16-45-02");
+
+// Dữ liệu có cấu trúc cho trang chủ (29/09/2026): Organization + WebSite —
+// cho Google và trợ lý AI biết "CoClipNha" là một tổ chức có web này và các
+// kênh YouTube/Facebook/TikTok kia là CÙNG một chủ (sameAs), để gom đúng về
+// một thực thể khi người ta hỏi tên. SoftwareApplication nằm ở trang Tải về.
+const goc = new URL("/", Astro.site).href;
+const jsonLdTrangChu = JSON.stringify([
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "CoClipNha",
+    url: goc,
+    description: titD.data.dien_giai,
+    sameAs: [LINK_YOUTUBE, LINK_FACEBOOK, LINK_TIKTOK].filter(Boolean),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "CoClipNha",
+    url: goc,
+    inLanguage: "vi-VN",
+  },
+]).replace(/</g, "\\u003c");
 ---
 
 <BaseLayout
   tieuDe={`CoClipNha — ${titD.data.cau_chot}`}
   moTaMeta={titD.data.dien_giai}
 >
+  <script
+    slot="head"
+    type="application/ld+json"
+    is:inline
+    set:html={jsonLdTrangChu}
+  />
   <BangTrangThai trangThai="ready" variant="trang" id="bang-trang" />
 
   {/* ============ HERO (TIT-D) ============ */}
