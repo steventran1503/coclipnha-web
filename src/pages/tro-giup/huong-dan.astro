@@ -48,8 +48,13 @@ const FILE_SO_TAY = "in/so-tay-dung-coclipnha.pdf";
 // là web nói dối người tải. Thiếu file → không hiện cỡ, nút vẫn sống.
 let coSoTay: string | null = null;
 try {
+  // Tính từ thư mục gốc dự án (lệnh build chạy ở đó), KHÔNG dùng
+  // import.meta.url: lúc build file trang bị gom sang thư mục khác, đường
+  // tương đối theo file nguồn chỉ đúng do trùng hợp độ sâu thư mục — lệch là
+  // mất con số MB mà không báo lỗi (cùng cách với trang Tải về, 29/09/2026).
   const { statSync } = await import("node:fs");
-  const duong = new URL(`../../../public/${FILE_SO_TAY}`, import.meta.url);
+  const { join } = await import("node:path");
+  const duong = join(process.cwd(), "public", FILE_SO_TAY);
   coSoTay = (statSync(duong).size / (1024 * 1024)).toFixed(1).replace(".", ",");
 } catch {
   coSoTay = null;
