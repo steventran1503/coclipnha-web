@@ -50,6 +50,27 @@ const vd01 = await layKhoi("VD-01");
 const tt12 = await layKhoi("TT-12");
 const tt13 = await layKhoi("TT-13");
 
+// TT-20 — dòng phụ tải sổ tay PDF ngay dưới nút tải (chốt chủ dự án
+// 29/09/2026: vừa tải phần mềm là lúc cần hướng dẫn nhất). Dùng lại ĐÚNG câu
+// chốt TT-20 của thẻ ở trang Hướng dẫn (FR-003), không viết câu mới. Cố ý là
+// liên kết chữ nhỏ, KHÔNG phải nút: không được tranh chỗ với nút tải chính.
+// Cùng file + cùng cách đọc cỡ lúc build với trang Hướng dẫn — thay PDF là
+// con số tự đúng.
+const tt20 = await layKhoi("TT-20");
+const FILE_SO_TAY = "in/so-tay-dung-coclipnha.pdf";
+let coSoTay: string | null = null;
+try {
+  // Tính từ thư mục gốc dự án (lệnh build chạy ở đó), KHÔNG dùng
+  // import.meta.url: lúc build file trang bị gom sang thư mục khác nên đường
+  // tương đối theo vị trí file nguồn trỏ sai chỗ → mất con số MB, không báo lỗi.
+  const { statSync } = await import("node:fs");
+  const { join } = await import("node:path");
+  const duong = join(process.cwd(), "public", FILE_SO_TAY);
+  coSoTay = (statSync(duong).size / (1024 * 1024)).toFixed(1).replace(".", ",");
+} catch {
+  coSoTay = null;
+}
+
 // Câu "ngoài yêu cầu autofocus thì camera nào cũng chạy" — nằm ở bullet
 // **Ngoài yêu cầu đó** của TB-01, gọi ĐÍCH DANH nhãn (xem chú thích
 // `truong_khac` trong content.config.ts: cụm này còn chứa ghi chú nội bộ,
@@ -146,6 +167,13 @@ const schemaPhanMem = {
         <a class="nut nut--cam nut--to" href={duongDan("thiet-bi/")}>
           📷 Camera đề xuất
         </a>
+      </p>
+      <p class="so-tay">
+        Kèm theo:{" "}
+        <a href={duongDan(FILE_SO_TAY)} download>📄 {tt20.data.cau_chot}</a>
+        <span class="chu-mo">
+          {" "}(PDF{coSoTay && ` · ${coSoTay} MB`} · khổ A4)
+        </span>
       </p>
       {
         !LINK_TAI && (
@@ -302,6 +330,22 @@ const schemaPhanMem = {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
+  }
+  /* Dòng tải sổ tay: chữ thường cỡ nhỏ, gạch chân (không chỉ khác màu —
+     WCAG 1.4.1, cùng lý do với .dieu-kien a). */
+  .so-tay {
+    font-size: 0.92rem;
+    max-width: 42rem;
+    color: var(--chu-diu);
+    margin: 0.4rem 0 0.6rem;
+  }
+  .so-tay a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    /* Vùng chạm ~44px (luật chung rà soát 24/08/2026) mà chữ nhìn vẫn nhỏ.
+       Để inline (không inline-block): padding nới vùng bấm mà dòng chữ vẫn
+       chảy liền với "Kèm theo:", không bị đẩy xuống dòng riêng. */
+    padding: 0.7rem 0;
   }
   .gioi-thieu-tb {
     margin-top: 1.4rem;
