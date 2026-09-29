@@ -1,12 +1,13 @@
 ---
-// Một route động cho 7 đề tài trong DE_TAI_BAI_VIET (src/lib/baiViet.ts) —
-// trừ `hang-hoan` có file riêng. Tránh lặp layout 7 lần (Nguyên tắc V), mỗi
+// Một route động cho mọi đề tài trong DE_TAI_BAI_VIET (src/lib/baiViet.ts) —
+// kể cả `hang-hoan` (29/09/2026 viết lại vào mục 11, bỏ file tĩnh riêng, giữ
+// nguyên đường dẫn /bai-viet/hang-hoan/). Tránh lặp layout (Nguyên tắc V), mỗi
 // trang vẫn build tĩnh riêng theo slug.
 //
 // daXong=true  → bài đầy đủ, chữ lấy từ collection "bai-viet" (mục 11
 //                kho-thong-diep.md). Có JSON-LD BlogPosting + FAQPage +
 //                BreadcrumbList để Google và trợ lý AI đọc đúng cấu trúc bài.
-// daXong=false → khung chờ noindex như cũ (29/09/2026: cả 7 bài đã viết,
+// daXong=false → khung chờ noindex như cũ (29/09/2026: cả 8 bài đã viết,
 //                nhánh này giữ lại cho đề tài mới sau này).
 //
 // KHÔNG bịa ngày đăng: ngày lấy thẳng từ nhãn "Ngày đăng" trong kho thông
@@ -17,10 +18,12 @@ import { getCollection, getEntry } from "astro:content";
 import { layKhoi } from "../../lib/khoiNoiDung";
 import { duongDan } from "../../lib/duongDan";
 import { DE_TAI_BAI_VIET } from "../../lib/baiViet";
+import { kichThuocAnh } from "../../lib/kichThuocAnh";
+import YoutubeFacade from "../../components/YoutubeFacade.astro";
+import * as VIDEO from "../../lib/video";
 
 export async function getStaticPaths() {
-  // hang-hoan.astro là file tĩnh riêng — route động bỏ qua để khỏi trùng đường.
-  return DE_TAI_BAI_VIET.filter((t) => t.slug !== "hang-hoan").map((t) => ({
+  return DE_TAI_BAI_VIET.map((t) => ({
     params: { slug: t.slug },
     props: { deTai: t },
   }));
@@ -41,8 +44,8 @@ const ngayVN = (iso: string) => iso.split("-").reverse().join("/");
 // Tiếng Việt đếm theo tiếng (âm tiết); người đọc thường đi ~220 tiếng/phút.
 const phutDoc = bai ? Math.max(1, Math.ceil(bai.data.so_chu / 220)) : 0;
 
-// hang-hoan không nằm trong collection (file riêng) — tra danh sách thay vì
-// getEntry để khỏi cảnh báo "Entry not found" lúc build.
+// Tra danh sách thay vì getEntry: đề tài chưa viết (không có trong
+// collection) thì getEntry in cảnh báo "Entry not found" lúc build.
 const tatCaBai = await getCollection("bai-viet");
 // Bài liên quan: 2 bài đã xong kế tiếp trong danh sách (vòng lại đầu).
 const viTri = DE_TAI_BAI_VIET.findIndex((t) => t.slug === deTai.slug);
@@ -68,6 +71,32 @@ const chuThuan = (s: string) =>
     .replace(/\*\*(.+?)\*\*/g, "$1")
     .replace(/`([^`]+)`/g, "$1");
 
+// Ảnh trong bài: đo kích thước lúc build (width/height cho <img>, chống nhảy
+// trang). Ảnh chia sẻ Facebook/Zalo + ảnh JSON-LD = ảnh NGANG đủ lớn đầu tiên
+// trong bài (dải thanh trạng thái, ảnh dọc cửa sổ Cài đặt lên thẻ chia sẻ là
+// bị cắt xấu); bài không có ảnh nào như vậy thì dùng ảnh app đang quay.
+const kt = (src: string) => kichThuocAnh(src);
+const anhNgang = bai?.data.than_bai
+  .flatMap((k) => (k.loai === "anh" ? k.anh : []))
+  .map((a) => ({ duong: a.src, alt: a.alt, ...kt(a.src) }))
+  .find((a) => a.rong >= 600 && a.cao >= 300 && a.rong >= a.cao && a.rong / a.cao <= 2.2);
+const anhChiaSe = bai
+  ? (anhNgang ?? {
+      duong: VIDEO.ANH_APP_DANG_GHI,
+      alt: "Phần mềm CoClipNha đang quay video đóng gói theo mã vận đơn",
+      ...kt(VIDEO.ANH_APP_DANG_GHI),
+    })
+  : undefined;
+// Video: `ma` là TÊN hằng số trong src/lib/video.ts. Hằng số chưa có mã
+// YouTube (undefined) thì bỏ qua khối đó — không để khung chờ trong bài.
+const maVideo = (ten: string): string | undefined => {
+  const v = (VIDEO as Record<string, unknown>)[ten];
+  if (!(ten in VIDEO)) {
+    throw new Error(`Bài "${deTai.slug}" gọi video "${ten}" — không có hằng số này trong src/lib/video.ts.`);
+  }
+  return typeof v === "string" ? v : undefined;
+};
+
 const diaChi = new URL(Astro.url.pathname, Astro.site).href;
 const goc = new URL("/", Astro.site).href;
 const toChuc = { "@type": "Organization", name: "CoClipNha", url: goc };
@@ -85,6 +114,9 @@ const jsonLd = bai
         inLanguage: "vi-VN",
         wordCount: bai.data.so_chu,
         mainEntityOfPage: diaChi,
+        ...(anhChiaSe && {
+          image: new URL(duongDan(anhChiaSe.duong), Astro.site).href,
+        }),
         url: diaChi,
         author: { ...toChuc, name: "Đội ngũ CoClipNha" },
         publisher: toChuc,
@@ -142,6 +174,7 @@ const jsonLdChu = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : "";
       tieuDe={`${bai.data.tit} — CoClipNha`}
       moTaMeta={bai.data.mo_ta}
       loaiOg="article"
+      anhChiaSe={anhChiaSe}
     >
       <script
         slot="head"
@@ -201,6 +234,35 @@ const jsonLdChu = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : "";
                 <p>
                   <ChuBaiViet text={k.chu} />
                 </p>
+              ) : k.loai === "anh" ? (
+                <div class:list={["anh-bai", { "anh-doi": k.anh.length > 1 }]}>
+                  {k.anh.map((a) => {
+                    const { rong, cao } = kt(a.src);
+                    return (
+                      <figure>
+                        <img
+                          src={duongDan(a.src)}
+                          alt={a.alt}
+                          width={rong}
+                          height={cao}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        {a.chu_thich && <figcaption>{a.chu_thich}</figcaption>}
+                      </figure>
+                    );
+                  })}
+                </div>
+              ) : k.loai === "video" ? (
+                maVideo(k.ma) && (
+                  <div class="video-bai">
+                    <YoutubeFacade
+                      videoId={maVideo(k.ma)}
+                      tieuDeVideo={k.tieu_de}
+                      chuDuoi={k.tieu_de}
+                    />
+                  </div>
+                )
               ) : k.loai === "ul" ? (
                 <ul>
                   {k.muc.map((m) => (
@@ -397,6 +459,39 @@ const jsonLdChu = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : "";
   .nguon li {
     margin-bottom: 0.55rem;
     padding-left: 0.2rem;
+  }
+  .anh-bai {
+    margin: 0.4rem 0 1.6rem;
+  }
+  .anh-doi {
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+  }
+  .anh-bai figure {
+    margin: 0;
+  }
+  .anh-bai img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    /* ảnh dọc (cửa sổ Cài đặt) không chiếm trọn màn hình */
+    max-height: 34rem;
+    border-radius: 10px;
+    border: 1px solid var(--vien);
+    background: var(--nen-app);
+  }
+  .anh-doi img {
+    width: 100%;
+  }
+  .anh-bai figcaption {
+    color: var(--chu-mo);
+    font-size: 0.85rem;
+    margin-top: 0.45rem;
+  }
+  .video-bai {
+    margin: 0.4rem 0 1.6rem;
   }
   .than-bai :global(code) {
     font-family: var(--font-may);

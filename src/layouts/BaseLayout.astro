@@ -17,6 +17,12 @@ interface Props {
   khongIndex?: boolean;
   /** "article" cho bài viết — Facebook/Zalo và máy tìm kiếm hiểu đây là bài, không phải trang giới thiệu. */
   loaiOg?: "website" | "article";
+  /**
+   * Ảnh chia sẻ riêng của trang (đường dẫn trong `public/`, không "/" đầu) kèm
+   * kích thước thật — bài viết truyền ảnh đầu bài vào đây để dán link lên
+   * Facebook/Zalo ra thẻ có hình. Bỏ trống thì dùng ANH_CHIA_SE chung.
+   */
+  anhChiaSe?: { duong: string; rong: number; cao: number; alt: string };
 }
 
 const {
@@ -24,6 +30,7 @@ const {
   moTaMeta,
   khongIndex = false,
   loaiOg = "website",
+  anhChiaSe,
 } = Astro.props;
 
 // Địa chỉ chuẩn của trang (canonical) + thẻ chia sẻ mạng xã hội (OpenGraph).
@@ -39,6 +46,11 @@ const diaChiTrang = new URL(Astro.url.pathname, Astro.site).href;
 // `public/anh/chia-se.jpg` rồi bỏ chú thích dòng dưới. Thà thiếu thẻ ảnh còn
 // hơn khai một đường dẫn ảnh không tồn tại — Facebook sẽ hiện ô vỡ.
 const ANH_CHIA_SE: string | null = null;
+const anh = anhChiaSe
+  ? anhChiaSe
+  : ANH_CHIA_SE
+    ? { duong: `anh/${ANH_CHIA_SE}`, rong: 1200, cao: 630, alt: tieuDe }
+    : null;
 
 // Cloudflare Web Analytics (không cookie) — token thật lấy từ dashboard
 // Cloudflare khi chủ dự án tạo site đo lường, đặt vào biến môi trường
@@ -63,20 +75,21 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     <meta property="og:description" content={moTaMeta} />
     <meta property="og:url" content={diaChiTrang} />
     {
-      ANH_CHIA_SE && (
+      anh && (
         <>
           <meta
             property="og:image"
-            content={new URL(duongDan(`anh/${ANH_CHIA_SE}`), Astro.site).href}
+            content={new URL(duongDan(anh.duong), Astro.site).href}
           />
-          <meta property="og:image:width" content="1200" />
-          <meta property="og:image:height" content="630" />
+          <meta property="og:image:width" content={String(anh.rong)} />
+          <meta property="og:image:height" content={String(anh.cao)} />
+          <meta property="og:image:alt" content={anh.alt} />
         </>
       )
     }
     <meta
       name="twitter:card"
-      content={ANH_CHIA_SE ? "summary_large_image" : "summary"}
+      content={anh ? "summary_large_image" : "summary"}
     />
     {/* Nạp trước 3 file font THẬT SỰ dùng ở màn hình đầu (chữ thân bài
         thường + đậm, và font tiêu đề) — bản vietnamese vì trang toàn tiếng

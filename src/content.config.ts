@@ -60,6 +60,15 @@ const khoThongDiep = defineCollection({
 const khoiThanBai = z.union([
   z.object({ loai: z.enum(["h2", "p"]), chu: z.string() }),
   z.object({ loai: z.enum(["ul", "ol"]), muc: z.array(z.string()) }),
+  // Ảnh (một hoặc nhiều ảnh đặt cạnh nhau), src là đường dẫn trong public/.
+  z.object({
+    loai: z.literal("anh"),
+    anh: z.array(
+      z.object({ src: z.string(), alt: z.string().min(1), chu_thich: z.string() }),
+    ),
+  }),
+  // Video YouTube — `ma` là TÊN hằng số trong src/lib/video.ts.
+  z.object({ loai: z.literal("video"), ma: z.string(), tieu_de: z.string() }),
 ]);
 
 const baiViet = defineCollection({

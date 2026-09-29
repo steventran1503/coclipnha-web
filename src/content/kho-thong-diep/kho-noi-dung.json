@@ -1,7 +1,7 @@
 {
   "_meta": {
     "sinh_boi": "docs/web/xuat_kho_noi_dung.py — script CHỈ ĐỌC",
-    "sinh_luc": "2026-09-29 18:43:55",
+    "sinh_luc": "2026-09-29 18:56:36",
     "nguon": "docs\\web\\kho-thong-diep.md",
     "luu_y": "ĐỪNG sửa tay file này — sửa kho-thong-diep.md rồi chạy lại script."
   },
@@ -1143,6 +1143,16 @@
           "chu": "Không có nút nào để quên bấm, nên không có đơn nào bị sót. Việc của người gói vẫn y như trước: dán mã, gói hàng."
         },
         {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/bai-viet/app-dang-ghi-hinh.webp",
+              "alt": "Màn hình CoClipNha đang quay: thanh trên cùng màu đỏ ghi mã vận đơn, góc dưới khung hình in mã và giờ",
+              "chu_thich": "Đưa mã vận đơn qua camera là thanh chuyển đỏ, máy đang quay — không bấm nút nào."
+            }
+          ]
+        },
+        {
           "loai": "h2",
           "chu": "Đặt cạnh nhau cho dễ so"
         },
@@ -1178,6 +1188,16 @@
             "Quay từ lúc hàng còn nguyên tem, nguyên hộp cho tới lúc dán kín thùng — một mạch, không ngắt giữa chừng.",
             "Để món hàng và số lượng lướt qua trước camera trước khi cho vào thùng.",
             "Không cắt ghép video. Video liền mạch, có mã và giờ trên hình mới có sức nặng."
+          ]
+        },
+        {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/hang-luc-gui-di-can-canh.webp",
+              "alt": "Camera nhìn thẳng xuống bàn gói, thấy trọn thùng hàng, món hàng và hai tay người gói",
+              "chu_thich": "Góc máy tốt: thấy trọn mặt bàn, món hàng và hai tay người gói."
+            }
           ]
         },
         {
@@ -1251,7 +1271,27 @@
         },
         {
           "loai": "p",
-          "chu": "CoClipNha lo sẵn hai thứ đầu: **mã vận đơn và giờ được in thẳng lên từng khung hình**, chữ trắng viền đen, đọc rõ trên mọi nền. Video có tách khỏi tên file thì tự nó vẫn cho biết là đơn nào, quay lúc mấy giờ. Hai thứ sau là thói quen ở bàn gói: đặt camera thấy trọn mặt bàn, và cho hàng lướt qua trước ống kính."
+          "chu": "CoClipNha lo sẵn hai thứ đầu: **mã vận đơn và giờ được in thẳng lên từng khung hình**, chữ xanh lá viền đen, đọc rõ trên mọi nền. Video có tách khỏi tên file thì tự nó vẫn cho biết là đơn nào, quay lúc mấy giờ. Hai thứ sau là thói quen ở bàn gói: đặt camera thấy trọn mặt bàn, và cho hàng lướt qua trước ống kính."
+        },
+        {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/bai-viet/ma-va-gio-tren-hinh.webp",
+              "alt": "Cận cảnh góc video: dòng QR là mã vận đơn, dòng Time là ngày giờ quay",
+              "chu_thich": "Mã vận đơn và giờ in thẳng trên từng khung hình — video tự nói nó là đơn nào, quay lúc nào."
+            }
+          ]
+        },
+        {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/hang-luc-gui-di.webp",
+              "alt": "Món hàng còn nguyên hộp được đặt vào thùng ngay dưới camera",
+              "chu_thich": "Cho món hàng lướt qua trước camera rồi mới vào thùng."
+            }
+          ]
         },
         {
           "loai": "h2",
@@ -1299,7 +1339,7 @@
         }
       ],
       "nguon": [],
-      "so_chu": 625
+      "so_chu": 626
     },
     {
       "slug": "huong-dan-3-buoc",
@@ -1345,6 +1385,11 @@
           "chu": "Vào [trang Tải về](/tai-ve/), bấm Tải về miễn phí, mở file vừa tải và bấm theo hướng dẫn trên màn hình. Nếu Windows hiện hộp thoại xanh báo \"không rõ nhà phát hành\", đó là vì phần mềm chưa mua chứng chỉ ký số — bấm \"Thông tin thêm\" (More info) rồi \"Vẫn chạy\" (Run anyway)."
         },
         {
+          "loai": "video",
+          "ma": "VIDEO_CAI_DAT",
+          "tieu_de": "Hướng dẫn cài đặt CoClipNha trên Windows"
+        },
+        {
           "loai": "h2",
           "chu": "Thiết lập lần đầu (làm một lần, khoảng 5 phút)"
         },
@@ -1357,6 +1402,31 @@
             "**Chọn nơi lưu video** bằng nút hình thư mục. Máy có ổ D rộng thì nên để ở ổ D.",
             "**Bật tự động xoá video cũ** trong Cài đặt, điền 40 ngày, rồi bấm Lưu cài đặt. Lưu ý: video bị dọn là mất hẳn, không nằm trong Thùng rác.",
             "**In hai mã QR điều khiển** ở trang [Tải mã QR](/tro-giup/tai-qr/) — một mã PAUSE để dừng và lưu, một mã START cho đơn không có mã vận đơn. In bằng giấy in nhiệt như in vận đơn là được."
+          ]
+        },
+        {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/bai-viet/cua-so-cai-dat.webp",
+              "alt": "Cửa sổ Cài đặt của CoClipNha: bộ nén video, mức chất lượng, giao diện, mã QR, tự động xoá video cũ sau 40 ngày",
+              "chu_thich": "Cửa sổ Cài đặt — chỉ cần để ý mức chất lượng và ô tự động xoá video cũ. Nhớ bấm Lưu cài đặt."
+            }
+          ]
+        },
+        {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/qr-bat-dau.webp",
+              "alt": "Mã QR START dùng để quay đơn không có mã vận đơn",
+              "chu_thich": "Mã START — đơn không có mã vận đơn."
+            },
+            {
+              "src": "anh/qr-dung.webp",
+              "alt": "Mã QR PAUSE dùng để dừng và lưu video",
+              "chu_thich": "Mã PAUSE — dừng và lưu video."
+            }
           ]
         },
         {
@@ -1376,6 +1446,26 @@
           "chu": "Nhớ màu là đủ: **xanh lá = đang chờ mã, đỏ = đang quay.**"
         },
         {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/bai-viet/thanh-xanh-san-sang.webp",
+              "alt": "Thanh trên cùng màu xanh lá ghi Sẵn sàng — đưa mã QR vào khung hình",
+              "chu_thich": "Xanh lá — máy đang chờ mã vận đơn."
+            }
+          ]
+        },
+        {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/bai-viet/thanh-do-dang-quay.webp",
+              "alt": "Thanh trên cùng màu đỏ ghi Đang ghi hình kèm mã vận đơn",
+              "chu_thich": "Đỏ — máy đang quay đơn có mã ghi trên thanh."
+            }
+          ]
+        },
+        {
           "loai": "h2",
           "chu": "Mấy tình huống hay gặp"
         },
@@ -1387,6 +1477,16 @@
             "**Quay hỏng, muốn quay lại đúng mã đó:** đưa lại mã cũ thì app kêu cảnh báo \"đã quay rồi\" để tránh trùng. Đưa mã ra khỏi camera 2 giây rồi quét lại lần nữa là quay.",
             "**Máy báo \"Mã QR này có đường link web\":** camera đang chỉ thấy mã QR quảng cáo in trên tem vận đơn. Xê tờ vận đơn cho mã vận đơn vào giữa khung hình.",
             "**Đưa mã mãi không nhận:** cầm mã cách camera 20–30 cm, giữ yên 1–2 giây, tránh đèn chiếu loá mặt giấy. Vừa quét xong một mã thì app nghỉ đọc vài giây để khỏi quét trùng."
+          ]
+        },
+        {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/bai-viet/thanh-nut-duoi.webp",
+              "alt": "Thanh nút dưới đáy app: chọn camera, tìm lại camera, âm báo, Đơn Ngoài, Dừng, trợ giúp, cài đặt, thư mục video, Thoát",
+              "chu_thich": "Thanh nút dưới đáy app, từ trái sang: chọn camera · tìm lại camera · âm báo · Đơn Ngoài · Dừng · trợ giúp · cài đặt · thư mục video · Thoát."
+            }
           ]
         },
         {
@@ -1464,6 +1564,16 @@
         {
           "loai": "p",
           "chu": "Ở ZIN ZIN MOTOR, CoClipNha chạy hằng ngày trên bàn đóng gói, theo đúng cách mọi shop khác dùng: camera chĩa xuống mặt bàn, mở app lên là camera chạy. Mỗi đơn, người gói đưa mã vận đơn qua camera là máy tự quay; gói xong quét mã đơn kế tiếp là video đơn cũ tự lưu, tên chính là mã vận đơn. Không ai phải nhớ bấm quay."
+        },
+        {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/phan-mem-goi-hang-ma-qr-coclipnha.webp",
+              "alt": "Màn hình CoClipNha đang chờ mã vận đơn, thùng hàng và tem vận đơn nằm dưới camera",
+              "chu_thich": "Màn hình CoClipNha lúc chờ mã vận đơn kế tiếp (ảnh minh hoạ, đã che thông tin khách)."
+            }
+          ]
         },
         {
           "loai": "p",
@@ -1549,6 +1659,16 @@
             "**Không cần tài khoản.** Tải về, cài, dùng. Không đăng ký, không đăng nhập.",
             "**Không quảng cáo** trong phần mềm.",
             "**Không phí lưu trữ.** Video nằm trên ổ cứng máy shop, không có gói đám mây nào để trả hằng tháng."
+          ]
+        },
+        {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/bai-viet/app-dang-ghi-hinh.webp",
+              "alt": "Giao diện CoClipNha đang quay một đơn hàng, đủ các nút và thông tin ca làm",
+              "chu_thich": "Bản dùng miễn phí cũng là bản đầy đủ — không có bản trả phí nào khác."
+            }
           ]
         },
         {
@@ -1692,6 +1812,16 @@
           "chu": "Trong app, ô \"Ổ lưu video\" ở cột phải tự tính còn trống bao nhiêu và còn quay được khoảng bao nhiêu giờ — không phải tự đếm."
         },
         {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/bai-viet/the-o-luu-video.webp",
+              "alt": "Thẻ Ổ lưu video trong app cho biết còn trống bao nhiêu GB và quay thêm được khoảng bao nhiêu giờ",
+              "chu_thich": "Ô Ổ lưu video ở cột phải app — tự tính chỗ trống và số giờ còn quay được."
+            }
+          ]
+        },
+        {
           "loai": "h2",
           "chu": "Nên giữ video bao lâu"
         },
@@ -1714,6 +1844,16 @@
         {
           "loai": "p",
           "chu": "Trong Cài đặt, bật \"Tự động xoá video cũ\", điền số ngày muốn giữ, bấm Lưu. Từ đó mỗi lần mở app, máy tự xoá video cũ hơn mốc đó. Không ai phải nhớ, không ai phải ngồi lọc thư mục xoá tay, không sợ một hôm ổ đầy giữa ca."
+        },
+        {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/bai-viet/cua-so-cai-dat.webp",
+              "alt": "Cửa sổ Cài đặt, ô Tự động xoá video cũ đã bật với 40 ngày",
+              "chu_thich": "Bật tự động xoá video cũ, điền số ngày, bấm Lưu cài đặt."
+            }
+          ]
         },
         {
           "loai": "p",
@@ -1824,6 +1964,26 @@
           ]
         },
         {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/tim-lai-video-o-tim-kiem.webp",
+              "alt": "Ô tìm kiếm của thư mục Windows đã dán mã vận đơn, kết quả hiện đúng một video có tên bắt đầu bằng mã đó",
+              "chu_thich": "Dán mã vận đơn vào ô tìm kiếm của thư mục — video đúng đơn hiện ra."
+            }
+          ]
+        },
+        {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/bai-viet/ma-va-gio-tren-hinh.webp",
+              "alt": "Góc video có dòng QR là mã vận đơn và dòng Time là ngày giờ quay",
+              "chu_thich": "Mở video lên là thấy mã đơn và giờ in sẵn — gửi thẳng cho khách hoặc sàn."
+            }
+          ]
+        },
+        {
           "loai": "p",
           "chu": "Video xếp theo thư mục từng ngày, nhưng ô tìm kiếm lục cả các thư mục con — cứ dán mã đơn vào là ra, **không cần nhớ hôm đó là ngày mấy**."
         },
@@ -1877,6 +2037,150 @@
       ],
       "nguon": [],
       "so_chu": 591
+    },
+    {
+      "slug": "hang-hoan",
+      "tit": "Hàng hoàn bị tráo: quay video mở hàng hoàn để có bằng chứng",
+      "mo_ta": "Gửi đi sạc dự phòng mới, nhận về một cái quần cũ. Hai kiểu mất tiền đau nhất với hàng hoàn, và cách quay cả lúc gói lẫn lúc mở hàng hoàn để có hai video của cùng một đơn.",
+      "tu_khoa": [
+        "hàng hoàn bị tráo",
+        "khách trả hàng tráo hàng",
+        "quay video mở hàng hoàn",
+        "bằng chứng hàng hoàn",
+        "khách dùng rồi trả hàng"
+      ],
+      "ngay_dang": "2026-07-30",
+      "ngay_sua": "2026-09-29",
+      "tom_tat": "Khi hàng hoàn về bị tráo hoặc đã bị dùng, shop cần chứng minh cả hai đầu: hàng lúc gửi đi ra sao và hàng lúc nhận về ra sao. Cách làm là quay lúc gói, rồi khi hàng hoàn về thì quét lại chính mã vận đơn đó và mở thùng trước camera. Có hai video của cùng một đơn, đặt cạnh nhau là thấy ngay bên trong đã đổi hay chưa.",
+      "than_bai": [
+        {
+          "loai": "p",
+          "chu": "Gửi đi sạc dự phòng mới. Nhận về một cái quần cũ."
+        },
+        {
+          "loai": "p",
+          "chu": "Đây là chuyện có thật, và là kiểu mất tiền đau nhất của người bán online. Mất tiền hàng, mất phí vận chuyển hai chiều, mà trong tay lại không có gì để nói."
+        },
+        {
+          "loai": "h2",
+          "chu": "Hai kiểu mất tiền với hàng hoàn"
+        },
+        {
+          "loai": "p",
+          "chu": "**Kiểu tráo thẳng.** Shop gửi đi chiếc sạc dự phòng còn nguyên hộp. Đơn hoàn về, mở ra bên trong là một cái quần cũ."
+        },
+        {
+          "loai": "p",
+          "chu": "**Kiểu dùng rồi trả.** Shop gửi đi bộ váy mới. Khách mặc đi chơi xong trả về vẫn đúng bộ đó — nhưng đã ố vàng, dính son, dính cát, có chỗ rách."
+        },
+        {
+          "loai": "p",
+          "chu": "Cả hai kiểu, shop đều mở thùng một mình, không ai làm chứng. Báo sàn thì lại rơi vào cảnh lời khai chọi lời khai."
+        },
+        {
+          "loai": "p",
+          "chu": "Chuyện này không hiếm. Tháng 6/2024, Kênh14 kể chuyện một shop quần áo bị khách yêu cầu hoàn năm sản phẩm với lý do \"khác mô tả\", hàng trả về dính đầy vết bẩn lạ. Tháng 7/2025, báo Thanh Niên nêu tỷ lệ hoàn hàng ở ngành thời trang trên sàn vào khoảng 18–20%, và hàng trả về đã qua sử dụng là một trong những lý do khiến người bán lỗ."
+        },
+        {
+          "loai": "h2",
+          "chu": "Vì sao mở thùng một mình là thua"
+        },
+        {
+          "loai": "p",
+          "chu": "Khi hai bên nói ngược nhau, bên nào đưa được hình ảnh thì bên đó có cửa. Shop chụp ảnh cái quần cũ sau khi đã mở thùng thì chưa đủ: ai cũng có thể hỏi \"sao biết cái quần đó nằm trong thùng từ đầu?\"."
+        },
+        {
+          "loai": "p",
+          "chu": "Muốn có sức nặng, shop cần chứng minh **cả hai đầu**: lúc gửi đi bên trong là gì, và lúc nhận về bên trong là gì — ngay từ lúc thùng còn nguyên băng keo."
+        },
+        {
+          "loai": "h2",
+          "chu": "Cách làm: quay hai đầu, cùng một mã vận đơn"
+        },
+        {
+          "loai": "p",
+          "chu": "Với CoClipNha, đầu gửi đi đã có sẵn: mỗi đơn gói đều được quay, tên video là mã vận đơn. Khi đơn bị trả về, shop quét lại chính mã vận đơn đó rồi mở thùng trước camera. Giờ shop có **hai video của cùng một đơn**: lúc gửi đi và lúc nhận về."
+        },
+        {
+          "loai": "anh",
+          "anh": [
+            {
+              "src": "anh/hang-luc-gui-di.webp",
+              "alt": "Video lúc gửi đi: sạc dự phòng còn nguyên hộp được đặt vào thùng",
+              "chu_thich": "Lúc gửi đi: hàng còn nguyên hộp."
+            },
+            {
+              "src": "anh/hang-luc-nhan-ve.webp",
+              "alt": "Video lúc nhận về: mở thùng hàng hoàn, bên trong là một cái quần cũ",
+              "chu_thich": "Lúc nhận về: cùng mã vận đơn, bên trong đã khác."
+            }
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Đặt hai video cạnh nhau là thấy ngay bên trong đã đổi hay chưa. Tìm lại cũng dễ: dán mã vận đơn vào ô tìm kiếm của thư mục là ra cả hai video, phần giờ trong tên cho biết cái nào trước cái nào."
+        },
+        {
+          "loai": "h2",
+          "chu": "Mở hàng hoàn trước camera — làm theo thứ tự"
+        },
+        {
+          "loai": "ol",
+          "muc": [
+            "**Chưa rạch băng keo khi chưa tới camera.** Thùng hoàn về cứ để nguyên, mang thẳng tới bàn gói.",
+            "**Quét mã vận đơn trên thùng.** Nếu app báo mã này đã quay rồi, đưa mã ra khỏi camera 2 giây rồi quét lại là quay.",
+            "**Thùng mất tem vận đơn?** Bấm nút Đơn Ngoài hoặc đưa mã QR START in sẵn vào khung hình — vẫn quay như thường. Nhớ đọc mã đơn hoặc để giấy ghi mã đơn trong khung hình.",
+            "**Xoay thùng cho camera thấy các mặt**, nhất là chỗ băng keo — thấy thùng còn nguyên hay đã bị mở dán lại.",
+            "**Mở thùng, lấy từng món ra** ngay dưới camera. Chỗ nào hư, bẩn, khác hàng thì đưa sát ống kính vài giây.",
+            "**Xong thì đưa mã PAUSE** vào khung hình hoặc bấm nút Dừng để lưu video."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Làm vậy thì video chiều về cũng liền mạch từ lúc thùng còn nguyên tới lúc lấy hết hàng ra — không ai nói được là shop tự bỏ đồ vào."
+        },
+        {
+          "loai": "h2",
+          "chu": "Khi báo sàn"
+        },
+        {
+          "loai": "ul",
+          "muc": [
+            "Gửi **cả hai video**: lúc gói và lúc mở hàng hoàn. Ghi rõ mã đơn, giờ quay, và mốc giây thấy chỗ khác biệt.",
+            "Làm theo quy trình và thời hạn khiếu nại của sàn mình đang bán — mỗi sàn có cách nộp bằng chứng riêng.",
+            "Chép hai video sang một thư mục riêng khi tranh chấp còn kéo dài, để chế độ tự dọn video cũ không xoá mất."
+          ]
+        },
+        {
+          "loai": "p",
+          "chu": "Video không bảo đảm sàn xử cho shop mọi lần — không ai hứa được điều đó. Nhưng nó đổi thế \"lời shop chọi lời khách\" thành \"đây là hình ảnh hai đầu, mời xem\". ZIN ZIN MOTOR, đối tác thử nghiệm dùng CoClipNha mỗi ngày, đã khiếu nại thành công nhiều lần nhờ video quay lúc gói hàng — đọc thêm ở bài [chuyện thật từ bàn đóng gói](/bai-viet/zin-zin-motor/)."
+        }
+      ],
+      "hoi_dap": [
+        {
+          "hoi": "Hàng hoàn về bị tráo thì shop cần bằng chứng gì?",
+          "dap": "Cần video lúc gói hàng gửi đi và video lúc mở thùng hàng hoàn, cùng một mã vận đơn, quay liền mạch từ lúc thùng còn nguyên băng keo. Hai video đặt cạnh nhau cho thấy bên trong đã đổi hay chưa."
+        },
+        {
+          "hoi": "Quét lại mã vận đơn đã quay thì CoClipNha có quay đè video cũ không?",
+          "dap": "Không. App báo mã đã quay rồi; đưa mã ra khỏi camera 2 giây rồi quét lại là quay thêm một video mới cùng mã, khác giờ. Video cũ vẫn giữ nguyên."
+        },
+        {
+          "hoi": "Thùng hàng hoàn mất tem vận đơn thì quay sao?",
+          "dap": "Bấm nút Đơn Ngoài hoặc đưa mã QR START in sẵn vào khung hình. Video đặt tên Don Hang kèm số thứ tự."
+        }
+      ],
+      "nguon": [
+        {
+          "ten": "Màn hoàn hàng khiến người bán \"khóc thét\"… — Kênh14, 29/06/2024",
+          "url": "https://kenh14.vn/man-hoan-hang-khien-nguoi-ban-khoc-thet-khach-keu-quan-ao-khac-mo-ta-nhung-tra-do-toan-dau-vet-la-20240629004822463.chn"
+        },
+        {
+          "ten": "Vì sao hàng loạt shop trên sàn điện tử dừng kinh doanh? — Báo Thanh Niên, 28/07/2025",
+          "url": "https://thanhnien.vn/vi-sao-hang-loat-shop-tren-san-dien-tu-dung-kinh-doanh-185250727211913663.htm"
+        }
+      ],
+      "so_chu": 738
     }
   ]
 }
